@@ -1,21 +1,30 @@
 %This Code is compatible with MATLAB R2022a or higher
-
+clc;
+clear all;
 disp("This Code is compatible with MATLAB R2022a or higher.");
 %setwd('C:\Users\Maham\Dropbox\SpecOxi\NAR-WebServer\DataConversion\R\CheY')
 tic;
 
-MatchTolerance = 0.0001;
-MisMatchTolerance = 0.0009;
+Factor = 10^-4;      % Updated 202211222028
+
+MatchTolerance = Factor;          % 0.0001;  % Updated 202211221613
+MisMatchTolerance = Factor * 9;   % 0.0009;   % Updated 202211221613
 OffTargetTolerance = 1;
 
 TempDateAndTime = string(datetime('now','TimeZone','local','Format','yyyyMMddHHmmss'));
-ResultsPath = pwd + "\Results\";
+SubResultFolder = TempDateAndTime + "_Results_Tol_" + Factor;
+MainResultFolder = pwd + "\Results\";
+ResultsPath =  MainResultFolder + SubResultFolder + "\"; % TempDateAndTime + "_Results" + "\";       % Updated 202211221641
+mkdir(fullfile(MainResultFolder,SubResultFolder));
 
-MassHunterData = readmatrix('CheY_100.csv');   %readmatrix('CheY_100.csv');
+%Reading Mass Hunter File
+[MassHunterFileName, MassHunterFilePath] = uigetfile({'*.csv'}, 'Select Mass Hunter File');   % Updated 202211221622
+MassHunterData = readmatrix(string(MassHunterFilePath) + string(MassHunterFileName));   % 'CheY_100.csv'     % Updated 202211221622
 %colNames = {'RT_sec','m/z','Int','RT_min'};
 
 %Reading mascot file
-[~,~,MascotFile] = xlsread('3ChY_MASCOT_File.xlsx');    %xlsread('3ChY_MASCOT_File.xlsx');
+[MascotFileName, MascotFilePath] = uigetfile({'*.xlsx'}, 'Select Mascot File');   % Updated 202211221622
+[~,~,MascotFile] = xlsread(string(MascotFilePath) + string(MascotFileName));    %xlsread('3ChY_MASCOT_File.xlsx');       % Updated 202211221622
 Unique_Mascot_mz = double(unique(string(MascotFile(2:end,14))));
 
 %Sorting Mass Hunter and Mascot Values
