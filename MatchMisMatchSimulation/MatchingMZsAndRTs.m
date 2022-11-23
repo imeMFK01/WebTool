@@ -10,7 +10,7 @@ disp("This Code is compatible with MATLAB R2022a or higher.");
 tic;
 
 %For MZ
-FactorForMz = 10^-2;      % Updated 202211222028
+FactorForMz = 10^-1;      % Updated 202211222028
 MatchToleranceForMz = FactorForMz;          % 0.0001;  % Updated 202211221613
 MisMatchToleranceForMz = FactorForMz * 9;   % 0.0009;   % Updated 202211221613
 OffTargetToleranceForMz = 1;
@@ -122,7 +122,7 @@ for i=1:sizeOfMascotData
     MisMatchCount = size(TempMisMatch,1);
     TempMainMatchMatrix = [];
     if MatchCount ~= 0
-        
+
         %%%% For Temp File Testing "TempMatch"
         TempMainMatchMatrix = string([MascotDataSorted(i,1), MascotDataSorted(i,2), MatchCount, EmptyString; Header]);   %  "Mascot_mz", "MassHunter_mz", "Difference"
         TempMainMatchMatrix = [ TempMainMatchMatrix; string(TempMatch); EmptyString, EmptyString];
@@ -137,6 +137,8 @@ for i=1:sizeOfMascotData
     
         %Not Required FOR NOW BELOW
     else
+
+        
         TempMainMatchMatrix = string([MascotDataSorted(i,1),  MascotDataSorted(i,2), MatchCount,EmptyString; Header]);
         TempMainMatchMatrix = [ TempMainMatchMatrix; "No match found", EmptyString, "", ""; EmptyString, EmptyString];
         writematrix(TempMainMatchMatrix, ResultsPath + MascotDataSorted(i,1) +"_Match.csv");
@@ -165,6 +167,7 @@ for i=1:sizeOfMascotData
     
         %Not Required FOR NOW BELOW
     else
+        
         TempMainMisMatchMatrix = string([MascotDataSorted(i,1), MascotDataSorted(i,2), MisMatchCount, EmptyString; Header]);
         TempMainMisMatchMatrix = [TempMainMisMatchMatrix; "No mismatch found", EmptyString, "", ""; EmptyString, EmptyString];
         writematrix(TempMainMisMatchMatrix, ResultsPath + MascotDataSorted(i,1)+"_MisMatch.csv");
@@ -182,7 +185,7 @@ SummarizingMatchData = [EmptyString; "Summarizing Match Data", "", ""; "Matched 
 writematrix(SummarizingMatchData, ResultsPath + CombinedResultsMatchFile, 'WriteMode','append');
 
 
-SummarizingMisMatchData = [EmptyString; "Summarizing Mismatch Data", "", "" ;"Mismatched Mzs", "Mismatched RTs", "Count"; MisMatchMzsWithCount]  %; "","" ; "No Mismatched Mzs Found", "Count"; NoMisMatchMzsFoundWithCount];
+SummarizingMisMatchData = [EmptyString; "Summarizing Mismatch Data", "", "" ;"Mismatched Mzs", "Mismatched RTs", "Count"; MisMatchMzsWithCount];  %; "","" ; "No Mismatched Mzs Found", "Count"; NoMisMatchMzsFoundWithCount];
 writematrix(SummarizingMisMatchData, ResultsPath + CombinedResultsMisMatchFile, 'WriteMode','append');
 
 
