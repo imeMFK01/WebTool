@@ -59,6 +59,18 @@ MassHunterData = [double(string((MassHunterData(2:end,2)))), double(string((Mass
 MassHunterDataSorted = sortrows(MassHunterData,[1,2], 'ascend');
 
 
+%%%%% DEL ME AFTER CHECK %%%%% DEL ME AFTER CHECK %%%%% DEL ME AFTER CHECK %%%%% DEL ME AFTER CHECK
+a = MassHunterDataSorted(:,2) ./ 60;
+
+
+%MassHunterDataSorted = [ MassHunterDataSorted(:,1), MassHunterDataSorted(:,2) * 60];
+
+
+MassHunterDataSorted = [ MassHunterDataSorted(:,1), a];
+
+
+MassHunterDataSorted = sortrows(MassHunterDataSorted,[1,2], 'ascend');
+%%%%% DEL ME AFTER CHECK %%%%% DEL ME AFTER CHECK %%%%% DEL ME AFTER CHECK %%%%% DEL ME AFTER CHECK 
 
 %Size of sorted Matrices
 sizeOfMassHunterData = size(MassHunterDataSorted,1);
