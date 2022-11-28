@@ -10,14 +10,14 @@ disp("This Code is compatible with MATLAB R2022a or higher.");
 tic;
 
 %For MZ
-FactorForMz = 10^-1;      % Updated 202211222028
+FactorForMz = 10^-2;      % Updated 202211222028
 MatchToleranceForMz = FactorForMz;          % 0.0001;  % Updated 202211221613
 MisMatchToleranceForMz = FactorForMz * 9;   % 0.0009;   % Updated 202211221613
 OffTargetToleranceForMz = 1;
 
 
 %For RT
-FactorForRT = 10^-1;
+FactorForRT = 10^-2;
 MatchToleranceForRT = FactorForRT;
 MisMatchToleranceForRT = FactorForRT * 9;
 OffTargetToleranceForRT = 1;
@@ -26,7 +26,7 @@ OffTargetToleranceForRT = 1;
 
 
 TempDateAndTime = string(datetime('now','TimeZone','local','Format','yyyyMMddHHmmss'));
-SubResultFolder = TempDateAndTime + "_Results_Tol_" + FactorForMz;
+SubResultFolder = TempDateAndTime + "_Results_MZTol_" + FactorForMz + "_RTTol_" + FactorForRT;
 MainResultFolder = pwd + "\Results\";
 ResultsPath =  MainResultFolder + SubResultFolder + "\"; % TempDateAndTime + "_Results" + "\";       % Updated 202211221641
 mkdir(fullfile(MainResultFolder,SubResultFolder));
@@ -138,8 +138,11 @@ for i=1:sizeOfMascotData
         %%%% For Temp File Testing "TempMatch"
         TempMainMatchMatrix = string([MascotDataSorted(i,1), MascotDataSorted(i,2), MatchCount, EmptyString; Header]);   %  "Mascot_mz", "MassHunter_mz", "Difference"
         TempMainMatchMatrix = [ TempMainMatchMatrix; string(TempMatch); EmptyString, EmptyString];
-        writematrix(TempMainMatchMatrix, ResultsPath + MascotDataSorted(i,1) +"_Match.csv");
-        
+
+%         %%No need of individual files
+%         writematrix(TempMainMatchMatrix, ResultsPath + MascotDataSorted(i,1) +"_Match.csv");
+%         %%No need of individual files
+
         MatchMzsWithCount = [MatchMzsWithCount; MascotDataSorted(i,1), MascotDataSorted(i,2), MatchCount];
         % Need to check
         % % %                 ResultantMatrixMatches(MatchIndex:MatchIndex+1,:) = string([sortMascotData(i,1), MatchCount, ""; "Mascot_mz", "MassHunter_mz", "Difference"]);
@@ -153,8 +156,11 @@ for i=1:sizeOfMascotData
         
         TempMainMatchMatrix = string([MascotDataSorted(i,1),  MascotDataSorted(i,2), MatchCount,EmptyString; Header]);
         TempMainMatchMatrix = [ TempMainMatchMatrix; "No match found", EmptyString, "", ""; EmptyString, EmptyString];
-        writematrix(TempMainMatchMatrix, ResultsPath + MascotDataSorted(i,1) +"_Match.csv");
         
+%         %%No need of individual files
+%         writematrix(TempMainMatchMatrix, ResultsPath + MascotDataSorted(i,1) +"_Match.csv");
+%         %%No need of individual files
+
         NoMatchMzsFoundWithCount = [NoMatchMzsFoundWithCount; MascotDataSorted(i,1), MatchCount];
         
         %Not Required FOR NOW ABOVE
@@ -167,8 +173,12 @@ for i=1:sizeOfMascotData
         %%%% For Temp File Testing "TempMisMatch"
         TempMainMisMatchMatrix = string([MascotDataSorted(i,1), MascotDataSorted(i,2), MisMatchCount, EmptyString; Header]);
         TempMainMisMatchMatrix = [TempMainMisMatchMatrix; string(TempMisMatch); EmptyString, EmptyString];
-        writematrix(TempMainMisMatchMatrix, ResultsPath + MascotDataSorted(i,1)+"_MisMatch.csv");
         
+%         %%No need of individual files
+%         writematrix(TempMainMisMatchMatrix, ResultsPath + MascotDataSorted(i,1)+"_MisMatch.csv");
+%         %%No need of individual files
+
+
         MisMatchMzsWithCount = [MisMatchMzsWithCount; MascotDataSorted(i,1), MascotDataSorted(i,2), MisMatchCount];
         
         % Need to check
@@ -182,8 +192,11 @@ for i=1:sizeOfMascotData
         
         TempMainMisMatchMatrix = string([MascotDataSorted(i,1), MascotDataSorted(i,2), MisMatchCount, EmptyString; Header]);
         TempMainMisMatchMatrix = [TempMainMisMatchMatrix; "No mismatch found", EmptyString, "", ""; EmptyString, EmptyString];
-        writematrix(TempMainMisMatchMatrix, ResultsPath + MascotDataSorted(i,1)+"_MisMatch.csv");
-        
+
+%         %%No need of individual files
+%         writematrix(TempMainMisMatchMatrix, ResultsPath + MascotDataSorted(i,1)+"_MisMatch.csv");
+%         %%No need of individual files
+
         NoMisMatchMzsFoundWithCount = [NoMisMatchMzsFoundWithCount; MascotDataSorted(i,1), MisMatchCount];
 
         %Not Required FOR NOW ABOVE
