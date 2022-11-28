@@ -1,0 +1,36 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 600px;
+}
+
+.inner{
+  width: 60%;
+  height: 60%;
+  top: 25%;
+  /* left: 5%; */
+  right: 5%;
+  margin: 0 auto;
+  position: relative;
+  background:rgba(255, 255, 255, 0.452);
+}
+/* 
+.chartContainer {
+  object-fit:contain;
+  max-height: 50%;
+} */
