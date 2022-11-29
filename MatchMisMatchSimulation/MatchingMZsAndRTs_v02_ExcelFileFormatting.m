@@ -17,10 +17,10 @@ OffTargetToleranceForMz = 1;
 
 
 %For RT
-FactorForRT = 10^-50;
+FactorForRT = 10^-2;
 MatchToleranceForRT = FactorForRT;
 MisMatchToleranceForRT = FactorForRT * 9; 
-OffTargetToleranceForRT =   MatchToleranceForRT   %1;   %%FARHAN LOOK AT ME
+OffTargetToleranceForRT =  1;
 
 
 
@@ -80,7 +80,10 @@ CombinedResultsMisMatchFile = "CombinedMisMatchResults.csv";
 %%%Excel File Formatted Results
 ResultSheet1 = "ResultSheet1.csv";
 ResultSheet2 = "ResultSheet2.csv";
-DataResultSheet1 = [];
+ResultSheet3 = "ResultSheet3.csv";
+
+DataResultSheet1n2 = [];
+DataResultSheet3 = [];
 
 %%%Excel File Formatted Results
 
@@ -132,9 +135,9 @@ for i=1:sizeOfMascotData
 
             if ~MzAdded      %% Only for formatting
                 MzAdded = true;
-                DataResultSheet1 = [DataResultSheet1; MascotDataSorted(i,1), MatchDiffMz,MascotDataSorted(i,2)];
+                DataResultSheet1n2 = [DataResultSheet1n2; MascotDataSorted(i,2), MatchDiffRT,MascotDataSorted(i,1)];
             else
-                DataResultSheet1 = [DataResultSheet1; "", MatchDiffMz,MascotDataSorted(i,2)];
+                DataResultSheet1n2 = [DataResultSheet1n2; "", MatchDiffRT,MascotDataSorted(i,1)];
             end
 
             
@@ -196,6 +199,12 @@ for i=1:sizeOfMascotData
 
 
         MisMatchMzsWithCount = [MisMatchMzsWithCount; MascotDataSorted(i,1), MascotDataSorted(i,2), MisMatchCount];
+
+
+         if ~MzAdded      %% Only for formatting
+                MzAdded = true;
+                DataResultSheet3 = [DataResultSheet3; MascotDataSorted(i,2)];
+            end
         
         % Need to check
         % % %                 ResultantMatrixMisMatches(MisMatchIndex: MisMatchIndex+1,:) = string([sortMascotData(i,1), MisMatchCount, ""; "Mascot_mz", "MassHunter_mz", "Difference"]);
@@ -234,16 +243,33 @@ writematrix(SummarizingMisMatchData, ResultsPath + CombinedResultsMisMatchFile, 
 
 %%%Excel File Formatted Results
 
-FormattingHeaderSheet1 = ["Unique MASCOT (mz)", "Difference (mz)"];
-DataResultSheet1Prep = DataResultSheet1(:,[1,2]);
+%%% Below Uncomment when MZ needed
+% FormattingHeaderSheet1 = ["Unique MASCOT (mz)", "Difference (mz)"];
+% FormattingHeaderSheet2 = ["Unique MASCOT (mz)", "Difference (mz)", "MASCOT RT (mins)"];
+
+
+
+%%% Below Uncomment when RT needed
+FormattingHeaderSheet1 = ["Unique MASCOT RT (mins)", "Difference RT (mins)"];
+FormattingHeaderSheet2 = ["Unique MASCOT RT (mins)", "Difference RT (mins)", "MASCOT (mz)"];
+
+
+
+DataResultSheet1Prep = DataResultSheet1n2(:,[1,2]);
 writematrix([FormattingHeaderSheet1; DataResultSheet1Prep], ResultsPath + ResultSheet1, 'WriteMode','append');
 
 
-FormattingHeaderSheet2 = ["Unique MASCOT (mz)", "Difference (mz)", "MASCOT RT (mins)"];
-DataResultSheet2Prep = DataResultSheet1';
+DataResultSheet2Prep = DataResultSheet1n2';
 writematrix([FormattingHeaderSheet2', DataResultSheet2Prep], ResultsPath + ResultSheet2, 'WriteMode','append');
 
 
+
+FormattingHeaderSheet3 = ["Unique RT (mins)"];
+
+if size(DataResultSheet3,1) == 0
+    DataResultSheet3 = ["No unmatched RT (mins) found."];
+end
+writematrix([FormattingHeaderSheet3; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');
 
 
 
