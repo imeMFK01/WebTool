@@ -81,8 +81,6 @@ for i=1:sizeOfMascotData
     
     TempMatch = [];
     TempMisMatch = [];
-
-    MzAdded = false;           %% Only for formatting
     
     progressbar(i/sizeOfMascotData);
     for j=1:sizeOfMassHunterData
@@ -98,17 +96,11 @@ for i=1:sizeOfMascotData
         if AbsMatchDiff <= MatchTolerance  %Match
             TempMatch = [TempMatch; sortMascotData(i,1), sortMassHunterData(j,2), MatchDiff];
 
+            DataResultSheet1n2 = [DataResultSheet1n2; sortMascotData(i,1), MatchDiff, sortMassHunterData(j,4)];
 
-            if ~MzAdded      %% Only for formatting
-                MzAdded = true;
-                DataResultSheet1n2 = [DataResultSheet1n2; sortMascotData(i,1), MatchDiff, sortMassHunterData(j,4)];
-            else
-                DataResultSheet1n2 = [DataResultSheet1n2; "", MatchDiff, sortMassHunterData(j,4)];
-            end
-
-            
         elseif (MatchTolerance < AbsMatchDiff && AbsMatchDiff < MisMatchTolerance)  %MisMatch
             TempMisMatch = [TempMisMatch; sortMascotData(i,1), sortMassHunterData(j,2), MatchDiff];
+
         end
     end
     MatchCount = size(TempMatch,1);
@@ -128,44 +120,42 @@ for i=1:sizeOfMascotData
         % % %                 ResultantMatrixMatches(MatchIndex:MatchIndex+MatchCount - 1,:) = string(TempMatch);
         % % %                 MatchIndex = MatchIndex + MatchCount;
 
-
-
-        if ~MzAdded      %% Only for formatting
-            MzAdded = true;
-            DataResultSheet3 = [DataResultSheet3; sortMascotData(i,1)];
-        end
-
-
-
     else
         TempMainMatchMatrix = string([sortMascotData(i,1), MatchCount, "";"Mascot_mz", "MassHunter_mz", "Difference"]);
         TempMainMatchMatrix = [ TempMainMatchMatrix; "No match found", "", ""; "","",""];
         writematrix(TempMainMatchMatrix, ResultsPath + sortMascotData(i,1) +"_Match.csv");
         
         NoMatchMzsFoundWithCount = [NoMatchMzsFoundWithCount; sortMascotData(i,1), MatchCount];
+
+        DataResultSheet3 = [DataResultSheet3; sortMascotData(i,1)];
+        
     end
     writematrix(TempMainMatchMatrix, ResultsPath + CombinedResultsMatchFile, 'WriteMode','append');
 
     TempMainMisMatchMatrix = [];
     if MisMatchCount ~= 0
-        
+
         %%%% For Temp File Testing "TempMisMatch"
         TempMainMisMatchMatrix = string([sortMascotData(i,1), MisMatchCount, ""; "Mascot_mz", "MassHunter_mz", "Difference"]);
         TempMainMisMatchMatrix = [TempMainMisMatchMatrix; string(TempMisMatch); "","",""];
         writematrix(TempMainMisMatchMatrix, ResultsPath + sortMascotData(i,1)+"_MisMatch.csv");
-        
+
         MisMatchMzsWithCount = [MisMatchMzsWithCount; sortMascotData(i,1), MisMatchCount];
-        
+
         % Need to check
         % % %                 ResultantMatrixMisMatches(MisMatchIndex: MisMatchIndex+1,:) = string([sortMascotData(i,1), MisMatchCount, ""; "Mascot_mz", "MassHunter_mz", "Difference"]);
         % % %                 MisMatchIndex = MisMatchIndex + 2;
         % % %                 ResultantMatrixMisMatches(MisMatchIndex:MisMatchIndex+MisMatchCount-1,:) = string(TempMisMatch);
         % % %                 MisMatchIndex = MisMatchIndex + MisMatchCount;
+
+
+        
+
     else
         TempMainMisMatchMatrix = string([sortMascotData(i,1), MisMatchCount, ""; "Mascot_mz", "MassHunter_mz", "Difference"]);
         TempMainMisMatchMatrix = [TempMainMisMatchMatrix; "No mismatch found", "", ""; "","",""];
         writematrix(TempMainMisMatchMatrix, ResultsPath + sortMascotData(i,1)+"_MisMatch.csv");
-        
+
         NoMisMatchMzsFoundWithCount = [NoMisMatchMzsFoundWithCount; sortMascotData(i,1), MisMatchCount];
     end
     writematrix(TempMainMisMatchMatrix, ResultsPath + CombinedResultsMisMatchFile, 'WriteMode','append');
@@ -192,9 +182,8 @@ writematrix([FormattingHeaderSheet2', DataResultSheet2Prep], ResultsPath + Resul
 FormattingHeaderSheet3 = ["Unique Unmatched MASCOT (mz)"];
 
 if size(DataResultSheet3,1) == 0
-    DataResultSheet3 = ["No unmatched mascot (mz) found."];
+    DataResultSheet3 = ["No unmatched MZs found."];
 end
-
 writematrix([FormattingHeaderSheet3; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');
 
 
