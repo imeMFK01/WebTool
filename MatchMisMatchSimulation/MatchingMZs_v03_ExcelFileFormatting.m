@@ -190,6 +190,11 @@ DataResultSheet2Prep = DataResultSheet1n2';
 writematrix([FormattingHeaderSheet2', DataResultSheet2Prep], ResultsPath + ResultSheet2, 'WriteMode','append');
 
 FormattingHeaderSheet3 = ["Unique Unmatched MASCOT (mz)"];
+
+if size(DataResultSheet3,1) == 0
+    DataResultSheet3 = ["No unmatched mascot (mz) found."];
+end
+
 writematrix([FormattingHeaderSheet3; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');
 
 
