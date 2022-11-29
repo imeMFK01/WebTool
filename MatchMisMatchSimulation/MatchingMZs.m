@@ -9,7 +9,7 @@ disp("This Code is compatible with MATLAB R2022a or higher.");
 %setwd('C:\Users\Maham\Dropbox\SpecOxi\NAR-WebServer\DataConversion\R\CheY')
 tic;
 
-Factor = 10^-4;      % Updated 202211222028
+Factor = 10^-2;      % Updated 202211222028
 
 MatchTolerance = Factor;          % 0.0001;  % Updated 202211221613
 MisMatchTolerance = Factor * 9;   % 0.0009;   % Updated 202211221613
