@@ -17,7 +17,7 @@ OffTargetToleranceForMz = 1;
 
 
 %For RT
-FactorForRT = 10^-2;
+FactorForRT = 10^-2;     
 MatchToleranceForRT = FactorForRT;
 MisMatchToleranceForRT = FactorForRT * 9; 
 OffTargetToleranceForRT =  1;
@@ -108,8 +108,6 @@ for i=1:sizeOfMascotData
     
     TempMatch = [];
     TempMisMatch = [];
-
-    MzAdded = false;           %% Only for formatting
     
     progressbar(i/sizeOfMascotData);
     for j=1:sizeOfMassHunterData
@@ -133,16 +131,7 @@ for i=1:sizeOfMascotData
             TempMatch = [TempMatch; MascotDataSorted(i,1), MassHunterDataSorted(j,1), MatchDiffMz, MascotDataSorted(i,2), MassHunterDataSorted(j,2), MatchDiffRT];
           
 
-            if ~MzAdded      %% Only for formatting
-                MzAdded = true;
-                DataResultSheet1n2 = [DataResultSheet1n2; MascotDataSorted(i,2), MatchDiffRT,MascotDataSorted(i,1)];
-            else
-                DataResultSheet1n2 = [DataResultSheet1n2; "", MatchDiffRT,MascotDataSorted(i,1)];
-            end
-
-            
-
-
+            DataResultSheet1n2 = [DataResultSheet1n2; MascotDataSorted(i,2), MatchDiffRT,MascotDataSorted(i,1)];
 
         % Checking Mismatch & RT    
         elseif ((MatchToleranceForMz < AbsMatchDiffMz && AbsMatchDiffMz < MisMatchToleranceForMz) &&  (MatchToleranceForRT < AbsMatchDiffRT && AbsMatchDiffRT < MisMatchToleranceForRT))
@@ -168,11 +157,10 @@ for i=1:sizeOfMascotData
         % % %                 MatchIndex = MatchIndex + 2;
         % % %                 ResultantMatrixMatches(MatchIndex:MatchIndex+MatchCount - 1,:) = string(TempMatch);
         % % %                 MatchIndex = MatchIndex + MatchCount;
-    
-        %Not Required FOR NOW BELOW
+
     else
 
-        
+        DataResultSheet3 = [DataResultSheet3; MascotDataSorted(i,2)];
         TempMainMatchMatrix = string([MascotDataSorted(i,1),  MascotDataSorted(i,2), MatchCount,EmptyString; Header]);
         TempMainMatchMatrix = [ TempMainMatchMatrix; "No match found", EmptyString, "", ""; EmptyString, EmptyString];
         
@@ -181,8 +169,7 @@ for i=1:sizeOfMascotData
 %         %%No need of individual files
 
         NoMatchMzsFoundWithCount = [NoMatchMzsFoundWithCount; MascotDataSorted(i,1), MatchCount];
-        
-        %Not Required FOR NOW ABOVE
+
     end
     writematrix(TempMainMatchMatrix, ResultsPath + CombinedResultsMatchFile, 'WriteMode','append');
 
@@ -201,10 +188,7 @@ for i=1:sizeOfMascotData
         MisMatchMzsWithCount = [MisMatchMzsWithCount; MascotDataSorted(i,1), MascotDataSorted(i,2), MisMatchCount];
 
 
-         if ~MzAdded      %% Only for formatting
-                MzAdded = true;
-                DataResultSheet3 = [DataResultSheet3; MascotDataSorted(i,2)];
-            end
+        
         
         % Need to check
         % % %                 ResultantMatrixMisMatches(MisMatchIndex: MisMatchIndex+1,:) = string([sortMascotData(i,1), MisMatchCount, ""; "Mascot_mz", "MassHunter_mz", "Difference"]);
