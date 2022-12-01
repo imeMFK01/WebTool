@@ -62,6 +62,8 @@ CombinedResultsMisMatchFile = "CombinedMisMatchResults.csv";
 ResultSheet1 = "ResultSheet1.csv";
 ResultSheet2 = "ResultSheet2.csv";
 ResultSheet3 = "ResultSheet3.csv";
+ResultSheet4 = "ResultSheet2_WithoutTranspose.csv";
+
 DataResultSheet1n2 = [];
 DataResultSheet3 = [];
 %%%Excel File Formatted Results
@@ -167,5 +169,7 @@ if size(DataResultSheet3,1) == 0
     DataResultSheet3 = ["No unmatched MZs found."];
 end
 writematrix([FormattingHeaderSheet3; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');
+
+writematrix([FormattingHeaderSheet2; DataResultSheet1n2], ResultsPath + ResultSheet4, 'WriteMode','append');
 
 toc;
