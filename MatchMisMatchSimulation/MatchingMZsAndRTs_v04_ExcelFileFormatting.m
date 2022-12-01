@@ -102,13 +102,13 @@ Header = ["Mascot MZ", "MassHunter MZ", "MZ Difference", "Mascot RT", "MassHunte
 EmptyString = ["","",""];
 
 
-%progressbar('Processing...');
+progressbar('Processing...');
 for i=1:sizeOfMascotData
     
     TempMatch = [];
     TempMisMatch = [];
     
-    %progressbar(i/sizeOfMascotData);
+    progressbar(i/sizeOfMascotData);
     for j=1:sizeOfMassHunterData
         MatchDiffMz = MascotDataSorted(i,1) - MassHunterDataSorted(j,1);
         AbsMatchDiffMz = fix ( abs(MatchDiffMz) / FactorForMz ) * FactorForMz;     % Bug Fixed 202212011650
