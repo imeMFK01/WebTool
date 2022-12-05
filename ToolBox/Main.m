@@ -13,6 +13,7 @@ function [] = Main()
 
 [InFilePath, InFileName, InExt] = fileparts('D:\GitHub\02_WebTool\WebTool\ToolBox\InputTestFile\CheY-100-MS1-r-001.d');     %% For local deployment - SelectDFolder = uigetdir(path,'Select .d Folder');
 
+%% CONVERTING .D FOLDER TO MZXML FILE AND WILL RETURNS THE FILE PATH
 if (InExt == '.d')     % CONVERTING .D FOLDER TO MZXML FILE AND WILL RETURNS THE FILE PATH
 
     DFolderFullPath = [ InFilePath '\' InFileName '\' InExt];
@@ -30,6 +31,7 @@ else
 
 end
 
+%% 
 
 
 
