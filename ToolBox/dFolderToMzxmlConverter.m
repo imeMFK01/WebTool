@@ -13,7 +13,7 @@ if (status == 0)
 
 else
 
-    msgbox("File conversion error while converting .d folder to mzxml file.", "File Conversion Error ", "error");
+    msgbox("File conversion error while converting .d folder to mzxml file.", "File Conversion Error", "error");
 
 end
 
