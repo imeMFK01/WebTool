@@ -10,10 +10,9 @@ library("RforProteomics")
 
 pwd=getwd()
 
-list_of_files <- list.files(path = pwd, pattern = "\\.mzXML$")
+list_of_files <- list.files(path = pwd, pattern = "\\.mzXML$");
 
 #list_of_files=list.files(pwd)
-
 
 length(list_of_files)
 for ( fileNum in 1: length(list_of_files) )
