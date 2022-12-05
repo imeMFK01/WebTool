@@ -1,4 +1,4 @@
-
+function [] = Main()
 
 % MAIN FUNCTION OF THIS PIPELINE 
 
@@ -9,16 +9,53 @@
 
 % We will have two options either cal
 
+%%%% Write a function for local deployment that will create all directories beforehand
+
+[InFilePath, InFileName, InExt] = fileparts('D:\GitHub\02_WebTool\WebTool\ToolBox\InputTestFile\CheY-100-MS1-r-001.d');     %% For local deployment - SelectDFolder = uigetdir(path,'Select .d Folder');
+
+if (InExt == '.d')     % CONVERTING .D FOLDER TO MZXML FILE AND WILL RETURNS THE FILE PATH
+
+    DFolderFullPath = [ InFilePath '\' InFileName '\' InExt];
+    MSConvertOutputResultFolder = '.\MSConvertOutputResultFolder';
+    % Using MSConvert .d folder to mzXML
+    mzXMLFullFileName = dFolderToMzxmlConverter(DFolderFullPath,MSConvertOutputResultFolder);
+
+elseif (InExt == '.mzXML')
+
+        mzXMLFullFileName = [ InFilePath '\' InFileName '\' InExt];
+
+else
+
+    msgbox("File format is incompatible. Please either use .d folder or .mzXML file for computations.", "File Format Not Supported", "error");
+
+end
 
 
 
 
 
 
-% Using MSConvert .d folder to mzXML
 
 
-[MassHunterFileName, MassHunterFilePath] = uigetfile({'*.csv'}, 'Select Mass Hunter File');   % Updated 202211221622
-MassHunterData = readmatrix(string(MassHunterFilePath) + string(MassHunterFileName));   % 'CheY_100.csv'     % Updated 202211221622
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+end
+
+
 
 
