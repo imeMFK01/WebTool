@@ -86,9 +86,11 @@ writematrix(FormattingHeaderSheet1, ResultsPath + ResultSheet1, 'WriteMode','app
 writematrix(FormattingHeaderSheet1, ResultsPath + Results, 'WriteMode','append');  % Data will be appended into sheet 1
 
 %%%Sheet 2
-FormattingHeaderSheet2 = ["Unique MASCOT (mz)"; "Difference (mz)"; "MASCOT RT (mins)"]
-writematrix(FormattingHeaderSheet2, ResultsPath + Results, 'Sheet', 2, 'Range', 'A1');
 
+if (EnableSheet1Transpose)
+    FormattingHeaderSheet2 = ["Unique MASCOT (mz)"; "Difference (mz)"; "MASCOT RT (mins)"]
+    writematrix(FormattingHeaderSheet2, ResultsPath + Results, 'Sheet', 2, 'Range', 'A1');
+end
 
 
 % FormattingHeaderSheet2 = ["Unique MASCOT (mz)", "Difference (mz)", "MASCOT RT (mins)"];
