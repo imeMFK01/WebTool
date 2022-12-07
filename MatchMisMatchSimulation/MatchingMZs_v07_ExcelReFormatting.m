@@ -88,7 +88,7 @@ writematrix(FormattingHeaderSheet1, ResultsPath + Results, 'WriteMode','append')
 %%%Sheet 2
 
 if (EnableSheet1Transpose)
-    FormattingHeaderSheet2 = ["Unique MASCOT (mz)"; "Difference (mz)"; "MASCOT RT (mins)"]
+    FormattingHeaderSheet2 = ["Unique MASCOT (mz)"; "Difference (mz)"; "MASCOT RT (mins)"];
     writematrix(FormattingHeaderSheet2, ResultsPath + Results, 'Sheet', 2, 'Range', 'A1');
 end
 
