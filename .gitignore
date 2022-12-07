@@ -3,4 +3,5 @@
 *.mzXML
 *.d
 *.xlsx
+*.asv
 PerceptronFrontEnd/dist/
