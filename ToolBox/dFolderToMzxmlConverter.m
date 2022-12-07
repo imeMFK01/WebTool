@@ -4,7 +4,7 @@ function mzXMLFullFileName = dFolderToMzxmlConverter(DFolderFullPath,MSConvertOu
 
 setenv('MSConvert_PATH', [pwd '\ProteoWizard']);
 % mustBeTextScalar([pwd '\ProteoWizard\msconvert.exe' ' ' File '-e .mzXML -v --64 -z -o ' ' ' Results])
-[status, ~] = system([pwd '\ProteoWizard\msconvert.exe' ' ' DFolderFullPath ' ' ' --mzXML --v --64 --mz64 --inten64 --zlib -o ' ' ' MSConvertOutputResultFolder]);
+[status, ~] = system([pwd '\ProteoWizard\msconvert.exe' ' ' DFolderFullPath ' ' ' --mzXML --v --64 -o ' ' ' MSConvertOutputResultFolder]);
 
 
 if (status == 0)
