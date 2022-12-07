@@ -161,8 +161,6 @@ end
 % FormattingHeaderSheet1 = ["Unique MASCOT (mz)", "Difference (mz)"];
 % FormattingHeaderSheet2 = ["Unique MASCOT (mz)", "Difference (mz)", "MASCOT RT (mins)"];
 
-%%% Below Uncomment when RT needed
-
 
 FormattingHeaderSheet3 = ["Unique Unmatched RT (mins)"];
 
