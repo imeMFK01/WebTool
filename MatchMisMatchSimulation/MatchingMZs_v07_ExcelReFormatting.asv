@@ -1,7 +1,7 @@
 %Last updated 202212071354
 % Excel File reformatting
 % Removed code: (i) individual file matching
-% Limitations: Overall increase in computation time due to the excel formatting (specifically for transpose part)
+% Limitations: Overall increase in computation time due to formatting specifically for transpose part 
 
 %Last updated 202212011650
 % We want CSV File based on formatting
@@ -83,10 +83,7 @@ writematrix(FormattingHeaderSheet1, ResultsPath + ResultSheet1, 'WriteMode','app
 writematrix(FormattingHeaderSheet1, ResultsPath + Results, 'WriteMode','append');  % Data will be appended into sheet 1
 
 %%%Sheet 2
-FormattingHeaderSheet2 = ["Unique MASCOT (mz)"; "Difference (mz)"; "MASCOT RT (mins)"]
-writematrix(FormattingHeaderSheet2, ResultsPath + Results, 'Sheet', 2, 'Range', 'A1');
-RowNo = size(FormattingHeaderSheet2,2) - 1;
-
+writematrix(["Unique MASCOT (mz)"; "Difference (mz)"; "MASCOT RT (mins)"], ResultsPath + Results, 'Sheet', 2, 'Range', 'A1');
 
 % FormattingHeaderSheet2 = ["Unique MASCOT (mz)", "Difference (mz)", "MASCOT RT (mins)"];
 % writematrix(FormattingHeaderSheet2', ResultsPath + ResultSheet2, 'WriteMode','append');
@@ -127,8 +124,8 @@ for i=1:sizeOfMascotData
         writematrix(DataResultSheet1, ResultsPath + Results, 'WriteMode','append');   % Data will be appended into sheet 1
 
 
-        NewCellPos = EmptyColPos(ResultsPath+Results, 2);
-        %writematrix([DataResultSheet1; "", RTVector]', ResultsPath + Results, 'Sheet', 2, 'Range',NewCellPos);
+        NewCol = EmptyColPos(ResultsPath+Results, 2);
+        %writematrix([DataResultSheet1; "", RTVector]', ResultsPath + Results, 'Sheet', 2, 'Range',NewCol);
 
     else
         DataResultSheet3 = [DataResultSheet3; MascotDataSorted(i,1)];
@@ -165,7 +162,7 @@ toc;
 
 
 
-function NewCellPos = EmptyColPos(ExcelFilePath, ExcelSheet, RowNo)
+function NewCol = EmptyColPos(ExcelFilePath, ExcelSheet)
 
 
 
@@ -173,7 +170,7 @@ Matrix = readmatrix(ExcelFilePath,'Sheet',ExcelSheet);
 
 NewColNum = size(Matrix,2) + 1;
 
-NewCellPos = char(xlsColNum2Str(NewColNum)) , 2 ;
+NewCol = xlsColNum2Str(NewColNum);
 
 
 
