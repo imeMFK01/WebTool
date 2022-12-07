@@ -36,6 +36,9 @@ MainResultFolder = pwd + "\Results\";
 ResultsPath =  MainResultFolder + SubResultFolder + "\"; % TempDateAndTime + "_Results" + "\";       % Updated 202211221641
 mkdir(fullfile(MainResultFolder,SubResultFolder));
 
+EnableSheet1Transpose = false;
+
+
 %Reading Mass Hunter File
 [MassHunterFileName, MassHunterFilePath] = uigetfile({'*.csv'}, 'Select Mass Hunter File');   % Updated 202211221622
 MassHunterData = readmatrix(string(MassHunterFilePath) + string(MassHunterFileName));   % 'CheY_100.csv'     % Updated 202211221622
@@ -126,11 +129,13 @@ for i=1:sizeOfMascotData
         writematrix(DataResultSheet1, ResultsPath + ResultSheet1, 'WriteMode','append');  % NeedToDel
         writematrix(DataResultSheet1, ResultsPath + Results, 'WriteMode','append');   % Data will be appended into sheet 1
 
-        
+
         writematrix([DataResultSheet1; "", RTVector], ResultsPath + ResultSheet4, 'WriteMode','append');  %%Just for Testing
 
-        NewCellPos = EmptyColPos(ResultsPath+Results, 2);
-        writematrix([DataResultSheet1; "", RTVector]', ResultsPath + Results, 'Sheet', 2, 'Range', NewCellPos);
+        if (EnableSheet1Transpose)
+            NewCellPos = EmptyColPos(ResultsPath+Results, 2);
+            writematrix([DataResultSheet1; "", RTVector]', ResultsPath + Results, 'Sheet', 2, 'Range', NewCellPos);
+        end
 
     else
         DataResultSheet3 = [DataResultSheet3; MascotDataSorted(i,1)];
@@ -150,7 +155,12 @@ if size(DataResultSheet3,1) == 0
     DataResultSheet3 = ["No unmatched MZs found."];
 end
 writematrix(["Unique Unmatched MASCOT (mz)"; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');  % NeedToDel
-writematrix(["Unique Unmatched MASCOT (mz)"; DataResultSheet3], ResultsPath + Results, 'Sheet', 3, 'Range', 'A1');
+
+if (EnableSheet1Transpose)
+    writematrix(["Unique Unmatched MASCOT (mz)"; DataResultSheet3], ResultsPath + Results, 'Sheet', 3, 'Range', 'A1');
+else
+    writematrix(["Unique Unmatched MASCOT (mz)"; DataResultSheet3], ResultsPath + Results, 'Sheet', 2, 'Range', 'A1');
+end
 %writematrix([FormattingHeaderSheet2; DataResultSheet1n2], ResultsPath + ResultSheet4, 'WriteMode','append');
 
 toc;
