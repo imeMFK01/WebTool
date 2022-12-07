@@ -38,6 +38,11 @@ MainResultFolder = pwd + "\Results\";
 ResultsPath =  MainResultFolder + SubResultFolder + "\"; % TempDateAndTime + "_Results" + "\";       % Updated 202211221641
 mkdir(fullfile(MainResultFolder,SubResultFolder));
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+EnableSheet1Transpose = false; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 %Reading Mass Hunter File
 [MassHunterFileName, MassHunterFilePath] = uigetfile({'*.csv'}, 'Select Mass Hunter File');   % Updated 202211221622
 MassHunterData = readmatrix(string(MassHunterFilePath) + string(MassHunterFileName));   % 'CheY_100.csv'     % Updated 202211221622
@@ -69,36 +74,38 @@ MassHunterDataSorted = sortrows(MassHunterData,[1,2], 'ascend');
 %Size of sorted Matrices
 sizeOfMassHunterData = size(MassHunterDataSorted,1);
 sizeOfMascotData = size(MascotDataSorted,1);
-NoOfRows = sizeOfMassHunterData * sizeOfMascotData;
-
-%%%%%%%%%%%%%%%%%%%%% DONE AT THAT POINT
-
-
-CombinedResultsMatchFile = "CombinedMatchResults.csv";
-CombinedResultsMisMatchFile = "CombinedMisMatchResults.csv";
 
 
 %%%Excel File Formatted Results
+Results = "Results.xlsx";
+
 ResultSheet1 = "ResultSheet1.csv";
 ResultSheet2 = "ResultSheet2.csv";
 ResultSheet3 = "ResultSheet3.csv";
 ResultSheet4 = "ResultSheet2_WithoutTranspose.csv";
 
-DataResultSheet1n2 = [];
 DataResultSheet3 = [];
 
 %%%Excel File Formatted Results
 
+%%%Sheet 1
+FormattingHeaderSheet1 = ["Unique RT (mins)", "Difference (RT)"];
+writematrix(FormattingHeaderSheet1, ResultsPath + ResultSheet1, 'WriteMode','append');  % NeedToDel
+writematrix(FormattingHeaderSheet1, ResultsPath + Results, 'WriteMode','append');  % Data will be appended into sheet 1
 
-Header = ["Mascot MZ", "MassHunter MZ", "MZ Difference", "Mascot RT", "MassHunter RT", "RT Difference" ];
-EmptyString = ["","",""];
+%%%Sheet 2
+
+if (EnableSheet1Transpose)
+    FormattingHeaderSheet2 = ["Unique RT (mins)"; "Difference (RT)"; "MASCOT Mzs"]
+    writematrix(FormattingHeaderSheet2, ResultsPath + Results, 'Sheet', 2, 'Range', 'A1');
+end
 
 
 progressbar('Processing...');
 for i=1:sizeOfMascotData
-    
-    TempMatch = [];
-    TempMisMatch = [];
+
+    DataResultSheet1 = [];
+    MZVector = [];
     
     progressbar(i/sizeOfMascotData);
     for j=1:sizeOfMassHunterData
@@ -112,37 +119,39 @@ for i=1:sizeOfMascotData
         MatchDiffRT = MascotDataSorted(i,2) - MassHunterDataSorted(j,2);
         AbsMatchDiffRT = fix ( abs(MatchDiffRT) / FactorForRT ) * FactorForRT;      % Bug Fixed 202212011650
 
-        %%%%
         if(AbsMatchDiffRT >= OffTargetToleranceForRT)
             continue;
         end
         
         % Checking Match & RT
         if (AbsMatchDiffMz <= MatchToleranceForMz && AbsMatchDiffRT <= MatchToleranceForRT)
-            TempMatch = [TempMatch; MascotDataSorted(i,1), MassHunterDataSorted(j,1), MatchDiffMz, MascotDataSorted(i,2), MassHunterDataSorted(j,2), MatchDiffRT];
-          
 
-            DataResultSheet1n2 = [DataResultSheet1n2; MascotDataSorted(i,2), MatchDiffRT,MascotDataSorted(i,1)];
-
-        % Checking Mismatch & RT    
-        elseif ((MatchToleranceForMz < AbsMatchDiffMz && AbsMatchDiffMz < MisMatchToleranceForMz) &&  (MatchToleranceForRT < AbsMatchDiffRT && AbsMatchDiffRT < MisMatchToleranceForRT))
-            TempMisMatch = [TempMisMatch; MascotDataSorted(i,1), MassHunterDataSorted(j,1), MatchDiffMz, MascotDataSorted(i,2), MassHunterDataSorted(j,2), MatchDiffRT];
+            if size(DataResultSheet1,1) == 0
+                DataResultSheet1 = [DataResultSheet1; MascotDataSorted(i,2), MatchDiffRT];
+                MZVector = [MZVector; MascotDataSorted(i,1)];   %% MIGHT NEEDED IN FUTURE
+            else
+                DataResultSheet1 = [DataResultSheet1, MatchDiffRT];
+                MZVector = [MZVector, MascotDataSorted(i,1)];   %% MIGHT NEEDED IN FUTURE
+            end
         end
     end
-    MatchCount = size(TempMatch,1);
-    MisMatchCount = size(TempMisMatch,1);
-    TempMainMatchMatrix = [];
+    MatchCount = size(DataResultSheet1,1);
     if MatchCount ~= 0
 
+        writematrix(DataResultSheet1, ResultsPath + ResultSheet1, 'WriteMode','append');  % NeedToDel
+        writematrix(DataResultSheet1, ResultsPath + Results, 'WriteMode','append');   % Data will be appended into sheet 1
 
+
+        writematrix([DataResultSheet1; "", MZVector], ResultsPath + ResultSheet4, 'WriteMode','append');  %%Just for Testing
+
+
+        if (EnableSheet1Transpose)
+            NewCellPos = EmptyColPos(ResultsPath+Results, 2);
+            writematrix([DataResultSheet1; "", MZVector]', ResultsPath + Results, 'Sheet', 2, 'Range', NewCellPos);
+        end
     else
-
         DataResultSheet3 = [DataResultSheet3; MascotDataSorted(i,2)];
-       
-
     end
-   
-
 end
 
 
@@ -153,27 +162,30 @@ end
 % FormattingHeaderSheet2 = ["Unique MASCOT (mz)", "Difference (mz)", "MASCOT RT (mins)"];
 
 %%% Below Uncomment when RT needed
-FormattingHeaderSheet1 = ["Unique MASCOT RT (mins)", "Difference RT (mins)"];
-FormattingHeaderSheet2 = ["Unique MASCOT RT (mins)", "Difference RT (mins)", "MASCOT (mz)"];
 
 
-
-DataResultSheet1Prep = DataResultSheet1n2(:,[1,2]);
-writematrix([FormattingHeaderSheet1; DataResultSheet1Prep], ResultsPath + ResultSheet1, 'WriteMode','append');
-
-
-DataResultSheet2Prep = DataResultSheet1n2';
-writematrix([FormattingHeaderSheet2', DataResultSheet2Prep], ResultsPath + ResultSheet2, 'WriteMode','append');
-
-FormattingHeaderSheet3 = ["Unique RT (mins)"];
+FormattingHeaderSheet3 = ["Unique Unmatched RT (mins)"];
 
 if size(DataResultSheet3,1) == 0
-    DataResultSheet3 = ["No unmatched RT (mins) found."];
+    DataResultSheet3 = ["Unmatched RTs (mins) not found."];
 end
-writematrix([FormattingHeaderSheet3; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');
+writematrix([FormattingHeaderSheet3; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');  % NeedToDel
 
+if (EnableSheet1Transpose)
+    writematrix(["Unique Unmatched RT (mins)"; DataResultSheet3], ResultsPath + Results, 'Sheet', 3, 'Range', 'A1');
+else
+    writematrix(["Unique Unmatched MRT (mins)"; DataResultSheet3], ResultsPath + Results, 'Sheet', 2, 'Range', 'A1');
+end
 
-
-writematrix([FormattingHeaderSheet2; DataResultSheet1n2], ResultsPath + ResultSheet4, 'WriteMode','append');
+% writematrix([FormattingHeaderSheet2; DataResultSheet1n2], ResultsPath + ResultSheet4, 'WriteMode','append');
 
 toc;
+
+
+function NewCellPos = EmptyColPos(ExcelFilePath, ExcelSheet)
+Matrix = readmatrix(ExcelFilePath,'Sheet',ExcelSheet);
+NewColNum = size(Matrix,2) + 1;
+NewCellPos = [char(xlsColNum2Str(NewColNum)) , '1'] ;
+end
+
+
