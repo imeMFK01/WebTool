@@ -175,8 +175,4 @@ NewCellPos = [char(xlsColNum2Str(NewColNum)) , '1'] ;
 end
 
 
-%writematrix(FormattingHeaderSheet1, Results, 'WriteMode','append');
-
-%writematrix(FormattingHeaderSheet1, Results, 'Sheet', 2, 'Range', 'A2');
-
 
