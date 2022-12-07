@@ -33,7 +33,9 @@ end
 
 %% 
 
+%%%msgbox("R installation path MUST NOT CONTAINS AN EMPTY SPACE.", "R Installation Guidelines", "warn");
 
+%%
 
 
 
