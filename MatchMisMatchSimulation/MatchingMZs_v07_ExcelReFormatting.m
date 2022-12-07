@@ -154,7 +154,7 @@ end
 
 
 if size(DataResultSheet3,1) == 0
-    DataResultSheet3 = ["No unmatched MZs found."];
+    DataResultSheet3 = ["Unmatched MZs not found."];
 end
 writematrix(["Unique Unmatched MASCOT (mz)"; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');  % NeedToDel
 
