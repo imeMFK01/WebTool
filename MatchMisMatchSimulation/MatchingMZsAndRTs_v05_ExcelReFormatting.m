@@ -1,3 +1,8 @@
+%Last updated 202212071911
+% % % % % % % % % % % % % % % % % % % % % % % % % % Excel File reformatting
+% % % % % % % % % % % % % % % % % % % % % % % % % % Removed code: (i) individual file matching
+% % % % % % % % % % % % % % % % % % % % % % % % % % Limitations: Overall increase in computation time due to the excel formatting (specifically for transpose part)
+
 %Last updated 202212011650
 % [RESOLVED] Bug - Truncation was not properly done.
 % 
@@ -9,7 +14,7 @@
 %This Code is compatible with MATLAB R2022a or higher
 clc;
 clear all;
-disp("This Code is compatible with MATLAB R2022a or higher.");
+disp("This Code is compatible with MATLAB R2022a or later.");
 
 tic;
 
@@ -68,8 +73,6 @@ NoOfRows = sizeOfMassHunterData * sizeOfMascotData;
 
 %%%%%%%%%%%%%%%%%%%%% DONE AT THAT POINT
 
-MatchIndex = 1;
-MisMatchIndex = 1;
 
 CombinedResultsMatchFile = "CombinedMatchResults.csv";
 CombinedResultsMisMatchFile = "CombinedMisMatchResults.csv";
@@ -86,17 +89,6 @@ DataResultSheet3 = [];
 
 %%%Excel File Formatted Results
 
-
-
-%Summarizing Data for Combined Matches File
-MatchMzsWithCount = [];
-
-NoMatchMzsFoundWithCount = [];
-
-%Summarizing Data for Combined MisMatches File
-MisMatchMzsWithCount = [];
-
-NoMisMatchMzsFoundWithCount = [];
 
 Header = ["Mascot MZ", "MassHunter MZ", "MZ Difference", "Mascot RT", "MassHunter RT", "RT Difference" ];
 EmptyString = ["","",""];
@@ -142,46 +134,16 @@ for i=1:sizeOfMascotData
     TempMainMatchMatrix = [];
     if MatchCount ~= 0
 
-        %%%% For Temp File Testing "TempMatch"
-        TempMainMatchMatrix = string([MascotDataSorted(i,1), MascotDataSorted(i,2), MatchCount, EmptyString; Header]);   %  "Mascot_mz", "MassHunter_mz", "Difference"
-        TempMainMatchMatrix = [ TempMainMatchMatrix; string(TempMatch); EmptyString, EmptyString];
-        MatchMzsWithCount = [MatchMzsWithCount; MascotDataSorted(i,1), MascotDataSorted(i,2), MatchCount];
 
     else
 
         DataResultSheet3 = [DataResultSheet3; MascotDataSorted(i,2)];
-        TempMainMatchMatrix = string([MascotDataSorted(i,1),  MascotDataSorted(i,2), MatchCount,EmptyString; Header]);
-        TempMainMatchMatrix = [ TempMainMatchMatrix; "No match found", EmptyString, "", ""; EmptyString, EmptyString];
-        NoMatchMzsFoundWithCount = [NoMatchMzsFoundWithCount; MascotDataSorted(i,1), MatchCount];
+       
 
     end
-    writematrix(TempMainMatchMatrix, ResultsPath + CombinedResultsMatchFile, 'WriteMode','append');
-
-    TempMainMisMatchMatrix = [];
-    if MisMatchCount ~= 0
-        
-        %%%% For Temp File Testing "TempMisMatch"
-        TempMainMisMatchMatrix = string([MascotDataSorted(i,1), MascotDataSorted(i,2), MisMatchCount, EmptyString; Header]);
-        TempMainMisMatchMatrix = [TempMainMisMatchMatrix; string(TempMisMatch); EmptyString, EmptyString];
-        MisMatchMzsWithCount = [MisMatchMzsWithCount; MascotDataSorted(i,1), MascotDataSorted(i,2), MisMatchCount];
-
-    else
-        
-        TempMainMisMatchMatrix = string([MascotDataSorted(i,1), MascotDataSorted(i,2), MisMatchCount, EmptyString; Header]);
-        TempMainMisMatchMatrix = [TempMainMisMatchMatrix; "No mismatch found", EmptyString, "", ""; EmptyString, EmptyString];
-        NoMisMatchMzsFoundWithCount = [NoMisMatchMzsFoundWithCount; MascotDataSorted(i,1), MisMatchCount];
-
-    end
-    writematrix(TempMainMisMatchMatrix, ResultsPath + CombinedResultsMisMatchFile, 'WriteMode','append');
+   
 
 end
-
-SummarizingMatchData = [EmptyString; "Summarizing Match Data", "", ""; "Matched Mzs", "Matched RTs", "Count"; MatchMzsWithCount];  % "","" ; "No Matched Mzs Found", "Count"; NoMatchMzsFoundWithCount];
-writematrix(SummarizingMatchData, ResultsPath + CombinedResultsMatchFile, 'WriteMode','append');
-
-
-SummarizingMisMatchData = [EmptyString; "Summarizing Mismatch Data", "", "" ;"Mismatched Mzs", "Mismatched RTs", "Count"; MisMatchMzsWithCount];  %; "","" ; "No Mismatched Mzs Found", "Count"; NoMisMatchMzsFoundWithCount];
-writematrix(SummarizingMisMatchData, ResultsPath + CombinedResultsMisMatchFile, 'WriteMode','append');
 
 
 
