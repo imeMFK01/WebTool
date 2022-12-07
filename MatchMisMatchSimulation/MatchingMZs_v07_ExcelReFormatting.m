@@ -1,4 +1,9 @@
 %Last updated 202212011650
+% We want CSV File based on formatting
+% MASCOT (mz), MASCOT (RT), Difference m/z, Mass Hunter m/z, Mass Hunter (RT), Mass Hunter (Int)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Last updated 202212011650
 % [RESOLVED] Bug - Truncation was not properly done.
 % 
 
@@ -34,11 +39,14 @@ MassHunterData = readmatrix(string(MassHunterFilePath) + string(MassHunterFileNa
 %Reading mascot file
 [MascotFileName, MascotFilePath] = uigetfile({'*.xlsx'}, 'Select Mascot File');   % Updated 202211221622
 [~,~,MascotFile] = xlsread(string(MascotFilePath) + string(MascotFileName));    %xlsread('3ChY_MASCOT_File.xlsx');       % Updated 202211221622
-Unique_Mascot_mz = double(unique(string(MascotFile(2:end,14))));
+
+
+MascotData = [double(string((MascotFile(2:end,14)))), double(string(extractBetween(MascotFile(2:end,27), 'at ', ' mins ')))];
+UniqueMascotData = unique(MascotData, 'rows');
+sortMascotData = sortrows(UniqueMascotData,[1,2], 'ascend');
 
 %Sorting Mass Hunter and Mascot Values
 sortMassHunterData = sortrows(MassHunterData,2, 'ascend');
-sortMascotData = sortrows(Unique_Mascot_mz,1, 'ascend');
 
 %Size of sorted Matrices
 sizeOfMassHunterData = size(sortMassHunterData,1);
@@ -63,9 +71,12 @@ ResultSheet1 = "ResultSheet1.csv";
 ResultSheet2 = "ResultSheet2.csv";
 ResultSheet3 = "ResultSheet3.csv";
 ResultSheet4 = "ResultSheet2_WithoutTranspose.csv";
+UpdatedCSVFileName = "UpdatedCSVFile.csv";
 
 DataResultSheet1n2 = [];
 DataResultSheet3 = [];
+
+UpdatedCSVFileData = [];
 %%%Excel File Formatted Results
 
 
@@ -98,6 +109,7 @@ for i=1:sizeOfMascotData
             TempMatch = [TempMatch; sortMascotData(i,1), sortMassHunterData(j,2), MatchDiff];
 
             DataResultSheet1n2 = [DataResultSheet1n2; sortMascotData(i,1), MatchDiff, sortMassHunterData(j,4)];
+            UpdatedCSVFileData = [UpdatedCSVFileData; sortMascotData(i,1), sortMascotData(i,2), MatchDiff, sortMassHunterData(j,2), sortMassHunterData(j,4), sortMassHunterData(j,3)];
 
         elseif (MatchTolerance < AbsMatchDiff && AbsMatchDiff < MisMatchTolerance)  %MisMatch
             TempMisMatch = [TempMisMatch; sortMascotData(i,1), sortMassHunterData(j,2), MatchDiff];
@@ -171,5 +183,10 @@ end
 writematrix([FormattingHeaderSheet3; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');
 
 writematrix([FormattingHeaderSheet2; DataResultSheet1n2], ResultsPath + ResultSheet4, 'WriteMode','append');
+
+
+FormattingHeaderNewCSV = ["MASCOT (mz)" , "MASCOT RT (min)", "Difference m/z", "Mass Hunter m/z", "Mass Hunter RT (min)", "Mass Hunter Int"];
+writematrix([FormattingHeaderNewCSV; UpdatedCSVFileData], ResultsPath + UpdatedCSVFileName, 'WriteMode','append');
+
 
 toc;
