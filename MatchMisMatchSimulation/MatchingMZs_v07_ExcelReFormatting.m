@@ -19,7 +19,7 @@
 %This Code is compatible with MATLAB R2022a or higher
 clc;
 clear all;
-disp("This Code is compatible with MATLAB R2022a or higher.");
+disp("This Code is compatible with MATLAB R2022a or later.");
 %setwd('C:\Users\Maham\Dropbox\SpecOxi\NAR-WebServer\DataConversion\R\CheY')
 tic;
 
@@ -85,7 +85,7 @@ writematrix(FormattingHeaderSheet1, ResultsPath + Results, 'WriteMode','append')
 %%%Sheet 2
 FormattingHeaderSheet2 = ["Unique MASCOT (mz)"; "Difference (mz)"; "MASCOT RT (mins)"]
 writematrix(FormattingHeaderSheet2, ResultsPath + Results, 'Sheet', 2, 'Range', 'A1');
-RowNo = size(FormattingHeaderSheet2,2) - 1;
+
 
 
 % FormattingHeaderSheet2 = ["Unique MASCOT (mz)", "Difference (mz)", "MASCOT RT (mins)"];
@@ -126,9 +126,11 @@ for i=1:sizeOfMascotData
         writematrix(DataResultSheet1, ResultsPath + ResultSheet1, 'WriteMode','append');  % NeedToDel
         writematrix(DataResultSheet1, ResultsPath + Results, 'WriteMode','append');   % Data will be appended into sheet 1
 
+        
+        writematrix([DataResultSheet1; "", RTVector], ResultsPath + ResultSheet4, 'WriteMode','append');  %%Just for Testing
 
         NewCellPos = EmptyColPos(ResultsPath+Results, 2);
-        %writematrix([DataResultSheet1; "", RTVector]', ResultsPath + Results, 'Sheet', 2, 'Range',NewCellPos);
+        writematrix([DataResultSheet1; "", RTVector]', ResultsPath + Results, 'Sheet', 2, 'Range', NewCellPos);
 
     else
         DataResultSheet3 = [DataResultSheet3; MascotDataSorted(i,1)];
@@ -148,35 +150,16 @@ if size(DataResultSheet3,1) == 0
     DataResultSheet3 = ["No unmatched MZs found."];
 end
 writematrix(["Unique Unmatched MASCOT (mz)"; DataResultSheet3], ResultsPath + ResultSheet3, 'WriteMode','append');  % NeedToDel
-writematrix(["Unique Unmatched MASCOT (mz)"; DataResultSheet3], ResultsPath + Results, 'Sheet', 3, 'A1');
-
-
-writematrix([FormattingHeaderSheet2; DataResultSheet1n2], ResultsPath + ResultSheet4, 'WriteMode','append');
+writematrix(["Unique Unmatched MASCOT (mz)"; DataResultSheet3], ResultsPath + Results, 'Sheet', 3, 'Range', 'A1');
+%writematrix([FormattingHeaderSheet2; DataResultSheet1n2], ResultsPath + ResultSheet4, 'WriteMode','append');
 
 toc;
 
 
-
-
-
-
-
-
-
-
-
-function NewCellPos = EmptyColPos(ExcelFilePath, ExcelSheet, RowNo)
-
-
-
+function NewCellPos = EmptyColPos(ExcelFilePath, ExcelSheet)
 Matrix = readmatrix(ExcelFilePath,'Sheet',ExcelSheet);
-
 NewColNum = size(Matrix,2) + 1;
-
-NewCellPos = char(xlsColNum2Str(NewColNum)) , 2 ;
-
-
-
+NewCellPos = [char(xlsColNum2Str(NewColNum)) , '1'] ;
 end
 
 
