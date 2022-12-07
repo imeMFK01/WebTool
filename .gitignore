@@ -1,4 +1,5 @@
 *.csv
 *.Rhistory
 *.mzXML
+*.d
 PerceptronFrontEnd/dist/
