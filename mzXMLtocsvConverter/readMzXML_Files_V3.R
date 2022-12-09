@@ -14,19 +14,21 @@ list_of_files <- list.files(path = pwd, pattern = "\\.mzXML$");
 
 #list_of_files=list.files(pwd)
 
-length(list_of_files)
-
-
 Header <- t(c("RT_sec" , "mz" , "Int" ,"RT_min" ))
-#write.csv(Header,NameFile, row.names = FALSE, col.names = FALSE)
 
-CsvFileName = "CheY-100-MS1-r-001 - Test2.csv"
-write.table(Header, CsvFileName, sep = ",", row.names = FALSE, col.names = FALSE, !file.exists(CsvFileName), append = T) 
+for ( fileNum in 1: length(list_of_files) )
+{
+  
+  list_of_files[fileNum]
+  FileName = list_of_files[fileNum]
+  
+  Name = tools::file_path_sans_ext(FileName)
+  
+  CsvFileName<-paste(Name,'.csv', sep ="")
+  
+  write.table(Header, CsvFileName, sep = ",", row.names = FALSE, col.names = FALSE, !file.exists(CsvFileName), append = T) 
 
-rm(Data)
-#for ( fileNum in 1: length(list_of_files) )   #UNCOMMENT ME
-
-  FileName = "CheY-100-MS1-r-001 - Test2.mzXML"   #= list_of_files[fileNum]  #UNCOMMENT ME
+  
   mzxml<-readMzXmlFile(FileName, removeMetaData = FALSE, verbose = FALSE)
   
   TotalScans = length(mzxml)
@@ -34,7 +36,7 @@ rm(Data)
   {
     Masses <- mzxml[[NoOfScan]]$spectrum$mass
     Intensities <- mzxml[[NoOfScan]]$spectrum$intensity
-    RTsec <- mzxml[[NoOfScan]]$metaData$startTime
+    RTsec <- mzxml[[NoOfScan]]$metaData$retentionTime
     
     iter = length(Masses)
     for(index in 1:iter){
@@ -44,13 +46,9 @@ rm(Data)
       Data <- t(c(RTsec, MZ, Int, RTmin))
       #write.csv(Data,NameFile, row.names = FALSE, col.names = Header)
       write.table(Data, CsvFileName, sep = ",", row.names = FALSE, col.names = FALSE, !file.exists(CsvFileName), append = T)
-      rm(Data)
     }
-    
-    
   }
-  
-  
+}
   
   
   
