@@ -1,12 +1,30 @@
-library('mzR')
-library(msdata)
+
+
+
+if (!require("BiocManager", quietly=TRUE))
+  install.packages(BiocManager)
+
+if (!require("mzR", quietly=TRUE))
+  install.packages(mzR)
+
+if (!require("msdata", quietly=TRUE))
+  install.packages(msdata)
+
+if (!require("readMzXmlData", quietly=TRUE))
+  install.packages(readMzXmlData)
+
+
+###library(mzR)
+###library(msdata)
 library(readMzXmlData)
-library(Spectra)
-library("RforProteomics")
+###library(Spectra)
+###library("RforProteomics")
+
 #library(tidyverse)
 ########## Reading Files #########
 #setwd('D:\\Supercomputing\\MATLAB\\mzxml_Files_CheY')
 
+setwd('D:\\GitHub\\02_WebTool\\WebTool\\mzXMLtocsvConverter\\InputReplicate3')
 
 pwd=getwd()
 
