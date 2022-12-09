@@ -4,12 +4,6 @@
 if (!require("BiocManager", quietly=TRUE))
   install.packages(BiocManager)
 
-if (!require("mzR", quietly=TRUE))
-  install.packages(mzR)
-
-if (!require("msdata", quietly=TRUE))
-  install.packages(msdata)
-
 if (!require("readMzXmlData", quietly=TRUE))
   install.packages(readMzXmlData)
 
