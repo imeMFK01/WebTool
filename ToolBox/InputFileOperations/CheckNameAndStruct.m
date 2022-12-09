@@ -11,22 +11,25 @@ function Test = CheckNameAndStruct(MainFolderName)
 listing = dir(MainFolderName)
 
 
-Rep1Path = MainFolderName + "\" + "Replicate1";
-if (exist(Rep1Path) == 7)  %%  || (exist(Rep1Path) == 0)  %%% Checks only for folders.
-    
-end
-
-Rep2Path = MainFolderName + "\" + "Replicate2";
-if (exist(Rep2Path) == 7)  %%  || (exist(Rep1Path) == 0)  %%% Checks only for folders.
-
-end
+DFullFileNames = [];
+[] = FetchFileNames(MainFolderName, "Replicate1");
+[] = FetchFileNames(MainFolderName, "Replicate2");
+[] = FetchFileNames(MainFolderName, "Replicate3");
 
 
-Rep3Path = MainFolderName + "\" + "Replicate3";
-if (exist(Rep3Path) == 7)  %%  || (exist(Rep1Path) == 0)  %%% Checks only for folders.
 
 end
 
 
+function [] = FetchFileNames(MainFolderName, RepNum)
+
+RepPath = MainFolderName + "\" + RepNum;
+if (exist(RepPath) == 7)  %%  || (exist(Rep1Path) == 0)  %%% Checks only for folders.
+    DFiles = dir(fullfile(RepPath, '*.d'));
+    MzxmlFiles = dir(fullfile(RepPath, '*.mzxml'));
+
+    DFullFileNames = [DFullFileNames; string(DFiles.name)]
+
+end
 
 end
