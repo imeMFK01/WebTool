@@ -36,7 +36,7 @@ MainResultFolder = pwd + "\Results\";
 ResultsPath =  MainResultFolder + SubResultFolder + "\"; % TempDateAndTime + "_Results" + "\";       % Updated 202211221641
 mkdir(fullfile(MainResultFolder,SubResultFolder));
 
-EnableSheet1Transpose = false;
+EnableSheet1Transpose = true;
 
 
 %Reading Mass Hunter File
