@@ -1,4 +1,4 @@
-function Test = CheckNameAndStruct(QueryFullFolderPath, DoseResponseFile)
+function Test = CheckNameAndStruct(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr)
 
 
 % This function will check the names of the input files/folders and the directory's structure
@@ -17,22 +17,22 @@ DoseResponseInfo = DoseResponseInfoTable(:,1);
 
 listing = dir(QueryFullFolderPath)
 
+for iterRep = 1: size(RepArr,1)
 
-[FileNames] = FetchFileNames(QueryFullFolderPath, RepNum, DoseResponseInfo)
-
-
-DFullFileNames = [];
-[] = FetchFileNames(QueryFullFolderPath, "Replicate1");
-[] = FetchFileNames(QueryFullFolderPath, "Replicate2");
-[] = FetchFileNames(QueryFullFolderPath, "Replicate3");
-
-
-
-%
-
-if ()
+[DFiles, MzxmlFiles] = FetchFileNames(QueryFullFolderPath, InsideExp, RepArr(iterRep), DoseResponseInfo)
 
 
 end
 
+DFullFileNames = [];
+
+end
+
+
+function [] = CompareDoseAndFileName()
+
+%Compare Here
+
+
+end
 
