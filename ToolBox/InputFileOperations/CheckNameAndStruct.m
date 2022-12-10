@@ -10,6 +10,18 @@ function Test = CheckNameAndStruct(QueryFullFolderPath, DoseResponseFile, Inside
 
 
 
+%% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME
+
+QueryFullFolderPath = "D:\PerceptronXfmsInputFolder\0b284da3-b2ff-481a-9384-fa8fd99961d9";
+RepNum = "Replicate1";
+InsideExp = "\Exp\";
+DoseResponseFile = "D:\PerceptronXfmsInputFolder\0b284da3-b2ff-481a-9384-fa8fd99961d9\DoseResponseInfo.txt";
+GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
+RepArr = ["Rep1"; "Rep2"; "Rep3"];
+
+%% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME
+
+
 DoseResponseInfoTable = readtable(DoseResponseFile, 'Format', '%s', 'ReadVariableNames',false);
 DoseResponseInfo = DoseResponseInfoTable(:,1);
 
@@ -19,7 +31,9 @@ listing = dir(QueryFullFolderPath)
 
 for iterRep = 1: size(RepArr,1)
 
-[DFiles, MzxmlFiles] = FetchFileNames(QueryFullFolderPath, InsideExp, RepArr(iterRep), DoseResponseInfo)
+InputFilesInfo = FetchFileNames(QueryFullFolderPath, InsideExp, RepArr(iterRep), DoseResponseInfo)
+
+CompareDoseAndFileName(InputFilesInfo, )
 
 
 end
