@@ -14,9 +14,10 @@ function [] = Main()
 clear all
 clc
 
+try
 %% PLACEHOLDERS DATA WILL BE DELETED AFTER API INTEGRATION
 GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
-RepArr = ["Rep1", "Rep2", "Rep3"];
+RepArr = ["Rep1"; "Rep2"; "Rep3"];
 
 %% Setting up paths
 InputFolderPath = "D:\PerceptronXfmsInputFolder";
@@ -30,6 +31,8 @@ DoseResponseFile = QueryFullFolderPath + "\DoseResponseInfo.txt";
 
 QueryResultFullPath = ResultFolderPath + "\Result_" + GUID
 
+InsideExp = "\Exp\";
+
 LocalDeployment = false;
 if (LocalDeployment)
     
@@ -39,7 +42,10 @@ if (LocalDeployment)
     %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE INPUT FOLDER FOR PROCESSING
     QueryFullFolderPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the input folder');
 
-    DoseResponseFile = uigetfile(pwd, 'PERCEPTRON-XFMS: Please select dose response file', {'*.txt'});
+    DoseResponseFile = uigetfile(pwd, 'PERCEPTRON-XFMS: Please select dose response info file'); %% SHOULD BE IN TXT FORMAT
+    ReplicatesInfoFile = uigetfile(pwd, 'PERCEPTRON-XFMS: Please select replicates info file'); %% SHOULD BE IN TXT FORMAT
+    
+    RepArr = []; % Work on it... like this >>>>>  ["Rep1", "Rep2", "Rep3"];   format
 
     %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE RESULT FOLDER FOR PROCESSING
     QueryResultFullPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the result folder');
@@ -72,7 +78,7 @@ Bridge2Path = [pwd '\Bridge2'];
 FileOperations = "InputFileOperations\";
 addpath(FileOperations);
 
-a = CheckNameAndStruct(QueryFullFolderPath, DoseResponseFile)
+a = CheckNameAndStruct(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr);
 
 
 [InFilePath, InFileName, InExt] = fileparts('D:\GitHub\02_WebTool\WebTool\ToolBox\InputTestFile\CheY-100-MS1-r-001.d');     %% For local deployment - SelectDFolder = uigetdir(path,'Select .d Folder');
@@ -123,7 +129,10 @@ end
 
 
 
+catch exception
 
+
+end
         
 
 
