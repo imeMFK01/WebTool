@@ -14,12 +14,9 @@ function [] = Main()
 clear all
 clc
 
-WebDeployment = false;
-if (WebDeployment)
-    %HERE HARD CODE THE RESULT FOLDER BUT WILL ASK FROM USER AS UIGET
-    %HERE HARD CODE THE INPUT FOLDER BUT WILL ASK FROM USER AS UIGET
-
-end
+%% PLACEHOLDERS DATA WILL BE DELETED AFTER API INTEGRATION
+GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
+RepArr = ["Rep1", "Rep2", "Rep3"];
 
 %% Setting up paths
 InputFolderPath = "D:\PerceptronXfmsInputFolder";
@@ -27,6 +24,29 @@ mkdir(InputFolderPath);
 
 ResultFolderPath = "D:\PerceptronXfmsResultFolder";
 mkdir(ResultFolderPath);
+
+QueryFullFolderPath = InputFolderPath + "\" + GUID;
+DoseResponseFile = QueryFullFolderPath + "\DoseResponseInfo.txt";
+
+QueryResultFullPath = ResultFolderPath + "\Result_" + GUID
+
+LocalDeployment = false;
+if (LocalDeployment)
+    
+% #FUTURE: How user will run its job
+
+
+    %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE INPUT FOLDER FOR PROCESSING
+    QueryFullFolderPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the input folder');
+
+    DoseResponseFile = uigetfile(pwd, 'PERCEPTRON-XFMS: Please select dose response file', {'*.txt'});
+
+    %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE RESULT FOLDER FOR PROCESSING
+    QueryResultFullPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the result folder');
+
+end
+
+
 
 
 %% Sub tools paths
@@ -41,17 +61,18 @@ CallingRCodePath = '';
 Bridge2Path = [pwd '\Bridge2'];
 
 
+
+
+
 %% HERE HARD CODE THE INPUT FOLDER BUT WILL ASK FROM USER AS UIGET
 
-QueryFolder = "CheY_MassHunter";
 
-UserQueryInputFolder = InputFolderPath + "\" + QueryFolder;
 
 
 FileOperations = "InputFileOperations\";
 addpath(FileOperations);
 
-a = CheckNameAndStruct(UserQueryInputFolder)
+a = CheckNameAndStruct(QueryFullFolderPath, DoseResponseFile)
 
 
 [InFilePath, InFileName, InExt] = fileparts('D:\GitHub\02_WebTool\WebTool\ToolBox\InputTestFile\CheY-100-MS1-r-001.d');     %% For local deployment - SelectDFolder = uigetdir(path,'Select .d Folder');
