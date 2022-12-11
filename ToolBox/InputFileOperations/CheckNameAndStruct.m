@@ -19,11 +19,15 @@ DoseResponseFile = "D:\PerceptronXfmsInputFolder\0b284da3-b2ff-481a-9384-fa8fd99
 GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
 RepArr = ["Rep1"; "Rep2"; "Rep3"];
 
+
+S = readlines( DoseResponseFile )
+
 %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME
 
+% DoseResponseInfoTable = readtable(DoseResponseFile, 'Format', '%s', 'ReadVariableNames',false);
+% DoseResponseInfo = DoseResponseInfoTable(:,1);
+DoseResponseInfo = ReadDoseResponseFile(DoseResponseFile);
 
-DoseResponseInfoTable = readtable(DoseResponseFile, 'Format', '%s', 'ReadVariableNames',false);
-DoseResponseInfo = DoseResponseInfoTable(:,1);
 
 
 
@@ -31,8 +35,12 @@ for iterRep = 1: size(RepArr,1)
 
 InputFilesInfo = FetchFileNames(QueryFullFolderPath, InsideExp, RepArr(iterRep), DoseResponseInfo);
 
+%Check if user provided two different format files of same dose then throw error
+DuplicationInputFilesCheck(InputFilesInfo, RepNum);
+
+%Compare the files (.d & .mzXML) with the given Dose Response File Info
 CompareDoseAndFileName(InputFilesInfo, DoseResponseInfo);
-DuplicationInputFilesCheck(InputFilesInfo);
+
 
 end
 
