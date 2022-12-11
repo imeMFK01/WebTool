@@ -11,14 +11,14 @@ function [] = Main()
 
 %%%% Write a function for local deployment that will create all directories beforehand
 
-clear all
-clc
 
 try
 %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS      
 %% PLACEHOLDERS DATA WILL BE DELETED AFTER API INTEGRATION
 GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
-RepArr = ["Rep1"; "Rep2"; "Rep3"];
+
+%% PLACEHOLDERS 
+RepArr = ["Replicate1"];   %%%%["Replicate1"; "Replicate2"; "Replicate3"];  
 
 %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  
 %% Setting up paths
@@ -90,6 +90,7 @@ Bridge2Path = [pwd '\Bridge2'];
 FileOperations = "InputFileOperations\";
 addpath(FileOperations);
 addpath("FileFormatConverters\");
+addpath("Utilities\");
 
 InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr);
 
@@ -102,7 +103,7 @@ ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder);
 
 
 
-rmpath(FileOperations);
+
 
 
 %% 
@@ -132,7 +133,7 @@ catch exception
 
 end
         
-
+rmpath(FileOperations);
 
 
 end
