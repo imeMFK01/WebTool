@@ -6,13 +6,13 @@ function InputFilesInfo = FetchFileNames(QueryFullFolderPath, InsideExp, RepNum,
 % along with their names
 
 
-%% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME
-
-QueryFullFolderPath = "D:\PerceptronXfmsInputFolder\0b284da3-b2ff-481a-9384-fa8fd99961d9";
-RepNum = "Replicate1";
-InsideExp = "\Exp\";
-
-%% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME
+% %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME
+% 
+% QueryFullFolderPath = "D:\PerceptronXfmsInputFolder\0b284da3-b2ff-481a-9384-fa8fd99961d9";
+% RepNum = "Replicate1";
+% InsideExp = "\Exp\";
+% 
+% %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME
 
 
 RepPath = QueryFullFolderPath + InsideExp + RepNum;
