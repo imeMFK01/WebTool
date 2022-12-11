@@ -1,5 +1,9 @@
 function InputFilesInfo = StructuringFileNames(UnStructFiles)
 
+%This function is used for extracting information from MATLAB struct and
+%store into MATLAB matrices
+
+
 Name = {UnStructFiles.name};
 FullFolderPath = {UnStructFiles.folder};
 
