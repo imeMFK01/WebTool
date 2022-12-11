@@ -35,6 +35,9 @@ if (exist(RepPath) == 7)  %%  || (exist(Rep1Path) == 0)  %%% Checks only for fol
         %  ME = MException(['FileNotFound:' char(RepNum) ' do not contain any file'], 'Input file not found', 'Invalid input replicate folder');
         %
         % throw(ME)
+        % Dear user, your provided input Replicate 'X' (RepNum) does not
+        % contain any file which should have .d and/or .mzXML format so
+        % please provide a required file format data and then proceed.
     end
 end
 
