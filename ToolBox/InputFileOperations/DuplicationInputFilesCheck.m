@@ -2,7 +2,8 @@ function [] = DuplicationInputFilesCheck(InputFilesInfo, RepNum)
 %Check if user provided two different format files of same dose then throw
 %error
 
-[~, OnlyFileName, ~] = fileparts(InputFilesInfo(:,1));
+%[~, OnlyFileName, ~] = fileparts(InputFilesInfo(:,1));
+OnlyFileName = InputFilesInfo(:,1);
 
 OnlyFileNameUnique = unique(OnlyFileName);
 
