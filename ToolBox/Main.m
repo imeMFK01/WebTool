@@ -99,7 +99,7 @@ InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseRespons
 MainProcessingFolder = IntermediateProcessingDir(IntermediateProcessingFolderPath, GUID, RepArr);
 
 
-ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder);
+mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder);
 
 
 
