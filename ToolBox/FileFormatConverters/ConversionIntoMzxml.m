@@ -1,5 +1,10 @@
-function [] = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder)
-
+function mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder)
+%This function is converting all .d folders into mzXML by further calling
+%other function.. And those input files which are already into mzXML file
+%format ...is just copying from input folder to the Processing folder...
+%Just for maintaining the single source CopyPasting of mzXML is kept here..
+%Why copy pasting is required?? Just for homogeneity such that all input
+%files should be at same place..
 
 mzXMLFilesInfo = strings(size(InputFilesData,1),3);
 
@@ -7,14 +12,18 @@ for index = 1: size(InputFilesData,1)
 
     mzXMLFileOutputDir = MainProcessingFolder + "\" + InputFilesData(index,5);
     
-%     NewMzxmlF
+    MzxmlFileName = InputFilesData(index,1) + ".mzXML";
+    NewMzxmlFullFilename = mzXMLFileOutputDir+ "\" + MzxmlFileName;
+
+    %Just for safety purpose otherwise not needed - first deleting mzXML file if
+    %already exists and then creates a new one.
+    delete(NewMzxmlFullFilename);
 
     if InputFilesData(index,3) == ".d"
 
         CallMSConvertCMD(MSConvertCMDPath, InputFilesData(index,:), mzXMLFileOutputDir);
 
-        mzXMLFilesInfo(index,:) = [InputFilesData(index,5), mzXMLFileOutputDir, InputFilesData(index,1)+".mzXML"];
-
+        mzXMLFilesInfo(index,:) = [InputFilesData(index,5), mzXMLFileOutputDir, MzxmlFileName];
 
     elseif (InputFilesData(index,3) == ".mzXML")
 
@@ -24,13 +33,21 @@ for index = 1: size(InputFilesData,1)
         InputMzxmlPath = InputFilesData(index,4) + "\" + InputFilesData(index,2);
 
         CopyMzxmlFileToProcessFolder(InputMzxmlPath, mzXMLFileOutputDir);
+        [status, msg] = copyfile(InputMzxmlPath, mzXMLFileOutputDir);
 
+        %A status of 1 and an empty message and messageId confirm the copy was successful.
+        if (status ~= 1)
+
+            % throw(ME)
+            %Permission issue while copying the file please change the directory of
+            %Processing folder and then proceed
+            % #DevUse - print [[  msg  ]] error
+
+        end
+
+        mzXMLFilesInfo(index,:) = [InputFilesData(index,5), mzXMLFileOutputDir, MzxmlFileName];
 
     end
-
-
-
-
 end
 
 end
