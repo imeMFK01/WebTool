@@ -12,17 +12,12 @@ function [] = CallMSConvertCMD(MSConvertCMDPath, DFolderInfo, mzXMLFileOutputDir
 
 DFolderFullPath = char(DFolderInfo(1,4) + "\" + DFolderInfo(1,2));
 
-%Just for safety purpose otherwise not needed - first deleting mzXML file if
-%already exists and then creates a new one.
-delete(mzXMLFileOutputDir+ "\" + DFolderInfo(1,1) + ".mzXML");
-
 setenv('MSConvert_PATH', MSConvertCMDPath);
 % mustBeTextScalar([pwd '\ProteoWizard\msconvert.exe' ' ' File '-e .mzXML -v --64 -z -o ' ' ' Results])
 [status, cmdout] = system([MSConvertCMDPath '\msconvert.exe' ' ' DFolderFullPath ' ' ' --mzXML --v --64 -o ' ' ' char(mzXMLFileOutputDir)]);
 
-%status == 0 means command completed successfully
 
-if (status ~= 0)
+if (status ~= 0) %status == 0 means command completed successfully
 
     % throw(ME)
     %Dear User, your input .d file of Replicate 'X' [[ DFolderInfo(1,4) ]] dose'Y' [[  DFolderInfo(1,1)  ]]  has been corrupted
