@@ -98,7 +98,7 @@ InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseRespons
 %% Creating File Directory for Intermediate Processing...
 MainProcessingFolder = IntermediateProcessingDir(IntermediateProcessingFolderPath, GUID, RepArr);
 
-
+%% Converting .d folder into mzXML file, keeping already provided input .mzXML files and 
 mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder);
 
 
