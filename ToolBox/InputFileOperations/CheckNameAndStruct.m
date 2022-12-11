@@ -40,52 +40,12 @@ InputFilesInfo = FetchFileNames(QueryFullFolderPath, InsideExp, RepNum, DoseResp
 DuplicationInputFilesCheck(InputFilesInfo, RepNum);
 
 %Compare the files (.d & .mzXML) with the given Dose Response File Info
-CompareDoseAndFileName(InputFilesInfo, DoseResponseInfo, RepNum);
-
-
-end
-
-DFullFileNames = [];
-
-end
-
-
-function [] = CompareDoseAndFileName(InputFilesInfo, DoseResponseInfo, RepNum)
-
-%Compare the files (.d & .mzXML) with the given Dose Response File Info
-
-%% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME
-DoseResponseInfo = [DoseResponseInfo; "Dose200"]
-
-%% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME   %% DEL ME
-
-if size(InputFilesInfo(:,1),1) ~= size(DoseResponseInfo,1)
-
-
-
-    %%%%%%ONe have another one is not
-
-
-strcmp(InputFilesInfo(:,1), DoseResponseInfo)
-intersect(InputFilesInfo(:,1), DoseResponseInfo)
-
-
-setdiff(InputFilesInfo(:,1), DoseResponseInfo)
-
-%%%%%%ONe have another one is not
+CompareDoseAndInputFileName(InputFilesInfo, DoseResponseInfo, RepNum);
 
 
 end
 
 
-
 end
-
-
-
-
-
-
-
 
 
