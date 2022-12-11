@@ -27,14 +27,12 @@ DoseResponseInfo = DoseResponseInfoTable(:,1);
 
 
 
-listing = dir(QueryFullFolderPath)
-
 for iterRep = 1: size(RepArr,1)
 
-InputFilesInfo = FetchFileNames(QueryFullFolderPath, InsideExp, RepArr(iterRep), DoseResponseInfo)
+InputFilesInfo = FetchFileNames(QueryFullFolderPath, InsideExp, RepArr(iterRep), DoseResponseInfo);
 
-CompareDoseAndFileName(InputFilesInfo, )
-
+CompareDoseAndFileName(InputFilesInfo, DoseResponseInfo);
+DuplicationInputFilesCheck(InputFilesInfo);
 
 end
 
@@ -45,8 +43,19 @@ end
 
 function [] = CompareDoseAndFileName()
 
-%Compare Here
+%Compare the files (.d & .mzXML) with the given Dose Response File Info
+
+
+
 
 
 end
+
+
+
+
+
+
+
+
 
