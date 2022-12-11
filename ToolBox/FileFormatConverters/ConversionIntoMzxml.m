@@ -1,17 +1,30 @@
 function [] = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder)
 
 
-mzXMLFilesInfo = strings(size(InputFilesData,1),2);
+mzXMLFilesInfo = strings(size(InputFilesData,1),3);
 
 for index = 1: size(InputFilesData,1)
 
     mzXMLFileOutputDir = MainProcessingFolder + "\" + InputFilesData(index,5);
+    
+%     NewMzxmlF
 
     if InputFilesData(index,3) == ".d"
 
         CallMSConvertCMD(MSConvertCMDPath, InputFilesData(index,:), mzXMLFileOutputDir);
 
-        
+        mzXMLFilesInfo(index,:) = [InputFilesData(index,5), mzXMLFileOutputDir, InputFilesData(index,1)+".mzXML"];
+
+
+    elseif (InputFilesData(index,3) == ".mzXML")
+
+        %If input file is mzXML then no need of conversion just copy paste
+        %it from Input folder to processing folder
+
+        InputMzxmlPath = InputFilesData(index,4) + "\" + InputFilesData(index,2);
+
+        CopyMzxmlFileToProcessFolder(InputMzxmlPath, mzXMLFileOutputDir);
+
 
     end
 
@@ -20,7 +33,7 @@ for index = 1: size(InputFilesData,1)
 
 end
 
-
+end
 
 % 
 % 
@@ -48,6 +61,3 @@ end
 % 
 % end
 % 
-
-
-end
