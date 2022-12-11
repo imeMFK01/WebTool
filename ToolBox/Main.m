@@ -54,8 +54,13 @@ if (LocalDeployment)
     
     RepArr = []; % Work on it... like this >>>>>  ["Rep1", "Rep2", "Rep3"];   format
 
+    %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE INTERMEDIATE PROCESSING FOLDER FOR SAVING ALL TYPES OF PROCESSING
+    IntermediateProcessingFolderPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the intermediate processing folder');
+
     %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE RESULT FOLDER FOR PROCESSING
     QueryResultFullPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the result folder');
+
+    
 
 end
 
@@ -86,32 +91,16 @@ FileOperations = "InputFileOperations\";
 addpath(FileOperations);
 addpath("FileFormatConverters\");
 
-InputFilesData = ValidationsAndInputFilesInfo(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr);
+InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr);
 
 
+%% Creating File Directory for Intermediate Processing...
+MainProcessingFolder = IntermediateProcessingDir(IntermediateProcessingFolderPath, GUID, RepArr);
 
-%% CONVERTING .D FOLDER TO MZXML FILE AND WILL RETURNS THE FILE PATH
-if (InExt == '.d')     % CONVERTING .D FOLDER TO MZXML FILE AND WILL RETURNS THE FILE PATH
 
-   
+ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder);
 
-    %FARHAN - Here should go the list of .d folders with full path
-    DFolderFullPath = [ InFilePath '\' InFileName InExt];
-    MSConvertOutputResultFolder = '.\MSConvertOutputResultFolder';
-    % Using MSConvert .d folder to mzXML
-    mzXMLFullFileName = dFolderToMzxmlConverter(MSConvertCMDPath, DFolderFullPath,MSConvertOutputResultFolder);
 
-    
-
-elseif (InExt == '.mzXML')
-
-        mzXMLFullFileName = [ InFilePath '\' InFileName '\' InExt];
-
-else
-
-    msgbox("File format is incompatible. Please either use .d folder or .mzXML file for computations.", "File Format Not Supported", "error");
-
-end
 
 rmpath(FileOperations);
 
