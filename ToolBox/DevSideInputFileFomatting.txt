@@ -1,0 +1,49 @@
+Dev Formatting
+
+UniqueGUID
+	|
+	|----- DoseResponseInfo.txt
+	|
+	|----- Exp
+		|
+		|----- Replicate1
+			|
+			|----- Dose0.d
+			|
+			|----- Dose10.d
+			|
+			|----- Dose25.d
+			|
+			|----- Dose50.d
+			|
+			|----- Dose75.d
+			|
+			|----- Dose100.d
+		|
+		|----- Replicate2
+			|
+			|----- Dose0.d
+			|
+			|----- Dose10.d
+			|
+			|----- Dose25.d
+			|
+			|----- Dose50.d
+			|
+			|----- Dose75.d
+			|
+			|----- Dose100.d
+		|
+		|----- Replicate3
+			|
+			|----- Dose0.d
+			|
+			|----- Dose10.d
+			|
+			|----- Dose25.d
+			|
+			|----- Dose50.d
+			|
+			|----- Dose75.d
+			|
+			|----- Dose100.d
