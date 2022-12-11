@@ -1,4 +1,4 @@
-function mzXMLFullFileName = CallMSConvertCMD(MSConvertCMDPath, DFolderFullPath,MSConvertOutputResultFolder)
+function mzXMLFullFileName = CallMSConvertCMD(MSConvertCMDPath, DFolderInfo, mzXMLFileOutputDir)
 
 
 
@@ -7,16 +7,16 @@ function mzXMLFullFileName = CallMSConvertCMD(MSConvertCMDPath, DFolderFullPath,
 
 setenv('MSConvert_PATH', MSConvertCMDPath);
 % mustBeTextScalar([pwd '\ProteoWizard\msconvert.exe' ' ' File '-e .mzXML -v --64 -z -o ' ' ' Results])
-[status, ~] = system([MSConvertCMDPath '\msconvert.exe' ' ' DFolderFullPath ' ' ' --mzXML --v --64 -o ' ' ' MSConvertOutputResultFolder]);
+[status, ~] = system([MSConvertCMDPath '\msconvert.exe' ' ' DFolderInfo(1,4) ' ' ' --mzXML --v --64 -o ' ' ' mzXMLFileOutputDir]);
 
 
-if (status == 0)
+if (status ~= 0)
 
-    mzXMLFullFileName = MSConvertOutputResultFolder
-
-else
-
-    msgbox("File conversion error while converting .d folder to mzxml file.", "File Conversion Error", "error");
+    % throw(ME)
+    %Dear User, your input .d file of Replicate 'X' [[ DFolderInfo(1,4) ]] dose'Y' [[  DFolderInfo(1,1)  ]]  has been corrupted
+    %therefore, we are unable to process your query further. So, please provide the
+    %correct (uncorrupted) file.
+    %     msgbox("File conversion error while converting .d folder to mzxml file.", "File Conversion Error", "error");
 
 end
 
