@@ -105,7 +105,7 @@ mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProce
 
 
 
-
+a = 1;
 %% 
 
 %%%msgbox("R installation path MUST NOT CONTAINS AN EMPTY SPACE.", "R Installation Guidelines", "warn");
@@ -114,12 +114,16 @@ mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProce
 
 
 
+%%Here will come R code integration for converting .mzXML file to .csv
 
 
 
 
+%%Filtering code for removing unnecessary data
 
 
+
+%%Here!!! SPECTRUM-XFMS code 
 
 
 
