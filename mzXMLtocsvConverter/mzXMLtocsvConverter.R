@@ -6,7 +6,7 @@ if (!require("readMzXmlData", quietly=TRUE))
 
 library(readMzXmlData)
 
-setwd('D:\\GitHub\\02_WebTool\\WebTool\\mzXMLtocsvConverter\\InputReplicate3')
+setwd("D:\\GitHub\\02_WebTool\\WebTool\\mzXMLtocsvConverter\\InputReplicate3")
 
 pwd=getwd()
 
@@ -22,7 +22,7 @@ for ( fileNum in 1: length(list_of_files) )
   
   Name = tools::file_path_sans_ext(FileName)
   
-  CsvFileName<-paste(Name,'.csv', sep ="")
+  CsvFileName<-paste(Name,".csv", sep ="")
   
   write.table(Header, CsvFileName, sep = ",", row.names = FALSE, col.names = FALSE, !file.exists(CsvFileName), append = T) 
   
