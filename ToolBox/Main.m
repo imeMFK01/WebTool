@@ -18,7 +18,7 @@ try
 GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
 
 %% PLACEHOLDERS 
-RepArr = ["Replicate1"];   %%%%["Replicate1"; "Replicate2"; "Replicate3"];  
+RepArr = ["Replicate0"];   %%%%["Replicate1"; "Replicate2"; "Replicate3"];  
 
 %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  
 %% Setting up paths
@@ -36,6 +36,9 @@ QueryFullFolderPath = InputFolderPath + "\" + GUID;
 DoseResponseFile = QueryFullFolderPath + "\DoseResponseInfo.txt";
 
 QueryResultFullPath = ResultFolderPath + "\Result_" + GUID
+
+SetWorkingDirForRCall = pwd + "\Rcall";
+FullNameofRFile = pwd + "\Rcall\mzXMLtocsvConverter.R";
 
 InsideExp = "\Exp\";
 
@@ -102,20 +105,10 @@ MainProcessingFolder = IntermediateProcessingDir(IntermediateProcessingFolderPat
 mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder);
 
 
-
-
-
-a = 1;
-%% 
-
 %%%msgbox("R installation path MUST NOT CONTAINS AN EMPTY SPACE.", "R Installation Guidelines", "warn");
 
-%%
-
-
-
 %%Here will come R code integration for converting .mzXML file to .csv
-
+CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
 
 
 
