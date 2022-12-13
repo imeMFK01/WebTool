@@ -13,31 +13,22 @@ for index = 1: size(InputFilesData,1)
 
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Rinit
+% Rrun('print("1")')
+% dat = Rpull('dat');
+% Rclear
 
+Rinit
+Rrunfile('mzXMLtocsvConverter.R')
+mzxml = Rpull('mzxml');
+Rclear
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Folder = cd;
 Folder = fullfile(Folder, '..');
 save(fullfile(Folder, 'FileName.mat'))
-
-
-
  mydir  = pwd;
  idcs   = strfind(mydir,'/');
  newdir = mydir(1:idcs(end)-1);
