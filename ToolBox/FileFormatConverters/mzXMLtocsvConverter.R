@@ -6,9 +6,7 @@ if (!require("readMzXmlData", quietly=TRUE))
 
 library(readMzXmlData)
 
-setwd("D:\\GitHub\\02_WebTool\\WebTool\\mzXMLtocsvConverter\\InputReplicate3")
-
-MzxmlPath = ""    #Updated 202212121700
+MzxmlPath = "D:\\PerceptronXfmsIntermediateProcessingFolder\\0b284da3-b2ff-481a-9384-fa8fd99961d9\\Replicate0"
 
 list_of_files <- list.files(path = MzxmlPath, pattern = "\\.mzXML$");  #Updated 202212121700
 
@@ -18,11 +16,11 @@ for ( fileNum in 1: length(list_of_files) )
 {
   
   list_of_files[fileNum]
-  FileName = list_of_files[fileNum]
+  FileName <- paste(MzxmlPath, "\\", list_of_files[fileNum], sep ="")   #Updated 20221214
   
   Name = tools::file_path_sans_ext(FileName)
-  
-  CsvFileName<-paste(Name,".csv", sep ="")
+
+  CsvFileName<-paste(Name,".csv", sep ="") #Updated 20221214 #CsvFileName<-paste(Name,".csv", sep ="")
   
   write.table(Header, CsvFileName, sep = ",", row.names = FALSE, col.names = FALSE, !file.exists(CsvFileName), append = T) 
   
@@ -46,4 +44,11 @@ for ( fileNum in 1: length(list_of_files) )
     }
   }
 }
+
+
+
+
+
+
+
 
