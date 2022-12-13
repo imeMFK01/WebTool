@@ -1,29 +1,26 @@
+function [outputArg1,outputArg2] = CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile)
 
+%This code is using third party library named as % Rcall: An R interface for MATLAB. % Copyright (C) 2022, Janine Egert and Clemens Kreutz
 
-Rinit
+%Before using this library install R in your system and add into the
+%Environmental variable path 
 
+%% PLACEHOLDER FOR TESTING   %% PLACEHOLDER FOR TESTING
+%mzXMLFilesInfo(1,2) = "D:\GitHub\02_WebTool\WebTool\ToolBox\Rcall\";
+% SetWorkingDirForRCall = pwd + "\Rcall";
+% FullNameofRFile = pwd + "\Rcall\mzXMLtocsvConverter.R";
+%% PLACEHOLDER FOR TESTING   %% PLACEHOLDER FOR TESTING
 
+cd Rcall\;
+for index = 1: size(mzXMLFilesInfo,1)
+    MzxmlPath = mzXMLFilesInfo(index,2);
+    UpdateRCodeFile(SetWorkingDirForRCall, MzxmlPath, FullNameofRFile);
+    Rclear;
+    Rinit;
+    Rrunfile(char(FullNameofRFile));
+    Rexec;
+end
+cd ..;
 
-
-
-
-
-
-
-
-
-
-
-Rinit('limma', 'C:\Program Files\R\R-4.2.1\bin\R.exe', 'C:/Users/Farhan/AppData/Local/R/win-library/4.2')
-load('TestData.mat')
-Rpush('dat',dat,'grp',grp) 
-Rrun('fit <- lmFit(dat,grp)') 
-fit = Rpull('fit');
-Rclear
-
-
-
-
-
-
-
+stophere = 1;
+end
