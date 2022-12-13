@@ -38,7 +38,7 @@ DoseResponseFile = QueryFullFolderPath + "\DoseResponseInfo.txt";
 QueryResultFullPath = ResultFolderPath + "\Result_" + GUID
 
 SetWorkingDirForRCall = pwd + "\Rcall";
-FullNameofRFile = pwd + "\Rcall\mzXMLtocsvConverter.R";
+FullNameofRFile = pwd + "\FileFormatConverters\mzXMLtocsvConverter.R";
 
 InsideExp = "\Exp\";
 
