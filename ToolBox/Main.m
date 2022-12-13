@@ -94,6 +94,8 @@ FileOperations = "InputFileOperations\";
 addpath(FileOperations);
 addpath("FileFormatConverters\");
 addpath("Utilities\");
+addpath("Rcall\");
+
 
 InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr);
 
