@@ -24,5 +24,5 @@ linetext = strsplit(filetext, '\n');
 linetext(cellfun('isempty', linetext)) = [];
 
 for i=1:length(linetext)
-    eval(['Rrun(''' linetext{i}(1:end-1) ''')']);
+    eval(['Rrun(''' linetext{i}(1:end) ''')']);  % end-1
 end
