@@ -17,10 +17,11 @@ try
 %% PLACEHOLDERS DATA WILL BE DELETED AFTER API INTEGRATION
 GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
 
-%% PLACEHOLDERS 
+%% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   
 RepArr = ["Replicate0"];   %%%%["Replicate1"; "Replicate2"; "Replicate3"];  
 
-%% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  
+%% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   
+
 %% Setting up paths
 InputFolderPath = "D:\PerceptronXfmsInputFolder";
 mkdir(InputFolderPath);
@@ -39,6 +40,12 @@ QueryResultFullPath = ResultFolderPath + "\Result_" + GUID
 
 SetWorkingDirForRCall = pwd + "\Rcall";
 FullNameofRFile = pwd + "\FileFormatConverters\mzXMLtocsvConverter.R";
+
+MascotFullFileName
+FastaFullFileName
+SASAFullFileName
+PDBFullFileName
+ComparisonEngineOutDir
 
 InsideExp = "\Exp\";
 
@@ -63,7 +70,37 @@ if (LocalDeployment)
     %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE RESULT FOLDER FOR PROCESSING
     QueryResultFullPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the result folder');
 
-    
+
+%% ComparisonEngine Files
+
+% MASCOT FILE
+% Get the directory from user and read the Mascot file
+InputDir = uigetdir(pwd,'Select the Input folder' );
+MascotDir = uigetfile({'*xls;*.fasta;*.xlsx'},'Select a Mascot File' );
+MascotFullFileName= char(strcat(InputDir,'\',MascotDir));
+
+
+% FASTA FILE
+%select the fasta file
+FASTADir = uigetfile({'*xls;*.fasta;*.xlsx'},'Select a FASTA File' );
+FastaFullFileName = char(strcat(InputDir,strcat('\',FASTADir)));
+
+
+% SASA FILE
+SASADir = uigetfile({'*xls;*.fasta;*.xlsx'},'Select a SASA File' );
+SASAFullFileName = char(strcat(InputDir,strcat('\',SASADir)));
+
+
+% PDB File
+PDBDir=uigetfile({'*pdb;*.fasta;*.xlsx'},'Select a PDB File' );
+PDBFullFileName = char(strcat(InputDir,strcat('\',PDBDir)));
+
+
+
+ComparisonEngineOutDir = uigetdir(pwd,'Select the Output folder' );
+
+
+%% ComparisonEngine Files    
 
 end
 
@@ -113,13 +150,8 @@ mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProce
 CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
 
 
-
-%%Filtering code for removing unnecessary data
-
-
-
-%%Here!!! SPECTRUM-XFMS code 
-
+%%Comparison Engine will initialize from here
+MainComparisonEngineFile(MascotFullFileName, FastaFullFileName, SASAFullFileName, PDBFullFileName, ComparisonEngineOutDir)
 
 
 
@@ -139,4 +171,4 @@ end
 
 
 
-
+%%Filtering code for removing unnecessary data
