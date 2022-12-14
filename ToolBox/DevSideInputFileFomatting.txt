@@ -4,6 +4,14 @@ UniqueGUID
 	|
 	|----- DoseResponseInfo.txt
 	|
+	|----- MASCOTfile.xlsx
+	|
+	|----- FASTAfile.fasta
+	|
+	|----- PDBfile.pdb
+	|
+	|----- SASAfile.xlsx
+	|
 	|----- Exp
 		|
 		|----- Replicate1
