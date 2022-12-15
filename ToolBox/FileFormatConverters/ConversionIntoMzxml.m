@@ -10,7 +10,7 @@ mzXMLFilesInfo = strings(size(InputFilesData,1),3);
 
 for index = 1: size(InputFilesData,1)
 
-    mzXMLFileOutputDir = MainProcessingFolder + "\" + InputFilesData(index,5);
+    mzXMLFileOutputDir = MainProcessingFolder + InputFilesData(index,5);
     
     MzxmlFileName = InputFilesData(index,1) + ".mzXML";
     NewMzxmlFullFilename = mzXMLFileOutputDir+ "\" + MzxmlFileName;
@@ -32,7 +32,6 @@ for index = 1: size(InputFilesData,1)
 
         InputMzxmlPath = InputFilesData(index,4) + "\" + InputFilesData(index,2);
 
-        CopyMzxmlFileToProcessFolder(InputMzxmlPath, mzXMLFileOutputDir);
         [status, msg] = copyfile(InputMzxmlPath, mzXMLFileOutputDir);
 
         %A status of 1 and an empty message and messageId confirm the copy was successful.
