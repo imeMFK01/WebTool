@@ -5,40 +5,24 @@ function [] = ChangingCsvLocAndNames(mzXMLFilesInfo, ReplaceStringFrom, ReplaceS
 StartString = "Dose-";
 EndString = "-MS1";
 
+NoOfRows = size(mzXMLFilesInfo,1);
+NoOfCols =  size(mzXMLFilesInfo,2);
 
-CsvFilesInfo = mzXMLFilesInfo;
-
-
+CsvFilesInfo = strings(NoOfRows, NoOfCols);
+CsvFilesInfo(:,1) = mzXMLFilesInfo(:,1);
 
 OldCsvNameVector = strcat(extractBefore(mzXMLFilesInfo(:,3), '.mzXML'), '.csv');
+NewCsvNameVector = strcat(StartString, extractBetween(OldCsvNameVector(:,1), "Dose", ".csv"), EndString, ".csv");
 
+for index = 1: NoOfRows
 
-
-
-
-strcat(StartString, extractBetween(CsvFilesInfo(:,3),'Dose', '.mzXML'), EndString, ".csv");
-
-
-for index = 1: size(mzXMLFilesInfo,1)
-
-
-SourceCsvName = strcat(mzXMLFilesInfo(index,2), '\' ,OldCsvNameVector(index,1));
-DestinationCsvName = strrep(mzXMLFilesInfo(index,2), ReplaceStringFrom, ReplaceStringWith);
-mkdir(DestinationCsvName);
-
-movefile(SourceCsvName, DestinationCsvName);
-end
-
-
+    OldCsvFileName = strcat(mzXMLFilesInfo(index,2), '\' ,OldCsvNameVector(index,1));
+    NewCsvFileName = strcat(mzXMLFilesInfo(index,2), '\' ,NewCsvNameVector(index,1));
+    movefile(OldCsvFileName, NewCsvFileName);
+    DestinationCsvName = strrep(mzXMLFilesInfo(index,2), ReplaceStringFrom, ReplaceStringWith);
+    mkdir(DestinationCsvName);
+    movefile(NewCsvFileName, DestinationCsvName);
 
 end
-% 
-% source = "D:\PerceptronXfmsIntermediateProcessingFolder\0b284da3-b2ff-481a-9384-fa8fd99961d9\Exp\Replicate1\Dose0.mzXML"
-% 
-% destination = "D:\PerceptronXfmsIntermediateProcessingFolder\0b284da3-b2ff-481a-9384-fa8fd99961d9\Input\Replicate1"
-% mkdir(destination)
-% movefile(source, destination)
 
-
-
-NewCsvNameVector = extractBefore(mzXMLFilesInfo(:,3), '.mzXML');
+end
