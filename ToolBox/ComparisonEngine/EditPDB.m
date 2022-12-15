@@ -44,5 +44,5 @@ if ismissing( Pfile.Model.HeterogenAtom(ind).tempFactor)
 end
 end
 
-cd ('Result')
-pdbwrite('Modifiedchey.pdb',Pfile)
+cd ('Result');
+pdbwrite('Modifiedchey.pdb',Pfile);
