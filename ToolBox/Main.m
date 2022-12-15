@@ -18,7 +18,7 @@ try
 GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
 
 %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   
-RepArr = ["Replicate0"];   %%%%["Replicate1"; "Replicate2"; "Replicate3"];  
+RepArr = ["Replicate1"; "Replicate2"; "Replicate3"];  %%% ["Replicate0"];   %%%%
 
 %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   
 
@@ -30,38 +30,49 @@ ResultFolderPath = "D:\PerceptronXfmsResultFolder";
 mkdir(ResultFolderPath);
 
 IntermediateProcessingFolderPath = "D:\PerceptronXfmsIntermediateProcessingFolder";
-mkdir(IntermediateProcessingFolderPath);
+MainProcessingDir = IntermediateProcessingFolderPath + '\' + GUID;
+mkdir(MainProcessingDir);
 
-
+MiscInputFiles = '\MiscInputFiles';
 QueryFullFolderPath = InputFolderPath + "\" + GUID;
-DoseResponseFile = QueryFullFolderPath + "\DoseResponseInfo.txt";
+
 
 QueryResultFullPath = ResultFolderPath + "\Result_" + GUID
 
 SetWorkingDirForRCall = pwd + "\Rcall";
 FullNameofRFile = pwd + "\FileFormatConverters\mzXMLtocsvConverter.R";
 
-MascotFullFileName
-FastaFullFileName
-SASAFullFileName
-PDBFullFileName
-ComparisonEngineOutDir
 
-InsideExp = "\Exp\";
+DoseResponseFile = QueryFullFolderPath  + MiscInputFiles+ "\DoseResponseInfo.txt";
+MascotFullFileName = QueryFullFolderPath + MiscInputFiles + "\Mascot.xlsx";
+FastaFullFileName = QueryFullFolderPath  + MiscInputFiles + "\Fasta.fasta";
+SASAFullFileName = QueryFullFolderPath  + MiscInputFiles + "\Sasa.xlsx";
+PDBFullFileName = QueryFullFolderPath  + MiscInputFiles + "\PDB.pdb";
+ComparisonEngineOutDir = IntermediateProcessingFolderPath + "\" + GUID + '\OutDir';
+mkdir(ComparisonEngineOutDir);
+
+tempInsideExp = "\Exp"; %For the time being...
+InsideExp = "\Exp\";  %For the time being...
+%CsvInputFilesBeforeFilter = IntermediateProcessingFolderPath + "\" + GUID + tempInsideExp;
+CsvPathBeforeFilter = IntermediateProcessingFolderPath + "\" + GUID + "\CsvFilesBeforeFilter";
+
+%IntermediateProcessingFolderPath + "\" + GUID;
+
 
 LocalDeployment = false;
+%%
 if (LocalDeployment)
-    
-% #FUTURE: How user will run its own jobs using local deployment
 
-%[InFilePath, InFileName, InExt] = fileparts('D:\GitHub\02_WebTool\WebTool\ToolBox\InputTestFile\CheY-100-MS1-r-001.d');     %% For local deployment - SelectDFolder = uigetdir(path,'Select .d Folder');
+    % #FUTURE: How user will run its own jobs using local deployment
+
+    %[InFilePath, InFileName, InExt] = fileparts('D:\GitHub\02_WebTool\WebTool\ToolBox\InputTestFile\CheY-100-MS1-r-001.d');     %% For local deployment - SelectDFolder = uigetdir(path,'Select .d Folder');
 
     %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE INPUT FOLDER FOR PROCESSING
-    QueryFullFolderPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the input folder');  
+    QueryFullFolderPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the input folder');
 
     DoseResponseFile = uigetfile(pwd, 'PERCEPTRON-XFMS: Please select dose response info file'); %% SHOULD BE IN TXT FORMAT
     ReplicatesInfoFile = uigetfile(pwd, 'PERCEPTRON-XFMS: Please select replicates info file'); %% SHOULD BE IN TXT FORMAT
-    
+
     RepArr = []; % Work on it... like this >>>>>  ["Rep1", "Rep2", "Rep3"];   format
 
     %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE INTERMEDIATE PROCESSING FOLDER FOR SAVING ALL TYPES OF PROCESSING
@@ -70,38 +81,30 @@ if (LocalDeployment)
     %FOR LOCAL DEPLOYMENT: USER SHOULD SELECT THE RESULT FOLDER FOR PROCESSING
     QueryResultFullPath = uigetdir(pwd,'PERCEPTRON-XFMS: Please select the result folder');
 
+    %% ComparisonEngine Files
+    % MASCOT FILE
+    % Get the directory from user and read the Mascot file
+    InputDir = uigetdir(pwd,'Select the Input folder' );
+    MascotDir = uigetfile({'*xls;*.fasta;*.xlsx'},'Select a Mascot File' );
+    MascotFullFileName= char(strcat(InputDir,'\',MascotDir));
 
-%% ComparisonEngine Files
+    % FASTA FILE
+    %select the fasta file
+    FASTADir = uigetfile({'*xls;*.fasta;*.xlsx'},'Select a FASTA File' );
+    FastaFullFileName = char(strcat(InputDir,strcat('\',FASTADir)));
 
-% MASCOT FILE
-% Get the directory from user and read the Mascot file
-InputDir = uigetdir(pwd,'Select the Input folder' );
-MascotDir = uigetfile({'*xls;*.fasta;*.xlsx'},'Select a Mascot File' );
-MascotFullFileName= char(strcat(InputDir,'\',MascotDir));
+    % SASA FILE
+    SASADir = uigetfile({'*xls;*.fasta;*.xlsx'},'Select a SASA File' );
+    SASAFullFileName = char(strcat(InputDir,strcat('\',SASADir)));
 
+    % PDB File
+    PDBDir=uigetfile({'*pdb;*.fasta;*.xlsx'},'Select a PDB File' );
+    PDBFullFileName = char(strcat(InputDir,strcat('\',PDBDir)));
 
-% FASTA FILE
-%select the fasta file
-FASTADir = uigetfile({'*xls;*.fasta;*.xlsx'},'Select a FASTA File' );
-FastaFullFileName = char(strcat(InputDir,strcat('\',FASTADir)));
+    ComparisonEngineOutDir = uigetdir(pwd,'Select the Output folder' );
 
-
-% SASA FILE
-SASADir = uigetfile({'*xls;*.fasta;*.xlsx'},'Select a SASA File' );
-SASAFullFileName = char(strcat(InputDir,strcat('\',SASADir)));
-
-
-% PDB File
-PDBDir=uigetfile({'*pdb;*.fasta;*.xlsx'},'Select a PDB File' );
-PDBFullFileName = char(strcat(InputDir,strcat('\',PDBDir)));
-
-
-
-ComparisonEngineOutDir = uigetdir(pwd,'Select the Output folder' );
-
-
-%% ComparisonEngine Files    
-
+    CsvInputFilesBeforeFilter = uigetdir(pwd,'Select the output folder where your filtered CSV files will be placed.' );
+    %% ComparisonEngine Files
 end
 
 
@@ -138,7 +141,7 @@ InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseRespons
 
 
 %% Creating File Directory for Intermediate Processing...
-MainProcessingFolder = IntermediateProcessingDir(IntermediateProcessingFolderPath, GUID, RepArr);
+MainProcessingFolder = IntermediateProcessingDir(MainProcessingDir, InsideExp, RepArr);
 
 %% Converting .d folder into mzXML file, keeping already provided input .mzXML files and 
 mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProcessingFolder);
@@ -150,8 +153,33 @@ mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProce
 CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
 
 
+
+
+CsvFilesInfo = ChangingCsvLocAndNames(mzXMLFilesInfo, CsvPathBeforeFilter);
+
+
+
+
 %%Comparison Engine will initialize from here
-MainComparisonEngineFile(MascotFullFileName, FastaFullFileName, SASAFullFileName, PDBFullFileName, ComparisonEngineOutDir)
+[MascotFile, wholeSeq, FileSASA, PDBFile] = ReadingMiscInputFiles(MascotFullFileName, FastaFullFileName, SASAFullFileName, PDBFullFileName);
+
+
+%%%%  R code ki csv files 
+
+% % % % % % % Copy them and 
+% % % % % % % mkdir and paste their 
+% % % % % % % That new folder will be Project Data
+
+
+
+FilteringCsvData(MascotFile,ComparisonEngineOutDir, CsvPathBeforeFilter);
+
+
+GeneratingMassHunterFiles(MascotFile,ComparisonEngineOutDir);
+
+
+
+MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile);
 
 
 
