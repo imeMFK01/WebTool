@@ -37,7 +37,7 @@ MiscInputFiles = '\MiscInputFiles';
 QueryFullFolderPath = InputFolderPath + "\" + GUID;
 
 
-QueryResultFullPath = ResultFolderPath + "\Result_" + GUID
+QueryResultFullPath = ResultFolderPath + "\Result_" + GUID;
 
 SetWorkingDirForRCall = pwd + "\Rcall";
 FullNameofRFile = pwd + "\FileFormatConverters\mzXMLtocsvConverter.R";
