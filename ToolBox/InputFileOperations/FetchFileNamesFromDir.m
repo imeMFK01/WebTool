@@ -1,4 +1,4 @@
-function InputFilesInfo = FetchFileNamesFromDir(QueryFullFolderPath, InsideExp, RepNum, DoseResponseInfo)
+function InputFilesInfo = FetchFileNamesFromDir(QueryFullFolderPath, InsideExp, RepNum)
 
 
 % This function will fetch the name of the .d &/or mzXML files from the directory 
@@ -21,11 +21,11 @@ if (exist(RepPath) == 7)  %%  || (exist(Rep1Path) == 0)  %%% Checks only for fol
     MzxmlFiles = dir(fullfile(RepPath, '*.mzxml'));
 
     InputFilesInfo = [];
-    if ~isempty({DFiles.name})
+    if size({DFiles.name},1) ~=0 %~isempty({DFiles.name})
         InputFilesInfo = [InputFilesInfo; StructuringFileNames(DFiles)];
     end
 
-    if ~isempty({MzxmlFiles.name})
+    if size({MzxmlFiles.name},1) ~=0 %~isempty({MzxmlFiles.name})
         InputFilesInfo = [InputFilesInfo; StructuringFileNames(MzxmlFiles)];
     end
 
