@@ -34,7 +34,7 @@ InputFilesData = [];
 for iterRep = 1: size(RepArr,1)
 
 RepNum = RepArr(iterRep);
-InputFilesInfo = FetchFileNamesFromDir(QueryFullFolderPath, InsideExp, RepNum, DoseResponseInfo);
+InputFilesInfo = FetchFileNamesFromDir(QueryFullFolderPath, InsideExp, RepNum);
 
 %Check if user provided two different format files of same dose then throw error
 DuplicationInputFilesCheck(InputFilesInfo, RepNum);
