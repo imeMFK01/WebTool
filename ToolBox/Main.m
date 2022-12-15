@@ -53,6 +53,9 @@ mkdir(ComparisonEngineOutDir);
 
 tempInsideExp = "\Exp"; %For the time being...
 InsideExp = "\Exp\";  %For the time being...
+ReplaceStringFrom = InsideExp;
+
+ReplaceStringWith = "\CsvFilesBeforeFilter\";
 %CsvInputFilesBeforeFilter = IntermediateProcessingFolderPath + "\" + GUID + tempInsideExp;
 CsvPathBeforeFilter = IntermediateProcessingFolderPath + "\" + GUID + "\CsvFilesBeforeFilter";
 
@@ -155,7 +158,7 @@ CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
 
 
 
-CsvFilesInfo = ChangingCsvLocAndNames(mzXMLFilesInfo, CsvPathBeforeFilter);
+CsvFilesInfo = ChangingCsvLocAndNames(mzXMLFilesInfo, ReplaceStringFrom, ReplaceStringWith);
 
 
 
