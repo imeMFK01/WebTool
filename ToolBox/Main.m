@@ -158,7 +158,7 @@ CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
 
 
 
-CsvFilesInfo = ChangingCsvLocAndNames(mzXMLFilesInfo, ReplaceStringFrom, ReplaceStringWith);
+
 
 
 
@@ -173,8 +173,7 @@ CsvFilesInfo = ChangingCsvLocAndNames(mzXMLFilesInfo, ReplaceStringFrom, Replace
 % % % % % % % mkdir and paste their 
 % % % % % % % That new folder will be Project Data
 
-
-
+ChangingCsvLocAndNames(mzXMLFilesInfo, ReplaceStringFrom, ReplaceStringWith);
 FilteringCsvData(MascotFile,ComparisonEngineOutDir, CsvPathBeforeFilter);
 
 
