@@ -11,7 +11,6 @@ mzXMLFilesInfo = strings(size(InputFilesData,1),3);
 for index = 1: size(InputFilesData,1)
 
     mzXMLFileOutputDir = MainProcessingFolder + InputFilesData(index,5);
-    
     MzxmlFileName = InputFilesData(index,1) + ".mzXML";
     NewMzxmlFullFilename = mzXMLFileOutputDir+ "\" + MzxmlFileName;
 
@@ -23,15 +22,11 @@ for index = 1: size(InputFilesData,1)
 
         CallMSConvertCMD(MSConvertCMDPath, InputFilesData(index,:), mzXMLFileOutputDir);
 
-        mzXMLFilesInfo(index,:) = [InputFilesData(index,5), mzXMLFileOutputDir, MzxmlFileName];
-
     elseif (InputFilesData(index,3) == ".mzXML")
 
         %If input file is mzXML then no need of conversion just copy paste
         %it from Input folder to processing folder
-
         InputMzxmlPath = InputFilesData(index,4) + "\" + InputFilesData(index,2);
-
         [status, msg] = copyfile(InputMzxmlPath, mzXMLFileOutputDir);
 
         %A status of 1 and an empty message and messageId confirm the copy was successful.
@@ -41,12 +36,11 @@ for index = 1: size(InputFilesData,1)
             %Permission issue while copying the file please change the directory of
             %Processing folder and then proceed
             % #DevUse - print [[  msg  ]] error
-
         end
-
-        mzXMLFilesInfo(index,:) = [InputFilesData(index,5), mzXMLFileOutputDir, MzxmlFileName];
-
     end
+
+    mzXMLFilesInfo(index,:) = [InputFilesData(index,5), mzXMLFileOutputDir, MzxmlFileName];
+    
 end
 
 end
