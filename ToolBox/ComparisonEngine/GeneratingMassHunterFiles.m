@@ -5,8 +5,8 @@ UniqueSequence=unique(SequenceColumn)
 %%%%%%%%%%%%%%%%%% Read Peak Files
 %ProjectData = uigetdir(pwd,'Select PeakList Data Folder' );
 
-ProjectData=strcat(OutputDir,'\DataCSV','\')
-files = dir(ProjectData);
+ProjectDataDir=strcat(OutputDir,'\DataCSV','\')
+files = dir(ProjectDataDir);
 
 % Get a logical vector that tells which is a directory.
 dirFlags = [files.isdir];
@@ -24,7 +24,7 @@ for number=1:size(Replicates,1)
 
         %1. Go into directory of Peptide and find the sub directories of
         %  Relicates
-        dir_sub= char(strcat(ProjectData,strcat('\',Replicates(number).name)));
+        dir_sub= char(strcat(ProjectDataDir,strcat('\',Replicates(number).name)));
         PeakFiles= dir(dir_sub);
         % Read the replicates directory one after other
         AllPeakfiles = {};
