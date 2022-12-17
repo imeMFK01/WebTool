@@ -13,4 +13,5 @@ ToolBox/Rcall/Rrun.Rout
 ToolBox/Rcall/Rrun.R
 ToolBox/Rcall/Rpush.mat
 *.mat
-ToolBox/Bridge2/python3env
+ToolBox/Bridge2/python3env/
+ToolBox/Bridge/
