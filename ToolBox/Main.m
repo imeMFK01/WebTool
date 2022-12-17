@@ -61,6 +61,13 @@ CsvPathBeforeFilter = IntermediateProcessingFolderPath + "\" + GUID + "\CsvFiles
 
 %IntermediateProcessingFolderPath + "\" + GUID;
 
+addpath("ComparisonEngine\");
+addpath("FileFormatConverters\");
+addpath("InputFileOperations\");
+addpath("ProteoWizard\");
+addpath("Utilities\");
+addpath("Rcall\");
+
 
 LocalDeployment = false;
 %%
