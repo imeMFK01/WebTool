@@ -155,9 +155,10 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
             
     def clear_all(self):
         #Files
+        XFMSfilename = 'D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/PDB.pdb'     ##PERCEPTRON-XFMS
         self.line_bonds_structure.setText('')
         self.line_bonds_trajectories.setText('')
-        self.checkBox_bonds_donors_without_hydrogen.setChecked(False)
+        self.checkBox_bonds_donors_without_hydrogen.setChecked(True)   ##PERCEPTRON-XFMS  #False
         #Search
         self.line_bonds_selection.setText('protein')
         self.checkBox_residuewise.setChecked(True)
@@ -188,7 +189,7 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         self.lineEdit_add_residue.setText('0')
 
     def init_new_analysis(self):
-        structure = self.line_bonds_structure.text()
+        structure =  'D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/PDB.pdb'   ##PERCEPTRON-XFMS  #self.line_bonds_structure.text()
         trajectories = self.line_bonds_trajectories.text()
         selection = self.line_bonds_selection.text()
         start = self.line_bonds_start.text()
@@ -1444,7 +1445,13 @@ starting n-terminal residue: {}\n\n\
 if __name__ == "__main__":
     
     QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
-    app = QApplication(sys.argv)
+    
+    #app = QApplication(sys.argv)
+    if not QApplication.instance():
+        app = QApplication(sys.argv)
+    else:
+        app = QApplication.instance()
+
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
