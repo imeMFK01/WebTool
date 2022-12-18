@@ -746,6 +746,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.comboBox_filter_segna.setCurrentIndex(-1)
+        #self.actionNew.ActionEvent.Trigger()
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -754,6 +755,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Bridge", None))
         self.actionNew.setText(QCoreApplication.translate("MainWindow", u"New...", None))
+        #seld
+        #self.actionOpen.ActionEvent.
         self.actionOpen.setText(QCoreApplication.translate("MainWindow", u"Open...", None))
         self.actionSave.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.actionSaveAs.setText(QCoreApplication.translate("MainWindow", u"Save As...", None))

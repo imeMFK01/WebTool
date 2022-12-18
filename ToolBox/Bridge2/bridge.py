@@ -54,6 +54,8 @@ filter_description = {'occupancy': 'Occupancy',
                       'between': 'Between Sections', 
                       'selected_nodes': 'Selected Nodes',
                       'None': 'none'}
+x = 10
+MySelf = None
 
 class DefaultAtomsDialog(QDialog, Ui_DefaultAtomsDialog):
     
@@ -64,6 +66,8 @@ class DefaultAtomsDialog(QDialog, Ui_DefaultAtomsDialog):
         self.default_acceptors = None
         self.load_atom_names()
         self.connect_actions()
+        global MySelf
+        MySelf = self
         
     def connect_actions(self):
         self.pushButton_save.clicked.connect(self.save)
@@ -135,17 +139,24 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         self.setupUi(self)
         self.connect_actions()
         self.main_window = parent
+        global MySelf
+        MySelf = self
+        
         
     def connect_actions(self):
         self.button_structure.clicked.connect(self.browse_filename_structure)
         self.button_trajectories.clicked.connect(self.browse_filename_trajectories)
         self.button_cancel.clicked.connect(self.close)
         self.button_load.clicked.connect(self.init_new_analysis)
+        MySelf = self
+        #self.button_load.clicked.connect(self.button_load, True)
+        #self.button_load.buttonPressed(self.init_new_analysis)
     
     def browse_filename_structure(self):
         filename = QFileDialog.getOpenFileName(self, 'Open Structure File', filter='All Files (*.*);;Structure File (*.psf *.pdb);;Batch File List (*.txt)')[0]
         if filename:
             self.line_bonds_structure.setText(filename)
+        MySelf = self
     
     def browse_filename_trajectories(self):
         filenames = QFileDialog.getOpenFileNames(self, 'Open Trajectory File(s)', filter='All Files (*.*);;DCD File (*.dcd);;Batch File List (*.txt)')[0]
@@ -156,7 +167,7 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
     def clear_all(self):
         #Files
         XFMSfilename = 'D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/PDB.pdb'     ##PERCEPTRON-XFMS
-        self.line_bonds_structure.setText('')
+        self.line_bonds_structure.setText(XFMSfilename)                           ##PERCEPTRON-XFMS
         self.line_bonds_trajectories.setText('')
         self.checkBox_bonds_donors_without_hydrogen.setChecked(True)   ##PERCEPTRON-XFMS  #False
         #Search
@@ -187,9 +198,12 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         self.comboBox_frame_time_unit.setCurrentIndex(1)
         self.lineEdit_frame_time.setText('')
         self.lineEdit_add_residue.setText('0')
+        MySelf = self
+
+        
 
     def init_new_analysis(self):
-        structure =  'D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/PDB.pdb'   ##PERCEPTRON-XFMS  #self.line_bonds_structure.text()
+        structure =  self.line_bonds_structure.text()
         trajectories = self.line_bonds_trajectories.text()
         selection = self.line_bonds_selection.text()
         start = self.line_bonds_start.text()
@@ -343,7 +357,7 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         #        Error('Datatype not understood!', 'Please specify the sulphur-sulphur distance as a floating point number.')
         
         self.main_window._search_parameter = search_args 
-        
+        MySelf = self
         kwargs = {
             'batch_mode':batch_mode,
             'structure':structure,
@@ -444,6 +458,8 @@ class ResultsDialog(QDialog, Ui_ResultsDialog):
         super().__init__()
         self.setupUi(self)
         self.connect_actions()
+        global MySelf
+        MySelf = self
         
     def connect_actions(self):
         self.pushButton_save.clicked.connect(self.save_to_file)
@@ -461,7 +477,9 @@ class ResultsDialog(QDialog, Ui_ResultsDialog):
         self.show()
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    
+
+    MySelfMainWindow = None
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -492,6 +510,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.buttonGroup_rotation.addButton(self.radioButton_rotation_zy)
         self.buttonGroup_rotation.addButton(self.radioButton_rotation_pca)
         self.buttonGroup_rotation.addButton(self.radioButton_rotation_xy)
+        #FARHAN
+        #self.new_analysis_dialog.button_load
+        #self.actionEvent.
+        global MySelf
+        MySelf = self
+        global MySelfMainWindow
+        MySelfMainWindow = self
+
+        a = 1
+        
         
     def _connect_actions(self):
         self.actionNew.triggered.connect(self.new_analysis)
@@ -1441,7 +1469,7 @@ starting n-terminal residue: {}\n\n\
         self.prepare_filters()
         self._set_enabled()
         
-        
+
 if __name__ == "__main__":
     
     QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
@@ -1452,6 +1480,66 @@ if __name__ == "__main__":
     else:
         app = QApplication.instance()
 
+
+    #myWindow = MainWindow(QMainWindow, Ui_MainWindow)
+    
     window = MainWindow()
     window.show()
-    sys.exit(app.exec_())
+    #window.actionToolbar().
+    
+    
+    #app.exec_()
+    #sys.exit(app.exec_())
+    
+    
+
+
+    NewAnalysisDialog.clear_all(MySelf)
+
+    kwargs = {
+            'batch_mode':False,
+            'structure':['D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/PDB.pdb'],
+            'trajectories':[None],
+            'selection':'protein',
+            'check_angle':False,
+            'cut_angle':60.0,
+            'distance':3.5,
+            'start':0,
+            'stop':None,
+            'step':1,
+            'residuewise':True,
+            'additional_donors':{'OG', 'N16', 'ND1', 'OD1', 'OW', 'NH2', 'ND2', 'NE1', 'OD2', 'NE', 'OE1', 'NH1', 'NE2', 'SG', 'OH', 'OE', 'OE2', 'NZ', 'OH2', 'OG1'}, 
+            'additional_acceptors':{'OG', 'SD', 'ND1', 'OE1', 'NE2', 'OD1', 'SG', 'OW', 'OE2', 'OH', 'OD2', 'OH2', 'OG1'},
+            'water_definition':'(resname TIP3 and name OH2) or (resname HOH and name O)',
+            'add_all_donor_acceptor':[],
+            'add_donors_without_hydrogen':True,
+            'threads':6
+            }
+        
+    worker = Worker(NewAnalysisDialog().compute_initial_state, **kwargs) 
+    worker.signals.finished.connect(MainWindow().init_interactive_graph)
+    worker.signals.progress.connect(MainWindow().update_status_bar)
+    worker.signals.error.connect(MainWindow().error_in_worker)
+    MainWindow().statusbar.showMessage('Started initialization...')
+    MainWindow().statusbar.repaint()
+    MainWindow().working = True
+    MainWindow().threadpool.start(worker)
+
+
+
+
+
+
+
+
+    #self.main_window._analysis_parameter = kwargs
+
+#def __init__(self, parent):
+#super().__init__()
+# def __init__(self, parent):
+#     super().__init__()
+#     self.setupUi(self)
+#     self.connect_actions()
+#     self.main_window = parent
+
+#NewAnalysisDialog().compute_initial_state(**kwargs)
