@@ -396,7 +396,8 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         self.main_window.working = True
         self.main_window.threadpool.start(worker)
         
-        self.close()
+        MySelf = self
+        #self.close()  #XFMS
     
     def error_in_worker(self, error_tuple):
         message = str(error_tuple[1]) +'\n'+ str(error_tuple[2])
@@ -455,6 +456,7 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
             
             if batch_mode:
                 self.main_window._save_analysis(structure + ".batch{}.baf".format(i))
+        MySelf = self
         
  
 class ResultsDialog(QDialog, Ui_ResultsDialog):
@@ -639,7 +641,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else: time_string = "{}{}".format(*self._search_parameter['frame_time'])
         stop = self._analysis_parameter['stop']
         if stop is None: stop = -1
-        
+        if self._analysis_parameter['trajectories'][-1] is None:
+            self._analysis_parameter['trajectories'] = []
         result_string +=   "--- ANALYSIS PARAMETER ---\n\n\
 - Files -\n\n\
 structure: {}\n\
@@ -667,7 +670,7 @@ starting n-terminal residue: {}\n\n\
 {}\n\n\
 --- RESULTS ---\n\n\
 {}\n".format(self._analysis_parameter['structure'][-1],
-                                            ' ,'.join(self._analysis_parameter['trajectories'][-1]),
+                                           # ' ,'.join(self._analysis_parameter['trajectories'][-1]),  #XFMS #NoNeed of trajectories
                                             yes_no[self._analysis_parameter['add_donors_without_hydrogen']],
                                             self._analysis_parameter['selection'],
                                             yes_no[self._analysis_parameter['residuewise']],
@@ -689,7 +692,7 @@ starting n-terminal residue: {}\n\n\
                                             self._search_parameter['add_residues'],
                                             filter_string,
                                             edges_string)
-        MySelf = self               
+        #MySelf = self               
         self.results_dialog.show_results(result_string)
         
     
@@ -1415,6 +1418,7 @@ starting n-terminal residue: {}\n\n\
         if not use_filtered: 
             self.analysis.filtered_graph = self.analysis.initial_graph
             self.analysis.filtered_results = self.analysis.initial_results
+            MySelf = self
         
         if edges_before != {edge for edge in self.analysis.filtered_graph.edges()}:
             self.interactive_graph.set_subgraph()
@@ -1508,15 +1512,28 @@ if __name__ == "__main__":
     # NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog)
     # NewAnalysisDialog(self)
     
+    
 
     NewAnalysis = NewAnalysisDialog(MySelf)
     NewAnalysis.clear_all()
     #NewAnalysisDialog.clear_all(MySelf)
     NewAnalysis.init_new_analysis()
+
+
+#
+    #window.init_interactive_graph()
+
+    self = MySelf
     NewResults = ResultsDialog()
+    #NewResults.show_results(result_string)
+    self = MySelf
+    
+    window.init_interactive_graph()
     RunningForResults = window.export_analysis_summary()
+    
     NewResults.save_to_file()
    
+    self.results_dialog.show_results(result_string)
 
 
     a =1
