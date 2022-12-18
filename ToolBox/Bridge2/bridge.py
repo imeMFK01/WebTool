@@ -56,6 +56,10 @@ filter_description = {'occupancy': 'Occupancy',
                       'None': 'none'}
 x = 10
 MySelf = None
+filename = 'D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/PDB.pdb'     ##PERCEPTRON-XFMS
+SaveResults = 'D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/Bridge2Results.txt'     ##PERCEPTRON-XFMS
+
+# self
 
 class DefaultAtomsDialog(QDialog, Ui_DefaultAtomsDialog):
     
@@ -166,8 +170,8 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
             
     def clear_all(self):
         #Files
-        XFMSfilename = 'D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/PDB.pdb'     ##PERCEPTRON-XFMS
-        self.line_bonds_structure.setText(XFMSfilename)                           ##PERCEPTRON-XFMS
+        
+        self.line_bonds_structure.setText(filename)                           ##PERCEPTRON-XFMS
         self.line_bonds_trajectories.setText('')
         self.checkBox_bonds_donors_without_hydrogen.setChecked(True)   ##PERCEPTRON-XFMS  #False
         #Search
@@ -203,7 +207,8 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         
 
     def init_new_analysis(self):
-        structure =  self.line_bonds_structure.text()
+        self.line_bonds_structure.setText(filename)  #XFMS
+        structure = self.line_bonds_structure.text()
         trajectories = self.line_bonds_trajectories.text()
         selection = self.line_bonds_selection.text()
         start = self.line_bonds_start.text()
@@ -216,7 +221,7 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         partially_hydrophobic_residues = self.checkBox_partially_hydrophobic.isChecked()
         #ss_distance = self.lineEdit_disulphide_distance.text()
         max_water = self.line_wire_max_water.text()
-        crytal_structure = self.checkBox_bonds_donors_without_hydrogen.isChecked()
+        crytal_structure = self.checkBox_bonds_donors_without_hydrogen.isChecked()  #XFMS
         consider_backbone = self.checkBox_consider_backbone.isChecked()
         if crytal_structure: self.checkBox_angle.setChecked(False)
         residuewise = self.checkBox_residuewise.isChecked()
@@ -466,9 +471,11 @@ class ResultsDialog(QDialog, Ui_ResultsDialog):
         self.pushButton_close.clicked.connect(self.close)
         
     def save_to_file(self):
-        filename = QFileDialog.getSaveFileName(self, 'Save ASCII', filter='ASCII text file (*.txt);;All Files (*.*)')[0]
+        filename = SaveResults #QFileDialog.getSaveFileName(self, 'Save ASCII', filter='ASCII text file (*.txt);;All Files (*.*)')[0]  #XFMS
         if not filename: return
         with open(filename, 'w') as af:
+            self.textEdit_results.clear()
+            self.textEdit_results.setText(result_string)
             af.write(self.textEdit_results.toPlainText())
         
     def show_results(self, result_string):
@@ -682,8 +689,9 @@ starting n-terminal residue: {}\n\n\
                                             self._search_parameter['add_residues'],
                                             filter_string,
                                             edges_string)
-                            
+        MySelf = self               
         self.results_dialog.show_results(result_string)
+        
     
     def update_frame(self):
         if self.interactive_graph is None: return
@@ -710,6 +718,7 @@ starting n-terminal residue: {}\n\n\
         self.comboBox_plugins.currentTextChanged.disconnect(self.activate_plugin)
         self.comboBox_plugins.clear()
         self._load_plugins()
+        MySelf = self
         
     def show_atoms(self):
         if self.analysis is not None:
@@ -739,6 +748,7 @@ starting n-terminal residue: {}\n\n\
         self.activate_plugin()
         self.comboBox_plugins.currentTextChanged.connect(self.activate_plugin)
         self.toolBox.currentChanged.connect(self.tool_changed)
+        MySelf = self
     
     def tool_changed(self):
         if self.toolBox.currentIndex() == 2:
@@ -764,87 +774,92 @@ starting n-terminal residue: {}\n\n\
             widget = self._plugins[plugin].plugin_widget
             widget.setParent(None)
         self.verticalLayout_plugin.addWidget(self._plugins[current_plugin].plugin_widget)
+        MySelf = self
     
     def set_analysis_parameter(self):
-        if self._analysis_parameter is not None:
-            structure = self._analysis_parameter['structure']
-            trajectories = self._analysis_parameter['trajectories']
-            if trajectories is None: trajectories = ['']
-            selection = self._analysis_parameter['selection']
-            start = self._analysis_parameter['start'] + 1
-            step = self._analysis_parameter['step']
-            stop = self._analysis_parameter['stop']
-            if stop is None: stop = -1
-            distance = self._analysis_parameter['distance']
-            angle = self._analysis_parameter['cut_angle']
-            crystal_structure = self._analysis_parameter['add_donors_without_hydrogen']
-            add_all_donor_acceptor = self._analysis_parameter['add_all_donor_acceptor']
-            check_angle = self._analysis_parameter['check_angle']
-            residuewise = self._analysis_parameter['residuewise']
+        global MySelf
+        #self = MySelf
+        #a = MySelf._analysis_parameter['structure']
+        #if self._analysis_parameter is not None:
+        structure = self._analysis_parameter['structure']
+        trajectories = self._analysis_parameter['trajectories']
+        if trajectories is None: trajectories = ['']
+        selection = self._analysis_parameter['selection']
+        start = self._analysis_parameter['start'] + 1
+        step = self._analysis_parameter['step']
+        stop = self._analysis_parameter['stop']
+        if stop is None: stop = -1
+        distance = self._analysis_parameter['distance']
+        angle = self._analysis_parameter['cut_angle']
+        crystal_structure = self._analysis_parameter['add_donors_without_hydrogen']
+        add_all_donor_acceptor = self._analysis_parameter['add_all_donor_acceptor']
+        check_angle = self._analysis_parameter['check_angle']
+        residuewise = self._analysis_parameter['residuewise']
 
-            hydrophobic_distance = self._search_parameter['hydrophobic_distance']
-            if hydrophobic_distance is None: hydrophobic_distance = '5.0'
-            ss_distance = self._search_parameter['ss_distance']
-            if ss_distance is None: ss_distance = '2.05'
-            #compute_ss = self._search_parameter['compute_ss']
-            #if compute_ss is None: compute_ss = False
-            ww_in_hull = self._search_parameter['ww_in_hull']
-            if ww_in_hull is None: ww_in_hull = False
-            partially_hydrophobic_residues = self._search_parameter['partially_hydrophobic_residues']
-            if partially_hydrophobic_residues is None: partially_hydrophobic_residues = False
-            allow_direct_bonds = self._search_parameter['allow_direct_bonds']
-            if allow_direct_bonds is None: allow_direct_bonds = False
-            around = self._search_parameter['around']
-            if around is None: around = '3.5'
-            max_water = self._search_parameter['max_water']
-            if max_water is None: max_water = '5'
-            not_water_water = self._search_parameter['not_water_water']
-            if not_water_water is None: not_water_water = False
-            consider_backbone = self._search_parameter['consider_backbone']
-            add_residues = self._search_parameter['add_residues']
-            
-            frame_time, frame_time_unit = self._search_parameter['frame_time']
-            if frame_time is not None:
-                self.new_analysis_dialog.lineEdit_frame_time.setText(str(frame_time))
-                self.new_analysis_dialog.comboBox_frame_time_unit.setCurrentText(frame_time_unit)
-                self.new_analysis_dialog.checkBox_frame_time.setChecked(True)
-            
-            self.new_analysis_dialog.lineEdit_add_residue.setText(str(add_residues))
-            self.new_analysis_dialog.line_bonds_structure.setText(structure[-1])
-            self.new_analysis_dialog.line_bonds_trajectories.setText(', '.join(trajectories[-1]))
-            self.new_analysis_dialog.line_bonds_selection.setText(selection)
-            self.new_analysis_dialog.line_bonds_start.setText(str(start))
-            self.new_analysis_dialog.line_bonds_step.setText(str(step))
-            self.new_analysis_dialog.line_bonds_stop.setText(str(stop))
-            self.new_analysis_dialog.line_bonds_distance.setText(str(distance))
-            self.new_analysis_dialog.line_bonds_angle.setText(str(angle))
-            self.new_analysis_dialog.line_around_value.setText(str(around))
-            self.new_analysis_dialog.line_wire_max_water.setText(str(max_water))
-            #self.new_analysis_dialog.lineEdit_disulphide_distance.setText(str(ss_distance))
-            self.new_analysis_dialog.lineEdit_hydrophobic_distance.setText(str(hydrophobic_distance))
-            
-            if not crystal_structure: self.new_analysis_dialog.checkBox_angle.setChecked(check_angle)
-            self.new_analysis_dialog.checkBox_residuewise.setChecked(residuewise)
-            self.new_analysis_dialog.checkBox_partially_hydrophobic.setChecked(partially_hydrophobic_residues)
-            self.new_analysis_dialog.checkBo_wires_convex.setChecked(ww_in_hull)
-            #self.new_analysis_dialog.checkBox_disulphide_bridges.setChecked(compute_ss)
-            self.new_analysis_dialog.checkBox_bonds_donors_without_hydrogen.setChecked(crystal_structure)
-            self.new_analysis_dialog.checkBox_all_oxygen.setChecked('O' in add_all_donor_acceptor)
-            self.new_analysis_dialog.checkBox_all_nitrogen.setChecked('N' in add_all_donor_acceptor)
-            self.new_analysis_dialog.checkBox_all_sulphur.setChecked('S' in add_all_donor_acceptor)
-            self.new_analysis_dialog.checkBox_wires_allow_direct_bonds.setChecked(allow_direct_bonds)
-            self.new_analysis_dialog.checkBox_not_water_water.setChecked(not_water_water)
-            self.new_analysis_dialog.checkBox_consider_backbone.setChecked(consider_backbone)
-            
-            hb_selection = self._search_parameter['algorithm'] == 'hb_selection'
-            hb_around =  self._search_parameter['algorithm'] =='hb_around'
-            ww_dict = self._search_parameter['algorithm'] == 'ww_dict'
-            hydrophobic = self._search_parameter['algorithm'] == 'hydrophobic'
-            
-            if hb_selection: self.new_analysis_dialog.radio_in_selection.setChecked(True)
-            if hb_around: self.new_analysis_dialog.radio_around.setChecked(True)
-            if ww_dict: self.new_analysis_dialog.radio_wire_dict.setChecked(True)
-            if hydrophobic: self.new_analysis_dialog.radioButton_hydrophobic_contacts.setChecked(True)
+        hydrophobic_distance = self._search_parameter['hydrophobic_distance']
+        if hydrophobic_distance is None: hydrophobic_distance = '5.0'
+        ss_distance = self._search_parameter['ss_distance']
+        if ss_distance is None: ss_distance = '2.05'
+        #compute_ss = self._search_parameter['compute_ss']
+        #if compute_ss is None: compute_ss = False
+        ww_in_hull = self._search_parameter['ww_in_hull']
+        if ww_in_hull is None: ww_in_hull = False
+        partially_hydrophobic_residues = self._search_parameter['partially_hydrophobic_residues']
+        if partially_hydrophobic_residues is None: partially_hydrophobic_residues = False
+        allow_direct_bonds = self._search_parameter['allow_direct_bonds']
+        if allow_direct_bonds is None: allow_direct_bonds = False
+        around = self._search_parameter['around']
+        if around is None: around = '3.5'
+        max_water = self._search_parameter['max_water']
+        if max_water is None: max_water = '5'
+        not_water_water = self._search_parameter['not_water_water']
+        if not_water_water is None: not_water_water = False
+        consider_backbone = self._search_parameter['consider_backbone']
+        add_residues = self._search_parameter['add_residues']
+        
+        frame_time, frame_time_unit = self._search_parameter['frame_time']
+        if frame_time is not None:
+            self.new_analysis_dialog.lineEdit_frame_time.setText(str(frame_time))
+            self.new_analysis_dialog.comboBox_frame_time_unit.setCurrentText(frame_time_unit)
+            self.new_analysis_dialog.checkBox_frame_time.setChecked(True)
+        
+        self.new_analysis_dialog.lineEdit_add_residue.setText(str(add_residues))
+        self.new_analysis_dialog.line_bonds_structure.setText(structure[-1])
+        self.new_analysis_dialog.line_bonds_trajectories.setText(', '.join(trajectories[-1]))
+        self.new_analysis_dialog.line_bonds_selection.setText(selection)
+        self.new_analysis_dialog.line_bonds_start.setText(str(start))
+        self.new_analysis_dialog.line_bonds_step.setText(str(step))
+        self.new_analysis_dialog.line_bonds_stop.setText(str(stop))
+        self.new_analysis_dialog.line_bonds_distance.setText(str(distance))
+        self.new_analysis_dialog.line_bonds_angle.setText(str(angle))
+        self.new_analysis_dialog.line_around_value.setText(str(around))
+        self.new_analysis_dialog.line_wire_max_water.setText(str(max_water))
+        #self.new_analysis_dialog.lineEdit_disulphide_distance.setText(str(ss_distance))
+        self.new_analysis_dialog.lineEdit_hydrophobic_distance.setText(str(hydrophobic_distance))
+        
+        if not crystal_structure: self.new_analysis_dialog.checkBox_angle.setChecked(check_angle)
+        self.new_analysis_dialog.checkBox_residuewise.setChecked(residuewise)
+        self.new_analysis_dialog.checkBox_partially_hydrophobic.setChecked(partially_hydrophobic_residues)
+        self.new_analysis_dialog.checkBo_wires_convex.setChecked(ww_in_hull)
+        #self.new_analysis_dialog.checkBox_disulphide_bridges.setChecked(compute_ss)
+        self.new_analysis_dialog.checkBox_bonds_donors_without_hydrogen.setChecked(crystal_structure)
+        self.new_analysis_dialog.checkBox_all_oxygen.setChecked('O' in add_all_donor_acceptor)
+        self.new_analysis_dialog.checkBox_all_nitrogen.setChecked('N' in add_all_donor_acceptor)
+        self.new_analysis_dialog.checkBox_all_sulphur.setChecked('S' in add_all_donor_acceptor)
+        self.new_analysis_dialog.checkBox_wires_allow_direct_bonds.setChecked(allow_direct_bonds)
+        self.new_analysis_dialog.checkBox_not_water_water.setChecked(not_water_water)
+        self.new_analysis_dialog.checkBox_consider_backbone.setChecked(consider_backbone)
+        
+        hb_selection = self._search_parameter['algorithm'] == 'hb_selection'
+        hb_around =  self._search_parameter['algorithm'] =='hb_around'
+        ww_dict = self._search_parameter['algorithm'] == 'ww_dict'
+        hydrophobic = self._search_parameter['algorithm'] == 'hydrophobic'
+        
+        if hb_selection: self.new_analysis_dialog.radio_in_selection.setChecked(True)
+        if hb_around: self.new_analysis_dialog.radio_around.setChecked(True)
+        if ww_dict: self.new_analysis_dialog.radio_wire_dict.setChecked(True)
+        if hydrophobic: self.new_analysis_dialog.radioButton_hydrophobic_contacts.setChecked(True)
+        MySelf = self
     
     def edit_analysis(self):
         self.set_analysis_parameter()
@@ -1490,11 +1505,23 @@ if __name__ == "__main__":
     
     #app.exec_()
     #sys.exit(app.exec_())
-    
+    # NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog)
+    # NewAnalysisDialog(self)
     
 
+    NewAnalysis = NewAnalysisDialog(MySelf)
+    NewAnalysis.clear_all()
+    #NewAnalysisDialog.clear_all(MySelf)
+    NewAnalysis.init_new_analysis()
+    NewResults = ResultsDialog()
+    RunningForResults = window.export_analysis_summary()
+    NewResults.save_to_file()
+   
 
-    NewAnalysisDialog.clear_all(MySelf)
+
+    a =1
+    # window.set_analysis_parameter()
+    # MainWindow().new_analysis(MySelf)
 
     kwargs = {
             'batch_mode':False,
