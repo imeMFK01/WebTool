@@ -6,7 +6,7 @@ if (!require("readMzXmlData", quietly=TRUE))
 
 library(readMzXmlData)
 
-MzxmlPath = "D:\\PerceptronXfmsIntermediateProcessingFolder\\0b284da3-b2ff-481a-9384-fa8fd99961d9\\Replicate0"
+MzxmlPath = "D:\\PerceptronXfmsIntermediateProcessingFolder\\0b284da3-b2ff-481a-9384-fa8fd99961d9\\Exp\\Replicate1"
 
 list_of_files <- list.files(path = MzxmlPath, pattern = "\\.mzXML$");  #Updated 202212121700
 
@@ -44,6 +44,8 @@ for ( fileNum in 1: length(list_of_files) )
     }
   }
 }
+
+
 
 
 
