@@ -47,6 +47,7 @@ from core.helpfunctions import (Error, Info, ranges_to_numbers,
                                 water_definition)
 from plugins import acentrality
 import time
+from CentralityFormattingAndSave import CentralityFormattingAndSave
 
 all_filter = ['occupancy', 'shortest', 'connected', 'specific', 'between', 'selected_nodes']
 filter_description = {'occupancy': 'Occupancy', 
@@ -57,8 +58,8 @@ filter_description = {'occupancy': 'Occupancy',
                       'selected_nodes': 'Selected Nodes',
                       'None': 'none'}
 
-MyFileName = 'D:\\GitHub\\02_WebTool\\WebTool\\ToolBox\\Bridge2\\PDB.pdb'
-MyResultsFile = 'D:\\GitHub\\02_WebTool\\WebTool\\ToolBox\\Bridge2\\PDB.txt'
+MyFileName = '' #'D:\\GitHub\\02_WebTool\\WebTool\\ToolBox\\Bridge2\\PDB.pdb'
+MyResultsFile = '' #'D:\\GitHub\\02_WebTool\\WebTool\\ToolBox\\Bridge2\\PDB.txt'
 global Centralities
 
 class DefaultAtomsDialog(QDialog, Ui_DefaultAtomsDialog):
@@ -1457,6 +1458,22 @@ starting n-terminal residue: {}\n\n\
         
         
 if __name__ == "__main__":
+    def ReadInputParamForBridge2():
+        global MyFileName
+        global MyResultsFile
+        
+        InputArgFile = os.getcwd() + '\\InputParametersForBridge2.txt'
+        
+        with open(InputArgFile) as f:
+            #Names = f.readlines()
+            Names = [Name.rstrip('\n') for Name in f]
+        
+        MyFileName = Names[0]
+        MyResultsFile = Names[1]
+
+
+
+    ReadInputParamForBridge2()
     
     QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
     app = QApplication(sys.argv)
@@ -1469,24 +1486,13 @@ if __name__ == "__main__":
     NewAnalysis.clear_all()
     centralities = NewAnalysis.init_new_analysis()
     
-    print(centralities)
-    
+    CentralityFormattingAndSave(centralities, MyResultsFile)
 
-    # stringa = acentrality.MySaveCentrality(centralities, MyResultsFile)
-    # print(stringa)
-
-    #print(MyResultsFile)
-    #print()
+    #print(centralities)
 
 
-    # #time.sleep(25)
-    # a = acentrality.save_centrality()
-    
-    # print(a)
 
-    # # with open(MyResultsFile, 'w') as af:
-    # #     af.write(a)
-
+      
 
 
 
