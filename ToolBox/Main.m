@@ -145,6 +145,21 @@ addpath(FileOperations);
 addpath("FileFormatConverters\");
 addpath("Utilities\");
 addpath("Rcall\");
+addpath("Bridge2\");
+
+
+%%% Calling Bridge2
+
+
+Call()
+
+
+%[pwd '\' 'Bridge2']
+
+
+
+
+%%% Calling Bridge2
 
 
 InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr);
@@ -189,6 +204,9 @@ GeneratingMassHunterFiles(MascotFile,ComparisonEngineOutDir);
 
 
 MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile);
+
+
+
 
 
 

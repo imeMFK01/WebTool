@@ -25,7 +25,6 @@ title = 'Centrality Measures'
 ui = None
 segname_colors = None
 centralities = None
-global Mysave_centrality
 
 
 def load(parent):
@@ -72,7 +71,6 @@ def update_min_max():
     mi, ma = np.round([mi, ma], r)
     ui.lineEdit_minimum.setText(str(mi))
     ui.lineEdit_maximum.setText(str(ma))
-    q =1
 
 def toggle_histogram():
     per_residue_state = ui.groupBox_per_residue.isChecked()
@@ -213,19 +211,64 @@ def save_centrality():
                                   str(centralities['betweenness'][False][True][node]), 
                                   str(centralities['betweenness'][True][False][node]), 
                                   str(centralities['betweenness'][False][False][node])]) + '\n'
-    
-
-    filename = "D:\\GitHub\\02_WebTool\\WebTool\\ToolBox\\Bridge2\\Results.txt" #QFileDialog.getSaveFileName(self, 'Save ASCII', filter='ASCII text file (*.txt);;All Files (*.*)')[0]  #XFMS
-    if not filename: return
-    with open(filename, 'w') as af:
-        # self.textEdit_results.clear()
-        # self.textEdit_results.setText(result_string)
-        af.write(save_string)
-
-
-    # main_window.results_dialog.save_to_file(save_string)
     #main_window.results_dialog.show_results(save_string)
+    #print(centralities)
+    #return save_string
+    # if not filename: return
+    # with open(filename, 'w') as af:
+    #     af.write(self.textEdit_results.toPlainText())
+    
+def MySaveCentrality(centralities, MyResultsFile):
+    #return MyResultsFile
+    if centralities is None: return
+    csv_columns = ['residue','degree_normalized_averaged', 'degree_normalized_not-averaged', 
+                   'degree_not-normalized_averaged', 'degree_not-normalized_not-averaged', 
+                   'betweenness_normalized_averaged', 'betweenness_normalized_not-averaged', 
+                   'betweenness_not-normalized_averaged', 'betweenness_not-normalized_not-averaged']
+    #csv_file = QFileDialog.getSaveFileName(main_window, 'Save Centrality', filter='ASCII File (*.txt);;All Files (*.*)')[0]
+    #if not csv_file: return
+    #try:
+    #    with open(csv_file, 'w') as csvfile:
+    #        writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+    #        writer.writeheader()
+    #        for node in main_window.interactive_graph.nodes():
+    #            data_row = {'residue':node,
+    #                        'degree_normalized_averaged': centralities['degree'][True][True][node], 
+    #                        'degree_normalized_not-averaged': centralities['degree'][False][True][node], 
+    #                        'degree_not-normalized_averaged': centralities['degree'][True][False][node], 
+    #                        'degree_not-normalized_not-averaged': centralities['degree'][False][False][node], 
+    #                        'betweenness_normalized_averaged': centralities['betweenness'][True][True][node], 
+    #                        'betweenness_normalized_not-averaged': centralities['betweenness'][False][True][node], 
+    #                        'betweenness_not-normalized_averaged': centralities['betweenness'][True][False][node], 
+    #                        'betweenness_not-normalized_not-averaged': centralities['betweenness'][False][False][node]}
+    #            writer.writerow(data_row)
+    #except IOError:
+    #    Error('I/O Error!', 'Could not write to disc.')
+    save_string = '\t'.join([column for column in csv_columns]) + '\n'
+    for node in sorted(main_window.interactive_graph.nodes()):
+        if main_window.analysis.residuewise: 
+            segname, resname, resid = node.split('-')
+            resid = str(int(resid)+main_window.analysis.add_missing_residues)
+            node_label = '-'.join([segname, resname, resid])
+        else: 
+            segname, resname, resid, atom_name = node.split('-')
+            resid = str(int(resid)+main_window.analysis.add_missing_residues)
+            node_label = '-'.join([segname, resname, resid, atom_name])
+        save_string += '\t'.join([node_label, str(centralities['degree'][True][True][node]), 
+                                  str(centralities['degree'][False][True][node]), 
+                                  str(centralities['degree'][True][False][node]), 
+                                  str(centralities['degree'][False][False][node]), 
+                                  str(centralities['betweenness'][True][True][node]), 
+                                  str(centralities['betweenness'][False][True][node]), 
+                                  str(centralities['betweenness'][True][False][node]), 
+                                  str(centralities['betweenness'][False][False][node])]) + '\n'    
+    #print(centralities)
+    with open(MyResultsFile, 'w') as af:
+        af.write(save_string)
     return save_string
+
+
+
             
 class Ui_GroupBox(object):
     def setupUi(self, GroupBox):
