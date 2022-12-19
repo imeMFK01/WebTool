@@ -38,7 +38,7 @@ QueryFullFolderPath = InputFolderPath + "\" + GUID;
 
 
 QueryResultFullPath = ResultFolderPath + "\Result_" + GUID;
-
+mkdir(QueryResultFullPath);
 SetWorkingDirForRCall = pwd + "\Rcall";
 FullNameofRFile = pwd + "\FileFormatConverters\mzXMLtocsvConverter.R";
 
@@ -61,17 +61,26 @@ CsvPathBeforeFilter = IntermediateProcessingFolderPath + "\" + GUID + "\CsvFiles
 
 %IntermediateProcessingFolderPath + "\" + GUID;
 
-addpath("ComparisonEngine\");
-addpath("FileFormatConverters\");
-addpath("InputFileOperations\");
-addpath("ProteoWizard\");
-addpath("Utilities\");
-addpath("Rcall\");
+%Bridge2 ""  \Bridge2\InputParametersForBridge2  ""
+WorkingDirPath = pwd;
+BridgePyFolder =  [pwd '\' 'Bridge2'];
+InputParamForBridge2 =  [ pwd  '\' 'Bridge2\InputParametersForBridge2.txt' ]; %Same for local and online deployment
+
+BridgeOutputResults = QueryResultFullPath + "\" + "ResultsBridge.xlsx";
+PythonExePath = [ pwd '\' 'Bridge2\python3env\Scripts\python.exe'];     %%#Convenience
+PythonExeFolder = [ pwd '\' 'Bridge2\python3env\Scripts\'];
+
+
+
 
 
 LocalDeployment = false;
 %%
 if (LocalDeployment)
+
+    %User's current directory should be the ToolBox, where a Main.m file
+    %exists to work tool properly
+
 
     % #FUTURE: How user will run its own jobs using local deployment
 
@@ -121,49 +130,24 @@ end
 
 
 %% Sub tools paths
-% global MSConvertCMDPath;
-% global SpectrumXfmsPath;
-% global CallingRCodePath;
-% global Bridge2Path;
-
 MSConvertCMDPath = [pwd '\ProteoWizard'];
 SpectrumXfmsPath = [pwd '\SPECTRUM-XFMS_v1.0.0.0'];
 CallingRCodePath = '';
-Bridge2Path = [pwd '\Bridge2'];
-
-
-
 
 
 %% HERE HARD CODE THE INPUT FOLDER BUT WILL ASK FROM USER AS UIGET
 
-
-
-
-FileOperations = "InputFileOperations\";
-addpath(FileOperations);
-addpath("FileFormatConverters\");
-addpath("Utilities\");
-addpath("Rcall\");
 addpath("Bridge2\");
-
-
-%%% Calling Bridge2
-
-
-Call()
-
-
-%[pwd '\' 'Bridge2']
-
-
-
-
-%%% Calling Bridge2
+addpath("ComparisonEngine\");
+addpath("FileFormatConverters\");
+addpath("frustratometeR\");
+addpath("InputFileOperations\");
+addpath("ProteoWizard\");
+addpath("Rcall\");
+addpath("Utilities\");
 
 
 InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr);
-
 
 %% Creating File Directory for Intermediate Processing...
 MainProcessingFolder = IntermediateProcessingDir(MainProcessingDir, InsideExp, RepArr);
@@ -176,13 +160,6 @@ mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProce
 
 %%Here will come R code integration for converting .mzXML file to .csv
 CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
-
-
-
-
-
-
-
 
 
 %%Comparison Engine will initialize from here
@@ -198,19 +175,12 @@ CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
 ChangingCsvLocAndNames(mzXMLFilesInfo, ReplaceStringFrom, ReplaceStringWith);
 FilteringCsvData(MascotFile,ComparisonEngineOutDir, CsvPathBeforeFilter);
 
-
 GeneratingMassHunterFiles(MascotFile,ComparisonEngineOutDir);
-
-
 
 MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile);
 
-
-
-
-
-
-
+%%% Calling Bridge2
+InitializeAndCallBridge(WorkingDirPath, PythonExeFolder, PythonExePath, BridgePyFolder, InputParamForBridge2, PDBFullFileName, BridgeOutputResults);
 
 
 
@@ -219,7 +189,7 @@ catch exception
 
 end
         
-rmpath(FileOperations);
+
 
 
 end
