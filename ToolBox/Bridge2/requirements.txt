@@ -1,3 +1,5 @@
 wheel
 MDAnalysis
 PySide2
+pandas
+openpyxl
