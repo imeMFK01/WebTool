@@ -25,6 +25,7 @@ title = 'Centrality Measures'
 ui = None
 segname_colors = None
 centralities = None
+global Mysave_centrality
 
 
 def load(parent):
@@ -71,6 +72,7 @@ def update_min_max():
     mi, ma = np.round([mi, ma], r)
     ui.lineEdit_minimum.setText(str(mi))
     ui.lineEdit_maximum.setText(str(ma))
+    q =1
 
 def toggle_histogram():
     per_residue_state = ui.groupBox_per_residue.isChecked()
@@ -211,7 +213,19 @@ def save_centrality():
                                   str(centralities['betweenness'][False][True][node]), 
                                   str(centralities['betweenness'][True][False][node]), 
                                   str(centralities['betweenness'][False][False][node])]) + '\n'
-    main_window.results_dialog.show_results(save_string)
+    
+
+    filename = "D:\\GitHub\\02_WebTool\\WebTool\\ToolBox\\Bridge2\\Results.txt" #QFileDialog.getSaveFileName(self, 'Save ASCII', filter='ASCII text file (*.txt);;All Files (*.*)')[0]  #XFMS
+    if not filename: return
+    with open(filename, 'w') as af:
+        # self.textEdit_results.clear()
+        # self.textEdit_results.setText(result_string)
+        af.write(save_string)
+
+
+    # main_window.results_dialog.save_to_file(save_string)
+    #main_window.results_dialog.show_results(save_string)
+    return save_string
             
 class Ui_GroupBox(object):
     def setupUi(self, GroupBox):

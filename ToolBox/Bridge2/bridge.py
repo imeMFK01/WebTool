@@ -45,6 +45,7 @@ from interactive import InteractiveMPLGraph as igraph, default_colors
 from core.helpfunctions import (Error, Info, ranges_to_numbers, 
                                 acceptor_names_global, donor_names_global,
                                 water_definition)
+from plugins import acentrality
 
 all_filter = ['occupancy', 'shortest', 'connected', 'specific', 'between', 'selected_nodes']
 filter_description = {'occupancy': 'Occupancy', 
@@ -58,6 +59,7 @@ x = 10
 MySelf = None
 filename = 'D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/PDB.pdb'     ##PERCEPTRON-XFMS
 SaveResults = 'D:/GitHub/02_WebTool/WebTool/ToolBox/Bridge2/Bridge2Results.txt'     ##PERCEPTRON-XFMS
+ShowResults = ''
 
 # self
 
@@ -396,7 +398,8 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         self.main_window.working = True
         self.main_window.threadpool.start(worker)
         
-        MySelf = self
+        MySelf = self  #XFMS
+        #RunningForResults = window.export_analysis_summary()   #XFMS
         #self.close()  #XFMS
     
     def error_in_worker(self, error_tuple):
@@ -476,14 +479,17 @@ class ResultsDialog(QDialog, Ui_ResultsDialog):
         filename = SaveResults #QFileDialog.getSaveFileName(self, 'Save ASCII', filter='ASCII text file (*.txt);;All Files (*.*)')[0]  #XFMS
         if not filename: return
         with open(filename, 'w') as af:
-            self.textEdit_results.clear()
-            self.textEdit_results.setText(result_string)
+            # self.textEdit_results.clear()
+            # self.textEdit_results.setText(result_string)
             af.write(self.textEdit_results.toPlainText())
         
     def show_results(self, result_string):
         self.textEdit_results.clear()
         self.textEdit_results.setText(result_string)
-        self.show()
+        self.save_to_file
+        MySelf = self
+        ShowResults = result_string
+        #self.show()
 
 class MainWindow(QMainWindow, Ui_MainWindow):
 
@@ -641,8 +647,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else: time_string = "{}{}".format(*self._search_parameter['frame_time'])
         stop = self._analysis_parameter['stop']
         if stop is None: stop = -1
-        if self._analysis_parameter['trajectories'][-1] is None:
-            self._analysis_parameter['trajectories'] = []
+        # # if self._analysis_parameter['trajectories'][-1] is None:
+        # #     self._analysis_parameter['trajectories'] = []
         result_string +=   "--- ANALYSIS PARAMETER ---\n\n\
 - Files -\n\n\
 structure: {}\n\
@@ -670,7 +676,7 @@ starting n-terminal residue: {}\n\n\
 {}\n\n\
 --- RESULTS ---\n\n\
 {}\n".format(self._analysis_parameter['structure'][-1],
-                                           # ' ,'.join(self._analysis_parameter['trajectories'][-1]),  #XFMS #NoNeed of trajectories
+                                           ' ,'.join(self._analysis_parameter['trajectories'][-1]),  #XFMS #NoNeed of trajectories
                                             yes_no[self._analysis_parameter['add_donors_without_hydrogen']],
                                             self._analysis_parameter['selection'],
                                             yes_no[self._analysis_parameter['residuewise']],
@@ -980,6 +986,7 @@ starting n-terminal residue: {}\n\n\
     def enable_centrality_coloring(self):
         self.statusbar.showMessage('Done!')
         self.statusbar.repaint()
+        MySelf = self
     
     def deactivate_all_filters(self):
         self.line_bonds_occupancy.setText('')
@@ -1001,6 +1008,7 @@ starting n-terminal residue: {}\n\n\
         self.comboBox_filter_segna.setCurrentIndex(0)
         self.groupBox_between_segments.setChecked(False)
         for f in list(self._active_filters.keys()): del self._active_filters[f]
+        MySelf = self
         
     def close_open_filters(self):
         if self.groupBox_occupancy.isChecked() and (self._current_filter != 'occupancy') and ('occupancy' not in self._active_filters): 
@@ -1528,10 +1536,38 @@ if __name__ == "__main__":
     #NewResults.show_results(result_string)
     self = MySelf
     
-    window.init_interactive_graph()
+    # # acentrality.load(self)
+    # # acentrality.update(self)
+
+
+    #acentrality.update_min_max()
+    acentrality.compute_centrality_bar()
+    #acentrality.plot_centrality_bar()
+    #acentrality.compute_centrality_histogram()
+    acentrality.save_centrality()
+
+
+    #plot_centrality_histogram
+
+    
+    
+    
+    #acentrality.save_centrality()
+    
+    
+    acentrality.compute_centrality_bar()
+    
+    
+    
+    
+    self = MySelf
+    
+    #window.init_interactive_graph()
+    NewResults.save_to_file()
+
     RunningForResults = window.export_analysis_summary()
     
-    NewResults.save_to_file()
+    
    
     self.results_dialog.show_results(result_string)
 
@@ -1559,31 +1595,4 @@ if __name__ == "__main__":
             'add_donors_without_hydrogen':True,
             'threads':6
             }
-        
-    worker = Worker(NewAnalysisDialog().compute_initial_state, **kwargs) 
-    worker.signals.finished.connect(MainWindow().init_interactive_graph)
-    worker.signals.progress.connect(MainWindow().update_status_bar)
-    worker.signals.error.connect(MainWindow().error_in_worker)
-    MainWindow().statusbar.showMessage('Started initialization...')
-    MainWindow().statusbar.repaint()
-    MainWindow().working = True
-    MainWindow().threadpool.start(worker)
-
-
-
-
-
-
-
-
-    #self.main_window._analysis_parameter = kwargs
-
-#def __init__(self, parent):
-#super().__init__()
-# def __init__(self, parent):
-#     super().__init__()
-#     self.setupUi(self)
-#     self.connect_actions()
-#     self.main_window = parent
-
-#NewAnalysisDialog().compute_initial_state(**kwargs)
+ 
