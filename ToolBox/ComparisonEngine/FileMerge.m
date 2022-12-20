@@ -1,3 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             PERCEPTRON-XFMS                             %
+%                             Version 1.0.0.0                             %
+% Copyright (c) Biomedical Informatics & Engineering Research Laboratory, %
+%         Lahore University of Management Sciences Lahore (LUMS),         %
+%                                Pakistan.                                %
+%                    (http://biolabs.lums.edu.pk/BIRL)                    %
+%                         (safee.ullah@gmail.com)                         %
+%                      Last Modified on: 21-Dec-2022                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function FileMerge()
 % This function reads the intermediate files and merge them on basis of the same header
 myFolder= char(strcat(pwd,strcat('\','Results_matched')));

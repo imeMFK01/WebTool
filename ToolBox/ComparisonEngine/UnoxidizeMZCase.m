@@ -1,3 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             PERCEPTRON-XFMS                             %
+%                             Version 1.0.0.0                             %
+% Copyright (c) Biomedical Informatics & Engineering Research Laboratory, %
+%         Lahore University of Management Sciences Lahore (LUMS),         %
+%                                Pakistan.                                %
+%                    (http://biolabs.lums.edu.pk/BIRL)                    %
+%                         (safee.ullah@gmail.com)                         %
+%                      Last Modified on: 21-Dec-2022                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [AAstartId_U,AAendId_U]=UnoxidizeMZCase(Unoxi_index, ind, Oxi_index,file1,Oxidize_mz)
 %fetches the start and end Id of unoxidized mz block
 IDx=1;

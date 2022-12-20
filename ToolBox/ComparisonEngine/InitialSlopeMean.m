@@ -1,3 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             PERCEPTRON-XFMS                             %
+%                             Version 1.0.0.0                             %
+% Copyright (c) Biomedical Informatics & Engineering Research Laboratory, %
+%         Lahore University of Management Sciences Lahore (LUMS),         %
+%                                Pakistan.                                %
+%                    (http://biolabs.lums.edu.pk/BIRL)                    %
+%                         (safee.ullah@gmail.com)                         %
+%                      Last Modified on: 21-Dec-2022                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This Function reads the  FileMean generated in the Step 11.
 % This file includes the mean and standard error of the residues in three repliactes
 % It fit the exponential curve on the data of each residues to creat a plot

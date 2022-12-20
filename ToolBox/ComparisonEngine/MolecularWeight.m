@@ -1,3 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             PERCEPTRON-XFMS                             %
+%                             Version 1.0.0.0                             %
+% Copyright (c) Biomedical Informatics & Engineering Research Laboratory, %
+%         Lahore University of Management Sciences Lahore (LUMS),         %
+%                                Pakistan.                                %
+%                    (http://biolabs.lums.edu.pk/BIRL)                    %
+%                         (safee.ullah@gmail.com)                         %
+%                      Last Modified on: 21-Dec-2022                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Oxidize_mz, Unoxidize_mz, Theoretical_peptide_weight] = MolecularWeight( Sequence )
 % This function calculates the monoisotopic mass of peptide and compute the
 % oxidized AND UNOXIDIZED M/Z
