@@ -700,7 +700,33 @@
     </mat-expansion-panel>
     <div style="height:10px;font-size:1px;">&nbsp;</div>
     <!-- <br> -->
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
+        <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
+          Upload Experimental Data
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
+
+      <div style="height:30px;font-size:1px;">&nbsp;</div>
+
+
+      <mat-grid-list cols="8" style="padding:0px" rowHeight="45px">
+
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-checkbox matTooltip="Check the option for running bridge algorithm" color="primary"
+            style="width:100%; padding-left:15px;" [(ngModel)]="Autotune" name="Autotune" ngModel>Bridge Algorithm</mat-checkbox>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-checkbox matTooltip="Check the option for running frustratometeR algorithm"
+            color="primary" style="width:100%; padding-left:15px;" [(ngModel)]="FilterDB" name="FilterDb" ngModel>Frustratometer Algorithm</mat-checkbox>
+        </mat-grid-tile>
+        
+
+
+        </mat-grid-list>
+        </mat-expansion-panel>
 
     <div style="height:10px;font-size:1px;">&nbsp;</div>
     <!-- <br> -->
@@ -730,7 +756,7 @@
 
       <!-- <label style="color:red;"> Once query has been submitted then, please do not refresh the page otherwise your job submission could be interupted.</label> -->
 
-      <a href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a>
+      
       <div id="FormattingCss">For formatting related guidelines please refer to <a href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></div>
 
 
