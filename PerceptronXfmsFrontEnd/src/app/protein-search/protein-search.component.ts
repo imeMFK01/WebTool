@@ -80,6 +80,10 @@ filename: any;
   PST_Tolerance: any;
   Maximum_PstLength:any;
   Hop_Threshhold:any;
+  FilterDB:any;
+  Autotune:any;
+  Title:any;
+  email:any;
   ////
 
   stateCtrl: FormControl;

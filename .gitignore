@@ -18,3 +18,5 @@ ToolBox/Bridge/
 ToolBox/Bridge/python3env/
 ToolBox/Bridge/__pycache__/
 PerceptronXfmsFrontEnd/dist/
+PerceptronXfmsFrontEnd/node_modules/@angular-devkit/
+PerceptronXfmsFrontEnd/node_modules/.cache/
