@@ -59,6 +59,8 @@
           </mat-grid-tile>
 
           <mat-grid-tile colspan="2"></mat-grid-tile>
+          <mat-grid-tile colspan="3"></mat-grid-tile>  <!--DEL THIS DIV-->
+          
 
           <!------------------------------>
           <!-- DOSE RESPONSE INPUT FILE -->
@@ -115,13 +117,15 @@
                 </style>
                 <a class="smallerScreen"><br /></a>
                 <label style="display:inline;">&nbsp;</label>
-                <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                    *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
+                <!--BELOW VALIDATIONS-->
+                <!-- <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
+                    *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a> -->
 
-                <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
+                <input #DoseFile type="file" #imgFileInput (ngModel)="DoseFile" #FileName="ngModel" required name="FileName"
                   [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".txt" multiple
                   ngModel />
-                <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
+                  <!--BELOW VALIDATIONS-->
+                <!-- <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
                   Please select a data file (*.txt format).
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
@@ -129,7 +133,7 @@
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
                   File Size must be less than 60 MB.
-                </mat-error>
+                </mat-error> -->
               </div>
             </span>
           </mat-grid-tile>
@@ -139,305 +143,16 @@
           
           <!-- <mat-grid-tile colspan="2"></mat-grid-tile> -->
           <div style="height:30px;font-size:1px;">&nbsp;</div>
-          <!------------------------------>
-          <!-- FASTA FORMAT FILE -->
-          <!------------------------------>
-          <mat-grid-tile colspan="3" rowspan="1" style="padding:0px; align-items: flex;">
-            <span matTooltip="Browse and upload FASTA (in ‘fasta’ format) " matTooltipPosition="left"
-              style="padding:0px; padding-left:15px; width:100%;">
-              <label class="largeScreen">Upload FASTA File *</label>
-              <label class="smallScreen">Upload FASTA File *</label>
-              <style>
-                .smallScreen {
-                  display: none;
-                }
-
-                .largeScreen {
-                  display: inline;
-                  font-weight: 450;
-                }
-
-                @media (max-width: 1400px) {
-                  .smallScreen {
-                    display: inline;
-                    font-weight: 450;
-                  }
-
-                  .largeScreen {
-                    display: none;
-                  }
-                }
-
-                @media (max-width: 1200px) {
-                  .smallerScreen {
-                    display: none;
-                  }
-                }
-              </style>
-              <label style="display:inline;">&nbsp;</label>
-              <div style='display:inline;' class="button-row">
-                <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
-                  mat-mini-fab (click)="imgFileInput.click()">
-                  <mat-icon class='iconclass'>insert_drive_file</mat-icon>
-                </button>
-                <style>
-                  .buttonclass {
-                    width: 35px;
-                    height: 35px;
-                  }
-
-                  .iconclass {
-                    font-size: 22px;
-                    margin-top: -4px;
-                  }
-                </style>
-                <a class="smallerScreen"><br /></a>
-                <label style="display:inline;">&nbsp;</label>
-                <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                    *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
-
-                <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".fasta" multiple
-                  ngModel />
-                <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                  Please select a FASTA file (*.fasta format).
-                </mat-error>
-                <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                  Please upload only one FASTA file.
-                </mat-error>
-                <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
-                  File Size must be less than 60 MB.
-                </mat-error>
-              </div>
-            </span>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="1"></mat-grid-tile>
-
-          <!-- <div style="height:30px;font-size:1px;">&nbsp;</div> -->
-          <!------------------------------>
-          <!-- PDB FILE FORMAT -->
-          <!------------------------------>
-          <mat-grid-tile colspan="3" rowspan="1" style="padding:0px; align-items: flex;">
-            <span matTooltip="Browse and upload PDB (in ‘pdb’ format) " matTooltipPosition="left"
-              style="padding:0px; padding-left:15px; width:100%;">
-              <label class="largeScreen">Upload PDB File *</label>
-              <label class="smallScreen">Upload PDB File *</label>
-              <style>
-                .smallScreen {
-                  display: none;
-                }
-
-                .largeScreen {
-                  display: inline;
-                  font-weight: 450;
-                }
-
-                @media (max-width: 1400px) {
-                  .smallScreen {
-                    display: inline;
-                    font-weight: 450;
-                  }
-
-                  .largeScreen {
-                    display: none;
-                  }
-                }
-
-                @media (max-width: 1200px) {
-                  .smallerScreen {
-                    display: none;
-                  }
-                }
-              </style>
-              <label style="display:inline;">&nbsp;</label>
-              <div style='display:inline;' class="button-row">
-                <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
-                  mat-mini-fab (click)="imgFileInput.click()">
-                  <mat-icon class='iconclass'>insert_drive_file</mat-icon>
-                </button>
-                <style>
-                  .buttonclass {
-                    width: 35px;
-                    height: 35px;
-                  }
-
-                  .iconclass {
-                    font-size: 22px;
-                    margin-top: -4px;
-                  }
-                </style>
-                <a class="smallerScreen"><br /></a>
-                <label style="display:inline;">&nbsp;</label>
-                <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                    *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
-
-                <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".pdb" multiple
-                  ngModel />
-                <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                  Please select a PDB file (*.pdb format).
-                </mat-error>
-                <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                  Please upload only one PDB file.
-                </mat-error>
-                <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
-                  File Size must be less than 60 MB.
-                </mat-error>
-              </div>
-            </span>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="1"></mat-grid-tile>
-
-          <!------------------------------>
-          <!----- MASCOT FILE FORMAT ----->
-          <!------------------------------>
-          <mat-grid-tile colspan="3" rowspan="1" style="padding:0px; align-items: flex;">
-            <span matTooltip="Browse and upload Mascot file (in ‘xlsx’ format) " matTooltipPosition="left"
-              style="padding:0px; padding-left:15px; width:100%;">
-              <label class="largeScreen">Upload Mascot File *</label>
-              <label class="smallScreen">Upload Mascot File *</label>
-              <style>
-                .smallScreen {
-                  display: none;
-                }
-
-                .largeScreen {
-                  display: inline;
-                  font-weight: 450;
-                }
-
-                @media (max-width: 1400px) {
-                  .smallScreen {
-                    display: inline;
-                    font-weight: 450;
-                  }
-
-                  .largeScreen {
-                    display: none;
-                  }
-                }
-
-                @media (max-width: 1200px) {
-                  .smallerScreen {
-                    display: none;
-                  }
-                }
-              </style>
-              <label style="display:inline;">&nbsp;</label>
-              <div style='display:inline;' class="button-row">
-                <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
-                  mat-mini-fab (click)="imgFileInput.click()">
-                  <mat-icon class='iconclass'>insert_drive_file</mat-icon>
-                </button>
-                <style>
-                  .buttonclass {
-                    width: 35px;
-                    height: 35px;
-                  }
-
-                  .iconclass {
-                    font-size: 22px;
-                    margin-top: -4px;
-                  }
-                </style>
-                <a class="smallerScreen"><br /></a>
-                <label style="display:inline;">&nbsp;</label>
-                <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                    *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
-
-                <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".xlsx" multiple
-                  ngModel />
-                <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                  Please select a Mascot file (*.xlsx format).
-                </mat-error>
-                <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                  Please upload only one Mascot file.
-                </mat-error>
-                <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
-                  File Size must be less than 60 MB.
-                </mat-error>
-              </div>
-            </span>
-          </mat-grid-tile>
-
-
-          <mat-grid-tile colspan="1"></mat-grid-tile>
-          <!------------------------------>
-          <!----- SASA FILE FORMAT ----->
-          <!------------------------------>
-          <mat-grid-tile colspan="3" rowspan="1" style="padding:0px; align-items: flex;">
-            <span matTooltip="Browse and upload SASA file (in ‘xlsx’ format) " matTooltipPosition="left"
-              style="padding:0px; padding-left:15px; width:100%;">
-              <label class="largeScreen">Upload SASA File *</label>
-              <label class="smallScreen">Upload SASA File *</label>
-              <style>
-                .smallScreen {
-                  display: none;
-                }
-
-                .largeScreen {
-                  display: inline;
-                  font-weight: 450;
-                }
-
-                @media (max-width: 1400px) {
-                  .smallScreen {
-                    display: inline;
-                    font-weight: 450;
-                  }
-
-                  .largeScreen {
-                    display: none;
-                  }
-                }
-
-                @media (max-width: 1200px) {
-                  .smallerScreen {
-                    display: none;
-                  }
-                }
-              </style>
-              <label style="display:inline;">&nbsp;</label>
-              <div style='display:inline;' class="button-row">
-                <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
-                  mat-mini-fab (click)="imgFileInput.click()">
-                  <mat-icon class='iconclass'>insert_drive_file</mat-icon>
-                </button>
-                <style>
-                  .buttonclass {
-                    width: 35px;
-                    height: 35px;
-                  }
-
-                  .iconclass {
-                    font-size: 22px;
-                    margin-top: -4px;
-                  }
-                </style>
-                <a class="smallerScreen"><br /></a>
-                <label style="display:inline;">&nbsp;</label>
-                <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                    *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
-
-                <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".xlsx" multiple
-                  ngModel />
-                <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                  Please select a SASA file (*.xlsx format).
-                </mat-error>
-                <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                  Please upload only one SASA file.
-                </mat-error>
-                <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
-                  File Size must be less than 60 MB.
-                </mat-error>
-              </div>
-            </span>
-          </mat-grid-tile>
-
+          <!--------------------------------------------->
+          <!-- HERE ALL REMAINING FILES WILL BE PLACED -->
+          <!--------------------------------------------->
+          <!--------------------------------------------->
+          <!-- HERE ALL REMAINING FILES WILL BE PLACED -->
+          <!--------------------------------------------->
+          <!--------------------------------------------->
+          <!-- HERE ALL REMAINING FILES WILL BE PLACED -->
+          <!--------------------------------------------->
+          
 
 
         </mat-grid-list>
@@ -451,253 +166,16 @@
     </mat-card>
     <div style="height:10px;font-size:1px;">&nbsp;</div>
     <!-- <br> -->
+    <!--------------------------------------------->
+          <!-- HERE ALL REMAINING FILES WILL BE PLACED -->
+          <!--------------------------------------------->
+          <!--------------------------------------------->
+          <!-- HERE ALL REMAINING FILES WILL BE PLACED -->
+          <!--------------------------------------------->
+          <!--------------------------------------------->
+          <!-- HERE ALL REMAINING FILES WILL BE PLACED -->
+          <!--------------------------------------------->
 
-    <mat-expansion-panel [expanded]="true">
-      <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
-        <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
-          Upload Experimental Data
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-
-
-      <div style="height:30px;font-size:1px;">&nbsp;</div>
-
-
-      <mat-grid-list cols="8" style="padding:0px" rowHeight="100px">
-
-
-        <!------------------------------>
-        <!------- REPLICATE # 1 -------->
-        <!------------------------------>
-
-        <mat-grid-tile colspan="8" rowspan="1" style="padding:0px; align-items: flex;">
-          <span matTooltip="Browse and upload replicate 1 data (in ‘zip’ format) " matTooltipPosition="left"
-            style="padding:0px; padding-left:15px; width:100%;">
-            <label class="largeScreen">Upload Replicate 1 Data *</label>
-            <label class="smallScreen">Upload Rep. 1 Data *</label>
-            <style>
-              .smallScreen {
-                display: none;
-              }
-
-              .largeScreen {
-                display: inline;
-                font-weight: 450;
-              }
-
-              @media (max-width: 1400px) {
-                .smallScreen {
-                  display: inline;
-                  font-weight: 450;
-                }
-
-                .largeScreen {
-                  display: none;
-                }
-              }
-
-              @media (max-width: 1200px) {
-                .smallerScreen {
-                  display: none;
-                }
-              }
-            </style>
-            <label style="display:inline;">&nbsp;</label>
-            <div style='display:inline;' class="button-row">
-              <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
-                mat-mini-fab (click)="imgFileInput.click()">
-                <mat-icon class='iconclass'>insert_drive_file</mat-icon>
-              </button>
-              <style>
-                .buttonclass {
-                  width: 35px;
-                  height: 35px;
-                }
-
-                .iconclass {
-                  font-size: 22px;
-                  margin-top: -4px;
-                }
-              </style>
-              <a class="smallerScreen"><br /></a>
-              <label style="display:inline;">&nbsp;</label>
-              <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                  *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
-
-              <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".zip" multiple
-                ngModel />
-              <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                Please select a data file (*.zip format).
-              </mat-error>
-              <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                Please upload a .zip file.
-              </mat-error>
-              <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
-                File Size must be less than 60 MB.
-              </mat-error>
-            </div>
-          </span>
-        </mat-grid-tile>
-
-        <!------------------------------>
-        <!------- REPLICATE # 2 -------->
-        <!------------------------------>
-
-        <mat-grid-tile colspan="8" rowspan="1" style="padding:0px; align-items: flex;">
-          <span matTooltip="Browse and upload replicate 2 data (in ‘zip’ format) " matTooltipPosition="left"
-            style="padding:0px; padding-left:15px; width:100%;">
-            <label class="largeScreen">Upload Replicate 2 Data *</label>
-            <label class="smallScreen">Upload Rep. 2 Data *</label>
-            <style>
-              .smallScreen {
-                display: none;
-              }
-
-              .largeScreen {
-                display: inline;
-                font-weight: 450;
-              }
-
-              @media (max-width: 1400px) {
-                .smallScreen {
-                  display: inline;
-                  font-weight: 450;
-                }
-
-                .largeScreen {
-                  display: none;
-                }
-              }
-
-              @media (max-width: 1200px) {
-                .smallerScreen {
-                  display: none;
-                }
-              }
-            </style>
-            <label style="display:inline;">&nbsp;</label>
-            <div style='display:inline;' class="button-row">
-              <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
-                mat-mini-fab (click)="imgFileInput.click()">
-                <mat-icon class='iconclass'>insert_drive_file</mat-icon>
-              </button>
-              <style>
-                .buttonclass {
-                  width: 35px;
-                  height: 35px;
-                }
-
-                .iconclass {
-                  font-size: 22px;
-                  margin-top: -4px;
-                }
-              </style>
-              <a class="smallerScreen"><br /></a>
-              <label style="display:inline;">&nbsp;</label>
-              <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                  *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
-
-              <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".zip" multiple
-                ngModel />
-              <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                Please select a data file (*.zip format).
-              </mat-error>
-              <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                Please upload a .zip file.
-              </mat-error>
-              <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
-                File Size must be less than 60 MB.
-              </mat-error>
-            </div>
-          </span>
-        </mat-grid-tile>
-
-
-
-        <!------------------------------>
-        <!------- REPLICATE # 3 -------->
-        <!------------------------------>
-
-        <mat-grid-tile colspan="8" rowspan="1" style="padding:0px; align-items: flex;">
-          <span matTooltip="Browse and upload replicate 3 data (in ‘zip’ format) " matTooltipPosition="left"
-            style="padding:0px; padding-left:15px; width:100%;">
-            <label class="largeScreen">Upload Replicate 3 Data *</label>
-            <label class="smallScreen">Upload Rep. 3 Data *</label>
-            <style>
-              .smallScreen {
-                display: none;
-              }
-
-              .largeScreen {
-                display: inline;
-                font-weight: 450;
-              }
-
-              @media (max-width: 1400px) {
-                .smallScreen {
-                  display: inline;
-                  font-weight: 450;
-                }
-
-                .largeScreen {
-                  display: none;
-                }
-              }
-
-              @media (max-width: 1200px) {
-                .smallerScreen {
-                  display: none;
-                }
-              }
-            </style>
-            <label style="display:inline;">&nbsp;</label>
-            <div style='display:inline;' class="button-row">
-              <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
-                mat-mini-fab (click)="imgFileInput.click()">
-                <mat-icon class='iconclass'>insert_drive_file</mat-icon>
-              </button>
-              <style>
-                .buttonclass {
-                  width: 35px;
-                  height: 35px;
-                }
-
-                .iconclass {
-                  font-size: 22px;
-                  margin-top: -4px;
-                }
-              </style>
-              <a class="smallerScreen"><br /></a>
-              <label style="display:inline;">&nbsp;</label>
-              <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                  *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
-
-              <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".zip" multiple
-                ngModel />
-              <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                Please select a data file (*.zip format).
-              </mat-error>
-              <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                Please upload a .zip file.
-              </mat-error>
-              <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
-                File Size must be less than 60 MB.
-              </mat-error>
-            </div>
-          </span>
-        </mat-grid-tile>
-
-
-        <!-------------------------------------------------->
-
-
-
-      </mat-grid-list>
-
-    </mat-expansion-panel>
     <div style="height:10px;font-size:1px;">&nbsp;</div>
     <!-- <br> -->
     <mat-expansion-panel [expanded]="true">
