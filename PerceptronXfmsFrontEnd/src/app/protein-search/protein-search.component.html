@@ -64,9 +64,10 @@
           <!------------------------------>
           <mat-grid-tile colspan="3" rowspan="1" style="padding:0px; align-items: flex;">
             <span matTooltip="Browse and upload dose response information (in ‘txt’ format) " matTooltipPosition="left"
+
               style="padding:0px; padding-left:15px; width:100%;">
-              <label class="largeScreen">Upload dose response information *</label>
-              <label class="smallScreen">Upload dose resp. info. *</label>
+              <label class="largeScreen">Upload Dose Response Information *</label>
+              <label class="smallScreen">Upload Dose Resp. Info. *</label>
               <style>
                 .smallScreen {
                   display: none;
@@ -141,7 +142,7 @@
           <!-- FASTA FORMAT FILE -->
           <!------------------------------>
           <mat-grid-tile colspan="3" rowspan="1" style="padding:0px; align-items: flex;">
-            <span matTooltip="Browse and upload dose response information (in ‘txt’ format) " matTooltipPosition="left"
+            <span matTooltip="Browse and upload FASTA (in ‘fasta’ format) " matTooltipPosition="left"
               style="padding:0px; padding-left:15px; width:100%;">
               <label class="largeScreen">Upload FASTA File *</label>
               <label class="smallScreen">Upload FASTA File *</label>
@@ -195,13 +196,13 @@
                     *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
 
                 <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".txt" multiple
+                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".fasta" multiple
                   ngModel />
                 <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                  Please select a data file (*.txt format).
+                  Please select a FASTA file (*.fasta format).
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                  Please upload only one dose response file.
+                  Please upload only one FASTA file.
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
                   File Size must be less than 60 MB.
@@ -217,7 +218,7 @@
           <!-- PDB FILE FORMAT -->
           <!------------------------------>
           <mat-grid-tile colspan="3" rowspan="1" style="padding:0px; align-items: flex;">
-            <span matTooltip="Browse and upload dose response information (in ‘txt’ format) " matTooltipPosition="left"
+            <span matTooltip="Browse and upload PDB (in ‘pdb’ format) " matTooltipPosition="left"
               style="padding:0px; padding-left:15px; width:100%;">
               <label class="largeScreen">Upload PDB File *</label>
               <label class="smallScreen">Upload PDB File *</label>
@@ -271,13 +272,13 @@
                     *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
 
                 <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".txt" multiple
+                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".pdb" multiple
                   ngModel />
                 <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                  Please select a data file (*.txt format).
+                  Please select a PDB file (*.pdb format).
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                  Please upload only one dose response file.
+                  Please upload only one PDB file.
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
                   File Size must be less than 60 MB.
@@ -292,7 +293,7 @@
           <!----- MASCOT FILE FORMAT ----->
           <!------------------------------>
           <mat-grid-tile colspan="3" rowspan="1" style="padding:0px; align-items: flex;">
-            <span matTooltip="Browse and upload mascot file (in ‘xlsx’ format) " matTooltipPosition="left"
+            <span matTooltip="Browse and upload Mascot file (in ‘xlsx’ format) " matTooltipPosition="left"
               style="padding:0px; padding-left:15px; width:100%;">
               <label class="largeScreen">Upload Mascot File *</label>
               <label class="smallScreen">Upload Mascot File *</label>
@@ -346,13 +347,13 @@
                     *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
 
                 <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".txt" multiple
+                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".xlsx" multiple
                   ngModel />
                 <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                  Please select a data file (*.txt format).
+                  Please select a Mascot file (*.xlsx format).
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
-                  Please upload only one dose response file.
+                  Please upload only one Mascot file.
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
                   File Size must be less than 60 MB.
@@ -421,10 +422,10 @@
                     *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
 
                 <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required name="FileName"
-                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".txt" multiple
+                  [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".xlsx" multiple
                   ngModel />
                 <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
-                  Please select a SASA data file (*.xlsx format).
+                  Please select a SASA file (*.xlsx format).
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
                   Please upload only one SASA file.
@@ -728,6 +729,20 @@
 
       <!-- <label style="color:red;"> Once query has been submitted then, please do not refresh the page otherwise your job submission could be interupted.</label> -->
 
+      <div id="FormattingCss">For formatting related guidelines please refer to <a href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></div>
+
+
+      <!-- <p style="font-size:16px;">For formatting related guidelines please refer to <u><a style="font-style:italic" href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></u></p> -->
+
+
+      <!-- <p style="font-size:16px;">For more information on using PERCEPTRON-XFMS, please refer to our <u><a style="font-style:italic" href="https://perceptron.lums.edu.pk/index.html#/youtube">video tutorials</a></u> or visit
+        <u><a style="font-style:italic" href="https://github.com/BIRL/PERCEPTRON-XFMS_v1.0.0.0/tree/main/Documentation">here</a></u> to download user manual and step by step guide.</p> -->
+
+
+      <!-- <div> For formatting related guidelines please refer to <a href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></div> -->
+
+    <div style="height:10px;font-size:1px;">&nbsp;</div>
+    <br>
       <mat-grid-tile colspan="1" rowspan="1">
         <label style="padding-left:15px;"></label>
         <button mat-raised-button matTooltip="Click to submit job " class="button-sumbit"

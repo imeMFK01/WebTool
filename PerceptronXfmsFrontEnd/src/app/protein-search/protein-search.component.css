@@ -98,3 +98,12 @@ float: left;
   font-style: italic;
   float:right;
 }
+
+#FormattingCss{
+  cursor:hover;
+  height:10px;
+  color:red;
+  font-size:15px;
+  float:left;
+
+}
