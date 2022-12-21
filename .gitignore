@@ -1,12 +1,9 @@
 *.csv
 *.Rhistory
-*.mzXML
-*.d
 *.xlsx
 *.asv
 *.RData
 *.xls
-*.zip
 CodeTotest/
 PerceptronFrontEnd/dist/
 ToolBox/Rcall/Rrun.Rout
@@ -20,3 +17,4 @@ ToolBox/Bridge/__pycache__/
 PerceptronXfmsFrontEnd/dist/
 PerceptronXfmsFrontEnd/node_modules/@angular-devkit/
 PerceptronXfmsFrontEnd/node_modules/.cache/
+mzXMLtocsvConverter/
