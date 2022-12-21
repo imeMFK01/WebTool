@@ -18,10 +18,17 @@ export class ConfigService {
     baseApiUrl = "https://perceptron.lums.edu.pk/PerceptronAPI";
     // "https://perceptron.lums.edu.pk/PerceptronAPI"
     //http://localhost:52340/
-
     
+    constructor(private _http: Http, private http:HttpClient) { }
 
-    constructor(private _http: Http) { }
+
+    upload(file: File): Observable<any>{
+        const data = new FormData();
+        data.append('file', file);
+        return this.http.post('localhost:52340/upload', data);
+    }
+
+
 
     getJSON() {
         return this._http.get('http://date.jsontest.com')
