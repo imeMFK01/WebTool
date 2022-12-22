@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BooleanInput } from '@angular/cdk/coercion';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,11 +10,12 @@ import { ProteinSearchComponent } from './protein-search/protein-search.componen
 @NgModule({
   declarations: [
     AppComponent,
-    ProteinSearchComponent
+    ProteinSearchComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
