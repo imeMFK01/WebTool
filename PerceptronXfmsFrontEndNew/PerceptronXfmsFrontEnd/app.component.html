@@ -1,0 +1,26 @@
+<div class="example-container" >
+    <mat-toolbar role="header" style="width:auto; background-color: #1b5e20;">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <i class="material-icons orange600 md-36">dehaze</i>
+      </button>
+      <span class="icon-spacer"></span>  <span class="icon-spacer"></span>
+      <button mat-button style="font-size:35px; width: auto; font-family: helvetica; letter-spacing: 0px; font-weight: 500; padding-left:18px; padding-bottom:14px; text-align:text-center;  padding-top:14px;  padding-right:18px; background-color:#1b5e20; color:white;"
+      (click)="perceptron()">
+      PERCEPTRON  <!-- PERCEPTROsN-->
+    </button>
+  
+    <span class="icon-spacer"></span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button (click)="about()">
+      <mat-icon (click)="about()" class="orange600">phone</mat-icon>
+    </button>
+    <span class="icon-spacer"></span>
+    <button mat-icon-button (click)="bug()">
+      <i class="material-icons orange600">&#xE868;</i>
+    </button>
+    <span class="icon-spacer"></span>
+    <button mat-icon-button (click)="account()">
+      <mat-icon class="orange600">account_circle</mat-icon>
+    </button>
+    <span class="icon-spacer"></span>
+  </mat-toolbar>
