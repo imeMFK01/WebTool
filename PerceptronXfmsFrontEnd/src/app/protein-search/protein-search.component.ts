@@ -19,38 +19,257 @@ import 'rxjs/add/operator/map';
 import { DemoComponent } from '../demo/demo.component';
 import { CloseScrollStrategy } from '@angular/cdk/overlay';
 import { from } from 'rxjs/observable/from';
-import { Subscription } from 'rxjs/Subscription';
 
 
 
 @Component({
-  selector: 'ng-upload-root',
+  selector: 'app-protein-search',
   templateUrl: './protein-search.component.html',
   styleUrls: ['./protein-search.component.css'],
+  providers: [ConfigService]
 })
 
-export class ProteinSearchComponent {
+export class ProteinSearchComponent implements OnInit {
 
-  // private subscription: Subscription | undefined
-  //constructor(private confservice: ConfigService) { }
+  IsProgressbarOn = 0;
 
-  file: File | null = null
+  @ViewChild("imgFileInput") imgFileInput;
+  @ViewChild("imgRep1FileInput") imgRep1FileInput;
+  @ViewChild("imgInfo") imgInfo;
 
-  onFileInput(files: FileList | null): void {
-    if (files) {
-      this.file = files.item(0)
+  AllFilesData = [];
+
+
+  //  @ViewChild("imgFileRep1") imgFileRep1;  
+
+
+  barWidth: string = "0%";
+  fileRep1Model: boolean;
+
+  ////////////////////////////////
+  filename: any;
+
+  /////////////////////////////
+
+
+  diableEmail: boolean;
+  name: any;
+
+  // upload:any;
+  Uploaded_File: any;
+  filenameModel: boolean;
+
+  EmailId: string = '';
+  Title: any = '';
+
+  constructor(public af: AngularFireAuth, private router: Router, private _httpService: ConfigService, private _http: Http, public dialog: MatDialog) {
+    this.af.authState.subscribe(user => { })
+  }
+
+  keyPress(event: any) {
+    const pattern = /[0-9\.\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      confirm("Only integers are allowed");
+      event.preventDefault();
+    }
+  }
+
+  keyPress1(event: any) {
+    const pattern = /[_\0-9\+\-\.\ \a-z\@\A-Z]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      confirm("Press submit button to confirm your submission");
+      event.preventDefault();
+    }
+  }
+
+  LoadDefaults() { // Here is Load Default Parameters
+    this.Title = "Default Run";
+    this.EmailId = '';
+  }
+
+
+  ngOnInit() {
+
+    var user = firebase.auth().currentUser;
+    if (user.emailVerified == false) {
+      this.diableEmail = false;
+    }
+    else {
+      this.diableEmail = true;
+    }
+  }
+  ngAfterViewInit() { //Added //Updated 20201215 
+    // Scrolls to top of Page after page view initialized
+    let top = document.getElementById('top');
+    if (top !== null) {
+      top.scrollIntoView();
+      top = null;
+    }
+  }
+
+  onSubmit(form: any): void {
+    this.IsProgressbarOn = 1;
+    var user = firebase.auth().currentUser;
+
+    if (user.emailVerified == true) {
+      form.EmailId = user.email;
+      form.UserId = user.email;
+    }
+    else {
+      // form.UserId = user.uid;
+      if (form.UserId != "") {
+        form.EmailId = form.UserId;
+        form.UserId = user.uid;
+      }
+      else {
+        form.EmailId = "";
+        form.UserId = user.uid;
+      }
+    }
+
+
+    
+    // this.AllFilesData.push(this.imgRep1FileInput.nativeElement);
+    // this.AllFilesData.push(this.imgRep2FileInput.nativeElement);
+
+    
+
+    let Repl1 = this.imgRep1FileInput.nativeElement;
+    let Repl2 = this.imgRep2FileInput.nativeElement;
+
+    this.AllFilesData.push(Repl1.files);
+    this.AllFilesData.push(Repl2.files);
+
+    //let FileName = fi.files[0].name;
+
+
+    let stats: any = 'false';
+    console.log(form);
+    
+    // let fi = this.imgRep1FileInput.nativeElement;
+    // stats = this._httpService.postJSON(form, fi.files);
+
+
+
+
+    let adsa = this._httpService.postJSON(form, this.AllFilesData)
+
+    //stats = this.UploadToServer(form, this.AllFilesData);
+    
+    //stats = this._httpService.postJSON(form, fileData.files);
+    console.log(stats);
+
+  }
+
+
+
+
+//   UploadToServer(form, file) {
+
+
+
+
+
+
+//     let formData: FormData = new FormData();
+
+//     // form.FileName = file[0].name;  //Updated 20210108
+//     var json = JSON.stringify(form);
+
+//     formData.append('Jsonfile', json);
+//     // for (let i = 0; i < file.length; i++) {
+//     //     formData.append('uploadFile', file[i], file[i].name);
+//     // }
+
+//     console.log(json);
+//     let headers = new Headers();
+//     headers.append('Accept', 'application/json');
+//     return this._http.post(this.baseApiUrl + '/api/search/File_upload', formData, { headers: headers })
+//         .map(res => res.json())
+//         .subscribe(
+//             data => console.log('success'),
+//             error => console.log(error)
+//         )
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  upload(Uploaded_File) {
+
+    let fi = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
+
+    // if (fi.files.length > 0) {
+    //   const fsize = fi.files.item(0).size;
+    //   const file = Math.round((fsize / 1024));  // bytes to MBs
+    //   if (file >= Size) {    //size limit = 60 MB
+    //     //CALL API FOR UPLOADING THE DATA...!!!
+    //     this.fileRep1Model = true;
+    //   } else if (file < Size) {
+    //     this.fileRep1Model = false;
+    //   }
+    // }
+  }
+
+
+  UploadRep1() {  // Uploading Replicate 1
+    let fileData = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
+    this.fileRep1Model = this.CheckFileSize(fileData);
+
+    a: 1;
+  }
+
+  
+  @ViewChild("imgRep2FileInput") imgRep2FileInput;
+  fileRep2Model: boolean;
+
+
+  UploadRep2() {  // Uploading Replicate 1
+    let fileData = this.imgRep2FileInput.nativeElement;   //imgFileInput.nativeElement;
+    this.fileRep2Model = this.CheckFileSize(fileData);
+
+    a: 1;
+  }
+
+
+
+
+  CheckFileSize(fileData) {
+
+    let Size = 200000     // ~200MBs file limit
+
+    if (fileData.files.length > 0) {
+      const fsize = fileData.files.item(0).size;
+      const file = Math.round((fsize / 1024));  // bytes to MBs
+      if (file >= Size) {    //size limit = 60 MB
+        //CALL API FOR UPLOADING THE DATA...!!!
+        return true;
+      } else if (file < Size) {
+        return false;
+      }
     }
   }
 
 
-  // onSubmit() {
-  //   if (this.file) {
-  //     this.subscription = this.uploads(this.file).subscribe()
-  //   }
-  // }
 
-  // ngOnDestroy() {
-  //   this.subscription?.unsubscribe()
-  // }
 
+
+  onReset(form: any): void {
+    console.log("Form has been reset");
+  }
 }

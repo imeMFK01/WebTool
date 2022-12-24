@@ -107,3 +107,25 @@ float: left;
   float:left;
 
 }
+.progress {
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  position: relative;
+  border: 1px solid #000;
+}
+
+.progress span {
+  margin: 0%;
+  font-size: 40px;
+  font-family: system-ui;
+  position: absolute;
+  color: #c5c5c5;
+}
+
+.bar {
+  background: #24292e;
+  height: inherit;
+  margin: 0%;
+  transition: all 0.5s ease-out ; 
+}

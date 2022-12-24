@@ -1,15 +1,439 @@
-<mat-label>File</mat-label>
-<button mat-raised-button (click)="fileInput.click()">
-  {{ file ? file.name : 'Select' }}
-</button>
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value);" (ngReset)="onReset(f.value); f.reset() ;" class="ui form">
+  <!-- <script>
+    function enableResultsViewButton() {
+        document.getElementById("ResultsViewButton").disabled = false;
+    }
+  </script> -->
+  <div id="top" style="width:90%; min-width: 600px; margin:0 auto;">
 
-<input type="file" #fileInput (change)="onFileInput(fileInput.files)"/>
-<button
-  [disabled]="!file"
-  type="submit"
-  mat-raised-button
-  color="primary"
-  (click)="onSubmit()"
->
-  Submit
-</button>
+    <mat-card>
+      <h4 style="text-align:center; font-family: Roboto, Arial, sans-serif; font-weight:bold; margin:0 auto;">XFMS
+        Search Query</h4>
+    </mat-card>
+    <div style="height:10px;font-size:1px;">&nbsp;</div>
+    <!-- <br> -->
+
+    <div>
+      <p style="font-size:12px; font-style: italic; color:red;">
+        Required Fields *
+        <br>
+        Note: Users logging in via Guest Account can provide email address to receive results on Email ID upon search
+        completion
+      </p>
+
+    </div>
+    <mat-card>
+      <mat-card-header>
+        <h4 style="padding-left:0px; font-size:21px; font-weight:bold; font-family: roboto, arial, sans-serif;">Search
+          Parameters</h4>
+        <!-- <span class="example-spacer"></span> -->
+        <a mat-button matTooltip="Click to load sample query" (click)="LoadDefaults()" matTooltipPosition="after"
+          style="color:cornflowerblue; text-decoration: underline;" name="Defaults" ngDefaultControl>Load Sample
+          Query</a>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <mat-grid-list cols="15" rowHeight="100px">
+          <mat-grid-tile colspan="4" rowspan="1" rowHeight="50px">
+            <mat-form-field style="padding-left:15px; width:100%">
+              <input matInput matTooltip="Enter project title here to label your XFMS analysis query"
+                matTooltipClass="mat-tooltip" (keypress)="keyPress1($event)" matTooltipPosition="before"
+                placeholder="XFMS Search Title" class="asterisk" required #title='ngModel' name='Title'
+                [(ngModel)]='Title' ngModel>
+              <mat-error style="font-style: italic;" *ngIf="title?.invalid && (title.dirty || title.touched)">
+                <div *ngIf="title.errors.required">
+                  Title is required.
+                </div>
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2"></mat-grid-tile>
+
+          <mat-grid-tile colspan="4" rowspan="1">
+            <mat-form-field style="padding-left:15px; width:100%">
+              <input matInput matTooltip="Enter an email address to receive search results" matTooltipPosition="before"
+                placeholder="Enter your E-mail Address"
+                pattern="[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*" [disabled]="diableEmail"
+                name="UserId" ngModel>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2"></mat-grid-tile>
+        </mat-grid-list>
+
+        <!-- <div style="height:10px;font-size:1px;">&nbsp;</div>
+
+        <mat-grid-list cols="15" style="padding:0px;" rowHeight="65px">
+          
+        </mat-grid-list> -->
+      </mat-card-content>
+    </mat-card>
+    <div style="height:10px;font-size:1px;">&nbsp;</div>
+    <!-- <br> -->
+
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
+        <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
+          Upload Experimental Data
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+      <div style="height:30px;font-size:1px;">&nbsp;</div>
+
+
+
+      <!------------------------------>
+      <!------- REPLICATE # 1 -------->
+      <!------------------------------>
+      <mat-grid-list cols="8" style="padding:0px" rowHeight="100px">
+        <mat-grid-tile colspan="3" rowspan="1" style="padding:0px; align-items: flex;">
+          <span matTooltip="Browse and upload replicate 1 data (in ‘zip’ format) " matTooltipPosition="left"
+            style="padding:0px; padding-left:15px; width:100%;">
+            <label class="largeScreen">Upload Replicate 1 Data *</label>
+            <label class="smallScreen">Upload Rep. 1 Data *</label>
+            <style>
+              .smallScreen {
+                display: none;
+              }
+
+              .largeScreen {
+                display: inline;
+                font-weight: 450;
+              }
+
+              @media (max-width: 1400px) {
+                .smallScreen {
+                  display: inline;
+                  font-weight: 450;
+                }
+
+                .largeScreen {
+                  display: none;
+                }
+              }
+
+              @media (max-width: 1200px) {
+                .smallerScreen {
+                  display: none;
+                }
+              }
+            </style>
+            <label style="display:inline;">&nbsp;</label>
+            <div style='display:inline;' class="button-row">
+              <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
+                mat-mini-fab (click)="imgRep1FileInput.click()">
+                <mat-icon class='iconclass'>insert_drive_file</mat-icon>
+              </button>
+              <style>
+                .buttonclass {
+                  width: 35px;
+                  height: 35px;
+                }
+
+                .iconclass {
+                  font-size: 22px;
+                  margin-top: -4px;
+                }
+              </style>
+              <a class="smallerScreen"><br /></a>
+              <label style="display:inline;">&nbsp;</label>
+              <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
+                  *ngIf='FileRep1.files.length==1 && !fileRep1Model'>{{FileRep1.files[0].name}}</i></a>
+
+              <input #FileRep1 type="file" #imgRep1FileInput (ngModel)="FileRep1" #FileRep1Name="ngModel" required
+                name="FileRep1Name" [(ngModel)]="fileRep1Model" id="FileRep1Name" (change)="UploadRep1()" accept=".zip" ngModel />
+
+              <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep1.files.length==0">
+                Please select a data file (*.zip format).
+              </mat-error>
+              <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep1.files.length>1">
+                Please upload a .zip file.
+              </mat-error>
+              <mat-error style="display: inline; font-style: italic;" *ngIf="fileRep1Model">
+                File Size must be less than 60 MB.
+              </mat-error>
+            </div>
+          </span>
+
+
+
+        </mat-grid-tile>
+        <!-- <mat-grid-tile colspan="2" rowspan="1" style="padding:0px; align-items: flex;">
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-grid-tile> -->
+
+        <!------------------------------>
+        <!------- REPLICATE # 2 -------->
+        <!------------------------------>
+
+
+        <mat-grid-tile colspan="8" rowspan="1" style="padding:0px; align-items: flex;">
+          <span matTooltip="Browse and upload replicate 2 data (in ‘zip’ format) " matTooltipPosition="left"
+            style="padding:0px; padding-left:15px; width:100%;">
+            <label class="largeScreen">Upload Replicate 2 Data *</label>
+            <label class="smallScreen">Upload Rep. 2 Data *</label>
+            <style>
+              .smallScreen {
+                display: none;
+              }
+
+              .largeScreen {
+                display: inline;
+                font-weight: 450;
+              }
+
+              @media (max-width: 1400px) {
+                .smallScreen {
+                  display: inline;
+                  font-weight: 450;
+                }
+
+                .largeScreen {
+                  display: none;
+                }
+              }
+
+              @media (max-width: 1200px) {
+                .smallerScreen {
+                  display: none;
+                }
+              }
+            </style>
+            <label style="display:inline;">&nbsp;</label>
+            <div style='display:inline;' class="button-row">
+              <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
+                mat-mini-fab (click)="imgRep2FileInput.click()">
+                <mat-icon class='iconclass'>insert_drive_file</mat-icon>
+              </button>
+              <style>
+                .buttonclass {
+                  width: 35px;
+                  height: 35px;
+                }
+
+                .iconclass {
+                  font-size: 22px;
+                  margin-top: -4px;
+                }
+              </style>
+              <a class="smallerScreen"><br /></a>
+              <label style="display:inline;">&nbsp;</label>
+              <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
+                  *ngIf='FileRep2.files.length==1 && !fileRep2Model'>{{FileRep2.files[0].name}}</i></a>
+
+              <input #FileRep2 type="file" #imgRep2FileInput (ngModel)="FileRep2" #FileRep2Name="ngModel" required 
+              name="FileRep2Name" [(ngModel)]="fileRep2Model" id="FileRep2Name" (change)="UploadRep2()" accept=".zip"
+                ngModel />
+              <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep2.files.length==0">
+                Please select a data file (*.zip format).
+              </mat-error>
+              <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep2.files.length>1">
+                Please upload a .zip file.
+              </mat-error>
+              <mat-error style="display: inline; font-style: italic;" *ngIf="fileRep2Model">
+                File Size must be less than 60 MB.
+              </mat-error>
+            </div>
+          </span>
+        </mat-grid-tile>
+
+
+
+        <!------------------------------>
+        <!------- REPLICATE # 3 -------->
+        <!------------------------------>
+
+<!-- 
+        <mat-grid-tile colspan="8" rowspan="1" style="padding:0px; align-items: flex;">
+          <span matTooltip="Browse and upload replicate 2 data (in ‘zip’ format) " matTooltipPosition="left"
+            style="padding:0px; padding-left:15px; width:100%;">
+            <label class="largeScreen">Upload Replicate 3 Data *</label>
+            <label class="smallScreen">Upload Rep. 3 Data *</label>
+            <style>
+              .smallScreen {
+                display: none;
+              }
+
+              .largeScreen {
+                display: inline;
+                font-weight: 450;
+              }
+
+              @media (max-width: 1400px) {
+                .smallScreen {
+                  display: inline;
+                  font-weight: 450;
+                }
+
+                .largeScreen {
+                  display: none;
+                }
+              }
+
+              @media (max-width: 1200px) {
+                .smallerScreen {
+                  display: none;
+                }
+              }
+            </style>
+            <label style="display:inline;">&nbsp;</label>
+            <div style='display:inline;' class="button-row">
+              <button mat-button class='buttonclass' type='button' style='display:inline; background-color:#212121 '
+                mat-mini-fab (click)="imgFileInput.click()">
+                <mat-icon class='iconclass'>insert_drive_file</mat-icon>
+              </button>
+              <style>
+                .buttonclass {
+                  width: 35px;
+                  height: 35px;
+                }
+
+                .iconclass {
+                  font-size: 22px;
+                  margin-top: -4px;
+                }
+              </style>
+              <a class="smallerScreen"><br /></a>
+              <label style="display:inline;">&nbsp;</label>
+              <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
+                  *ngIf='email.files.length==1 && !filenameModel'>{{email.files[0].name}}</i></a>
+
+              <input #email type="file" #imgFileInput (ngModel)="email" #FileName="ngModel" required 
+              name="FileName" [(ngModel)]="filenameModel" id="FileName" (change)="upload(Uploaded_File)" accept=".zip"
+                ngModel />
+              <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length==0">
+                Please select a data file (*.zip format).
+              </mat-error>
+              <mat-error style="display: inline; font-style: italic;" *ngIf="email.files.length>1">
+                Please upload a .zip file.
+              </mat-error>
+              <mat-error style="display: inline; font-style: italic;" *ngIf="filenameModel">
+                File Size must be less than 60 MB.
+              </mat-error>
+            </div>
+          </span>
+        </mat-grid-tile> -->
+      </mat-grid-list>
+
+    </mat-expansion-panel>
+    <div style="height:10px;font-size:1px;">&nbsp;</div>
+    <!-- <br> -->
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
+        <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
+          Protein-water Contacts Analyses
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+      <div style="height:30px;font-size:1px;">&nbsp;</div>
+
+
+      <mat-grid-list cols="8" style="padding:0px" rowHeight="45px">
+
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-checkbox matTooltip="Check the option for running bridge algorithm" color="primary"
+            style="width:100%; padding-left:15px;" [(ngModel)]="isBridgeEnable" name="isBridgeEnable" ngModel>Bridge Algorithm
+          </mat-checkbox>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-checkbox matTooltip="Check the option for running frustratometeR algorithm" color="primary"
+            style="width:100%; padding-left:15px;" [(ngModel)]="isFrustratormeterEnable" name="isFrustratormeterEnable" ngModel>Frustratometer
+            Algorithm</mat-checkbox>
+        </mat-grid-tile>
+
+
+
+      </mat-grid-list>
+    </mat-expansion-panel>
+
+    <div style="height:10px;font-size:1px;">&nbsp;</div>
+    <!-- <br> -->
+
+
+    <mat-card>
+      <mat-card-header>
+        <h5 style="padding-left:0px; font-size:21px; font-weight:bold; font-family: roboto, arial, sans-serif;">Job
+          Submission Status
+        </h5>
+        <!-- <span class="example-spacer"></span> -->
+      </mat-card-header>
+
+      <mat-card-content>
+        
+        <mat-grid-list cols="15" rowHeight="55px">
+          <mat-grid-tile colspan="15" rowspan="1" rowHeight="50px">
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="15" rowspan="1" rowHeight="10px">
+            Please do not refresh the page while we submit your query.
+          </mat-grid-tile>
+          <!-- <div style="height:10px;font-size:1px;">&nbsp;</div> -->
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- <mat-card *ngIf="this.IsProgressbarOn;">
+        <mat-progress-bar mode="indeterminate" *ngIf="this.IsProgressbarOn"></mat-progress-bar>
+    </mat-card> -->
+
+
+    <mat-grid-list cols="8" rowHeight="100px">
+
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1">
+
+        <button mat-raised-button matTooltip="Click to reset search parameters to defaults" matTooltipPosition="before"
+          type="reset" style="background-color: #212121; color:aliceblue" class="ui button">Reset</button>
+        <label style="padding-right:15px;"></label>
+      </mat-grid-tile>
+
+      <!-- <label style="color:red;"> Once query has been submitted then, please do not refresh the page otherwise your job submission could be interupted.</label> -->
+
+
+      <div id="FormattingCss">For formatting related guidelines please refer to <a
+          href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></div>
+
+
+      <!-- <p style="font-size:16px;">For formatting related guidelines please refer to <u><a style="font-style:italic" href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></u></p> -->
+
+
+      <!-- <p style="font-size:16px;">For more information on using PERCEPTRON-XFMS, please refer to our <u><a style="font-style:italic" href="https://perceptron.lums.edu.pk/index.html#/youtube">video tutorials</a></u> or visit
+        <u><a style="font-style:italic" href="https://github.com/BIRL/PERCEPTRON-XFMS_v1.0.0.0/tree/main/Documentation">here</a></u> to download user manual and step by step guide.</p> -->
+
+
+      <!-- <div> For formatting related guidelines please refer to <a href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></div> -->
+
+      <div style="height:10px;font-size:1px;">&nbsp;</div>
+      <br>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <label style="padding-left:15px;"></label>
+        <button mat-raised-button matTooltip="Click to submit job " class="button-sumbit"
+        [disabled]="!f.valid || filenameModel || fileRep2Model " matTooltipPosition="after" type="submit"
+          style="background-color: #201a93; color:aliceblue" class="ui button">Submit</button>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    
+    <div style="height:10px;font-size:1px;">&nbsp;</div>
+    <br>
+  </div>
+</form>
+
+
+<!-- || email.files.length>1 -->
+
+
+<!-- || fileRep1Model || FileRep1.files.length>1 -->
+
+

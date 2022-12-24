@@ -15,18 +15,18 @@ import { HttpResponse } from '@angular/common/http';
 @Injectable()
 export class ConfigService {
     resultant: any;
-    baseApiUrl = "https://perceptron.lums.edu.pk/PerceptronAPI";
+    baseApiUrl = "http://localhost:52340";
     // "https://perceptron.lums.edu.pk/PerceptronAPI"
     //http://localhost:52340/
     
-    constructor(private _http: Http, private http:HttpClient) { }
+    constructor(private _http: Http) { }
 
 
-    upload(file: File): Observable<any>{
-        const data = new FormData();
-        data.append('file', file);
-        return this.http.post('localhost:52340/upload', data);
-    }
+    // upload(file: File): Observable<any>{
+    //     const data = new FormData();
+    //     data.append('file', file);
+    //     return this.http.post('localhost:52340/upload', data);
+    // }
 
 
 
