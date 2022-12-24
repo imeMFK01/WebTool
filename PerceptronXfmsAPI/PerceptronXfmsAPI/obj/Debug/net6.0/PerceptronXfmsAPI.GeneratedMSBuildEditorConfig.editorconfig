@@ -15,3 +15,27 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI
 build_property._RazorSourceGeneratorDebug = 
+
+[D:/GitHub/02_WebTool/WebTool/PerceptronXfmsAPI/PerceptronXfmsAPI/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/GitHub/02_WebTool/WebTool/PerceptronXfmsAPI/PerceptronXfmsAPI/Views/TodoItems/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kb0l0ZW1zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/GitHub/02_WebTool/WebTool/PerceptronXfmsAPI/PerceptronXfmsAPI/Views/TodoItems/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kb0l0ZW1zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/GitHub/02_WebTool/WebTool/PerceptronXfmsAPI/PerceptronXfmsAPI/Views/TodoItems/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kb0l0ZW1zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/GitHub/02_WebTool/WebTool/PerceptronXfmsAPI/PerceptronXfmsAPI/Views/TodoItems/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kb0l0ZW1zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/GitHub/02_WebTool/WebTool/PerceptronXfmsAPI/PerceptronXfmsAPI/Views/TodoItems/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kb0l0ZW1zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
