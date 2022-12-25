@@ -24,9 +24,6 @@ export class ConfigService {
 
     postJSON(form, file) {
 
-
-
-
         let formData: FormData = new FormData();
 
         // let formattingform: FormData = new FormData();
@@ -38,9 +35,6 @@ export class ConfigService {
 
         var json = JSON.stringify(form);
 
-
-
-        
         formData.append('Jsonfile', json);
 
         //form.FileName = file[0].name;  //Updated 20210108

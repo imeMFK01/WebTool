@@ -21,10 +21,8 @@ import { CloseScrollStrategy } from '@angular/cdk/overlay';
 import { from } from 'rxjs/observable/from';
 
 
-import { HttpClient, HttpEventType } from '@angular/common/http'
+import { HttpClient, HttpEventType, HttpRequest } from '@angular/common/http'
 import { map } from "rxjs/operators";
-
-
 
 @Component({
   selector: 'app-protein-search',
@@ -43,7 +41,12 @@ export class ProteinSearchComponent implements OnInit {
 
   AllFileEntireContents = [];
 
+  isBridgeEnable: false;
+  isFrustratormeterEnable: false;
+
+
   barWidth: string = "0%";
+  progress: string = '';
   fileRep1Model: boolean;
 
 
@@ -170,29 +173,51 @@ export class ProteinSearchComponent implements OnInit {
         formData.append('uploadFile', file[i], file[i].name);
     }
 
-    console.log(json);
-    let headers = new Headers();
-    headers.append('Accept', 'application/json');
-    return this._HttpClient.post(baseApiUrl + '/api/search/File_upload', formData, {reportProgress: true,  //  responseType: 'json',
-      
-      observe: "events"
+    const uploadReq = new HttpRequest('POST', 'http://localhost:52340/api/search/File_upload', formData, {
+        reportProgress: true,
+      });
 
-    }).pipe(map(
-      event => {
-        if (event.type == HttpEventType.UploadProgress) {
-          this.barWidth = Math.round((100 / (event.total || 0) * event.loaded)) + "%";
-
-        } else if (event.type == HttpEventType.Response) {
-          this.barWidth = "0%";
-          window.open(baseApiUrl + `${event.body}`, "_blank")
-        }
+    this._HttpClient.request(uploadReq).subscribe((event) => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress += Math.round(100 * event.loaded / event.total);
       }
-    ))
-    .subscribe(res => {
-    }, error => {
-      alert("error");
-      console.error(error);
+      else if (event.type === HttpEventType.Response) {
+        console.log((event.body));
+      }
     });
+
+
+
+
+
+
+
+
+
+    // //   //  responseType: 'json',
+    // // console.log(json);
+    // // let headers = new Headers();
+    // // headers.append('Accept', 'application/json');
+    // // return this._HttpClient.post(baseApiUrl + '/api/search/File_upload', formData, {reportProgress: true,
+      
+    // //   observe: "events"
+
+    // // }).pipe(map(
+    // //   event => {
+    // //     if (event.type == HttpEventType.UploadProgress) {
+    // //       this.barWidth = Math.round((100 / (event.total || 0) * event.loaded)) + "%";
+
+    // //     } else if (event.type == HttpEventType.Response) {
+    // //       this.barWidth = "0%";
+    // //       window.open(baseApiUrl + `${event.body}`, "_blank")
+    // //     }
+    // //   }
+    // // ))
+    // // .subscribe(res => {
+    // // }, error => {
+    // //   alert("error");
+    // //   console.error(error);
+    // // });
     
     //  { headers: headers })
     //     .map(res => res.json())

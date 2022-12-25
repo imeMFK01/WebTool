@@ -58,6 +58,7 @@ import { ResultsDownloadComponent } from './results-download/results-download.co
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { FdrComponent } from './fdr/fdr.component';
 
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -135,7 +136,8 @@ import { FdrComponent } from './fdr/fdr.component';
     MatTableModule, 
     // ChartsModule,
     MatProgressBarModule,
-    routes
+    routes,
+    HttpClientModule
   ],
   providers: [
     AuthGuard,
