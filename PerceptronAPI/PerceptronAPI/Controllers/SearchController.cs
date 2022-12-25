@@ -43,41 +43,8 @@ namespace PerceptronAPI.Controllers
         public SearchController()
         {
             CreateDirectory();
-            //_dataLayer = new SqlDatabase();
+            _dataLayer = new SqlDatabase();
         }
-
-        [HttpPost]
-        [Route("api/uploadFile")]
-        public async Task<HttpResponseMessage> uploadFile()
-        {
-
-            var queryId = Guid.NewGuid().ToString();
-
-            var a = HttpContext.Current.Response.Cookies.Count;
-
-            // Check if the request contains multipart/form-data.
-            if (!Request.Content.IsMimeMultipartContent())
-            {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
-            var root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new CustomMultipartFormDataStreamProvider(root);
-            try
-            {
-                await Request.Content.ReadAsMultipartAsync(provider);
-                var jsonData = provider.FormData.GetValues("Jsonfile");
-                //InputFileProcessing(queryId, provider.FileData[0].LocalFileName, DateTime time, parametersDto);
-
-                
-                return Request.CreateResponse(HttpStatusCode.OK, "");
-            }
-            catch (Exception Error)
-            {
-              
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, Error);
-            }
-        }
-
 
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         [HttpPost]
@@ -122,7 +89,7 @@ namespace PerceptronAPI.Controllers
 
         [HttpPost]
         [Route("api/search/File_upload1")]
-        public async Task<HttpResponseMessage> File_upload1()
+        public async Task<HttpResponseMessage> File_upload1()  // ORIGINAL function of PERCEPTRON for submitting queries
         {
 
             var queryId = Guid.NewGuid().ToString();
