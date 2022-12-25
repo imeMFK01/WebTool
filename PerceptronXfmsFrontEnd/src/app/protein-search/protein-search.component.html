@@ -27,8 +27,8 @@
         <h4 style="padding-left:0px; font-size:21px; font-weight:bold; font-family: roboto, arial, sans-serif;">Input
           Parameters</h4>
         <!-- <span class="example-spacer"></span> -->
-        <a mat-button matTooltip="Click to load sample query" (click)="LoadDefaults()" matTooltipPosition="after"
-          style="color:cornflowerblue; text-decoration: underline;" name="Defaults" ngDefaultControl>Load Sample
+        <a mat-button matTooltip="Click to load default parameters" (click)="LoadDefaults()" matTooltipPosition="after"
+          style="color:cornflowerblue; text-decoration: underline;" name="Defaults" ngDefaultControl>Load Default
           Query</a>
       </mat-card-header>
 
@@ -423,14 +423,14 @@
 
         <mat-grid-tile colspan="2" rowspan="1">
           <mat-checkbox matTooltip="Check the option for running bridge algorithm" color="primary"
-            style="width:100%; padding-left:15px;" [(ngModel)]="isBridgeEnabled" name="isBridgeEnabled" ngModel>Bridge Algorithm
+            style="width:100%; padding-left:15px;" [(ngModel)]="isBridgeEnabled" name="isBridgeEnabled" ngModel>Bridge
           </mat-checkbox>
         </mat-grid-tile>
 
         <mat-grid-tile colspan="2" rowspan="1">
           <mat-checkbox matTooltip="Check the option for running frustratometeR algorithm" color="primary"
             style="width:100%; padding-left:15px;" [(ngModel)]="isFrustratometerEnabled" name="isFrustratometerEnabled" ngModel>Frustratometer
-            Algorithm</mat-checkbox>
+            </mat-checkbox>
         </mat-grid-tile>
 
 
@@ -466,6 +466,7 @@
           <mat-grid-tile colspan="8" rowspan="1" rowHeight="10px">
             <div id="FormattingCss">Please do not refresh the page while we submit your query.</div>
           </mat-grid-tile>
+          <mat-grid-tile colspan="7" rowspan="1" rowHeight="10px"></mat-grid-tile>
           <!-- <div style="height:10px;font-size:1px;">&nbsp;</div> -->
         </mat-grid-list>
       </mat-card-content>
