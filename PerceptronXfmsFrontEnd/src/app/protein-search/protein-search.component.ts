@@ -53,7 +53,7 @@ export class ProteinSearchComponent implements OnInit {
   isBridgeEnable: boolean = false;
   isFrustratormeterEnable: boolean = false;
 
-  barWidth: string = "10%";
+  barWidth: string = "0%";
   progress: string = '';
 
   diableEmail: boolean;
