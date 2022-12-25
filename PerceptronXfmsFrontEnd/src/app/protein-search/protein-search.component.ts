@@ -37,26 +37,15 @@ export class ProteinSearchComponent implements OnInit {
   @ViewChild("imgRep1FileInput") imgRep1FileInput;
   @ViewChild("imgInfo") imgInfo;
 
-  AllFilesData = [];
-
-
-  //  @ViewChild("imgFileRep1") imgFileRep1;  
-
+  AllFileEntireContents = [];
 
   barWidth: string = "0%";
   fileRep1Model: boolean;
-
-  ////////////////////////////////
-  filename: any;
-
-  /////////////////////////////
 
 
   diableEmail: boolean;
   name: any;
 
-  // upload:any;
-  Uploaded_File: any;
   filenameModel: boolean;
 
   EmailId: string = '';
@@ -93,7 +82,6 @@ export class ProteinSearchComponent implements OnInit {
 
 
   ngOnInit() {
-
     var user = firebase.auth().currentUser;
     if (user.emailVerified == false) {
       this.diableEmail = false;
@@ -102,6 +90,7 @@ export class ProteinSearchComponent implements OnInit {
       this.diableEmail = true;
     }
   }
+
   ngAfterViewInit() { //Added //Updated 20201215 
     // Scrolls to top of Page after page view initialized
     let top = document.getElementById('top');
@@ -131,35 +120,21 @@ export class ProteinSearchComponent implements OnInit {
       }
     }
 
-
-    
-    // this.AllFilesData.push(this.imgRep1FileInput.nativeElement);
-    // this.AllFilesData.push(this.imgRep2FileInput.nativeElement);
-
-    
-
-    let Repl1 = this.imgRep1FileInput.nativeElement;
-    let Repl2 = this.imgRep2FileInput.nativeElement;
-
-    this.AllFilesData.push(Repl1.files);
-    this.AllFilesData.push(Repl2.files);
-
     //let FileName = fi.files[0].name;
 
 
     let stats: any = 'false';
-    console.log(form);
-    
+    // console.log(form);
+
     // let fi = this.imgRep1FileInput.nativeElement;
     // stats = this._httpService.postJSON(form, fi.files);
 
 
 
-
-    let adsa = this._httpService.postJSON(form, this.AllFilesData)
+    let adsa = this._httpService.postJSON(form, this.AllFileEntireContents)
 
     //stats = this.UploadToServer(form, this.AllFilesData);
-    
+
     //stats = this._httpService.postJSON(form, fileData.files);
     console.log(stats);
 
@@ -168,40 +143,33 @@ export class ProteinSearchComponent implements OnInit {
 
 
 
-//   UploadToServer(form, file) {
+  //   UploadToServer(form, file) {
 
 
 
 
 
 
-//     let formData: FormData = new FormData();
+  //     let formData: FormData = new FormData();
 
-//     // form.FileName = file[0].name;  //Updated 20210108
-//     var json = JSON.stringify(form);
+  //     // form.FileName = file[0].name;  //Updated 20210108
+  //     var json = JSON.stringify(form);
 
-//     formData.append('Jsonfile', json);
-//     // for (let i = 0; i < file.length; i++) {
-//     //     formData.append('uploadFile', file[i], file[i].name);
-//     // }
+  //     formData.append('Jsonfile', json);
+  //     // for (let i = 0; i < file.length; i++) {
+  //     //     formData.append('uploadFile', file[i], file[i].name);
+  //     // }
 
-//     console.log(json);
-//     let headers = new Headers();
-//     headers.append('Accept', 'application/json');
-//     return this._http.post(this.baseApiUrl + '/api/search/File_upload', formData, { headers: headers })
-//         .map(res => res.json())
-//         .subscribe(
-//             data => console.log('success'),
-//             error => console.log(error)
-//         )
-// }
-
-
-
-
-
-
-
+  //     console.log(json);
+  //     let headers = new Headers();
+  //     headers.append('Accept', 'application/json');
+  //     return this._http.post(this.baseApiUrl + '/api/search/File_upload', formData, { headers: headers })
+  //         .map(res => res.json())
+  //         .subscribe(
+  //             data => console.log('success'),
+  //             error => console.log(error)
+  //         )
+  // }
 
 
 
@@ -210,31 +178,36 @@ export class ProteinSearchComponent implements OnInit {
 
 
 
-  upload(Uploaded_File) {
 
-    let fi = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
 
-    // if (fi.files.length > 0) {
-    //   const fsize = fi.files.item(0).size;
-    //   const file = Math.round((fsize / 1024));  // bytes to MBs
-    //   if (file >= Size) {    //size limit = 60 MB
-    //     //CALL API FOR UPLOADING THE DATA...!!!
-    //     this.fileRep1Model = true;
-    //   } else if (file < Size) {
-    //     this.fileRep1Model = false;
-    //   }
-    // }
-  }
+
+
+
+
+
+  // upload(Uploaded_File) {
+
+  //   let fi = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
+
+  //   // if (fi.files.length > 0) {
+  //   //   const fsize = fi.files.item(0).size;
+  //   //   const file = Math.round((fsize / 1024));  // bytes to MBs
+  //   //   if (file >= Size) {    //size limit = 60 MB
+  //   //     //CALL API FOR UPLOADING THE DATA...!!!
+  //   //     this.fileRep1Model = true;
+  //   //   } else if (file < Size) {
+  //   //     this.fileRep1Model = false;
+  //   //   }
+  //   // }
+  // }
 
 
   UploadRep1() {  // Uploading Replicate 1
     let fileData = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
     this.fileRep1Model = this.CheckFileSize(fileData);
-
-    a: 1;
   }
 
-  
+
   @ViewChild("imgRep2FileInput") imgRep2FileInput;
   fileRep2Model: boolean;
 
@@ -242,8 +215,6 @@ export class ProteinSearchComponent implements OnInit {
   UploadRep2() {  // Uploading Replicate 1
     let fileData = this.imgRep2FileInput.nativeElement;   //imgFileInput.nativeElement;
     this.fileRep2Model = this.CheckFileSize(fileData);
-
-    a: 1;
   }
 
 
@@ -257,9 +228,11 @@ export class ProteinSearchComponent implements OnInit {
       const fsize = fileData.files.item(0).size;
       const file = Math.round((fsize / 1024));  // bytes to MBs
       if (file >= Size) {    //size limit = 60 MB
-        //CALL API FOR UPLOADING THE DATA...!!!
+
         return true;
       } else if (file < Size) {
+        //CALL API FOR UPLOADING THE DATA...!!!
+        this.AllFileEntireContents.push(fileData.files.item(0));
         return false;
       }
     }
