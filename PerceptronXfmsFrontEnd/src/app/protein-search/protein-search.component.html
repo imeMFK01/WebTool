@@ -76,23 +76,23 @@
                 .smallScreen {
                   display: none;
                 }
-  
+
                 .largeScreen {
                   display: inline;
                   font-weight: 450;
                 }
-  
+
                 @media (max-width: 1400px) {
                   .smallScreen {
                     display: inline;
                     font-weight: 450;
                   }
-  
+
                   .largeScreen {
                     display: none;
                   }
                 }
-  
+
                 @media (max-width: 1200px) {
                   .smallerScreen {
                     display: none;
@@ -110,7 +110,7 @@
                     width: 35px;
                     height: 35px;
                   }
-  
+
                   .iconclass {
                     font-size: 22px;
                     margin-top: -4px;
@@ -120,10 +120,10 @@
                 <label style="display:inline;">&nbsp;</label>
                 <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
                     *ngIf='FilesAdditional.files.length==1 && !fileAdditionalModel'>{{FilesAdditional.files[0].name}}</i></a>
-  
+
                 <input #FilesAdditional type="file" #imgAdditionalFileInput (ngModel)="FilesAdditional" #FilesAdditionalName ="ngModel" required
                   name="FilesAdditionalName" [(ngModel)]="fileAdditionalModel" id="FilesAdditionalName" (change)="UploadAddInput()" accept=".zip" ngModel />
-  
+
                 <mat-error style="display: inline; font-style: italic;" *ngIf="FilesAdditional.files.length==0">
                   Please select a data file (*.zip format).
                 </mat-error>
@@ -135,9 +135,9 @@
                 </mat-error>
               </div>
             </span>
-  
-  
-  
+
+
+
           </mat-grid-tile>
 
 
@@ -151,7 +151,7 @@
         <!-- <div style="height:10px;font-size:1px;">&nbsp;</div>
 
         <mat-grid-list cols="15" style="padding:0px;" rowHeight="65px">
-          
+
         </mat-grid-list> -->
       </mat-card-content>
     </mat-card>
@@ -310,7 +310,7 @@
               <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
                   *ngIf='FileRep2.files.length==1 && !fileRep2Model'>{{FileRep2.files[0].name}}</i></a>
 
-              <input #FileRep2 type="file" #imgRep2FileInput (ngModel)="FileRep2" #FileRep2Name="ngModel" required 
+              <input #FileRep2 type="file" #imgRep2FileInput (ngModel)="FileRep2" #FileRep2Name="ngModel" required
               name="FileRep2Name" [(ngModel)]="fileRep2Model" id="FileRep2Name" (change)="UploadRep2()" accept=".zip"
                 ngModel />
               <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep2.files.length==0">
@@ -387,7 +387,7 @@
               <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
                   *ngIf='FileRep3.files.length==1 && !fileRep3Model'>{{FileRep3.files[0].name}}</i></a>
 
-              <input #FileRep3 type="file" #imgRep3FileInput (ngModel)="FileRep3" #FileRep3Name="ngModel" required 
+              <input #FileRep3 type="file" #imgRep3FileInput (ngModel)="FileRep3" #FileRep3Name="ngModel" required
               name="FileRep3Name" [(ngModel)]="fileRep3Model" id="FileRep3Name" (change)="UploadRep3()" accept=".zip"
                 ngModel />
               <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep3.files.length==0">
@@ -451,18 +451,20 @@
       </mat-card-header>
 
       <mat-card-content>
-        
+
         <mat-grid-list cols="15" rowHeight="55px">
-          <mat-grid-tile colspan="15" rowspan="1" rowHeight="50px">
-            <!-- {{progress | json}} -->
-            <div class="progress" *ngIf="barWidth!='0%'">
+          <mat-grid-tile colspan="2" rowspan="1" rowHeight="50px"></mat-grid-tile>
+          <mat-grid-tile colspan="11" rowspan="1" rowHeight="50px">
+            <!-- *ngIf="barWidth!='0%'" -->
+            <div class="progress" >
               <span [innerHTML]="barWidth"></span>
               <div class="bar" [style.width]="barWidth"></div>
           </div>
           </mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1" rowHeight="50px"></mat-grid-tile>
 
-          <mat-grid-tile colspan="15" rowspan="1" rowHeight="10px">
-            Please do not refresh the page while we submit your query.
+          <mat-grid-tile colspan="8" rowspan="1" rowHeight="10px">
+            <div id="FormattingCss">Please do not refresh the page while we submit your query.</div>
           </mat-grid-tile>
           <!-- <div style="height:10px;font-size:1px;">&nbsp;</div> -->
         </mat-grid-list>
@@ -516,7 +518,7 @@
       </mat-grid-tile>
     </mat-grid-list>
 
-    
+
     <div style="height:10px;font-size:1px;">&nbsp;</div>
     <br>
   </div>

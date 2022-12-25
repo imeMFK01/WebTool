@@ -53,7 +53,7 @@ export class ProteinSearchComponent implements OnInit {
   isBridgeEnable: boolean = false;
   isFrustratormeterEnable: boolean = false;
 
-  barWidth: string = "0%";
+  barWidth: string = "10%";
   progress: string = '';
 
   diableEmail: boolean;
@@ -224,6 +224,7 @@ export class ProteinSearchComponent implements OnInit {
   }
 
   onReset(form: any): void {
+    this.barWidth = "0%";
     console.log("Form has been reset");
   }
 }
