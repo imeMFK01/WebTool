@@ -51,3 +51,5 @@ D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\Perce
 D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\PerceptronXfmsAPI.dll
 D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\PerceptronXfmsAPI.pdb
 D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\PerceptronXfmsAPI.csprojAssemblyReference.cache
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\Interop.MLApp.dll
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\PerceptronXfmsAPI.csproj.ResolveComReference.cache

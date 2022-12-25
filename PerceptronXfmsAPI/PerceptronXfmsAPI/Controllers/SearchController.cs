@@ -17,7 +17,7 @@ using PerceptronXfmsAPI.Repository;
 using PerceptronXfmsAPI.Utility;
 using System.Data.Entity.Validation;
 using System.Web.Http.Cors;
-
+using System.Reflection;
 
 
 namespace PerceptronXfmsAPI.Controllers
@@ -27,6 +27,11 @@ namespace PerceptronXfmsAPI.Controllers
     /// </summary>
     public class SearchController : ApiController
     {
+
+        public string PerceptronXfmsInputFolder = @"D:\\PerceptronXfmsInputFolder";
+        List<string> ReplicateFileNames = new List<string>() { "Replicate1.zip", "Replicate2.zip", "Replicate3.zip" };
+        string AdditionalInputFiles = "AdditionalInputFiles.zip";
+        string MiscInputFiles = "MiscInputFiles";
 
         readonly IDataAccessLayer _dataLayer;
         public DateTime JobSubmissionTime = DateTime.Now.AddDays(-2);  // Fetching Current Time  //Results will available for 48hrs only
@@ -43,7 +48,7 @@ namespace PerceptronXfmsAPI.Controllers
         public SearchController()
         {
             //CreateDirectory();
-            //_dataLayer = new SqlDatabase();
+            _dataLayer = new SqlDatabase();
         }
 
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
@@ -52,7 +57,9 @@ namespace PerceptronXfmsAPI.Controllers
         public async Task<HttpResponseMessage> File_upload()
         {
 
-            var queryId = Guid.NewGuid().ToString();
+            DBErrorException _DBErrorException = new DBErrorException();
+
+            var QueryID = Guid.NewGuid().ToString();
 
             var a = HttpContext.Current.Response.Cookies.Count;
 
@@ -68,31 +75,68 @@ namespace PerceptronXfmsAPI.Controllers
             try
             {
                 await Request.Content.ReadAsMultipartAsync(provider);
+                TransferDataToInputFolder(root, parametersDto.SearchXfmsQuery.QueryID);
+
                 var jsonData = provider.FormData.GetValues("Jsonfile");
                 //InputFileProcessing(queryId, provider.FileData[0].LocalFileName, DateTime time, parametersDto);
 
-                if(jsonData!= null)
+                
+
+                if (jsonData!= null)
                 {
-                    parametersDto.SearchXfmsQuery.QueryID = "";
-                    parametersDto.SearchXfmsQuery.UserID = "";
-                    parametersDto.SearchXfmsQuery.Progress = "";
+                    parametersDto.SearchXfmsQuery = JsonConvert.DeserializeObject<SearchXfmsQuery>(jsonData[0].Trim('"'));
+                    parametersDto.SearchXfmsQuery.QueryID = QueryID;
                     parametersDto.SearchXfmsQuery.CreationTime = DateTime.Now.AddDays(0);
-                    parametersDto.SearchXfmsQuery.isBridgeEnabled = "";
-                    parametersDto.SearchXfmsQuery.isFrustratometerEnabled = "";
-                    parametersDto.SearchXfmsQuery.EmailID = "";
+                    parametersDto.SearchXfmsQuery.Progress = "0";
                 }
 
+                var response = _dataLayer.StoreXfmsSearchParameters(parametersDto);
 
-                return Request.CreateResponse(HttpStatusCode.OK, "");
+                return Request.CreateResponse(HttpStatusCode.OK, response);
             }
-            catch (Exception Error)
+            catch (Exception e)//Exception Error)
             {
-
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, Error);
+                //_DBErrorException.DbEntitiyError(e);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "");
             }
         }
 
+        public void TransferDataToInputFolder(string AppDataPath, string QueryID)
+        {
+            // This function is used for doing 
+            //(i) transferring the input .zip files of users from App_Data to Main PerceptronXfmsInputFolder alongwith specified folder structures
+            //(ii) unzipping the .zip files
+            //(iii) deleting the .zip files
 
+            string MainDir = PerceptronXfmsInputFolder + "\\" + QueryID + "\\";
+            string RepPath = MainDir + "Exp" + "\\";
+
+            if (!(Directory.Exists(MainDir)))
+            {
+                Directory.CreateDirectory(RepPath);
+                Directory.CreateDirectory(MainDir + "\\" + MiscInputFiles);
+            }
+
+            File.Move(AppDataPath + "\\" + ReplicateFileNames[0], RepPath + ReplicateFileNames[0]);
+            File.Move(AppDataPath + "\\" + ReplicateFileNames[1], RepPath + ReplicateFileNames[1]);
+            File.Move(AppDataPath + "\\" + ReplicateFileNames[2], RepPath + ReplicateFileNames[2]);
+            File.Move(AppDataPath + "\\" + AdditionalInputFiles, MainDir + MiscInputFiles + "\\" + AdditionalInputFiles);
+
+            //Unzipping .zip files
+            ZipFile.ExtractToDirectory(RepPath + ReplicateFileNames[0], RepPath);
+            File.Delete(RepPath + ReplicateFileNames[0]);
+
+            ZipFile.ExtractToDirectory(RepPath + ReplicateFileNames[1], RepPath);
+            File.Delete(RepPath + ReplicateFileNames[1]);
+
+            ZipFile.ExtractToDirectory(RepPath + ReplicateFileNames[2], RepPath);
+            File.Delete(RepPath + ReplicateFileNames[2]);
+
+            // Misc files 
+            ZipFile.ExtractToDirectory(MainDir + MiscInputFiles + "\\" + AdditionalInputFiles, MainDir + MiscInputFiles + "\\");
+            File.Delete(MainDir + MiscInputFiles + "\\" + AdditionalInputFiles);
+
+        }
 
 
         //[HttpPost]
@@ -327,7 +371,7 @@ namespace PerceptronXfmsAPI.Controllers
         //    //}
         //    parametersDto.SearchParameters.NumberOfOutputs = "100";   //In CallingPerceptronApi User cannot decide the Number of output resutls.
         //    parametersDto.SearchParameters.QueryId = queryId;
-            
+
         //    if (ParameterValues[0] == "")
         //    {
         //        throw new ArgumentException("Query title cannot be empty!");
@@ -346,35 +390,35 @@ namespace PerceptronXfmsAPI.Controllers
         //    }
         //    parametersDto.SearchParameters.ProteinDatabase = ParameterValues[2];
 
-            
+
         //    if (ParameterValues[3] != "M(Neutral)" && ParameterValues[3] != "MH+")
         //    {
         //        throw new ArgumentException("Invalid MassMode Input!");
         //    }
         //    parametersDto.SearchParameters.MassMode = ParameterValues[3];
 
-            
+
         //    if (ParameterValues[4] != "True" && ParameterValues[4] != "False")
         //    {
         //        throw new ArgumentException("Invalid FilterDatabase Input!");
         //    }
         //    parametersDto.SearchParameters.FilterDb = ParameterValues[4];
 
-            
+
         //    if (Convert.ToDouble(ParameterValues[5]) < 0)
         //    {
         //        throw new ArgumentException("Invalid ProteinMassTolerance!");
         //    }
         //    parametersDto.SearchParameters.MwTolerance = Convert.ToDouble(ParameterValues[5]);
 
-            
+
         //    if (Convert.ToDouble(ParameterValues[6]) < 0)
         //    {
         //        throw new ArgumentException("Invalid PeptideTolerance!");
         //    }
         //    parametersDto.SearchParameters.PeptideTolerance = Convert.ToDouble(ParameterValues[6]);
 
-            
+
         //    if (ParameterValues[7] != "ppm" && ParameterValues[7] != "Da" && ParameterValues[7] != "mmu")
         //    {
         //        throw new ArgumentException("Invalid PeptideToleranceUnit!");
@@ -387,7 +431,7 @@ namespace PerceptronXfmsAPI.Controllers
         //    }
         //    parametersDto.SearchParameters.Autotune = ParameterValues[8];
 
-            
+
         //    if (ParameterValues[9] != "HCD" && ParameterValues[9] != "CID" && ParameterValues[9] != "ECD" && 
         //        ParameterValues[9] != "ETD" && ParameterValues[9] != "EDD" && ParameterValues[9] != "BIRD" && ParameterValues[9] != "SID" 
         //        && ParameterValues[9] != "IMD" && ParameterValues[9] != "NETD")
@@ -396,7 +440,7 @@ namespace PerceptronXfmsAPI.Controllers
         //    }
         //    parametersDto.SearchParameters.InsilicoFragType = ParameterValues[9];
 
-            
+
         //    if (ParameterValues[9] == "HCD" || ParameterValues[9] == "CID" || ParameterValues[9] == "IMD" || ParameterValues[9] == "BIRD" && ParameterValues[9] == "SID")
         //    {
         //        if (ParameterValues[10] != "bo" && ParameterValues[10] != "bstar" && ParameterValues[10] != "yo" && ParameterValues[10] != "ystar" && ParameterValues[10] != "bo,bstar" 
@@ -422,13 +466,13 @@ namespace PerceptronXfmsAPI.Controllers
         //        throw new ArgumentException("Invalid DenovoAllow Input!");
         //    }
         //    parametersDto.SearchParameters.DenovoAllow = ParameterValues[11];
-            
+
         //    if (Convert.ToInt16(ParameterValues[12]) < 2 || Convert.ToInt16(ParameterValues[12]) > 6)
         //    {
         //        throw new ArgumentException("Invalid Value for MinimumPeptideSequenceTagLength!");
         //    }
         //    parametersDto.SearchParameters.MinimumPstLength = Convert.ToInt16(ParameterValues[12]);
-            
+
         //    if (Convert.ToInt16(ParameterValues[13]) < Convert.ToInt16(ParameterValues[12]) || Convert.ToInt16(ParameterValues[12]) > 8)
         //    {
         //        throw new ArgumentException("MaximumPeptideSequenceTagLength cannot be smaller than MinimumPeptideSequenceTagLength!");
@@ -439,7 +483,7 @@ namespace PerceptronXfmsAPI.Controllers
         //    {
         //        throw new ArgumentException("Invalid PeptideSequenceTag_Hop_Tolerance_Unit!");
         //    }
-            
+
         //    parametersDto.SearchParameters.HopTolUnit = ParameterValues[15];
 
         //    if (ParameterValues[17] != "True" && ParameterValues[17] != "False")
@@ -473,7 +517,7 @@ namespace PerceptronXfmsAPI.Controllers
         //    {
         //        throw new ArgumentException("Invalid MethionineChemicalModification!");
         //    }
-            
+
         //    parametersDto.SearchParameters.MethionineChemicalModification = ParameterValues[23];
 
         //    if (ParameterValues[25] != "None" && ParameterValues[25] != "Cys_CAM" && ParameterValues[25] != "Cys_PE" && ParameterValues[25] != "Cys_CM" && ParameterValues[25] != "Cys_PAM")
@@ -500,7 +544,7 @@ namespace PerceptronXfmsAPI.Controllers
         //    }
         //    parametersDto.SearchParameters.PstSweight = Convert.ToDouble(ParameterValues[27]);
 
-            
+
         //    if (Convert.ToDouble(ParameterValues[28]) < 0 || Convert.ToDouble(ParameterValues[28]) > 100)
         //    {
         //        throw new ArgumentException("Invalid InsilicoScoringWeightage Value!");
@@ -525,7 +569,7 @@ namespace PerceptronXfmsAPI.Controllers
         //        {
         //            parametersDto.SearchParameters.EmailId = "";
         //        }
-                
+
         //        parametersDto.SearchParameters.UserId = queryId;   // Here UserId is Based on QueryId
         //    }
 
@@ -891,7 +935,7 @@ namespace PerceptronXfmsAPI.Controllers
 
         //        var jsonData = provider.FormData.GetValues("Jsonfile");
         //        var DbUpdateInfo = JsonConvert.DeserializeObject<AdminPanelDto>(jsonData[0].Trim('"'));
-                
+
         //        FastaReader _FastaReader = new FastaReader();
         //        string DatabaseName = DbUpdateInfo.UpdateDatabase;  // + "Ecoli2";  //Add here fasta File Name
         //        string FastaFilePath = provider.FileData[0].LocalFileName;   // @"C:\Users\Administrator\Desktop\";  // Add here fasta file location

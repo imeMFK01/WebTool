@@ -17,10 +17,11 @@ namespace PerceptronXfmsAPI.Models
         public string QueryID { get; set; }
         public string UserID { get; set; }
         public string Progress { get; set; }
-        public Nullable<System.DateTime> CreationTime { get; set; }
+        public System.DateTime CreationTime { get; set; }
         public string isBridgeEnabled { get; set; }
         public string isFrustratometerEnabled { get; set; }
         public string EmailID { get; set; }
         public int ID { get; set; }
+        public string Title { get; set; }
     }
 }

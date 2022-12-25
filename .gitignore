@@ -30,3 +30,4 @@ PerceptronXfmsFrontEnd/src/assets/DataFiles/mzXML_CheY/Replicate1.zip
 PerceptronXfmsFrontEnd/src/assets/DataFiles/mzXML_CheY/Replicate2.zip
 PerceptronXfmsFrontEnd/src/assets/DataFiles/mzXML_CheY/Replicate3.zip
 PerceptronXfmsAPI/PerceptronXfmsAPI/App_Data/*.zip
+*.lock

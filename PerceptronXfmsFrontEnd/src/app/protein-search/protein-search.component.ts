@@ -50,8 +50,8 @@ export class ProteinSearchComponent implements OnInit {
 
   AllFileEntireContents = [];
 
-  isBridgeEnable: boolean = false;
-  isFrustratormeterEnable: boolean = false;
+  isBridgeEnabled: boolean = false;
+  isFrustratometerEnabled: boolean = false;
 
   barWidth: string = "0%";
   progress: string = '';
@@ -98,8 +98,8 @@ export class ProteinSearchComponent implements OnInit {
     this.fileRep3Model = false;
 
 
-    this.isBridgeEnable = true;
-    this.isFrustratormeterEnable = true;
+    this.isBridgeEnabled = true;
+    this.isFrustratometerEnabled = true;
 
     this.barWidth = "0%";
 
@@ -135,7 +135,7 @@ export class ProteinSearchComponent implements OnInit {
     }
     else {
       // form.UserId = user.uid;
-      if (form.UserId != "") {
+      if (form.UserId != "" && form.UserId != user.uid) {
         form.EmailId = form.UserId;
         form.UserId = user.uid;
       }
@@ -143,6 +143,19 @@ export class ProteinSearchComponent implements OnInit {
         form.EmailId = "";
         form.UserId = user.uid;
       }
+    }
+    if (this.isBridgeEnabled){
+      form.isBridgeEnabled = 'True';
+    }
+    else{
+      form.isBridgeEnabled = 'False';
+    }
+
+    if (this.isFrustratometerEnabled){
+      form.isFrustratometerEnabled = 'True';
+    }
+    else{
+      form.isFrustratometerEnabled = 'False';
     }
 
     let adsa = this.postJSON(form, this.AllFileEntireContents)
@@ -158,8 +171,8 @@ export class ProteinSearchComponent implements OnInit {
     // formattingform.append('Title', form.Title);
     // formattingform.append('EmailId', form.EmailId);
     // formattingform.append('UserId', form.UserId);
-    // formattingform.append('isBridgeEnable', form.isBridgeEnable);
-    // formattingform.append('isFrustratormeterEnable', form.isFrustratormeterEnable);
+    // formattingform.append('isBridgeEnabled', form.isBridgeEnabled);
+    // formattingform.append('isFrustratometerEnabled', form.isFrustratometerEnabled);
 
     var json = JSON.stringify(form);
 
