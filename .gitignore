@@ -20,3 +20,4 @@ PerceptronXfmsFrontEnd/node_modules/.cache/
 mzXMLtocsvConverter/
 PerceptronXfmsAPI/.vs/
 PerceptronXfmsAPI/PerceptronXfmsAPI/obj/Debug/
+PerceptronXfmsAPI/*.pdb
