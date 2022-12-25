@@ -367,11 +367,11 @@
         
         <mat-grid-list cols="15" rowHeight="55px">
           <mat-grid-tile colspan="15" rowspan="1" rowHeight="50px">
-            {{progress | json}}
-            <!-- <div class="progress" *ngIf="barWidth!='0%'">
+            <!-- {{progress | json}} -->
+            <div class="progress" *ngIf="barWidth!='0%'">
               <span [innerHTML]="barWidth"></span>
               <div class="bar" [style.width]="barWidth"></div>
-          </div> -->
+          </div>
           </mat-grid-tile>
 
           <mat-grid-tile colspan="15" rowspan="1" rowHeight="10px">

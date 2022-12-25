@@ -179,7 +179,8 @@ export class ProteinSearchComponent implements OnInit {
 
     this._HttpClient.request(uploadReq).subscribe((event) => {
       if (event.type === HttpEventType.UploadProgress) {
-        this.progress += Math.round(100 * event.loaded / event.total);
+        //this.progress += Math.round(100 * event.loaded / event.total);
+        this.barWidth = Math.round((100 / (event.total || 0) * event.loaded)) + "%";
       }
       else if (event.type === HttpEventType.Response) {
         console.log((event.body));
