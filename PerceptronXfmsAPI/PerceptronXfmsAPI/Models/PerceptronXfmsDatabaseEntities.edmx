@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PerceptronXfmsDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="SearchQuery">
+        <EntityType Name="SearchXfmsQuery">
           <Key>
             <PropertyRef Name="QueryID" />
           </Key>
@@ -19,14 +19,14 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PerceptronXfmsDatabaseModelStoreContainer">
-          <EntitySet Name="SearchQuery" EntityType="Self.SearchQuery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchXfmsQuery" EntityType="Self.SearchXfmsQuery" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PerceptronXfmsDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="SearchQuery">
+        <EntityType Name="SearchXfmsQuery">
           <Key>
             <PropertyRef Name="QueryID" />
           </Key>
@@ -40,7 +40,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityContainer Name="PerceptronXfmsDatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="SearchQueries" EntityType="Self.SearchQuery" />
+          <EntitySet Name="SearchXfmsQueries" EntityType="Self.SearchXfmsQuery" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -48,9 +48,9 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PerceptronXfmsDatabaseModelStoreContainer" CdmEntityContainer="PerceptronXfmsDatabaseEntities">
-          <EntitySetMapping Name="SearchQueries">
-            <EntityTypeMapping TypeName="PerceptronXfmsDatabaseModel.SearchQuery">
-              <MappingFragment StoreEntitySet="SearchQuery">
+          <EntitySetMapping Name="SearchXfmsQueries">
+            <EntityTypeMapping TypeName="PerceptronXfmsDatabaseModel.SearchXfmsQuery">
+              <MappingFragment StoreEntitySet="SearchXfmsQuery">
                 <ScalarProperty Name="QueryID" ColumnName="QueryID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Progress" ColumnName="Progress" />

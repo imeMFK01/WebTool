@@ -164,15 +164,15 @@
       <DependentUpon>PerceptronDatabaseEntities.edmx</DependentUpon>
       <LastGenOutput>PerceptronDatabaseEntities.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\PerceptronXfmsDatabase.Context.tt">
+    <Content Include="Models\PerceptronXfmsDatabaseEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
-      <LastGenOutput>PerceptronXfmsDatabase.Context.cs</LastGenOutput>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.edmx</DependentUpon>
+      <LastGenOutput>PerceptronXfmsDatabaseEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\PerceptronXfmsDatabase.tt">
+    <Content Include="Models\PerceptronXfmsDatabaseEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
-      <LastGenOutput>PerceptronXfmsDatabase.cs</LastGenOutput>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.edmx</DependentUpon>
+      <LastGenOutput>PerceptronXfmsDatabaseEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -183,7 +183,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Engine\ExtractInsilicoMass.cs" />
     <Compile Include="Engine\FastaReader.cs" />
     <Compile Include="Engine\FastaWriter.cs" />
@@ -230,20 +229,20 @@
     <Compile Include="Models\PerceptronSdk.cs">
       <DependentUpon>PerceptronDatabaseEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PerceptronXfmsDatabase.Context.cs">
+    <Compile Include="Models\PerceptronXfmsDatabaseEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PerceptronXfmsDatabase.Context.tt</DependentUpon>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PerceptronXfmsDatabase.cs">
+    <Compile Include="Models\PerceptronXfmsDatabaseEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PerceptronXfmsDatabase.tt</DependentUpon>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PerceptronXfmsDatabase.Designer.cs">
+    <Compile Include="Models\PerceptronXfmsDatabaseEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\PostTranslationModificationsSiteDto.cs" />
     <Compile Include="Models\ProteinDto.cs" />
@@ -286,12 +285,16 @@
     </Compile>
     <Compile Include="Models\SearchParametersDto.cs" />
     <Compile Include="Models\SearchQuery.cs">
-      <DependentUpon>PerceptronXfmsDatabase.tt</DependentUpon>
+      <DependentUpon>PerceptronDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SearchResult.cs">
       <DependentUpon>PerceptronDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Searchview.cs" />
+    <Compile Include="Models\SearchXfmsQuery.cs">
+      <DependentUpon>PerceptronXfmsDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SearchXfmsQueryDto.cs" />
     <Compile Include="Models\Sites.cs" />
     <Compile Include="Models\stat.cs" />
     <Compile Include="Models\SummaryResults.cs" />
@@ -333,12 +336,12 @@
     <Content Include="Models\PerceptronDatabaseEntities.edmx.diagram">
       <DependentUpon>PerceptronDatabaseEntities.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\PerceptronXfmsDatabase.edmx">
+    <EntityDeploy Include="Models\PerceptronXfmsDatabaseEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PerceptronXfmsDatabase.Designer.cs</LastGenOutput>
+      <LastGenOutput>PerceptronXfmsDatabaseEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\PerceptronXfmsDatabase.edmx.diagram">
-      <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
+    <Content Include="Models\PerceptronXfmsDatabaseEntities.edmx.diagram">
+      <DependentUpon>PerceptronXfmsDatabaseEntities.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\PERCEPTRON.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
