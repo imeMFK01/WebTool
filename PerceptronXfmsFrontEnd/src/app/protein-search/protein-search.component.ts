@@ -36,19 +36,25 @@ export class ProteinSearchComponent implements OnInit {
   IsProgressbarOn = 0;
 
   @ViewChild("imgFileInput") imgFileInput;
+  @ViewChild('imgAdditionalFileInput') imgAdditionalFileInput;
   @ViewChild("imgRep1FileInput") imgRep1FileInput;
-  @ViewChild("imgInfo") imgInfo;
+  @ViewChild("imgRep2FileInput") imgRep2FileInput;
+  @ViewChild('imgRep3FileInput') imgRep3FileInput;
+
+  fileAdditionalModel: boolean;
+  fileRep1Model: boolean;
+  fileRep2Model: boolean;
+  fileRep3Model: boolean;
+
+  Size: any;
 
   AllFileEntireContents = [];
 
-  isBridgeEnable: false;
-  isFrustratormeterEnable: false;
-
+  isBridgeEnable: boolean = false;
+  isFrustratormeterEnable: boolean = false;
 
   barWidth: string = "0%";
   progress: string = '';
-  fileRep1Model: boolean;
-
 
   diableEmail: boolean;
   name: any;
@@ -85,6 +91,18 @@ export class ProteinSearchComponent implements OnInit {
   LoadDefaults() { // Here is Load Default Parameters
     this.Title = "Default Run";
     this.EmailId = '';
+
+    this.fileAdditionalModel = false;
+    this.fileRep1Model = false;
+    this.fileRep2Model = false;
+    this.fileRep3Model = false;
+
+
+    this.isBridgeEnable = true;
+    this.isFrustratormeterEnable = true;
+
+    this.barWidth = "0%";
+
   }
 
 
@@ -127,23 +145,7 @@ export class ProteinSearchComponent implements OnInit {
       }
     }
 
-    //let FileName = fi.files[0].name;
-
-
-    let stats: any = 'false';
-    // console.log(form);
-
-    // let fi = this.imgRep1FileInput.nativeElement;
-    // stats = this._httpService.postJSON(form, fi.files);
-
-
-
     let adsa = this.postJSON(form, this.AllFileEntireContents)
-
-    //stats = this.UploadToServer(form, this.AllFilesData);
-
-    //stats = this._httpService.postJSON(form, fileData.files);
-    console.log(stats);
 
   }
 
@@ -164,18 +166,15 @@ export class ProteinSearchComponent implements OnInit {
     formData.append('Jsonfile', json);
 
     //form.FileName = file[0].name;  //Updated 20210108
-    
-
-
 
     //formData.append('Jsonfile', json);
     for (let i = 0; i < file.length; i++) {
-        formData.append('uploadFile', file[i], file[i].name);
+      formData.append('uploadFile', file[i], file[i].name);
     }
 
-    const uploadReq = new HttpRequest('POST', 'http://localhost:52340/api/search/File_upload', formData, {
-        reportProgress: true,
-      });
+    const uploadReq = new HttpRequest('POST', baseApiUrl + '/api/search/File_upload', formData, {
+      reportProgress: true,
+    });
 
     this._HttpClient.request(uploadReq).subscribe((event) => {
       if (event.type === HttpEventType.UploadProgress) {
@@ -186,148 +185,43 @@ export class ProteinSearchComponent implements OnInit {
         console.log((event.body));
       }
     });
+  }
 
-
-
-
-
-
-
-
-
-    // //   //  responseType: 'json',
-    // // console.log(json);
-    // // let headers = new Headers();
-    // // headers.append('Accept', 'application/json');
-    // // return this._HttpClient.post(baseApiUrl + '/api/search/File_upload', formData, {reportProgress: true,
-      
-    // //   observe: "events"
-
-    // // }).pipe(map(
-    // //   event => {
-    // //     if (event.type == HttpEventType.UploadProgress) {
-    // //       this.barWidth = Math.round((100 / (event.total || 0) * event.loaded)) + "%";
-
-    // //     } else if (event.type == HttpEventType.Response) {
-    // //       this.barWidth = "0%";
-    // //       window.open(baseApiUrl + `${event.body}`, "_blank")
-    // //     }
-    // //   }
-    // // ))
-    // // .subscribe(res => {
-    // // }, error => {
-    // //   alert("error");
-    // //   console.error(error);
-    // // });
-    
-    //  { headers: headers })
-    //     .map(res => res.json())
-    //     .subscribe(
-    //         data => console.log('success'),
-    //         error => console.log(error)
-    //     )
-}
-
-
-
-  //   UploadToServer(form, file) {
-
-
-
-
-
-
-  //     let formData: FormData = new FormData();
-
-  //     // form.FileName = file[0].name;  //Updated 20210108
-  //     var json = JSON.stringify(form);
-
-  //     formData.append('Jsonfile', json);
-  //     // for (let i = 0; i < file.length; i++) {
-  //     //     formData.append('uploadFile', file[i], file[i].name);
-  //     // }
-
-  //     console.log(json);
-  //     let headers = new Headers();
-  //     headers.append('Accept', 'application/json');
-  //     return this._http.post(this.baseApiUrl + '/api/search/File_upload', formData, { headers: headers })
-  //         .map(res => res.json())
-  //         .subscribe(
-  //             data => console.log('success'),
-  //             error => console.log(error)
-  //         )
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // upload(Uploaded_File) {
-
-  //   let fi = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
-
-  //   // if (fi.files.length > 0) {
-  //   //   const fsize = fi.files.item(0).size;
-  //   //   const file = Math.round((fsize / 1024));  // bytes to MBs
-  //   //   if (file >= Size) {    //size limit = 60 MB
-  //   //     //CALL API FOR UPLOADING THE DATA...!!!
-  //   //     this.fileRep1Model = true;
-  //   //   } else if (file < Size) {
-  //   //     this.fileRep1Model = false;
-  //   //   }
-  //   // }
-  // }
-
+  UploadAddInput() {
+    let fileData = this.imgAdditionalFileInput.nativeElement;
+    this.fileAdditionalModel = this.CheckFileSize(fileData, 1000);     // ~1MBs file limit
+  }
 
   UploadRep1() {  // Uploading Replicate 1
     let fileData = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
-    this.fileRep1Model = this.CheckFileSize(fileData);
+    this.fileRep1Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
   }
 
-
-  @ViewChild("imgRep2FileInput") imgRep2FileInput;
-  fileRep2Model: boolean;
-
-
-  UploadRep2() {  // Uploading Replicate 1
+  UploadRep2() {  // Uploading Replicate 2
     let fileData = this.imgRep2FileInput.nativeElement;   //imgFileInput.nativeElement;
-    this.fileRep2Model = this.CheckFileSize(fileData);
+    this.fileRep2Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
   }
 
+  UploadRep3() {  // Uploading Replicate 3
+    let fileData = this.imgRep3FileInput.nativeElement;   //imgFileInput.nativeElement;
+    this.fileRep3Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
+  }
+
+  CheckFileSize(fileData, Size) {
 
 
-
-  CheckFileSize(fileData) {
-
-    let Size = 200000     // ~200MBs file limit
 
     if (fileData.files.length > 0) {
       const fsize = fileData.files.item(0).size;
       const file = Math.round((fsize / 1024));  // bytes to MBs
-      if (file >= Size) {    //size limit = 60 MB
-
+      if (file >= Size) {
         return true;
       } else if (file < Size) {
-        //CALL API FOR UPLOADING THE DATA...!!!
         this.AllFileEntireContents.push(fileData.files.item(0));
         return false;
       }
     }
   }
-
-
-
-
 
   onReset(form: any): void {
     console.log("Form has been reset");

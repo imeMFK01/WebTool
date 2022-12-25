@@ -22,76 +22,6 @@ export class ConfigService {
     constructor(private _http: Http) { }
 
 
-    postJSON(form, file) {
-
-        let formData: FormData = new FormData();
-
-        // let formattingform: FormData = new FormData();
-        // formattingform.append('Title', form.Title);
-        // formattingform.append('EmailId', form.EmailId);
-        // formattingform.append('UserId', form.UserId);
-        // formattingform.append('isBridgeEnable', form.isBridgeEnable);
-        // formattingform.append('isFrustratormeterEnable', form.isFrustratormeterEnable);
-
-        var json = JSON.stringify(form);
-
-        formData.append('Jsonfile', json);
-
-        //form.FileName = file[0].name;  //Updated 20210108
-        
-
-
-
-        //formData.append('Jsonfile', json);
-        for (let i = 0; i < file.length; i++) {
-            formData.append('uploadFile', file[i], file[i].name);
-        }
-
-        console.log(json);
-        let headers = new Headers();
-        headers.append('Accept', 'application/json');
-        return this._http.post(this.baseApiUrl + '/api/search/File_upload', formData, { headers: headers })
-            .map(res => res.json())
-            .subscribe(
-                data => console.log('success'),
-                error => console.log(error)
-            )
-    }
-
-
-
-
-
-    postJSON_Working(form, file) {
-
-        let formData: FormData = new FormData();
-
-        form.FileName = file[0].name;  //Updated 20210108
-        var json = JSON.stringify(form);
-
-
-
-        //formData.append('Jsonfile', json);
-        for (let i = 0; i < file.length; i++) {
-            formData.append('uploadFile', file[i], file[i].name);
-        }
-
-        console.log(json);
-        let headers = new Headers();
-        headers.append('Accept', 'application/json');
-        return this._http.post(this.baseApiUrl + '/api/search/File_upload', formData, { headers: headers })
-            .map(res => res.json())
-            .subscribe(
-                data => console.log('success'),
-                error => console.log(error)
-            )
-    }
-    // upload(file: File): Observable<any>{
-    //     const data = new FormData();
-    //     data.append('file', file);
-    //     return this.http.post('localhost:52340/upload', data);
-    // }
-
 
 
     getJSON() {
@@ -126,7 +56,7 @@ export class ConfigService {
             .map(res => res.json())
     }
 
-    postJSON1(form, file) {
+    PreviousPostJSON(form, file) {  //Now not using into PERCEPTRON-XFMS
 
         let formData: FormData = new FormData();
 
