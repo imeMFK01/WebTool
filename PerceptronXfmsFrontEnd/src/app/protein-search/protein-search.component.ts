@@ -21,6 +21,10 @@ import { CloseScrollStrategy } from '@angular/cdk/overlay';
 import { from } from 'rxjs/observable/from';
 
 
+import { HttpClient, HttpEventType } from '@angular/common/http'
+import { map } from "rxjs/operators";
+
+
 
 @Component({
   selector: 'app-protein-search',
@@ -51,7 +55,7 @@ export class ProteinSearchComponent implements OnInit {
   EmailId: string = '';
   Title: any = '';
 
-  constructor(public af: AngularFireAuth, private router: Router, private _httpService: ConfigService, private _http: Http, public dialog: MatDialog) {
+  constructor(public af: AngularFireAuth, private router: Router, private _httpService: ConfigService, private _http: Http, public dialog: MatDialog, private _HttpClient: HttpClient) {
     this.af.authState.subscribe(user => { })
   }
 
@@ -131,7 +135,7 @@ export class ProteinSearchComponent implements OnInit {
 
 
 
-    let adsa = this._httpService.postJSON(form, this.AllFileEntireContents)
+    let adsa = this.postJSON(form, this.AllFileEntireContents)
 
     //stats = this.UploadToServer(form, this.AllFilesData);
 
@@ -140,6 +144,63 @@ export class ProteinSearchComponent implements OnInit {
 
   }
 
+  postJSON(form, file) {
+
+    let baseApiUrl = "http://localhost:52340";
+    let formData: FormData = new FormData();
+
+    // let formattingform: FormData = new FormData();
+    // formattingform.append('Title', form.Title);
+    // formattingform.append('EmailId', form.EmailId);
+    // formattingform.append('UserId', form.UserId);
+    // formattingform.append('isBridgeEnable', form.isBridgeEnable);
+    // formattingform.append('isFrustratormeterEnable', form.isFrustratormeterEnable);
+
+    var json = JSON.stringify(form);
+
+    formData.append('Jsonfile', json);
+
+    //form.FileName = file[0].name;  //Updated 20210108
+    
+
+
+
+    //formData.append('Jsonfile', json);
+    for (let i = 0; i < file.length; i++) {
+        formData.append('uploadFile', file[i], file[i].name);
+    }
+
+    console.log(json);
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    return this._HttpClient.post(baseApiUrl + '/api/search/File_upload', formData, {reportProgress: true,  //  responseType: 'json',
+      
+      observe: "events"
+
+    }).pipe(map(
+      event => {
+        if (event.type == HttpEventType.UploadProgress) {
+          this.barWidth = Math.round((100 / (event.total || 0) * event.loaded)) + "%";
+
+        } else if (event.type == HttpEventType.Response) {
+          this.barWidth = "0%";
+          window.open(baseApiUrl + `${event.body}`, "_blank")
+        }
+      }
+    ))
+    .subscribe(res => {
+    }, error => {
+      alert("error");
+      console.error(error);
+    });
+    
+    //  { headers: headers })
+    //     .map(res => res.json())
+    //     .subscribe(
+    //         data => console.log('success'),
+    //         error => console.log(error)
+    //     )
+}
 
 
 
