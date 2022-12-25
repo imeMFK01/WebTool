@@ -50,4 +50,4 @@ D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\System.Web.
 D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\PerceptronXfmsAPI.csproj.CopyComplete
 D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\PerceptronXfmsAPI.dll
 D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\PerceptronXfmsAPI.pdb
-D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\PerceptronXfmsAPI.csprojAssemblyReference.cache
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\obj\Debug\PerceptronXfmsAPI.csproj.AssemblyReference.cache

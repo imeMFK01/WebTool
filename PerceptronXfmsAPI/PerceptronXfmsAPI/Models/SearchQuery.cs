@@ -14,10 +14,13 @@ namespace PerceptronXfmsAPI.Models
     
     public partial class SearchQuery
     {
-        public System.DateTime JobSubmission { get; set; }
-        public string QueryId { get; set; }
-        public string UserId { get; set; }
+        public string QueryID { get; set; }
+        public string UserID { get; set; }
         public string Progress { get; set; }
-        public string CreationTime { get; set; }
+        public Nullable<System.DateTime> CreationTime { get; set; }
+        public string isBridgeEnabled { get; set; }
+        public string isFrustratometerEnabled { get; set; }
+        public string EmailID { get; set; }
+        public int ID { get; set; }
     }
 }
