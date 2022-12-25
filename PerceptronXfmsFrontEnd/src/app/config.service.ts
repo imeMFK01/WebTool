@@ -18,10 +18,80 @@ export class ConfigService {
     baseApiUrl = "http://localhost:52340";
     // "https://perceptron.lums.edu.pk/PerceptronAPI"
     //http://localhost:52340/
-    
+
     constructor(private _http: Http) { }
 
 
+    postJSON(form, file) {
+
+
+
+
+        let formData: FormData = new FormData();
+
+        // let formattingform: FormData = new FormData();
+        // formattingform.append('Title', form.Title);
+        // formattingform.append('EmailId', form.EmailId);
+        // formattingform.append('UserId', form.UserId);
+        // formattingform.append('isBridgeEnable', form.isBridgeEnable);
+        // formattingform.append('isFrustratormeterEnable', form.isFrustratormeterEnable);
+
+        var json = JSON.stringify(form);
+
+
+
+        
+        formData.append('Jsonfile', json);
+
+        //form.FileName = file[0].name;  //Updated 20210108
+        
+
+
+
+        //formData.append('Jsonfile', json);
+        for (let i = 0; i < file.length; i++) {
+            formData.append('uploadFile', file[i], file[i].name);
+        }
+
+        console.log(json);
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        return this._http.post(this.baseApiUrl + '/api/search/File_upload', formData, { headers: headers })
+            .map(res => res.json())
+            .subscribe(
+                data => console.log('success'),
+                error => console.log(error)
+            )
+    }
+
+
+
+
+
+    postJSON_Working(form, file) {
+
+        let formData: FormData = new FormData();
+
+        form.FileName = file[0].name;  //Updated 20210108
+        var json = JSON.stringify(form);
+
+
+
+        //formData.append('Jsonfile', json);
+        for (let i = 0; i < file.length; i++) {
+            formData.append('uploadFile', file[i], file[i].name);
+        }
+
+        console.log(json);
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        return this._http.post(this.baseApiUrl + '/api/search/File_upload', formData, { headers: headers })
+            .map(res => res.json())
+            .subscribe(
+                data => console.log('success'),
+                error => console.log(error)
+            )
+    }
     // upload(file: File): Observable<any>{
     //     const data = new FormData();
     //     data.append('file', file);
@@ -62,7 +132,7 @@ export class ConfigService {
             .map(res => res.json())
     }
 
-    postJSON(form, file) {
+    postJSON1(form, file) {
 
         let formData: FormData = new FormData();
 
@@ -85,7 +155,7 @@ export class ConfigService {
             )
     }
 
-    fdrform(form, file){
+    fdrform(form, file) {
         let formData: FormData = new FormData();
 
         var json = JSON.stringify(form);
@@ -100,10 +170,10 @@ export class ConfigService {
         headers.append('Accept', 'application/json');
         return this._http.post(this.baseApiUrl + '/api/search/FDR_Data_upload', formData, { headers: headers })
             .map(res => res.json())
-            // .subscribe(
-            //     data => console.log('success'),
-            //     error => console.log(error)
-            // )
+        // .subscribe(
+        //     data => console.log('success'),
+        //     error => console.log(error)
+        // )
     }
 
     postpattern(form) {
@@ -245,10 +315,10 @@ export class ConfigService {
                 return res.json()
             });
     }
-    
+
     getfile(form) {
 
-       
+
 
         var json = JSON.stringify(form);
         let headers = new Headers();
@@ -271,9 +341,9 @@ export class ConfigService {
             });
     }
 
-    GetDetailedProteinHitViewResults(qid,resId,rank) {
+    GetDetailedProteinHitViewResults(qid, resId, rank) {
         let headers = new Headers();
-        let QueryIdResultIdRank = qid + "," + resId+ "," + rank;
+        let QueryIdResultIdRank = qid + "," + resId + "," + rank;
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         return this._http.post(this.baseApiUrl + '/api/search/Post_DetailedProteinHitView_results', '=' + QueryIdResultIdRank, { headers: headers })
             .map(res => {
