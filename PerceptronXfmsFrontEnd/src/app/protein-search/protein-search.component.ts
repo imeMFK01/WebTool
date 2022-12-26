@@ -177,16 +177,23 @@ export class ProteinSearchComponent implements OnInit {
     }
 
 
+    let status;
     //FilesAdditional.files[0].name =
     if (this.isLoadDefaultsEnabled){
-      let adsa = this.postJSON(form, []);
+      status = this.postJSON(form, []);
     }
     else{
-      let adsa = this.postJSON(form, this.AllFileEntireContents);
+      status = this.postJSON(form, this.AllFileEntireContents);
     }
+    //console.log(status);
 
-    
-
+    if (form.EmailId != "")  // If User have verified Email ID or Guest gave its Email ID
+    {
+      alert("Dear User,\nFor results, please visit 'Search Results & History' tab. In addition, search results will be sent to the email address you provided.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");    //   Your search query has been submitted.\n
+    }
+    else{
+      alert("Dear Guest,\nFor results, please visit 'Search Results & History' tab.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");     /// Your search query has been submitted.\n
+    }
   }
 
   postJSON(form, file) {
@@ -206,11 +213,16 @@ export class ProteinSearchComponent implements OnInit {
 
     formData.append('Jsonfile', json);
 
-    //form.FileName = file[0].name;  //Updated 20210108
+    if (this.isLoadDefaultsEnabled) {   // For API side working
+      formData.append('isLoadDefaultsEnabled', 'True');
+    }
+    else {                   // For API side working
+      //form.FileName = file[0].name;  //Updated 20210108
 
-    //formData.append('Jsonfile', json);
-    for (let i = 0; i < file.length; i++) {
-      formData.append('uploadFile', file[i], file[i].name);
+      //formData.append('Jsonfile', json);
+      for (let i = 0; i < file.length; i++) {
+        formData.append('uploadFile', file[i], file[i].name);
+      }
     }
 
     const uploadReq = new HttpRequest('POST', baseApiUrl + '/api/search/File_upload', formData, {
@@ -230,46 +242,56 @@ export class ProteinSearchComponent implements OnInit {
 
 
   UndefinedNativeElement(Element: any){
-    if(Element === undefined || Element.files[0].name === undefined){
+    if(Element === undefined || Element.files[0] === undefined){
       return true;
     }
-
   }
 
   UploadAddInput() {
-    
     if (this.UndefinedNativeElement(this.imgAdditionalFileInput.nativeElement)){
       this.FileAdditionalInputPlaced = '';
-    };
-    
-    let fileData = this.imgAdditionalFileInput.nativeElement;
-    this.fileAdditionalModel = this.CheckFileSize(fileData, 1000);     // ~1MBs file limit
-    this.FileAdditionalInputPlaced = fileData.files[0].name;
-    
+    }
+    else{
+      let fileData = this.imgAdditionalFileInput.nativeElement;
+      this.fileAdditionalModel = this.CheckFileSize(fileData, 1000);     // ~1MBs file limit
+      this.FileAdditionalInputPlaced = fileData.files[0].name;
+    }
   }
 
   UploadRep1() {  // Uploading Replicate 1
-    let fileData = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
-    this.fileRep1Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
-    this.FileRep1Placed = fileData.files[0].name;
+    if (this.UndefinedNativeElement(this.imgRep1FileInput.nativeElement)){
+      this.FileRep1Placed = '';
+    }
+    else{
+      let fileData = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
+      this.fileRep1Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
+      this.FileRep1Placed = fileData.files[0].name;
+    }
   }
 
   UploadRep2() {  // Uploading Replicate 2
+    if (this.UndefinedNativeElement(this.imgRep2FileInput.nativeElement)){
+      this.FileRep2Placed = '';
+    }
+    else{
     let fileData = this.imgRep2FileInput.nativeElement;   //imgFileInput.nativeElement;
     this.fileRep2Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
     this.FileRep2Placed = fileData.files[0].name;
+    }
   }
 
   UploadRep3() {  // Uploading Replicate 3
+    if (this.UndefinedNativeElement(this.imgRep3FileInput.nativeElement)){
+      this.FileRep3Placed = '';
+    }
+    else{
     let fileData = this.imgRep3FileInput.nativeElement;   //imgFileInput.nativeElement;
     this.fileRep3Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
     this.FileRep3Placed = fileData.files[0].name;
+    }
   }
 
   CheckFileSize(fileData, Size) {
-
-
-
     if (fileData.files.length > 0) {
       const fsize = fileData.files.item(0).size;
       const file = Math.round((fsize / 1024));  // bytes to MBs
