@@ -220,6 +220,7 @@ export class ProteinSearchComponent implements OnInit {
       //form.FileName = file[0].name;  //Updated 20210108
 
       //formData.append('Jsonfile', json);
+      formData.append('isLoadDefaultsEnabled', 'False');
       for (let i = 0; i < file.length; i++) {
         formData.append('uploadFile', file[i], file[i].name);
       }
