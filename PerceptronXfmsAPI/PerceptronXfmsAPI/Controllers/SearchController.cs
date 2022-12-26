@@ -76,13 +76,13 @@ namespace PerceptronXfmsAPI.Controllers
                 await Request.Content.ReadAsMultipartAsync(provider);
 
                 var isLoadDefaultsEnabled = provider.FormData.GetValues("isLoadDefaultsEnabled");
-                var d = isLoadDefaultsEnabled[0];
+
                 if (isLoadDefaultsEnabled[0] == "True")  // If users run the sample query then fetch the input file from specified local folder
                 {
                     root = @"C:\PERCEPTRON-XFMS_Sample_Data_Files";
                 }
                 
-                TransferDataToInputFolder(root, QueryID);
+                TransferDataToInputFolder(root, QueryID, isLoadDefaultsEnabled[0]);
 
                 var jsonData = provider.FormData.GetValues("Jsonfile");
                 //InputFileProcessing(queryId, provider.FileData[0].LocalFileName, DateTime time, parametersDto);
@@ -112,7 +112,7 @@ namespace PerceptronXfmsAPI.Controllers
             }
         }
 
-        public void TransferDataToInputFolder(string AppDataPath, string QueryID)
+        public void TransferDataToInputFolder(string AppDataPath, string QueryID, string checkLoadDefault)
         {
             // This function is used for doing 
             //(i) transferring the input .zip files of users from App_Data to Main PerceptronXfmsInputFolder alongwith specified folder structures
@@ -128,10 +128,20 @@ namespace PerceptronXfmsAPI.Controllers
                 Directory.CreateDirectory(MainDir + "\\" + MiscInputFiles);
             }
 
-            File.Move(AppDataPath + "\\" + ReplicateFileNames[0], RepPath + ReplicateFileNames[0]);
-            File.Move(AppDataPath + "\\" + ReplicateFileNames[1], RepPath + ReplicateFileNames[1]);
-            File.Move(AppDataPath + "\\" + ReplicateFileNames[2], RepPath + ReplicateFileNames[2]);
-            File.Move(AppDataPath + "\\" + AdditionalInputFiles, MainDir + MiscInputFiles + "\\" + AdditionalInputFiles);
+            if (checkLoadDefault == "False")  //
+            {
+                File.Move(AppDataPath + "\\" + ReplicateFileNames[0], RepPath + ReplicateFileNames[0]);
+                File.Move(AppDataPath + "\\" + ReplicateFileNames[1], RepPath + ReplicateFileNames[1]);
+                File.Move(AppDataPath + "\\" + ReplicateFileNames[2], RepPath + ReplicateFileNames[2]);
+                File.Move(AppDataPath + "\\" + AdditionalInputFiles, MainDir + MiscInputFiles + "\\" + AdditionalInputFiles);
+            }
+            else // if sample query run 
+            {
+                File.Copy(AppDataPath + "\\" + ReplicateFileNames[0], RepPath + ReplicateFileNames[0]);
+                File.Copy(AppDataPath + "\\" + ReplicateFileNames[1], RepPath + ReplicateFileNames[1]);
+                File.Copy(AppDataPath + "\\" + ReplicateFileNames[2], RepPath + ReplicateFileNames[2]);
+                File.Copy(AppDataPath + "\\" + AdditionalInputFiles, MainDir + MiscInputFiles + "\\" + AdditionalInputFiles);
+            }
 
             //Unzipping .zip files
             ZipFile.ExtractToDirectory(RepPath + ReplicateFileNames[0], RepPath);
