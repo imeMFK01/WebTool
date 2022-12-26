@@ -7,16 +7,15 @@ namespace PerceptronXfmsAPI
 {
     internal interface IDataAccessLayer
     {
-        stat stat();
+        Statistics stat();
         string StoreXfmsSearchParameters(SearchXfmsQueryDto parameters);
+        List<UserHistory> GetUserHistory(string Uid, DateTime JobSubmissionTime);
 
         //ZipResultsDownloadInfo ScanResultFile(string QueryId);
         //List<ScanResults> Scan_Results(string qid, DateTime JobSubmissionTime);
         //List<SummaryResults> Summary_results(string qid, string fid, DateTime JobSubmissionTime);
         //DetailedResults Detailed_Results(string qid, string rid, DateTime JobSubmissionTime);
         //DetailedProteinHitView DetailedProteinHitView_Results(string qid, string rid, string rank, DateTime JobSubmissionTime);
-        //List<UserHistory> GetUserHistory(string Uid, DateTime JobSubmissionTime);
-        //
         //void StoringCompiledResults(List<ResultsDownloadDataCompile> CompiledResults);
         //SearchParameter GetSearchParmeters(string qid);
         //ScanResultsDownloadDataDto ScanResultsDownloadData(string qid, string FileUniqueId);

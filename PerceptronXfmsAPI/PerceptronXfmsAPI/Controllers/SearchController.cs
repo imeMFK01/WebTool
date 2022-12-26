@@ -25,6 +25,7 @@ namespace PerceptronXfmsAPI.Controllers
     /// <summary>
     /// //[EnableCors(origins: "http://mywebclient.azurewebsites.net", headers: "*", methods: "*")]
     /// </summary>
+    //[EnableCors(origins: "*", headers: "*", methods: "post")]
     public class SearchController : ApiController
     {
 
@@ -51,12 +52,12 @@ namespace PerceptronXfmsAPI.Controllers
             _dataLayer = new SqlDatabase();
         }
 
-        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+        //[EnableCors(origins: "http://example.com", headers: "accept,content-type,origin,x-my-header", methods: "*")]
+        [EnableCors(origins: "https://perceptronxfms.lums.edu.pk/,http://localhost:4200/", headers: "*", methods: "post")]    //  https://perceptronxfms.lums.edu.pk/perceptronxfmsapi,
         [HttpPost]
         [Route("api/search/File_upload")]
         public async Task<HttpResponseMessage> File_upload()
         {
-
             DBErrorException _DBErrorException = new DBErrorException();
 
             var QueryID = Guid.NewGuid().ToString();
@@ -75,19 +76,17 @@ namespace PerceptronXfmsAPI.Controllers
             try
             {
                 await Request.Content.ReadAsMultipartAsync(provider);
-                TransferDataToInputFolder(root, parametersDto.SearchXfmsQuery.QueryID);
+                TransferDataToInputFolder(root, QueryID);
 
                 var jsonData = provider.FormData.GetValues("Jsonfile");
                 //InputFileProcessing(queryId, provider.FileData[0].LocalFileName, DateTime time, parametersDto);
-
-                
 
                 if (jsonData!= null)
                 {
                     parametersDto.SearchXfmsQuery = JsonConvert.DeserializeObject<SearchXfmsQuery>(jsonData[0].Trim('"'));
                     parametersDto.SearchXfmsQuery.QueryID = QueryID;
                     parametersDto.SearchXfmsQuery.CreationTime = DateTime.Now.AddDays(0);
-                    parametersDto.SearchXfmsQuery.Progress = "0";
+                    parametersDto.SearchXfmsQuery.Progress = "In Queue";    //  "Running"  "Completed"   "Error in Query"
                 }
 
                 var response = _dataLayer.StoreXfmsSearchParameters(parametersDto);
@@ -137,6 +136,27 @@ namespace PerceptronXfmsAPI.Controllers
             File.Delete(MainDir + MiscInputFiles + "\\" + AdditionalInputFiles);
 
         }
+
+        [DisableCors]
+        [HttpPost]
+        [Route("api/search/stat")]
+        public Statistics stat([FromBody] string input)
+        {
+            var temp = _dataLayer.stat();
+            return temp;
+        }
+
+        [DisableCors]
+        [HttpPost]
+        [Route("api/search/Post_history")]
+        public List<UserHistory> Post_history([FromBody] string input)
+        {
+            Debug.WriteLine(input);
+            var temp = _dataLayer.GetUserHistory(input, JobSubmissionTime);
+            return temp;
+        }
+
+
 
 
         //[HttpPost]
@@ -895,23 +915,8 @@ namespace PerceptronXfmsAPI.Controllers
         //}
 
 
-        //[HttpPost]
-        //[Route("api/search/Post_history")]
-        //public List<UserHistory> Post_history([FromBody] string input)
-        //{
-        //    Debug.WriteLine(input);
-        //    var temp = _dataLayer.GetUserHistory(input, JobSubmissionTime);
-        //    return temp;
-        //}
 
-        //[HttpPost]
-        //[Route("api/search/stat")]
-        //public stat stat([FromBody] string input)
-        //{
 
-        //    var temp = _dataLayer.stat();
-        //    return temp;
-        //}
 
 
 

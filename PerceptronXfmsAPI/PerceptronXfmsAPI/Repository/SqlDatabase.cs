@@ -25,11 +25,41 @@ namespace PerceptronXfmsAPI.Repository
             return "Ok";
         }
 
-        public stat stat()
+        public Statistics stat()
         {
+            var StatsInfo = new Statistics();
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var SearchQueries = db.SearchXfmsQueries.Where(x => x.Progress == "100").Select(x => x.Progress).ToList(); // .Add(parameters.SearchXfmsQuery);
+                var UsersSubmittedQueries = db.SearchXfmsQueries.Select(x => x.UserID).ToList().Distinct();
 
-            return new Models.stat();
+                StatsInfo.search = (SearchQueries.Count() + 16).ToString();   // 15 for local users
+                StatsInfo.user = (UsersSubmittedQueries.Count() + 10).ToString();   // 10 for local users
+
+            }
+            return StatsInfo;
         }
+        public List<UserHistory> GetUserHistory(string Uid, DateTime JobSubmissionTime)
+        {
+            var UserJobHistory = new List<UserHistory>();
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var UserHistory = db.SearchXfmsQueries.Where(x => x.UserID == Uid && x.CreationTime >= JobSubmissionTime).Select(x => x).ToList(); // .Add(parameters.SearchXfmsQuery);
+                for (int index = 0; index < UserHistory.Count; index++)
+                {
+                    var temp = new UserHistory
+                    {
+                        title = UserHistory[index].Title,
+                        time = UserHistory[index].CreationTime.ToString(),
+                        qid = UserHistory[index].QueryID,
+                        progress = UserHistory[index].Progress
+                    };
+                    UserJobHistory.Add(temp);
+                }
+            }
+            return UserJobHistory;
+        }
+
 
 
         //////DBErrorException _DBErrorException = new DBErrorException();
