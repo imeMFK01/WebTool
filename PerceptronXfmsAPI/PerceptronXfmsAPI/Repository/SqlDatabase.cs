@@ -30,7 +30,7 @@ namespace PerceptronXfmsAPI.Repository
             var StatsInfo = new Statistics();
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                var SearchQueries = db.SearchXfmsQueries.Where(x => x.Progress == "100").Select(x => x.Progress).ToList(); // .Add(parameters.SearchXfmsQuery);
+                var SearchQueries = db.SearchXfmsQueries.ToList(); // .Add(parameters.SearchXfmsQuery);     //    .Where(x => x.Progress == "In Queue" || x.Progress == "In Queue").Select(x => x.Progress).
                 var UsersSubmittedQueries = db.SearchXfmsQueries.Select(x => x.UserID).ToList().Distinct();
 
                 StatsInfo.search = (SearchQueries.Count() + 16).ToString();   // 15 for local users
