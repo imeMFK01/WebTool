@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       // var user = result.user;
       localStorage.removeItem('login');
       localStorage.removeItem('logged_in_user');
-      alert("Dear User,\nYour account has been successfully created. Please login with your credentials.\n\nThank you for using PERCEPTRON!\nThe PERCEPTRON Team");
+      alert("Dear User,\nYour account has been successfully created. Please login with your credentials.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
 
       x.navigate(['/login']);
     }).catch(
