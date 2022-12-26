@@ -64,6 +64,15 @@ export class ProteinSearchComponent implements OnInit {
   EmailId: string = '';
   Title: any = '';
 
+  isLoadDefaultsEnabled: boolean = false;
+
+  FileAdditionalInputPlaced : string = '';
+  FileRep1Placed : string = '';
+  FileRep2Placed : string = '';
+  FileRep3Placed : string = '';
+
+
+
   constructor(public af: AngularFireAuth, private router: Router, private _httpService: ConfigService, private _http: Http, public dialog: MatDialog, private _HttpClient: HttpClient) {
     this.af.authState.subscribe(user => { })
   }
@@ -88,7 +97,11 @@ export class ProteinSearchComponent implements OnInit {
     }
   }
 
+  
   LoadDefaults() { // Here is Load Default Parameters
+    
+    this.isLoadDefaultsEnabled = true;
+
     this.Title = "Default Run";
     this.EmailId = '';
 
@@ -102,6 +115,11 @@ export class ProteinSearchComponent implements OnInit {
     this.isFrustratometerEnabled = true;
 
     this.barWidth = "0%";
+
+    this.FileAdditionalInputPlaced = 'AdditionalInputFiles.zip';
+    this.FileRep1Placed = 'Replicate1.zip';
+    this.FileRep2Placed = 'Replicate2.zip';
+    this.FileRep3Placed =  'Replicate3.zip';
 
   }
 
@@ -158,13 +176,23 @@ export class ProteinSearchComponent implements OnInit {
       form.isFrustratometerEnabled = 'False';
     }
 
-    let adsa = this.postJSON(form, this.AllFileEntireContents)
+
+    //FilesAdditional.files[0].name =
+    if (this.isLoadDefaultsEnabled){
+      let adsa = this.postJSON(form, []);
+    }
+    else{
+      let adsa = this.postJSON(form, this.AllFileEntireContents);
+    }
+
+    
 
   }
 
   postJSON(form, file) {
 
-    let baseApiUrl = "https://perceptronxfms.lums.edu.pk/PerceptronXFMSAPI";  //"http://localhost:52340";
+    let baseApiUrl = "http://localhost:52340";
+    //  https://perceptronxfms.lums.edu.pk/PerceptronXFMSAPI
     let formData: FormData = new FormData();
 
     // let formattingform: FormData = new FormData();
@@ -203,21 +231,26 @@ export class ProteinSearchComponent implements OnInit {
   UploadAddInput() {
     let fileData = this.imgAdditionalFileInput.nativeElement;
     this.fileAdditionalModel = this.CheckFileSize(fileData, 1000);     // ~1MBs file limit
+    this.FileAdditionalInputPlaced = fileData.files[0].name;
+    
   }
 
   UploadRep1() {  // Uploading Replicate 1
     let fileData = this.imgRep1FileInput.nativeElement;   //imgFileInput.nativeElement;
     this.fileRep1Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
+    this.FileRep1Placed = fileData.files[0].name;
   }
 
   UploadRep2() {  // Uploading Replicate 2
     let fileData = this.imgRep2FileInput.nativeElement;   //imgFileInput.nativeElement;
     this.fileRep2Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
+    this.FileRep2Placed = fileData.files[0].name;
   }
 
   UploadRep3() {  // Uploading Replicate 3
     let fileData = this.imgRep3FileInput.nativeElement;   //imgFileInput.nativeElement;
     this.fileRep3Model = this.CheckFileSize(fileData, 200000); 200000     // ~200MBs file limit
+    this.FileRep3Placed = fileData.files[0].name;
   }
 
   CheckFileSize(fileData, Size) {
