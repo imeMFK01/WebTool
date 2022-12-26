@@ -72,7 +72,7 @@ export class SignupComponent implements OnInit {
       })
       .then(() => {
         console.log("signed out");
-        alert("Dear User,\nA verification email will be sent to your email address shortly. Please verify your email address before you login.\n\nThank you for using PERCEPTRON!\nThe PERCEPTRON Team");
+        alert("Dear User,\nA verification email will be sent to your email address shortly. Please verify your email address before you login.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
         x.navigate(['/home']) 
         // .push({
         //   name: "registered",
