@@ -15,8 +15,8 @@ import { HttpResponse } from '@angular/common/http';
 @Injectable()
 export class ConfigService {
     resultant: any;
-    baseApiUrl = "https://perceptronxfms.lums.edu.pk/PerceptronXFMSAPI";
-    // "https://perceptron.lums.edu.pk/PerceptronAPI"
+    baseApiUrl = "http://localhost:52340";
+    // "https://perceptronxfms.lums.edu.pk/PerceptronXFMSAPI"
     //http://localhost:52340
 
     constructor(private _http: Http) { }
