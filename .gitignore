@@ -31,3 +31,8 @@ PerceptronXfmsFrontEnd/src/assets/DataFiles/mzXML_CheY/Replicate2.zip
 PerceptronXfmsFrontEnd/src/assets/DataFiles/mzXML_CheY/Replicate3.zip
 PerceptronXfmsAPI/PerceptronXfmsAPI/App_Data/*.zip
 *.lock
+*.suo
+PerceptronXfmsAPI/PerceptronXfmsAPI/.vs/
+PerceptronXfmsAPI/PerceptronXfmsAPI/bin/PerceptronXfmsAPI.dll
+PerceptronXfmsAPI/PerceptronXfmsAPI/bin/PerceptronXfmsAPI.pdb
+PerceptronXfmsAPI/.vs/
