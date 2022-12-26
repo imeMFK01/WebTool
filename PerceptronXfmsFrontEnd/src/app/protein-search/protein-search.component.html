@@ -1,4 +1,4 @@
-<form #f="ngForm" (ngSubmit)="onSubmit(f.value);" (ngReset)="onReset(f.value); f.reset() ;" class="ui form">
+<form #f="ngForm" id="f" (ngSubmit)="onSubmit(f.value);" (ngReset)="onReset(f.value); f.reset() ;" class="ui form">
   <!-- <script>
     function enableResultsViewButton() {
         document.getElementById("ResultsViewButton").disabled = false;
@@ -27,9 +27,8 @@
         <h4 style="padding-left:0px; font-size:21px; font-weight:bold; font-family: roboto, arial, sans-serif;">Input
           Parameters</h4>
         <!-- <span class="example-spacer"></span> -->
-        <a mat-button matTooltip="Click to load default parameters" (click)="LoadDefaults()" matTooltipPosition="after"
-          style="color:cornflowerblue; text-decoration: underline;" name="Defaults" ngDefaultControl>Load Default
-          Query</a>
+        <a mat-button matTooltip="Click to load sample query alongwith its parameters. User based customized changes will not affect the input data files (‘*.zip’)" (click)="LoadDefaults()" matTooltipPosition="after"
+          style="color:cornflowerblue; text-decoration: underline;" name="Defaults" ngDefaultControl>Load Sample Query</a>
       </mat-card-header>
 
       <mat-card-content>
@@ -119,12 +118,12 @@
                 <a class="smallerScreen"><br /></a>
                 <label style="display:inline;">&nbsp;</label>
                 <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                    *ngIf='FilesAdditional.files.length==1 && !fileAdditionalModel'>{{FilesAdditional.files[0].name}}</i></a>
+                    *ngIf='(FilesAdditional.files.length==1 && !fileAdditionalModel) || isLoadDefaultsEnabled'>{{ FileAdditionalInputPlaced }}</i></a>
 
                 <input #FilesAdditional type="file" #imgAdditionalFileInput (ngModel)="FilesAdditional" #FilesAdditionalName ="ngModel" required
                   name="FilesAdditionalName" [(ngModel)]="fileAdditionalModel" id="FilesAdditionalName" (change)="UploadAddInput()" accept=".zip" ngModel />
 
-                <mat-error style="display: inline; font-style: italic;" *ngIf="FilesAdditional.files.length==0">
+                <mat-error style="display: inline; font-style: italic;" *ngIf="(FilesAdditional.files.length==0 && !isLoadDefaultsEnabled)">
                   Please select a data file (*.zip format).
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="FilesAdditional.files.length>1">
@@ -228,12 +227,12 @@
               <a class="smallerScreen"><br /></a>
               <label style="display:inline;">&nbsp;</label>
               <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                  *ngIf='FileRep1.files.length==1 && !fileRep1Model'>{{FileRep1.files[0].name}}</i></a>
+                  *ngIf='(FileRep1.files.length==1 && !fileRep1Model) || isLoadDefaultsEnabled'>{{ FileRep1Placed }}</i></a>
 
               <input #FileRep1 type="file" #imgRep1FileInput (ngModel)="FileRep1" #FileRep1Name="ngModel" required
                 name="FileRep1Name" [(ngModel)]="fileRep1Model" id="FileRep1Name" (change)="UploadRep1()" accept=".zip" ngModel />
 
-              <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep1.files.length==0">
+              <mat-error style="display: inline; font-style: italic;" *ngIf="(FileRep1.files.length==0 && !isLoadDefaultsEnabled)">
                 Please select a data file (*.zip format).
               </mat-error>
               <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep1.files.length>1">
@@ -310,12 +309,12 @@
               <a class="smallerScreen"><br /></a>
               <label style="display:inline;">&nbsp;</label>
               <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                  *ngIf='FileRep2.files.length==1 && !fileRep2Model'>{{FileRep2.files[0].name}}</i></a>
+                  *ngIf='(FileRep2.files.length==1 && !fileRep2Model) || isLoadDefaultsEnabled'>{{ FileRep2Placed }}</i></a>
 
               <input #FileRep2 type="file" #imgRep2FileInput (ngModel)="FileRep2" #FileRep2Name="ngModel" required
               name="FileRep2Name" [(ngModel)]="fileRep2Model" id="FileRep2Name" (change)="UploadRep2()" accept=".zip"
                 ngModel />
-              <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep2.files.length==0">
+              <mat-error style="display: inline; font-style: italic;" *ngIf="(FileRep2.files.length==0 && !isLoadDefaultsEnabled)">
                 Please select a data file (*.zip format).
               </mat-error>
               <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep2.files.length>1">
@@ -387,12 +386,12 @@
               <a class="smallerScreen"><br /></a>
               <label style="display:inline;">&nbsp;</label>
               <a style="color: rgb(81, 81, 252);" style='display:inline;'><i
-                  *ngIf='FileRep3.files.length==1 && !fileRep3Model'>{{FileRep3.files[0].name}}</i></a>
+                  *ngIf='(FileRep3.files.length==1 && !fileRep3Model) || isLoadDefaultsEnabled'>{{ FileRep3Placed }}</i></a>
 
               <input #FileRep3 type="file" #imgRep3FileInput (ngModel)="FileRep3" #FileRep3Name="ngModel" required
               name="FileRep3Name" [(ngModel)]="fileRep3Model" id="FileRep3Name" (change)="UploadRep3()" accept=".zip"
                 ngModel />
-              <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep3.files.length==0">
+              <mat-error style="display: inline; font-style: italic;" *ngIf="(FileRep3.files.length==0 && !isLoadDefaultsEnabled)">
                 Please select a data file (*.zip format).
               </mat-error>
               <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep3.files.length>1">
@@ -516,7 +515,7 @@
       <mat-grid-tile colspan="1" rowspan="1">
         <label style="padding-left:15px;"></label>
         <button mat-raised-button matTooltip="Click to submit job " class="button-sumbit"
-        [disabled]="!f.valid || fileAdditionalModel || fileRep1Model || fileRep2Model || fileRep3Model " matTooltipPosition="after" type="submit"
+        [disabled]="(Title=='' && !fileAdditionalModel && !fileRep1Model && !fileRep2Model && !fileRep3Model)" matTooltipPosition="after" type="submit"
           style="background-color: #201a93; color:aliceblue" class="ui button">Submit</button>
       </mat-grid-tile>
     </mat-grid-list>
@@ -526,6 +525,14 @@
     <br>
   </div>
 </form>
+
+<!-- [disabled]="false  -->
+
+<!-- || fileRep1Model || fileRep2Model || fileRep3Model -->
+
+
+
+
 
 <!-- || email.files.length>1 -->
 
