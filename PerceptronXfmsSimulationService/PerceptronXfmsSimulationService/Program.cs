@@ -1,6 +1,8 @@
 ﻿using System; 
 using System.Collections.Generic; 
-using System.Text; 
+using System.Text;
+using System.Threading;
+using PerceptronXfmsSimulationService.Repository;
 
 namespace PerceptronXfmsSimulationService
 {
@@ -8,28 +10,42 @@ namespace PerceptronXfmsSimulationService
     {
         static void Main(string[] args)
         {
-            // Create the MATLAB instance 
-            MLApp.MLApp matlab = new MLApp.MLApp();
+            bool RunLoop = true;
+            while (RunLoop)
+            {
 
-            // Change to the directory where the function is located 
-            matlab.Execute(@"cd C:\MATLAB");
+                try
+                {
+                    var SearchQuery = new SqlDatabase().FetchQuery();
 
-            // Define the output 
-            object result = null;
 
-            // Call the MATLAB function myfunc
-            matlab.Feval("myfunc", 2, out result, 5, 1, "world");
+                    if (SearchQuery != null)
+                    {
 
-            // Display result 
-            object[] res = result as object[];
+                    }
+                    else
+                    {
+                        Thread.Sleep(10000);
+                    }
+                }
+                catch(Exception Error)
+                {
+                    // Here error will come 
+                    // Save Status into the DB
+                    // Send email to the user
 
-            Console.WriteLine(res[0]);
-            Console.WriteLine(res[1]);
-            // Get user input to terminate program
-            Console.ReadLine();
+
+
+                }
+            }
         }
     }
 }
+
+
+
+
+
 
 
 //Fetch "In Queue" Jobs
