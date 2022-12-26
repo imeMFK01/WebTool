@@ -58,49 +58,56 @@ namespace PerceptronXfmsAPI.Controllers
         [Route("api/search/File_upload")]
         public async Task<HttpResponseMessage> File_upload()
         {
-            DBErrorException _DBErrorException = new DBErrorException();
-
-            var QueryID = Guid.NewGuid().ToString();
-
-            var a = HttpContext.Current.Response.Cookies.Count;
-
             var parametersDto = new SearchXfmsQueryDto();
-
-            // Check if the request contains multipart/form-data.
-            if (!Request.Content.IsMimeMultipartContent())
-            {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
-            var root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new CustomMultipartFormDataStreamProvider(root);
             try
             {
+                DBErrorException _DBErrorException = new DBErrorException();
+
+                var QueryID = Guid.NewGuid().ToString();
+
+                // Check if the request contains multipart/form-data.
+                if (!Request.Content.IsMimeMultipartContent())
+                {
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+                }
+                var root = HttpContext.Current.Server.MapPath("~/App_Data");
+                var provider = new CustomMultipartFormDataStreamProvider(root);
+
                 await Request.Content.ReadAsMultipartAsync(provider);
+
+                var isLoadDefaultsEnabled = provider.FormData.GetValues("isLoadDefaultsEnabled");
+                var d = isLoadDefaultsEnabled[0];
+                if (isLoadDefaultsEnabled[0] == "True")  // If users run the sample query then fetch the input file from specified local folder
+                {
+                    root = @"C:\PERCEPTRON-XFMS_Sample_Data_Files";
+                }
+                
                 TransferDataToInputFolder(root, QueryID);
 
                 var jsonData = provider.FormData.GetValues("Jsonfile");
                 //InputFileProcessing(queryId, provider.FileData[0].LocalFileName, DateTime time, parametersDto);
 
-                if (jsonData!= null)
+                if (jsonData != null)
                 {
                     parametersDto.SearchXfmsQuery = JsonConvert.DeserializeObject<SearchXfmsQuery>(jsonData[0].Trim('"'));
                     parametersDto.SearchXfmsQuery.QueryID = QueryID;
                     parametersDto.SearchXfmsQuery.CreationTime = DateTime.Now.AddDays(0);
-                    parametersDto.SearchXfmsQuery.Progress = "In Queue";    //  "Running"  "Completed"   "Error in Query"
+                    parametersDto.SearchXfmsQuery.Progress = "In Queue";                   //  "Running"  "Completed"   "Error in Query"
                 }
 
                 var response = _dataLayer.StoreXfmsSearchParameters(parametersDto);
                 // Add sending email to the user
                 return Request.CreateResponse(HttpStatusCode.OK, response);
-
             }
             catch (Exception e)//Exception Error)
             {
                 //_DBErrorException.DbEntitiyError(e);
                 // Add sending email to the user
+                //also send email to perceptronxfms.lums.edu.pk for failed submitted queries
 
-                parametersDto.SearchXfmsQuery.Progress = "Error in Query";
-                var MyResponse = _dataLayer.StoreXfmsSearchParameters(parametersDto);
+
+                //parametersDto.SearchXfmsQuery.Progress = "Error in Query";
+                //var MyResponse = _dataLayer.StoreXfmsSearchParameters(parametersDto);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error");
             }
         }
