@@ -90,13 +90,18 @@ namespace PerceptronXfmsAPI.Controllers
                 }
 
                 var response = _dataLayer.StoreXfmsSearchParameters(parametersDto);
-
+                // Add sending email to the user
                 return Request.CreateResponse(HttpStatusCode.OK, response);
+
             }
             catch (Exception e)//Exception Error)
             {
                 //_DBErrorException.DbEntitiyError(e);
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "");
+                // Add sending email to the user
+
+                parametersDto.SearchXfmsQuery.Progress = "Error in Query";
+                var MyResponse = _dataLayer.StoreXfmsSearchParameters(parametersDto);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error");
             }
         }
 
