@@ -30,3 +30,18 @@ namespace PerceptronXfmsSimulationService
         }
     }
 }
+
+
+//Fetch "In Queue" Jobs
+//Take first job, update the progress, and sent to the MATLAB code for processing + parameters
+//Outputs from MATLAB code  ->
+//  -> (i) Sucessfully Run 
+//  -> (ii) Error in Simulation
+// Update the status into the database
+// (if) success then create a zipped folder as well and SAVE INTO THE RESULTSLOG TABLE
+//
+//Send email to the user (if email provided)
+//
+//
+// If DB is not attached then service should not crash but go to the sleep..!!
+
