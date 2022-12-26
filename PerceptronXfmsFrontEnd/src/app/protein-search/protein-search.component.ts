@@ -187,13 +187,6 @@ export class ProteinSearchComponent implements OnInit {
     }
     //console.log(status);
 
-    if (form.EmailId != "")  // If User have verified Email ID or Guest gave its Email ID
-    {
-      alert("Dear User,\nFor results, please visit 'Search Results & History' tab. In addition, search results will be sent to the email address you provided.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");    //   Your search query has been submitted.\n
-    }
-    else{
-      alert("Dear Guest,\nFor results, please visit 'Search Results & History' tab.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");     /// Your search query has been submitted.\n
-    }
   }
 
   postJSON(form, file) {
