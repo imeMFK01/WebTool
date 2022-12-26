@@ -164,7 +164,7 @@ export class ProteinSearchComponent implements OnInit {
 
   postJSON(form, file) {
 
-    let baseApiUrl = "http://localhost:52340";
+    let baseApiUrl = "https://perceptronxfms.lums.edu.pk/PerceptronXFMSAPI";  //"http://localhost:52340";
     let formData: FormData = new FormData();
 
     // let formattingform: FormData = new FormData();
