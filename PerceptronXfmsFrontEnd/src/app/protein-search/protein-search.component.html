@@ -123,7 +123,7 @@
                 <input #FilesAdditional type="file" #imgAdditionalFileInput (ngModel)="FilesAdditional" #FilesAdditionalName ="ngModel" required
                   name="FilesAdditionalName" [(ngModel)]="fileAdditionalModel" id="FilesAdditionalName" (change)="UploadAddInput()" accept=".zip" ngModel />
 
-                <mat-error style="display: inline; font-style: italic;" *ngIf="(FilesAdditional.files.length==0 && !isLoadDefaultsEnabled)">
+                <mat-error style="display: inline; font-style: italic;" *ngIf="FilesAdditional.files.length==0 && FileAdditionalInputPlaced == ''">
                   Please select a data file (*.zip format).
                 </mat-error>
                 <mat-error style="display: inline; font-style: italic;" *ngIf="FilesAdditional.files.length>1">

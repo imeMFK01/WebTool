@@ -228,7 +228,20 @@ export class ProteinSearchComponent implements OnInit {
     });
   }
 
+
+  UndefinedNativeElement(Element: any){
+    if(Element === undefined || Element.files[0].name === undefined){
+      return true;
+    }
+
+  }
+
   UploadAddInput() {
+    
+    if (this.UndefinedNativeElement(this.imgAdditionalFileInput.nativeElement)){
+      this.FileAdditionalInputPlaced = '';
+    };
+    
     let fileData = this.imgAdditionalFileInput.nativeElement;
     this.fileAdditionalModel = this.CheckFileSize(fileData, 1000);     // ~1MBs file limit
     this.FileAdditionalInputPlaced = fileData.files[0].name;
