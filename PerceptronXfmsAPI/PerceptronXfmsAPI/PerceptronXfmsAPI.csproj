@@ -288,6 +288,9 @@
     <Compile Include="Models\SearchResult.cs">
       <DependentUpon>PerceptronDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchResultsFile.cs">
+      <DependentUpon>PerceptronXfmsDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Searchview.cs" />
     <Compile Include="Models\SearchXfmsQuery.cs">
       <DependentUpon>PerceptronXfmsDatabaseEntities.tt</DependentUpon>

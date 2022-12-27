@@ -33,9 +33,11 @@ namespace PerceptronXfmsAPI.Controllers
         List<string> ReplicateFileNames = new List<string>() { "Replicate1.zip", "Replicate2.zip", "Replicate3.zip" };
         string AdditionalInputFiles = "AdditionalInputFiles.zip";
         string MiscInputFiles = "MiscInputFiles";
+        string CompletedSearchQueryStatus = "Completed";
 
         readonly IDataAccessLayer _dataLayer;
-        public DateTime JobSubmissionTime = DateTime.Now.AddDays(-2);  // Fetching Current Time  //Results will available for 48hrs only
+        
+        public DateTime JobSubmissionTime = DateTime.Now.AddDays(-60);  // Fetching Current Time  //Results will available for 48hrs only                 -60       after publication    #AfterPublication
 
         private void CreateDirectory()
         {
@@ -179,6 +181,43 @@ namespace PerceptronXfmsAPI.Controllers
         }
 
 
+        [HttpPost]
+        [Route("api/search/ResultsMainPage")]
+        public List<ScanResults> ResultsMainPage([FromBody] string QueryID)
+        {
+            Debug.WriteLine(QueryID);
+            var temp = _dataLayer.SearchResultsContent(QueryID, JobSubmissionTime);
+            return temp;
+        }
+
+
+        [HttpPost]
+        [Route("api/search/ResultsDownload")]
+        public ResultsDownloadDto ResultsDownload([FromBody] string QueryID)  // where input = QueryId
+        {
+            // Get file path using Query ID from Search Results table
+            string ZipResultFullFilePath = _dataLayer.ZipFullFilePath(QueryID);
+
+            byte[] blob;
+            // Read Zip file 
+            using (FileStream fileStream = File.OpenRead(ZipResultFullFilePath))
+
+            {
+                blob = new byte[fileStream.Length];
+                fileStream.Read(blob, 0, (int)fileStream.Length);
+            }
+
+            //get the name of the file only
+            string ZipFileName = Path.GetFileName(ZipResultFullFilePath);
+
+            var ResultsDownloadData = new ResultsDownloadDto(){
+
+                ZipFileName = ZipFileName,
+                FileBlob = blob
+            };
+            
+            return ResultsDownloadData;
+        }
 
 
         //[HttpPost]
@@ -760,14 +799,7 @@ namespace PerceptronXfmsAPI.Controllers
 
 
 
-        //[HttpPost]
-        //[Route("api/search/Post_scan_results")]
-        //public List<ScanResults> Post_scan_results([FromBody] string input)
-        //{
-        //    Debug.WriteLine(input);
-        //    var temp = _dataLayer.Scan_Results(input, JobSubmissionTime);
-        //    return temp;
-        //}
+
 
         //[HttpPost]
         //[Route("api/search/Post_summary_results")]

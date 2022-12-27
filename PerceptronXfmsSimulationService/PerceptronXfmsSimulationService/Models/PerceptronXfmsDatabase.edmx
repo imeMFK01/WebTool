@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PerceptronXfmsDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SearchResultsFile">
+          <Key>
+            <PropertyRef Name="QueryID" />
+          </Key>
+          <Property Name="QueryID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ZipResultFile" Type="nvarchar(max)" />
+          <Property Name="CreationTime" Type="datetime2" Precision="7" />
+        </EntityType>
         <EntityType Name="SearchXfmsQuery">
           <Key>
             <PropertyRef Name="QueryID" />
@@ -20,6 +28,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PerceptronXfmsDatabaseModelStoreContainer">
+          <EntitySet Name="SearchResultsFile" EntityType="Self.SearchResultsFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SearchXfmsQuery" EntityType="Self.SearchXfmsQuery" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -27,6 +36,14 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PerceptronXfmsDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="SearchResultsFile">
+          <Key>
+            <PropertyRef Name="QueryID" />
+          </Key>
+          <Property Name="QueryID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZipResultFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreationTime" Type="DateTime" Precision="7" />
+        </EntityType>
         <EntityType Name="SearchXfmsQuery">
           <Key>
             <PropertyRef Name="QueryID" />
@@ -42,6 +59,7 @@
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PerceptronXfmsDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SearchResultsFiles" EntityType="Self.SearchResultsFile" />
           <EntitySet Name="SearchXfmsQueries" EntityType="Self.SearchXfmsQuery" />
         </EntityContainer>
       </Schema>
@@ -50,6 +68,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PerceptronXfmsDatabaseModelStoreContainer" CdmEntityContainer="PerceptronXfmsDatabaseEntities">
+          <EntitySetMapping Name="SearchResultsFiles">
+            <EntityTypeMapping TypeName="PerceptronXfmsDatabaseModel.SearchResultsFile">
+              <MappingFragment StoreEntitySet="SearchResultsFile">
+                <ScalarProperty Name="QueryID" ColumnName="QueryID" />
+                <ScalarProperty Name="ZipResultFile" ColumnName="ZipResultFile" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SearchXfmsQueries">
             <EntityTypeMapping TypeName="PerceptronXfmsDatabaseModel.SearchXfmsQuery">
               <MappingFragment StoreEntitySet="SearchXfmsQuery">

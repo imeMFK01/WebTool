@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d1623a8fa9024eeeac3d696b0e8a794f" Name="Diagram1">
-        <EntityTypeShape EntityType="PerceptronXfmsDatabaseModel.SearchXfmsQuery" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="61d38412aae945de958f3449d35067f7" Name="Diagram1">
+        <EntityTypeShape EntityType="PerceptronXfmsDatabaseModel.SearchResultsFile" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerceptronXfmsDatabaseModel.SearchXfmsQuery" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

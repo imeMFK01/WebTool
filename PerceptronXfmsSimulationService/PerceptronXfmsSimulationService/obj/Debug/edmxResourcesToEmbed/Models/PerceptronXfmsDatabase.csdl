@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PerceptronXfmsDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="SearchResultsFile">
+    <Key>
+      <PropertyRef Name="QueryID" />
+    </Key>
+    <Property Name="QueryID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ZipResultFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreationTime" Type="DateTime" Precision="7" />
+  </EntityType>
   <EntityType Name="SearchXfmsQuery">
     <Key>
       <PropertyRef Name="QueryID" />
@@ -15,6 +23,7 @@
     <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
   <EntityContainer Name="PerceptronXfmsDatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="SearchResultsFiles" EntityType="Self.SearchResultsFile" />
     <EntitySet Name="SearchXfmsQueries" EntityType="Self.SearchXfmsQuery" />
   </EntityContainer>
 </Schema>

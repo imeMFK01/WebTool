@@ -11,7 +11,7 @@ namespace PerceptronXfmsSimulationService.EngineCalling
     public class Calling2Engine
     {
 
-        public bool Call2MATLAB(string MatlabMainFileFullPath, SearchXfmsQueryDto SearchQuery)
+        public Call2MATLABDto Call2MATLAB(string MatlabMainFileFullPath, SearchXfmsQueryDto SearchQuery)
         {
             //string JsonSearchQuery = JsonConvert.SerializeObject(new { Json = SearchQuery });
 
@@ -25,22 +25,25 @@ namespace PerceptronXfmsSimulationService.EngineCalling
             object MatlabPipelineResults = null;
 
             // Call the MATLAB function myfunc
-            matlab.Feval("Main", 2, out MatlabPipelineResults, SearchQuery.QueryID, SearchQuery.isBridgeEnabled, SearchQuery.isFrustratometerEnabled);
+            matlab.Feval("Main", 3, out MatlabPipelineResults, SearchQuery.QueryID, SearchQuery.isBridgeEnabled, SearchQuery.isFrustratometerEnabled);
 
             // Display result 
             object[] MatlabPipelineResultsObj = MatlabPipelineResults as object[];
 
-            string Error = MatlabPipelineResultsObj[0].ToString();
-            string ErrorLog = MatlabPipelineResultsObj[1].ToString();
-
-
-            if (Error == "True")
+            var Call2MatlabDataObj = new Call2MATLABDto()
             {
-                throw (new Exception(ErrorLog));
+                QueryResultFullPath = MatlabPipelineResultsObj[0].ToString(),
+                Error = MatlabPipelineResultsObj[1].ToString(),
+                ErrorLog = MatlabPipelineResultsObj[2].ToString()
+            };
+            
+
+            if (Call2MatlabDataObj.Error == "True")
+            {
+                throw (new Exception(Call2MatlabDataObj.ErrorLog));
             }
 
-            bool isCall2MATLABSuccess = true;
-            return isCall2MATLABSuccess;
+            return Call2MatlabDataObj;
         }
     }
 }

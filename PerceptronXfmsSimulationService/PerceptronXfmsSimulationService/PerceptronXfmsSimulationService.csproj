@@ -48,6 +48,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Call2MATLABDto.cs" />
+    <Compile Include="DTO\DbSaveResultsDto.cs" />
     <Compile Include="DTO\SearchXfmsQueryDto.cs" />
     <Compile Include="EngineCalling\Calling2Engine.cs" />
     <Compile Include="Models\PerceptronXfmsDatabase.Context.cs">
@@ -75,12 +79,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchResultsFile.cs">
+      <DependentUpon>PerceptronXfmsDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SearchXfmsQuery.cs">
       <DependentUpon>PerceptronXfmsDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\SqlDatabase.cs" />
+    <Compile Include="Utilities\Zipping.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -105,10 +113,13 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\PerceptronXfmsDatabase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PerceptronXfmsDatabase.Context.cs</LastGenOutput>
       <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
+      <LastGenOutput>PerceptronXfmsDatabase.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\PerceptronXfmsDatabase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -116,9 +127,5 @@
       <LastGenOutput>PerceptronXfmsDatabase.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
