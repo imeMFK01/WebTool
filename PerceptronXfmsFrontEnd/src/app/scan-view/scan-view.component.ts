@@ -49,56 +49,7 @@ export class ScanViewComponent implements OnInit {
     ////this._httpService.GetScanReslts(this.querryId).subscribe(data => this.what(data));   // Its healthy
     //this._httpService.downloadFile(this.querryId).subscribe(data => this.what(data));
   }
-
-  what(data: any) {
-    
-    for (let i = 1; i <= data.length; i++) { this.users.push(createNewUser(i, data[i - 1])); }
-    this.dataSource = new MatTableDataSource(this.users);
-
-    // // if (this.users.length == 0){  //BatchMode: //Checking if "users" array is empty then, it will be considered (PERCEPTRON will not fetch the data from database) as batch mode or query error but the later one has been addressed in 'history.component.ts' by applying conditions in this function {getRecord(row)} and therefore, now just Batch Mode's condition is required here.
-    // //   alert("Dear User,\nSearch Results file is too large and will be downloaded. Please click Results Download to proceed.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
-    // // } 
-
-
-   
-
-
-    // let title = <HTMLLabelElement>document.getElementById("SearchTitle");
-    // title.innerHTML = data.Paramters.SearchParameters.Title;
-
-    // let pdb = <HTMLLabelElement>document.getElementById("ProteinDB");
-    // pdb.innerHTML = data.Paramters.SearchParameters.ProteinDatabase;
-
-
-    // let protTol = <HTMLLabelElement>document.getElementById("protTol");
-    // protTol.innerHTML = data.Paramters.SearchParameters.MwTolerance;
-
-    // let autotunee = <HTMLLabelElement>document.getElementById("Tuner");
-    // autotunee.innerHTML = data.Paramters.SearchParameters.Autotune;
-
-    // let ppeptol = <HTMLLabelElement>document.getElementById("peptol");
-    // ppeptol.innerHTML = data.Paramters.SearchParameters.HopThreshhold;
-
-    // let fragt = <HTMLLabelElement>document.getElementById("FragType");
-    // fragt.innerHTML = data.Paramters.SearchParameters.InsilicoFragType;
-
-    // let SpecI = <HTMLLabelElement>document.getElementById("SI");
-    // SpecI.innerHTML = data.Paramters.SearchParameters.HandleIons;
-
-    // let DenovAllow = <HTMLLabelElement>document.getElementById("PST");
-    // DenovAllow.innerHTML = data.Paramters.SearchParameters.DenovoAllow;
-
-    // let PstLength = <HTMLLabelElement>document.getElementById("PSTLen");
-    // PstLength.innerHTML = data.Paramters.SearchParameters.MinimumPstLength + " " + data.Paramters.SearchParameters.MaximumPstLength;
-
-    // let IPMSWeight = <HTMLLabelElement>document.getElementById("Slider1");
-    // let PSTWeight = <HTMLLabelElement>document.getElementById("Slider2");
-    // let SpecCompWeight = <HTMLLabelElement>document.getElementById("Slider3");
-    
-
-  }
-
-
+  
   getRecord(row) {
     let x = this.router;
     x.navigate(["summaryresults", this.querryId, row.fileId]);
@@ -106,12 +57,7 @@ export class ScanViewComponent implements OnInit {
   download(){
     this.route.params.subscribe((params: Params) => this.querryId = params['querryId']);
     this._httpService.GetResultsDownload(this.querryId).subscribe(ResultsData => this.whatResults(ResultsData));
-
-    
-    // let x = this.router;
-    // x.navigate(["resultsdownload", this.querryId]);
   }
-
   whatResults(ResultsData: any) {
 
     //See it later just for #Know
@@ -129,6 +75,27 @@ export class ScanViewComponent implements OnInit {
       fileSaver.saveAs(this.blob, FileName);
       console.log(FileName + "Successfully Downloaded!!!");
   }
+
+  ViewDetailedPF(){
+    let x = this.router;
+    x.navigate(["protectionfactor", this.querryId]);
+  }
+
+
+  what(data: any) {
+    
+    for (let i = 1; i <= data.length; i++) { this.users.push(createNewUser(i, data[i - 1])); }
+    this.dataSource = new MatTableDataSource(this.users);
+
+    // // if (this.users.length == 0){  //BatchMode: //Checking if "users" array is empty then, it will be considered (PERCEPTRON will not fetch the data from database) as batch mode or query error but the later one has been addressed in 'history.component.ts' by applying conditions in this function {getRecord(row)} and therefore, now just Batch Mode's condition is required here.
+    // //   alert("Dear User,\nSearch Results file is too large and will be downloaded. Please click Results Download to proceed.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
+    // // } 
+
+  }
+
+
+
+ 
 }
 
 /** Builds and returns a new User. */
@@ -163,3 +130,17 @@ export interface UserData {
   // mods: string;
   // mix: string;
 }
+
+
+
+
+// let title = <HTMLLabelElement>document.getElementById("SearchTitle");
+    // title.innerHTML = data.Paramters.SearchParameters.Title;
+    // DenovAllow.innerHTML = data.Paramters.SearchParameters.DenovoAllow;
+
+    // let PstLength = <HTMLLabelElement>document.getElementById("PSTLen");
+    // PstLength.innerHTML = data.Paramters.SearchParameters.MinimumPstLength + " " + data.Paramters.SearchParameters.MaximumPstLength;
+
+    // let IPMSWeight = <HTMLLabelElement>document.getElementById("Slider1");
+    // let PSTWeight = <HTMLLabelElement>document.getElementById("Slider2");
+    // let SpecCompWeight = <HTMLLabelElement>document.getElementById("Slider3");

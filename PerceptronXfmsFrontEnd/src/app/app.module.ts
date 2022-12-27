@@ -59,6 +59,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { FdrComponent } from './fdr/fdr.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ProtectionFactorComponent } from './protection-factor/protection-factor.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { HttpClientModule } from '@angular/common/http';
     ResultsDownloadComponent,
     AdminPanelComponent,
     FdrComponent,
-    ResultsinterpretationComponent
+    ResultsinterpretationComponent,
+    ProtectionFactorComponent
   ],
   imports: [
     MatIconModule,
