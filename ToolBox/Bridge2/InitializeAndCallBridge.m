@@ -10,7 +10,6 @@ PathWithDrive = extractAfter(BridgePyFolder, ':')
 Drive = extractBefore(WorkingDirPath, '\');
 PathWithDrive = extractAfter(BridgePyFolder, ':');
 
-[status,cmdout] = system([Drive ' & ' 'cd' ' ' Drive PathWithDrive ' & ' 'python3env\Scripts\activate.bat' ' & ' 'python' ' ' BridgePyFolder '\bridge.py']);
 
 if status ~= 0
     %Exceptions
