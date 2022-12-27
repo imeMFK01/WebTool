@@ -7,6 +7,8 @@ CreateTxtFileForInputBridge(InputParamForBridge2, PDBFullFileName, BridgeOutputR
 %In which  drive code is present?  Drive letter
 Drive = extractBefore(WorkingDirPath, '\')
 PathWithDrive = extractAfter(BridgePyFolder, ':')
+Drive = extractBefore(WorkingDirPath, '\');
+PathWithDrive = extractAfter(BridgePyFolder, ':');
 
 [status,cmdout] = system([Drive ' & ' 'cd' ' ' Drive PathWithDrive ' & ' 'python3env\Scripts\activate.bat' ' & ' 'python' ' ' BridgePyFolder '\bridge.py']);
 
