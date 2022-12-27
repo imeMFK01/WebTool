@@ -45,6 +45,11 @@ namespace PerceptronXfmsAPI.Repository
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
                 var UserHistory = db.SearchXfmsQueries.Where(x => x.UserID == Uid && x.CreationTime >= JobSubmissionTime).Select(x => x).ToList(); // .Add(parameters.SearchXfmsQuery);
+
+                //#Future - if want to subtract Resultscompletion - DateTimeNow < 2 then show results
+                //var ResultsDataObj = db.SearchResultsFiles.Where(x => x.UserID == Uid & x=>x.QueryID).Select(x => x).ToList();
+                //var UpdatedUserHistoryBasedOnResults = UserHistory
+
                 for (int index = 0; index < UserHistory.Count; index++)
                 {
                     var temp = new UserHistory
@@ -61,6 +66,26 @@ namespace PerceptronXfmsAPI.Repository
         }
 
 
+        public string ZipFullFilePath(string QueryID)
+        {
+            string ZipResultFullFilePath = "";
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                ZipResultFullFilePath = db.SearchResultsFiles.Where(x => x.QueryID == QueryID).Select(x => x.ZipResultFile).FirstOrDefault();
+                if(ZipResultFullFilePath == null)
+                {
+                    throw(new Exception("No results found."));
+                }
+            }
+            return ZipResultFullFilePath;
+        }
+
+
+        public List<ScanResults> SearchResultsContent(string QueryID, DateTime JobSubmissionTime)
+        {
+            var _Null = new List<ScanResults>() { };
+            return _Null;
+        }
 
         //////DBErrorException _DBErrorException = new DBErrorException();
         //////private string ServerName = "CHIRAGH-V";    //    Integrated Security=SSPI;         //       CHIRAGH-II
