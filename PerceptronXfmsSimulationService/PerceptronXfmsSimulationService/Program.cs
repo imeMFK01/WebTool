@@ -1,26 +1,52 @@
-﻿using System; 
+﻿using System;
+using System.IO;
 using System.Collections.Generic; 
 using System.Text;
 using System.Threading;
+
 using PerceptronXfmsSimulationService.Repository;
+using PerceptronXfmsSimulationService.EngineCalling;
 
 namespace PerceptronXfmsSimulationService
 {
     class Program
     {
+        public static string MatlabMainFileFullPath = @"D:\GitHub\02_WebTool\WebTool\ToolBox";   // Path will be updated based on dev or prod side folder structs
+
         static void Main(string[] args)
         {
+            var instanceSqlDatabase = new SqlDatabase();
             bool RunLoop = true;
+
+            MatlabMainFileFullPath = CheckMatlabToolboxPathInsideDev(MatlabMainFileFullPath);
+
+            Console.WriteLine("**********************************************");
+            Console.WriteLine("*****PERCEPTRON-XFMS INITIALIZING CONSOLE*****");
+            Console.WriteLine("**********************************************");
             while (RunLoop)
             {
-
+                string QueryID = null;
                 try
                 {
-                    var SearchQuery = new SqlDatabase().FetchQuery();
-
+                    var SearchQuery = instanceSqlDatabase.FetchQuery();
+                    QueryID = SearchQuery.QueryID;
 
                     if (SearchQuery != null)
                     {
+                        string JobStatus = "In Queue";     //"Running";
+                        instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, JobStatus);
+
+                        Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + SearchQuery.Progress);
+
+                        var isCall2MATLABSuccess = new Calling2Engine().Call2MATLAB(MatlabMainFileFullPath, SearchQuery);
+
+                        if (isCall2MATLABSuccess)
+                        {
+                            
+                            instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Completed");
+                            Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Completed");
+                        }
+
 
                     }
                     else
@@ -30,14 +56,28 @@ namespace PerceptronXfmsSimulationService
                 }
                 catch(Exception Error)
                 {
-                    // Here error will come 
-                    // Save Status into the DB
-                    // Send email to the user
+                    if (QueryID != null)
+                    {
+                        // Here error will come 
+                        // Save Status into the DB
+                        instanceSqlDatabase.UpdateJobStatus(QueryID, "Error In Query");
+                        Console.WriteLine("Running Job: " + QueryID + "-----" + "Progress: " + "Error In Query");
 
-
-
+                        // Send email to the user
+                    }
                 }
+                Console.ReadLine();
             }
+        }
+
+
+        public static string CheckMatlabToolboxPathInsideDev(string MatlabMainFileFullPath)
+        {
+            if (!(Directory.Exists(MatlabMainFileFullPath)))
+            {
+                MatlabMainFileFullPath = @"D:\FARHAN\00_LocalGitHub\WebTool\ToolBox";
+            }
+            return MatlabMainFileFullPath;
         }
     }
 }
@@ -48,8 +88,7 @@ namespace PerceptronXfmsSimulationService
 
 
 
-//Fetch "In Queue" Jobs
-//Take first job, update the progress, and sent to the MATLAB code for processing + parameters
+
 //Outputs from MATLAB code  ->
 //  -> (i) Sucessfully Run 
 //  -> (ii) Error in Simulation

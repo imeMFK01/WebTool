@@ -13,6 +13,9 @@ namespace PerceptronXfmsSimulationService.Repository
 
         public SearchXfmsQueryDto FetchQuery()
         {
+            //Fetch "In Queue" Jobs
+            //Take first job based on the submission priority, and sent to the MATLAB code for processing + parameters
+
             var temp = new SearchXfmsQueryDto();
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
@@ -32,6 +35,17 @@ namespace PerceptronXfmsSimulationService.Repository
                 };
             }
             return temp;
+        }
+
+        public void UpdateJobStatus(string QueryID, string Status)
+        {
+            //Updating the progress status of 
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var dbObject = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                dbObject.Progress = Status;
+                db.SaveChanges();
+            }
         }
     }
 }

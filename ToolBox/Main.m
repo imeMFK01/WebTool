@@ -8,7 +8,7 @@
 %                         (safee.ullah@gmail.com)                         %
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [] = Main()
+function [Error, ErrorLog] = Main(GUID, isBridgeEnabled, isFrustratometerEnabled)
 
 % MAIN FUNCTION OF THIS PIPELINE 
 
@@ -20,12 +20,18 @@ function [] = Main()
 % We will have two options either cal
 
 %%%% Write a function for local deployment that will create all directories beforehand
-
-
 try
+
+%Object is coming from C#
+
+
+Error = "False";
+ErrorLog = "";
+
+
 %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS      
 %% PLACEHOLDERS DATA WILL BE DELETED AFTER API INTEGRATION
-GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
+%%%%%GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
 
 %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   %% PLACEHOLDERS FOR DEVELOPMENT & TESTING   
 RepArr = ["Replicate1"; "Replicate2"; "Replicate3"];  %%% ["Replicate0"];   %%%%
@@ -157,6 +163,8 @@ addpath("Rcall\");
 addpath("Utilities\");
 
 
+%%THESE COMMENTS SHOULD UN COMMENT FOR USING
+
 InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr);
 
 %% Creating File Directory for Intermediate Processing...
@@ -189,14 +197,15 @@ GeneratingMassHunterFiles(MascotFile,ComparisonEngineOutDir);
 
 MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile);
 
-%%% Calling Bridge2
-InitializeAndCallBridge(WorkingDirPath, PythonExeFolder, PythonExePath, BridgePyFolder, InputParamForBridge2, PDBFullFileName, BridgeOutputResults);
-
+if (isBridgeEnabled == "True")
+    %%% Calling Bridge2
+    InitializeAndCallBridge(WorkingDirPath, PythonExeFolder, PythonExePath, BridgePyFolder, InputParamForBridge2, PDBFullFileName, BridgeOutputResults);
+end
 
 
 catch exception
-
-
+    Error = "True";
+    ErrorLog = exception;
 end
         
 
