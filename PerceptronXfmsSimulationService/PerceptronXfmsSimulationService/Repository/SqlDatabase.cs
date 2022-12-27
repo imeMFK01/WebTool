@@ -47,5 +47,23 @@ namespace PerceptronXfmsSimulationService.Repository
                 db.SaveChanges();
             }
         }
+
+        public void SaveZipFullFilePath(string QueryID, string ZippingFileName)
+        {
+            DateTime JobSubmissionTime = DateTime.Now.AddDays(0);  // Fetching Current Time  //Results will available for 48hrs only                 -2 after publication    #AfterPublication
+
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var temp = new SearchResultsFile()
+                {
+                    QueryID = QueryID,
+                    ZipResultFile = ZippingFileName,
+                    CreationTime = JobSubmissionTime,
+                };
+                db.SearchResultsFiles.Add(temp);
+                db.SaveChanges();
+            }
+
+        }
     }
 }

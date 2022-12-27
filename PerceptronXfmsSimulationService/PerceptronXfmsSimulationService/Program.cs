@@ -3,20 +3,22 @@ using System.IO;
 using System.Collections.Generic; 
 using System.Text;
 using System.Threading;
-
 using PerceptronXfmsSimulationService.Repository;
 using PerceptronXfmsSimulationService.EngineCalling;
+using PerceptronXfmsSimulationService.Utilities;
 
 namespace PerceptronXfmsSimulationService
 {
     class Program
     {
         public static string MatlabMainFileFullPath = @"D:\GitHub\02_WebTool\WebTool\ToolBox";   // Path will be updated based on dev or prod side folder structs
+        public static string ResultFolderPath = @"D:\PerceptronXfmsResultFolder";
 
         static void Main(string[] args)
         {
             var instanceSqlDatabase = new SqlDatabase();
             bool RunLoop = true;
+
 
             MatlabMainFileFullPath = CheckMatlabToolboxPathInsideDev(MatlabMainFileFullPath);
 
@@ -38,15 +40,19 @@ namespace PerceptronXfmsSimulationService
 
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + SearchQuery.Progress);
 
-                        var isCall2MATLABSuccess = new Calling2Engine().Call2MATLAB(MatlabMainFileFullPath, SearchQuery);
+                        var Call2MatlabDataObj = new Calling2Engine().Call2MATLAB(MatlabMainFileFullPath, SearchQuery);
 
-                        if (isCall2MATLABSuccess)
-                        {
-                            
-                            instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Completed");
-                            Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Completed");
-                        }
+                        
 
+                        //Zipping the Resutls
+                        var ZippingFileName = new Zipping().ZippingOutputFiles(ResultFolderPath, Call2MatlabDataObj.QueryResultFullPath, SearchQuery.Title, SearchQuery.QueryID);
+                        // Save ZippingFileName  into the DB
+                        instanceSqlDatabase.SaveZipFullFilePath(SearchQuery.QueryID, ZippingFileName);
+
+
+                        //instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Completed");
+                        Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Completed");
+                        int waithere = 1;
 
                     }
                     else
@@ -59,8 +65,10 @@ namespace PerceptronXfmsSimulationService
                     if (QueryID != null)
                     {
                         // Here error will come 
+
                         // Save Status into the DB
-                        instanceSqlDatabase.UpdateJobStatus(QueryID, "Error In Query");
+                        /////instanceSqlDatabase.UpdateJobStatus(QueryID, "Error In Query");
+
                         Console.WriteLine("Running Job: " + QueryID + "-----" + "Progress: " + "Error In Query");
 
                         // Send email to the user

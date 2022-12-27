@@ -7,13 +7,13 @@ namespace PerceptronXfmsAPI.Models
 {
     public class ResultsDownloadDto
     {
-        public string ZipFileWithPath;
-        public List<byte[]> ListOfFileBlobs;
+        public string ZipFileName;
+        public byte[] FileBlob;
         
-        public ResultsDownloadDto(string cZipFileWithPath, List<byte[]> cListOfFileBlobs)
-        {
-            ZipFileWithPath = cZipFileWithPath;
-            ListOfFileBlobs = cListOfFileBlobs;
-        }
+        //public ResultsDownloadDto(string cZipFileWithPath, List<byte[]> cListOfFileBlobs)
+        //{
+        //    ZipFileWithPath = cZipFileWithPath;
+        //    ListOfFileBlobs = cListOfFileBlobs;
+        //}
     }
 }
