@@ -128,7 +128,7 @@ export class ConfigService {
     GetScanReslts(qid) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        return this._http.post(this.baseApiUrl + '/api/search/Post_scan_results', '=' + qid, { headers: headers })
+        return this._http.post(this.baseApiUrl + '/api/search/ResultsMainPage', '=' + qid, { headers: headers })
             .map(res => {
                 return res.json()
             });
