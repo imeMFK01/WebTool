@@ -8,7 +8,11 @@
 %                         (safee.ullah@gmail.com)                         %
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Error, ErrorLog] = Main(GUID, isBridgeEnabled, isFrustratometerEnabled)
+function [QueryResultFullPath, Error, ErrorLog] = Main(GUID, isBridgeEnabled, isFrustratometerEnabled)
+% 
+% %%DEL ME 
+% GUID = "8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136";
+% isBridgeEnabled = "True";
 
 % MAIN FUNCTION OF THIS PIPELINE 
 
@@ -54,6 +58,14 @@ QueryFullFolderPath = InputFolderPath + "\" + GUID;
 
 
 QueryResultFullPath = ResultFolderPath + "\Result_" + GUID;
+
+%MATLAB DOCUMENTATION: https://www.mathworks.com/help/matlab/ref/exist.html#d124e420733
+% 2 — name is a file with extension .m, .mlx, or .mlapp, or name is the name of a file with a non-registered file extension (.mat, .fig, .txt). & 7 — name is a folder.
+
+if (exist(QueryResultFullPath) == 7)
+    rmdir(QueryResultFullPath, 's');
+end
+
 mkdir(QueryResultFullPath);
 SetWorkingDirForRCall = pwd + "\Rcall";
 FullNameofRFile = pwd + "\FileFormatConverters\mzXMLtocsvConverter.R";
@@ -162,8 +174,9 @@ addpath("ProteoWizard\");
 addpath("Rcall\");
 addpath("Utilities\");
 
-
-%%THESE COMMENTS SHOULD UN COMMENT FOR USING
+% % % %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% 
+% % % %% THESE COMMENTS SHOULD UN COMMENT FOR USING
+% % % %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% 
 
 InputFilesData = ValidateAndFetchInputFilesInfo(QueryFullFolderPath, DoseResponseFile, InsideExp, RepArr);
 
