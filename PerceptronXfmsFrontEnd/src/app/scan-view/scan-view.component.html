@@ -1,21 +1,105 @@
 <div id="top" class="loader"></div>
 <div style="width:90%; min-width: 600px; margin:0 auto;">
   <mat-card>
-    <h4 style="text-align:center; font-family: Roboto, Arial, sans-serif; font-weight:bold; margin:0 auto;">Protein
-      Spectral Matches</h4>
+    <h4 style="text-align:center; font-family: Roboto, Arial, sans-serif; font-weight:bold; margin:0 auto;">XFMS
+      Searched Results</h4>
   </mat-card>
   <br>
+
+  <button mat-raised-button matTooltip="Click to Download Results" type="submit"
+    style="background-color: #201a93; margin-right: 50px; color:aliceblue" class="ui button" (click)=download()>Results
+    Download</button>
+
+  <div style="height:50px;font-size:1px;"></div>
+
+
+  <div style="display: flex;">
+  <mat-card class="example-card" style="flex: 1 1 auto;">
+    <mat-card-header>
+      <img mat-card-avatar class="example-header-image" src="assets/images/ProtectionFactorShieldAvator.jpg">
+      <mat-card-title style="font-size:large; font-weight:bold;">Protection Factor</mat-card-title>
+
+    </mat-card-header>
+    <div style="height:20px;font-size:1px;"></div>
+    <img mat-card-image class="img-margin" style="width:350px"
+      src="assets/images/ProtectionFactorMainImage.jpg">
+    <!-- alt="Photo of a Shiba Inu" -->
+    <mat-card-content>
+      <p style="margin: 0;text-align: justify; font-weight: bold;">
+        Protection factor calculates the residual protection against the exposure of water.
+      </p>
+      <mat-card-actions>
+        <button mat-button style="right: 20px;">Results</button>
+
+      </mat-card-actions>
+
+    </mat-card-content>
+
+    <div style="height:5px"></div>
+  </mat-card>
+  <div style="width:20px"></div>
+
+  <mat-card class="example-card" style="flex: 1 1 auto;">
+    <mat-card-header>
+      <img mat-card-avatar class="example-header-image" src="assets/images/BetweennesCentralityMainImage.jpg">
+      <mat-card-title style="font-size:large; font-weight:bold;">Betweenness Centrality</mat-card-title>
+
+    </mat-card-header>
+    <div style="height:20px;font-size:1px;"></div>
+    <img mat-card-image class="img-margin" style="width:350px"
+    src="assets/images/BetweennesCentralityMainImage.jpg">
+    <!-- alt="Photo of a Shiba Inu" -->
+    <mat-card-content>
+      <p style="margin: 0;text-align: justify; font-weight: bold;">
+        Betweenness centrality determines the degree of connectivity of each residue-residue and residue-water interactions.
+      </p>
+      <mat-card-actions>
+        <button mat-button style="right: 20px;">Results</button>
+
+      </mat-card-actions>
+
+    </mat-card-content>
+
+    <div style="height:5px"></div>
+  </mat-card>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div>
+
+  <div style="height:1500px;font-size:1px;"></div>
+
+
   <div class="example-header">
     <mat-form-field>
-      <input matInput style="font-size:18px" (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
+      <input matInput style="font-size:18px" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
   </div>
 
   <div style="height:10px;font-size:1px;">&nbsp;</div>
 
   <label style="padding-right:15px;"></label>
-  <button mat-raised-button matTooltip="Click to Download Results" type="submit"
-    style="background-color: #201a93; margin-right: 50px; color:aliceblue" class="ui button" (click)=download()>Results Download</button>
+
 
   <div style="height:50px;font-size:1px;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
@@ -60,7 +144,8 @@
       <ng-container matColumnDef="score">
         <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; font-size: 15px;"> Protein Score
         </mat-header-cell>
-        <mat-cell matTooltip="{{row.score}}" style="cursor: pointer; font-size:15px;" *matCellDef="let row"> {{row.score.toFixed(4)}}
+        <mat-cell matTooltip="{{row.score}}" style="cursor: pointer; font-size:15px;" *matCellDef="let row">
+          {{row.score.toFixed(4)}}
         </mat-cell>
       </ng-container>
 
@@ -68,7 +153,8 @@
       <ng-container matColumnDef="molW">
         <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; font-size: 15px;"> Molecular
           Weight </mat-header-cell>
-        <mat-cell matTooltip="{{row.molW}}" style="cursor: pointer; font-size:15px;" *matCellDef="let row"> {{row.molW.toFixed(4)}}
+        <mat-cell matTooltip="{{row.molW}}" style="cursor: pointer; font-size:15px;" *matCellDef="let row">
+          {{row.molW.toFixed(4)}}
         </mat-cell>
       </ng-container>
 

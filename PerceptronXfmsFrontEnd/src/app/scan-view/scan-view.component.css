@@ -32,6 +32,23 @@
     position: absolute;
     right: 35px;
   }
+/* 
+  .mat-grid-tile {
+    border: solid 2px #000;
+} */
 
+.example-card {
+  max-width: 300px;
+}
 
-  
+.example-header-image {
+ 
+  background-size: cover;
+}
+.img-margin {
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-right: 0;
+  margin-left: 0;
+
+}

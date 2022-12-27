@@ -46,7 +46,7 @@ export class ScanViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.querryId = params['querryId']);
-    this._httpService.GetScanReslts(this.querryId).subscribe(data => this.what(data));
+    ////this._httpService.GetScanReslts(this.querryId).subscribe(data => this.what(data));   // Its healthy
     //this._httpService.downloadFile(this.querryId).subscribe(data => this.what(data));
   }
 
@@ -55,9 +55,9 @@ export class ScanViewComponent implements OnInit {
     for (let i = 1; i <= data.length; i++) { this.users.push(createNewUser(i, data[i - 1])); }
     this.dataSource = new MatTableDataSource(this.users);
 
-    if (this.users.length == 0){  //BatchMode: //Checking if "users" array is empty then, it will be considered (PERCEPTRON will not fetch the data from database) as batch mode or query error but the later one has been addressed in 'history.component.ts' by applying conditions in this function {getRecord(row)} and therefore, now just Batch Mode's condition is required here.
-      alert("Dear User,\nSearch Results file is too large and will be downloaded. Please click Results Download to proceed.\n\nThank you for using PERCEPTRON!\nThe PERCEPTRON Team");
-    } 
+    // // if (this.users.length == 0){  //BatchMode: //Checking if "users" array is empty then, it will be considered (PERCEPTRON will not fetch the data from database) as batch mode or query error but the later one has been addressed in 'history.component.ts' by applying conditions in this function {getRecord(row)} and therefore, now just Batch Mode's condition is required here.
+    // //   alert("Dear User,\nSearch Results file is too large and will be downloaded. Please click Results Download to proceed.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
+    // // } 
 
 
    
@@ -117,42 +117,18 @@ export class ScanViewComponent implements OnInit {
     //See it later just for #Know
     //var Data = this.sanitizer.bypassSecurityTrustUrl('data:text/plain;base64,' + filedata);
 
-    for (let i = 0; i < ResultsData.ListOfFileBlobs.length; i++) {  //#ENNT: Can be Removed...
-      let FileName = ResultsData.ZipFileWithPath;
-      let CheckFileType = FileName.split('.').pop();
-      let IndividualResultsFile = ResultsData.ListOfFileBlobs[i];
+    let FileName = ResultsData.ZipFileName;
 
-      const byteCharacters = atob(IndividualResultsFile);
+    const byteCharacters = atob(ResultsData.FileBlob);
       const byteNumbers = new Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
       const byteArray = new Uint8Array(byteNumbers);
-      this.blob = new Blob([byteArray], { type: "application/zip;charset=utf-8" })//"text/plain;charset=utf-8" });
-
+      this.blob = new Blob([byteArray], { type: "application/zip;charset=utf-8" });
       fileSaver.saveAs(this.blob, FileName);
-
-
       console.log(FileName + "Successfully Downloaded!!!");
-
-    }
-    //alert("Dear User Your Result File(s) Downloaded. \nPlease See Your Download Folder.");
-
-
   }
-
-  //Resutls Download Working...
-    // download() {
-  //   var abd = this.downloadFile(this.querryId).subscribe(response => {
-	// 		let blob:any = new Blob([response.blob()], { type: 'text; charset=utf-8' });
-	// 		const url= window.URL.createObjectURL(blob);
-	// 		window.open(url);
-	// 		window.location.href = response.url;
-	// 		fileSaver.saveAs(blob, 'Results.txt');
-  //   })
-  //   // , error => console.log('Error downloading the file'),
-  //   //              () => console.info('File downloaded successfully');
-  // }
 }
 
 /** Builds and returns a new User. */
