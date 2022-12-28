@@ -18,6 +18,8 @@ using PerceptronXfmsAPI.Utility;
 using System.Data.Entity.Validation;
 using System.Web.Http.Cors;
 using System.Reflection;
+//using System.Text.Json;
+
 
 
 namespace PerceptronXfmsAPI.Controllers
@@ -52,6 +54,7 @@ namespace PerceptronXfmsAPI.Controllers
         {
             //CreateDirectory();
             _dataLayer = new SqlDatabase();
+            //ReadPDBFile();
         }
 
         //[EnableCors(origins: "http://example.com", headers: "accept,content-type,origin,x-my-header", methods: "*")]
@@ -217,6 +220,31 @@ namespace PerceptronXfmsAPI.Controllers
             };
             
             return ResultsDownloadData;
+        }
+
+        [HttpPost]
+        [Route("api/search/GetDetailedPFResults")]
+        public DetailProtFactorDto GetDetailedPFResults([FromBody] string QueryID)
+        //public string GetDetailedPFResults()
+        {
+
+            string pdbfile = @"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\SASAmain.png";
+            var SasaFileBlob = new FileToBlob().FileToBlobConverter(pdbfile);
+
+
+
+
+            var temp = new DetailProtFactorDto()
+            {
+                SasaFileBlob = SasaFileBlob
+            };
+
+            return temp;
+
+            //string text = File.ReadAllText(@"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\Modifiedchey.pdb");
+            //return text;
+            ////string jsonString = JsonConvert.SerializeObject(text);
+            ////return jsonString;
         }
 
 

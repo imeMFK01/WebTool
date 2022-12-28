@@ -14,8 +14,23 @@ namespace PerceptronXfmsSimulationService
         public static string MatlabMainFileFullPath = @"D:\GitHub\02_WebTool\WebTool\ToolBox";   // Path will be updated based on dev or prod side folder structs
         public static string ResultFolderPath = @"D:\PerceptronXfmsResultFolder";
 
+        public static void RunMeOnly()
+        {
+            byte[] blob;
+            // Read Zip file 
+            using (FileStream fileStream = File.OpenRead(@"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\Modifiedchey.pdb"))
+            {
+                blob = new byte[fileStream.Length];
+                fileStream.Read(blob, 0, (int)fileStream.Length);
+            }
+        }
+
+
         static void Main(string[] args)
         {
+
+            RunMeOnly();
+
             var instanceSqlDatabase = new SqlDatabase();
             bool RunLoop = true;
 
@@ -87,6 +102,7 @@ namespace PerceptronXfmsSimulationService
             }
             return MatlabMainFileFullPath;
         }
+
     }
 }
 

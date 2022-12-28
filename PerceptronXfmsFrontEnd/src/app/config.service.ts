@@ -22,6 +22,17 @@ export class ConfigService {
     constructor(private _http: Http) { }
 
 
+    GetDetailedPFResults(QueryID){
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        return this._http.post(this.baseApiUrl + '/api/search/GetDetailedPFResults', '=' + QueryID, { headers: headers })
+            .map(res => {
+                return res.json()
+            });
+        
+
+    }
 
 
     getJSON() {
