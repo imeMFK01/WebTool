@@ -65,7 +65,7 @@ namespace PerceptronXfmsAPI.Utility
                 oleda.Fill(dsRetrievedData);
                 
                 Debug.WriteLine(dsRetrievedData);
-                Debug.WriteLine(dsRetrievedData.Tables[0].TableName);
+                Debug.WriteLine(dsRetrievedData.Tables[0].DefaultView);
 
                 List<string> tempResiduePos = new List<string>();
                 List<string> tempResidue = new List<string>();
