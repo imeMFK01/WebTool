@@ -57,6 +57,7 @@ namespace PerceptronXfmsAPI.Controllers
             //ReadPDBFile();
         }
 
+
         //[EnableCors(origins: "http://example.com", headers: "accept,content-type,origin,x-my-header", methods: "*")]
         [EnableCors(origins: "https://perceptronxfms.lums.edu.pk/,https://localhost:44300/,http://localhost:4200/", headers: "*", methods: "post")]    //  https://perceptronxfms.lums.edu.pk/perceptronxfmsapi,
         [HttpPost]
@@ -64,6 +65,7 @@ namespace PerceptronXfmsAPI.Controllers
         public async Task<HttpResponseMessage> File_upload()
         {
             var parametersDto = new SearchXfmsQueryDto();
+            string format = "yyyy/MM/dd HH:mm:ss";
             try
             {
                 DBErrorException _DBErrorException = new DBErrorException();
@@ -101,7 +103,13 @@ namespace PerceptronXfmsAPI.Controllers
                 }
 
                 var response = _dataLayer.StoreXfmsSearchParameters(parametersDto);
+               
                 // Add sending email to the user
+                if (parametersDto.SearchXfmsQuery.EmailID!= "")
+                {
+                    SendingEmail.SendingEmailMethod(parametersDto.SearchXfmsQuery.EmailID, parametersDto.SearchXfmsQuery.Title, parametersDto.SearchXfmsQuery.CreationTime.ToString(format), "QuerySuccessfullySubmitted");
+                }
+
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (Exception e)//Exception Error)
@@ -110,6 +118,10 @@ namespace PerceptronXfmsAPI.Controllers
                 // Add sending email to the user
                 //also send email to perceptronxfms.lums.edu.pk for failed submitted queries
 
+                if (parametersDto.SearchXfmsQuery.EmailID != "")
+                {
+                    SendingEmail.SendingEmailMethod(parametersDto.SearchXfmsQuery.EmailID, parametersDto.SearchXfmsQuery.Title, parametersDto.SearchXfmsQuery.CreationTime.ToString(format), "Error");
+                }
 
                 //parametersDto.SearchXfmsQuery.Progress = "Error in Query";
                 //var MyResponse = _dataLayer.StoreXfmsSearchParameters(parametersDto);

@@ -69,3 +69,11 @@ D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\System.Text
 D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\System.Text.Json.xml
 D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\System.Threading.Tasks.Extensions.xml
 D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\System.ValueTuple.xml
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\BouncyCastle.Crypto.dll
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\MailKit.dll
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\MimeKit.dll
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\BouncyCastle.Crypto.xml
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\MailKit.pdb
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\MailKit.xml
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\MimeKit.pdb
+D:\GitHub\02_WebTool\WebTool\PerceptronXfmsAPI\PerceptronXfmsAPI\bin\MimeKit.xml
