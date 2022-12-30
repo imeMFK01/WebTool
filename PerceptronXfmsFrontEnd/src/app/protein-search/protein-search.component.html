@@ -1,4 +1,4 @@
-<form #f="ngForm" id="f" (ngSubmit)="onSubmit(f.value);" (ngReset)="onReset(f.value); f.reset() ;" class="ui form">
+<form #f="ngForm" id="f" (ngSubmit)="onSubmit(f.value);" (ngReset)="onReset(f.value); f.reset(f.value) ;" class="ui form">
   <!-- <script>
     function enableResultsViewButton() {
         document.getElementById("ResultsViewButton").disabled = false;
@@ -29,6 +29,9 @@
         <!-- <span class="example-spacer"></span> -->
         <a mat-button matTooltip="Click to load sample query alongwith its parameters. User based customized changes will not affect the input data files (‘*.zip’)" (click)="LoadDefaults()" matTooltipPosition="after"
           style="color:cornflowerblue; text-decoration: underline;" name="Defaults" ngDefaultControl>Load Sample Query</a>
+
+          <a mat-button matTooltip="Click to visit ‘Sample Data’ page for viewing uploaded sample data" *ngIf="isLoadDefaultsEnabled" matTooltipPosition="after"
+          style="color:rgb(0, 47, 255); text-decoration: underline;" name="Defaults" ngDefaultControl href="https://perceptronxfms.lums.edu.pk/index.html#/repository">See Sample Data</a>
       </mat-card-header>
 
       <mat-card-content>
@@ -160,7 +163,7 @@
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
         <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
-          Upload XFMS Experimental Data
+          Experimental Data
         </mat-panel-title>
       </mat-expansion-panel-header>
 
@@ -232,7 +235,7 @@
               <input #FileRep1 type="file" #imgRep1FileInput (ngModel)="FileRep1" #FileRep1Name="ngModel" required
                 name="FileRep1Name" [(ngModel)]="fileRep1Model" id="FileRep1Name" (change)="UploadRep1()" accept=".zip" ngModel />
 
-              <mat-error style="display: inline; font-style: italic;" *ngIf="(FileRep1.files.length==0 && !isLoadDefaultsEnabled)">
+              <mat-error style="display: inline; font-style: italic;" *ngIf="(FileRep1.files.length==0 && FileRep1Placed == '')">
                 Please select a data file (*.zip format).
               </mat-error>
               <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep1.files.length>1">
@@ -314,7 +317,7 @@
               <input #FileRep2 type="file" #imgRep2FileInput (ngModel)="FileRep2" #FileRep2Name="ngModel" required
               name="FileRep2Name" [(ngModel)]="fileRep2Model" id="FileRep2Name" (change)="UploadRep2()" accept=".zip"
                 ngModel />
-              <mat-error style="display: inline; font-style: italic;" *ngIf="(FileRep2.files.length==0 && !isLoadDefaultsEnabled)">
+              <mat-error style="display: inline; font-style: italic;" *ngIf="(FileRep2.files.length==0 && FileRep2Placed == '')">
                 Please select a data file (*.zip format).
               </mat-error>
               <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep2.files.length>1">
@@ -391,7 +394,7 @@
               <input #FileRep3 type="file" #imgRep3FileInput (ngModel)="FileRep3" #FileRep3Name="ngModel" required
               name="FileRep3Name" [(ngModel)]="fileRep3Model" id="FileRep3Name" (change)="UploadRep3()" accept=".zip"
                 ngModel />
-              <mat-error style="display: inline; font-style: italic;" *ngIf="(FileRep3.files.length==0 && !isLoadDefaultsEnabled)">
+              <mat-error style="display: inline; font-style: italic;" *ngIf="(FileRep3.files.length==0 && FileRep3Placed == '')">
                 Please select a data file (*.zip format).
               </mat-error>
               <mat-error style="display: inline; font-style: italic;" *ngIf="FileRep3.files.length>1">
@@ -404,6 +407,12 @@
           </span>
         </mat-grid-tile>
 
+
+        <mat-grid-tile colspan="14" rowspan="1">
+          <p><b>msConvert</b>: Adusumilli, R. and Mallick, P., 2017. Data conversion with ProteoWizard msConvert. In Proteomics (pp. 339-368). Humana Press, New York, NY <a href="https://link.springer.com/protocol/10.1007/978-1-4939-6747-6_23">Link</a>.</p>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
       </mat-grid-list>
 
     </mat-expansion-panel>
@@ -412,7 +421,7 @@
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
         <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
-          Protein-water Contacts Analyses
+          Protein-Water Contacts Analyses
         </mat-panel-title>
       </mat-expansion-panel-header>
 
@@ -424,7 +433,7 @@
 
         <mat-grid-tile colspan="2" rowspan="1">
           <mat-checkbox matTooltip="Check the option for running bridge algorithm" color="primary"
-            style="width:100%; padding-left:15px;" [(ngModel)]="isBridgeEnabled" name="isBridgeEnabled" ngModel>Bridge
+            style="width:100%; padding-left:15px;" [(ngModel)]="isBridgeEnabled" name="isBridgeEnabled" ngModel>Bridge2
           </mat-checkbox>
         </mat-grid-tile>
 
@@ -434,6 +443,16 @@
             </mat-checkbox>
         </mat-grid-tile>
 
+        
+
+
+        <mat-grid-tile colspan="8" rowspan="2">
+          <p><b>Bridge2</b>: Siemers, M. and Bondar, A.N., 2021. Interactive Interface for Graph-Based Analyses of Dynamic H-Bond Networks: Application to Spike Protein S. Journal of Chemical Information and Modeling, 61(6), pp.2998-3014 <a href="https://pubs.acs.org/doi/full/10.1021/acs.jcim.1c00306">Link</a>.</p>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="8" rowspan="2">
+          <p><b>Frustratometer</b>: Rausch, A.O., Freiberger, M.I., Leonetti, C.O., Luna, D.M., Radusky, L.G., Wolynes, P.G., Ferreiro, D.U. and Parra, R.G., 2021. FrustratometeR: an R-package to compute local frustration in protein structures, point mutants and MD simulations. Bioinformatics, 37(18), pp.3038-3040  <a href="https://academic.oup.com/bioinformatics/article/37/18/3038/6171179?login=true">Link</a>.</p>
+        </mat-grid-tile>
 
 
       </mat-grid-list>
@@ -454,24 +473,41 @@
       <mat-card-content>
 
         <mat-grid-list cols="15" rowHeight="45px">
-          <mat-grid-tile colspan="2" rowspan="1" rowHeight="50px"></mat-grid-tile>
-          <mat-grid-tile colspan="11" rowspan="1" rowHeight="50px">
+          <mat-grid-tile colspan="2" rowspan="1" rowHeight="20px"></mat-grid-tile>
+          <mat-grid-tile colspan="11" rowspan="1" rowHeight="20px">
             <!-- *ngIf="barWidth!='0%'" -->
             <div class="progress" >
               <span [innerHTML]="barWidth"></span>
               <div class="bar" [style.width]="barWidth"></div>
           </div>
           </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="1" rowHeight="50px"></mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1" rowHeight="20px"></mat-grid-tile>
 
-          <mat-grid-tile colspan="8" rowspan="1" rowHeight="10px">
-            <div id="FormattingCss">Please do not refresh the page while we submit your query.</div>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="7" rowspan="1" rowHeight="10px"></mat-grid-tile>
+          <mat-grid-tile colspan="7" rowspan="2" rowHeight="10px">
+            <div id="FormattingCss">Please do not refresh the page while we submit your query.
+            </div></mat-grid-tile>
+
+
+          <mat-grid-tile colspan="8" rowspan="1" rowHeight="10px"></mat-grid-tile>
+
+          
           <!-- <div style="height:10px;font-size:1px;">&nbsp;</div> -->
         </mat-grid-list>
+
+        
+
       </mat-card-content>
     </mat-card>
+
+    <div style="height:10px;font-size:1px;">&nbsp;</div>
+
+    <mat-card><mat-grid-list cols="15" rowHeight="30px">
+      <mat-grid-tile colspan="8" rowspan="1" rowHeight="10px">
+
+      <p>For formatting related guidelines please refer to <a
+        href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></p>
+
+    </mat-grid-tile></mat-grid-list></mat-card>
 
     <!-- <mat-card *ngIf="this.IsProgressbarOn;">
         <mat-progress-bar mode="indeterminate" *ngIf="this.IsProgressbarOn"></mat-progress-bar>
@@ -490,15 +526,11 @@
       <mat-grid-tile colspan="1" rowspan="1">
 
         <button mat-raised-button matTooltip="Click to reset search parameters to defaults" matTooltipPosition="before"
-          type="reset" style="background-color: #212121; color:aliceblue" class="ui button">Reset</button>
+          type="reset" style="background-color: #212121; color:aliceblue" class="ui button" (click)="onReset(f)">Reset</button>
         <label style="padding-right:15px;"></label>
       </mat-grid-tile>
 
       <!-- <label style="color:red;"> Once query has been submitted then, please do not refresh the page otherwise your job submission could be interupted.</label> -->
-
-
-      <p id="FormattingCss">For formatting related guidelines please refer to <a
-          href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></p>
 
 
       <!-- <p style="font-size:16px;">For formatting related guidelines please refer to <u><a style="font-style:italic" href="https://perceptronxfms.lums.edu.pk/index.html#/repository">Sample Data</a></u></p> -->

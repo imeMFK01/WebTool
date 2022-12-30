@@ -21,7 +21,7 @@ namespace PerceptronXfmsAPI
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            //config.Filters.Add(new RequireHttpsAttribute());  //Uncomment this for using https://localhost:44300/
+            config.Filters.Add(new RequireHttpsAttribute());  //Uncomment this for using https://localhost:44300/
 
 
             //config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("multipart/form-data"));

@@ -191,7 +191,8 @@ export class ProteinSearchComponent implements OnInit {
 
   postJSON(form, file) {
 
-    let baseApiUrl = "http://localhost:52340";
+    let baseApiUrl = "https://localhost:44300";
+    //"http://localhost:52340";
     //  https://perceptronxfms.lums.edu.pk/PerceptronXFMSAPI
     let formData: FormData = new FormData();
 
@@ -298,7 +299,12 @@ export class ProteinSearchComponent implements OnInit {
     }
   }
 
-  onReset(form: any): void {
+  onReset({ form }: { form: any; }): void {
+    this.isLoadDefaultsEnabled = false;
+    this.FileAdditionalInputPlaced = '';
+    this.FileRep1Placed = '';
+    this.FileRep2Placed = '';
+    this.FileRep3Placed = '';
     this.barWidth = "0%";
     console.log("Form has been reset");
   }

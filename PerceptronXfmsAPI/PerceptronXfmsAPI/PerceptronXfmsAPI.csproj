@@ -353,7 +353,7 @@
     <Compile Include="Utility\AddSuffixInName.cs" />
     <Compile Include="Utility\AminoAcids.cs" />
     <Compile Include="Utility\DBErrorException.cs" />
-    <Compile Include="Utility\ExcelFileReader.cs" />
+    <Compile Include="Utility\ExcelFileReader[]Discard.cs" />
     <Compile Include="Utility\FileToBlob.cs" />
     <Compile Include="Utility\SendingEmail.cs" />
   </ItemGroup>

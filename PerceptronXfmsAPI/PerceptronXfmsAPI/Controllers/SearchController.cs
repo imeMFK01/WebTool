@@ -58,7 +58,7 @@ namespace PerceptronXfmsAPI.Controllers
         }
 
         //[EnableCors(origins: "http://example.com", headers: "accept,content-type,origin,x-my-header", methods: "*")]
-        [EnableCors(origins: "https://perceptronxfms.lums.edu.pk/,http://localhost:4200/", headers: "*", methods: "post")]    //  https://perceptronxfms.lums.edu.pk/perceptronxfmsapi,
+        [EnableCors(origins: "https://perceptronxfms.lums.edu.pk/,https://localhost:44300/,http://localhost:4200/", headers: "*", methods: "post")]    //  https://perceptronxfms.lums.edu.pk/perceptronxfmsapi,
         [HttpPost]
         [Route("api/search/File_upload")]
         public async Task<HttpResponseMessage> File_upload()
