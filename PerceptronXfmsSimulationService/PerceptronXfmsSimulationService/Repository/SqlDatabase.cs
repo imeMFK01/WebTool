@@ -65,5 +65,26 @@ namespace PerceptronXfmsSimulationService.Repository
             }
 
         }
+
+        public void ResultsSaveIntoDbForVisualize(string QueryID, ResultsVisualizeSaveIntoDB ResultsSaveDbObj)
+        {
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var temp = new ResultsVisualize()
+                {
+                    QueryID = QueryID,
+                    ProteinSequence = ResultsSaveDbObj.ProteinSequence,
+                    PeptideInfo = ResultsSaveDbObj.PeptideInfo,
+                    PfSasaTabXlsFile = ResultsSaveDbObj.PfSasaTabXlsFile,
+                    BridgeResultsFile = ResultsSaveDbObj.BridgeResultsFile,
+                    SasaMainImageFile = ResultsSaveDbObj.SasaMainImageFile,
+                    PfModifiedPdb = ResultsSaveDbObj.PfModifiedPdb,
+                    CentralityModifiedPdb = ResultsSaveDbObj.CentralityModifiedPdb
+                };
+                db.ResultsVisualizes.Add(temp);
+                db.SaveChanges();
+            }
+
+        }
     }
 }

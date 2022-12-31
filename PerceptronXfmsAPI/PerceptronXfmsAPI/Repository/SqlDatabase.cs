@@ -87,6 +87,30 @@ namespace PerceptronXfmsAPI.Repository
             return _Null;
         }
 
+        public DetailProtectionFactorDto FetchResultsProtectionFactor(string QueryID)
+        {
+            var DetailProtectionFactor = new DetailProtectionFactorDto();
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var temp = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                DetailProtectionFactor.PfSasaTabXlsFile = temp.PfSasaTabXlsFile;
+                DetailProtectionFactor.SasaMainImageFile = temp.SasaMainImageFile;
+            }
+            return DetailProtectionFactor;
+        }
+
+        public DetailedCentralityDto FetchResultsCentrality(string QueryID)
+        {
+            var DetailedCentrality = new DetailedCentralityDto();
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var temp = db.ResultsVisualizes.Where(x=>x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                DetailedCentrality.BridgeResultsFile = temp.BridgeResultsFile;
+            }
+            return DetailedCentrality;
+        }
+
+
         //////DBErrorException _DBErrorException = new DBErrorException();
         //////private string ServerName = "CHIRAGH-V";    //    Integrated Security=SSPI;         //       CHIRAGH-II
         //////private SqlCredential Credentials;

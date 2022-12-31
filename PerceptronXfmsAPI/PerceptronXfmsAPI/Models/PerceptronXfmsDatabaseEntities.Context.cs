@@ -25,6 +25,7 @@ namespace PerceptronXfmsAPI.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ResultsVisualize> ResultsVisualizes { get; set; }
         public virtual DbSet<SearchResultsFile> SearchResultsFiles { get; set; }
         public virtual DbSet<SearchXfmsQuery> SearchXfmsQueries { get; set; }
     }

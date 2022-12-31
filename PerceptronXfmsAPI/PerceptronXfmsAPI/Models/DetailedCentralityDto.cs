@@ -5,8 +5,8 @@ using System.Web;
 
 namespace PerceptronXfmsAPI.Models
 {
-    public class DetailProtFactorDto
+    public class DetailedCentralityDto
     {
-        public byte[] SasaFileBlob;
+        public string BridgeResultsFile;
     }
 }

@@ -60,6 +60,7 @@ import { FdrComponent } from './fdr/fdr.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ProtectionFactorComponent } from './protection-factor/protection-factor.component';
+import { CentralityComponent } from './centrality/centrality.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { ProtectionFactorComponent } from './protection-factor/protection-factor
     AdminPanelComponent,
     FdrComponent,
     ResultsinterpretationComponent,
-    ProtectionFactorComponent
+    ProtectionFactorComponent,
+    CentralityComponent
   ],
   imports: [
     MatIconModule,

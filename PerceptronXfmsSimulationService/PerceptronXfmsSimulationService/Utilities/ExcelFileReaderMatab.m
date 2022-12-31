@@ -1,11 +1,15 @@
 function Output = ExcelFileReaderMatab(ExcelFilePath)
 
-ExcelFilePath = "D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\PF_SASA_tab.xls";
+%ExcelFilePath = "D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\PF_SASA_tab.xls";
 
 [~, ~, ExcelFileContent] = xlsread(ExcelFilePath);
 
 Output = string(ExcelFileContent(:,:));
-Output = rmmissing( Output );
+Output = rmmissing( Output );  % Removing missing values (NaN)
+
+Output = jsonencode(Output);
+
+Output = strrep(Output, '"', '''');
 
 end
 

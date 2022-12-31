@@ -123,8 +123,9 @@ namespace PerceptronXfmsAPI.Controllers
                     SendingEmail.SendingEmailMethod(parametersDto.SearchXfmsQuery.EmailID, parametersDto.SearchXfmsQuery.Title, parametersDto.SearchXfmsQuery.CreationTime.ToString(format), "Error");
                 }
 
-                //parametersDto.SearchXfmsQuery.Progress = "Error in Query";
-                //var MyResponse = _dataLayer.StoreXfmsSearchParameters(parametersDto);
+                parametersDto.SearchXfmsQuery.Progress = "Error in Query";
+                var response = _dataLayer.StoreXfmsSearchParameters(parametersDto);
+
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error");
             }
         }
@@ -236,28 +237,43 @@ namespace PerceptronXfmsAPI.Controllers
 
         [HttpPost]
         [Route("api/search/GetDetailedPFResults")]
-        public DetailProtFactorDto GetDetailedPFResults([FromBody] string QueryID)
+        public DetailProtectionFactorDto GetDetailedPFResults([FromBody] string QueryID)
         //public string GetDetailedPFResults()
         {
 
-            string pdbfile = @"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\SASAmain.png";
-            var SasaFileBlob = new FileToBlob().FileToBlobConverter(pdbfile);
 
+            var DetailProtectionFactor = _dataLayer.FetchResultsProtectionFactor(QueryID);
 
+            //string pdbfile = @"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\SASAmain.png";
+            DetailProtectionFactor.SasaFileBlob = new FileToBlob().FileToBlobConverter(DetailProtectionFactor.SasaMainImageFile);
+            DetailProtectionFactor.SasaMainImageFile = "";
 
-
-            var temp = new DetailProtFactorDto()
-            {
-                SasaFileBlob = SasaFileBlob
-            };
-
-            return temp;
+            return DetailProtectionFactor;
 
             //string text = File.ReadAllText(@"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\Modifiedchey.pdb");
             //return text;
             ////string jsonString = JsonConvert.SerializeObject(text);
             ////return jsonString;
         }
+
+
+        [HttpPost]
+        [Route("api/search/GetDetailedCentralityResults")]
+        public DetailedCentralityDto GetDetailedCentralityResults([FromBody] string QueryID)
+        //public string GetDetailedPFResults()
+        {
+            var DetailedCentrality = _dataLayer.FetchResultsCentrality(QueryID);
+            
+            return DetailedCentrality;
+
+            //string text = File.ReadAllText(@"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\Modifiedchey.pdb");
+            //return text;
+            ////string jsonString = JsonConvert.SerializeObject(text);
+            ////return jsonString;
+        }
+
+
+
 
 
         //[HttpPost]

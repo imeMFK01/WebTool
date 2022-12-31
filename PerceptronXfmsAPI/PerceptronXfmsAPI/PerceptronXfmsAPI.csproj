@@ -232,9 +232,10 @@
     <Compile Include="Models\AssembleInsilicoSpectra.cs" />
     <Compile Include="Models\BlindPtmInfo.cs" />
     <Compile Include="Models\CustomMultipartFormDataStreamProvider.cs" />
+    <Compile Include="Models\DetailedCentralityDto.cs" />
     <Compile Include="Models\DetailedProteinHitView.cs" />
     <Compile Include="Models\DetailedResults.cs" />
-    <Compile Include="Models\DetailProtFactorDto.cs" />
+    <Compile Include="Models\DetailProtectionFactorDto.cs" />
     <Compile Include="Models\ExcelFileReaderDto.cs" />
     <Compile Include="Models\ExecutionTime.cs">
       <DependentUpon>PerceptronDatabaseEntities.tt</DependentUpon>
@@ -308,6 +309,9 @@
     <Compile Include="Models\ResultsDownloadDto.cs" />
     <Compile Include="Models\ResultsDownloadFileNames.cs" />
     <Compile Include="Models\ResultsDto.cs" />
+    <Compile Include="Models\ResultsVisualize.cs">
+      <DependentUpon>PerceptronXfmsDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ResultsVisualizeData.cs" />
     <Compile Include="Models\ResultViewDto.cs" />
     <Compile Include="Models\ScanInputDataDto.cs" />
@@ -362,7 +366,6 @@
     <Compile Include="Utility\AddSuffixInName.cs" />
     <Compile Include="Utility\AminoAcids.cs" />
     <Compile Include="Utility\DBErrorException.cs" />
-    <Compile Include="Utility\ExcelFileReader[]Discard.cs" />
     <Compile Include="Utility\FileToBlob.cs" />
     <Compile Include="Utility\SendingEmail.cs" />
   </ItemGroup>

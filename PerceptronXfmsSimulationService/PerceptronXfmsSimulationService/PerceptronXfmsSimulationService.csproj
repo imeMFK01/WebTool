@@ -87,43 +87,51 @@
   <ItemGroup>
     <Compile Include="DTO\Call2MATLABDto.cs" />
     <Compile Include="DTO\DbSaveResultsDto.cs" />
+    <Compile Include="DTO\ResultsVisualizeSaveIntoDB.cs" />
     <Compile Include="DTO\SearchXfmsQueryDto.cs" />
     <Compile Include="EngineCalling\Calling2Engine.cs" />
-    <Compile Include="Models\PerceptronXfmsDatabase.Context.cs">
+    <Compile Include="Models\PerceptronXfmsDatabaseEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PerceptronXfmsDatabase.Context.tt</DependentUpon>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PerceptronXfmsDatabase.cs">
+    <Compile Include="Models\PerceptronXfmsDatabaseEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PerceptronXfmsDatabase.tt</DependentUpon>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PerceptronXfmsDatabase.Designer.cs">
+    <Compile Include="Models\PerceptronXfmsDatabaseEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResultsVisualize.cs">
+      <DependentUpon>PerceptronXfmsDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SearchResultsFile.cs">
-      <DependentUpon>PerceptronXfmsDatabase.tt</DependentUpon>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SearchXfmsQuery.cs">
-      <DependentUpon>PerceptronXfmsDatabase.tt</DependentUpon>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\SqlDatabase.cs" />
+    <Compile Include="Utilities\BlobToBase64.cs" />
+    <Compile Include="Utilities\Call2ExcelFileReader.cs" />
+    <Compile Include="Utilities\FileToBlob.cs" />
+    <Compile Include="Utilities\ReadFastaFile.cs" />
     <Compile Include="Utilities\SendingEmail.cs" />
     <Compile Include="Utilities\Zipping.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Models\PerceptronXfmsDatabase.edmx">
+    <EntityDeploy Include="Models\PerceptronXfmsDatabaseEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PerceptronXfmsDatabase.Designer.cs</LastGenOutput>
+      <LastGenOutput>PerceptronXfmsDatabaseEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\PerceptronXfmsDatabase.edmx.diagram">
-      <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
+    <None Include="Models\PerceptronXfmsDatabaseEntities.edmx.diagram">
+      <DependentUpon>PerceptronXfmsDatabaseEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -142,15 +150,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\PerceptronXfmsDatabase.Context.tt">
+    <Content Include="Models\PerceptronXfmsDatabaseEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
-      <LastGenOutput>PerceptronXfmsDatabase.Context.cs</LastGenOutput>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.edmx</DependentUpon>
+      <LastGenOutput>PerceptronXfmsDatabaseEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\PerceptronXfmsDatabase.tt">
+    <Content Include="Models\PerceptronXfmsDatabaseEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PerceptronXfmsDatabase.edmx</DependentUpon>
-      <LastGenOutput>PerceptronXfmsDatabase.cs</LastGenOutput>
+      <DependentUpon>PerceptronXfmsDatabaseEntities.edmx</DependentUpon>
+      <LastGenOutput>PerceptronXfmsDatabaseEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

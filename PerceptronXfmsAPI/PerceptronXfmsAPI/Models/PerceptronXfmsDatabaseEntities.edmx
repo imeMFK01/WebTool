@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PerceptronXfmsDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ResultsVisualize">
+          <Key>
+            <PropertyRef Name="QueryID" />
+          </Key>
+          <Property Name="QueryID" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProteinSequence" Type="nvarchar(max)" />
+          <Property Name="PeptideInfo" Type="nvarchar(max)" />
+          <Property Name="PfSasaTabXlsFile" Type="nvarchar(max)" />
+          <Property Name="BridgeResultsFile" Type="nvarchar(max)" />
+          <Property Name="SasaMainImageFile" Type="nvarchar(max)" />
+          <Property Name="PfModifiedPdb" Type="nvarchar(max)" />
+          <Property Name="CentralityModifiedPdb" Type="nvarchar(max)" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="SearchResultsFile">
           <Key>
             <PropertyRef Name="QueryID" />
@@ -28,6 +42,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PerceptronXfmsDatabaseModelStoreContainer">
+          <EntitySet Name="ResultsVisualize" EntityType="Self.ResultsVisualize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SearchResultsFile" EntityType="Self.SearchResultsFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SearchXfmsQuery" EntityType="Self.SearchXfmsQuery" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -36,6 +51,20 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PerceptronXfmsDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ResultsVisualize">
+          <Key>
+            <PropertyRef Name="QueryID" />
+          </Key>
+          <Property Name="QueryID" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ProteinSequence" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PeptideInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PfSasaTabXlsFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BridgeResultsFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SasaMainImageFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PfModifiedPdb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CentralityModifiedPdb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="SearchResultsFile">
           <Key>
             <PropertyRef Name="QueryID" />
@@ -59,6 +88,7 @@
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PerceptronXfmsDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ResultsVisualizes" EntityType="Self.ResultsVisualize" />
           <EntitySet Name="SearchResultsFiles" EntityType="Self.SearchResultsFile" />
           <EntitySet Name="SearchXfmsQueries" EntityType="Self.SearchXfmsQuery" />
         </EntityContainer>
@@ -68,6 +98,21 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PerceptronXfmsDatabaseModelStoreContainer" CdmEntityContainer="PerceptronXfmsDatabaseEntities">
+          <EntitySetMapping Name="ResultsVisualizes">
+            <EntityTypeMapping TypeName="PerceptronXfmsDatabaseModel.ResultsVisualize">
+              <MappingFragment StoreEntitySet="ResultsVisualize">
+                <ScalarProperty Name="QueryID" ColumnName="QueryID" />
+                <ScalarProperty Name="ProteinSequence" ColumnName="ProteinSequence" />
+                <ScalarProperty Name="PeptideInfo" ColumnName="PeptideInfo" />
+                <ScalarProperty Name="PfSasaTabXlsFile" ColumnName="PfSasaTabXlsFile" />
+                <ScalarProperty Name="BridgeResultsFile" ColumnName="BridgeResultsFile" />
+                <ScalarProperty Name="SasaMainImageFile" ColumnName="SasaMainImageFile" />
+                <ScalarProperty Name="PfModifiedPdb" ColumnName="PfModifiedPdb" />
+                <ScalarProperty Name="CentralityModifiedPdb" ColumnName="CentralityModifiedPdb" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SearchResultsFiles">
             <EntityTypeMapping TypeName="PerceptronXfmsDatabaseModel.SearchResultsFile">
               <MappingFragment StoreEntitySet="SearchResultsFile">
