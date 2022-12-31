@@ -16,25 +16,33 @@ namespace PerceptronXfmsSimulationService.Repository
             //Fetch "In Queue" Jobs
             //Take first job based on the submission priority, and sent to the MATLAB code for processing + parameters
 
-            var temp = new SearchXfmsQueryDto();
-            using (var db = new PerceptronXfmsDatabaseEntities())
+            try
             {
-                var dbObject = db.SearchXfmsQueries.Where(x => x.Progress == "In Queue").Select(x => x).OrderBy(x => x.CreationTime).FirstOrDefault();
-
-                temp = new SearchXfmsQueryDto()
+                var temp = new SearchXfmsQueryDto();
+                using (var db = new PerceptronXfmsDatabaseEntities())
                 {
-                    QueryID = dbObject.QueryID,
-                    UserID = dbObject.UserID,
-                    Progress = dbObject.Progress,
-                    CreationTime = dbObject.CreationTime,
-                    isBridgeEnabled = dbObject.isBridgeEnabled,
-                    isFrustratometerEnabled = dbObject.isFrustratometerEnabled,
-                    EmailID = dbObject.EmailID,
-                    ID = dbObject.ID,
-                    Title = dbObject.Title
-                };
+                    var dbObject = db.SearchXfmsQueries.Where(x => x.Progress == "In Queue").Select(x => x).OrderBy(x => x.CreationTime).FirstOrDefault();
+
+                    temp = new SearchXfmsQueryDto()
+                    {
+                        QueryID = dbObject.QueryID,
+                        UserID = dbObject.UserID,
+                        Progress = dbObject.Progress,
+                        CreationTime = dbObject.CreationTime,
+                        isBridgeEnabled = dbObject.isBridgeEnabled,
+                        isFrustratometerEnabled = dbObject.isFrustratometerEnabled,
+                        EmailID = dbObject.EmailID,
+                        ID = dbObject.ID,
+                        Title = dbObject.Title
+                    };
+                }
+                return temp;
             }
-            return temp;
+            catch(Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public void UpdateJobStatus(string QueryID, string Status)

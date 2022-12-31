@@ -81,6 +81,11 @@ export class ScanViewComponent implements OnInit {
     x.navigate(["protectionfactor", this.querryId]);
   }
 
+  ViewDetailedCentrality(){
+    let x = this.router;
+    x.navigate(["centrality", this.querryId]);
+  }
+
 
   what(data: any) {
     

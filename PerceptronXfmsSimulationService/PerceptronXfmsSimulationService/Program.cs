@@ -41,6 +41,7 @@ namespace PerceptronXfmsSimulationService
 
             var instanceSqlDatabase = new SqlDatabase();
             bool RunLoop = true;
+            string format = "yyyy/MM/dd HH:mm:ss";
 
             MatlabMainFileFullPath = CheckMatlabToolboxPathInsideDev(MatlabMainFileFullPath, "ToolBox");
             MatlabScriptsFullPath = CheckMatlabToolboxPathInsideDev(MatlabScriptsFullPath, "Utilities");
@@ -52,41 +53,38 @@ namespace PerceptronXfmsSimulationService
             Console.WriteLine("**********************************************");
             Console.WriteLine("*****PERCEPTRON-XFMS INITIALIZING CONSOLE*****");
             Console.WriteLine("**********************************************");
+
+
+            //string EmailID = "";
             while (RunLoop)
             {
-                string QueryID = null;
+                
+
+                var SearchQuery = instanceSqlDatabase.FetchQuery();
                 try
                 {
-                    var SearchQuery = instanceSqlDatabase.FetchQuery();
-                    QueryID = SearchQuery.QueryID;
 
 
-                    SearchQuery.QueryID = "8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136";                  //////Only for testing
+                    //SearchQuery.QueryID = "8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136";                  //////Only for testing
 
-                    if (SearchQuery != null)
+                    if (SearchQuery.QueryID != null)  // for safety
                     {
-                        string JobStatus = "In Queue";     //"Running";
+                        string JobStatus = "Running";
                         instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, JobStatus);
 
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + SearchQuery.Progress);
 
-                        //////Only for testing
-                        //////var Call2MatlabDataObj = new Calling2Engine().Call2MATLAB(MatlabMainFileFullPath, SearchQuery);
-                        ////////Zipping the Resutls
-                        //////var ZippingFileName = new Zipping().ZippingOutputFiles(ResultFolderPath, Call2MatlabDataObj.QueryResultFullPath, SearchQuery.Title, SearchQuery.QueryID);
-                        //////// Save ZippingFileName  into the DB
-                        //////instanceSqlDatabase.SaveZipFullFilePath(SearchQuery.QueryID, ZippingFileName);
-
-
-
-
-
+                        //Only for testing
+                        var Call2MatlabDataObj = new Calling2Engine().Call2MATLAB(MatlabMainFileFullPath, SearchQuery);
+                        //Zipping the Resutls
+                        var ZippingFileName = new Zipping().ZippingOutputFiles(ResultFolderPath, Call2MatlabDataObj.QueryResultFullPath, SearchQuery.Title, SearchQuery.QueryID);
+                        // Save ZippingFileName  into the DB
+                        instanceSqlDatabase.SaveZipFullFilePath(SearchQuery.QueryID, ZippingFileName);
 
                         // Reading Files & Save Into DB
                         var ResultsSaveDbObj = new ResultsVisualizeSaveIntoDB();
 
                         //DoseResponseInformation
-
 
 
                         //Reading FASTA File
@@ -131,13 +129,10 @@ namespace PerceptronXfmsSimulationService
 
                         ///Modified Centrality (Centrality.m) PDB [XYZ]
 
-
-
                         instanceSqlDatabase.ResultsSaveIntoDbForVisualize(SearchQuery.QueryID, ResultsSaveDbObj);
 
 
-
-                        //instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Completed");
+                        instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Completed");
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Completed");
                         int waithere = 1;
 
@@ -149,20 +144,27 @@ namespace PerceptronXfmsSimulationService
                 }
                 catch(Exception Error)
                 {
-                    if (QueryID != null)
+                    if (SearchQuery.QueryID != null)
                     {
                         // Here error will come 
 
                         // Save Status into the DB
-                        /////instanceSqlDatabase.UpdateJobStatus(QueryID, "Error In Query");
+                        instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Error In Query");
 
-                        Console.WriteLine("Running Job: " + QueryID + "-----" + "Progress: " + "Error In Query");
+                        if (SearchQuery.EmailID != "")
+                        {
+                            SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, SearchQuery.CreationTime.ToString(format), "Error");
+                        }
+
+                        Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Error In Query");
 
                         // Send email to the user
+
                     }
                 }
-                Console.ReadLine();
+                
             }
+            Console.ReadLine();
         }
 
 

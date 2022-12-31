@@ -30,6 +30,17 @@ export class ConfigService {
             .map(res => {
                 return res.json()
             });
+    }
+
+
+    GetDetailedCentralityResults(QueryID){
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        return this._http.post(this.baseApiUrl + '/api/search/GetDetailedCentralityResults', '=' + QueryID, { headers: headers })
+            .map(res => {
+                return res.json()
+            });
         
 
     }

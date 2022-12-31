@@ -54,7 +54,7 @@
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
       <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
-        Solvent Accessible Surface Area vs Log (Protection Factor)
+        Residual Based Solvent Accessible Surface Area & Log (Protection Factor)
       </mat-panel-title>
     </mat-expansion-panel-header>
  
@@ -64,28 +64,31 @@
     <!-- Serial Column -->
     <ng-container matColumnDef="Serial">
       <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Sr. # </mat-header-cell>
-      <mat-cell style="cursor: pointer;" *matCellDef="let row" matTooltip="Click to proceed!"> {{row.RowNo}} </mat-cell>
+      <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.RowNo}} </mat-cell>
     </ng-container>
 
-    <!-- Title Column -->
+    <!-- Residue Position Column -->
     <ng-container matColumnDef="ResiduePos">
       <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Residue Position </mat-header-cell>
-      <mat-cell style="cursor: pointer;" *matCellDef="let row" matTooltip="Click to proceed!"> {{row.AminoAcidNo}} </mat-cell>
+      <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.AminoAcidNo}} </mat-cell>
     </ng-container>
 
-    <!-- Time Column -->
+    <!-- Residue Column -->
     <ng-container matColumnDef="Residue">
       <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Residue</mat-header-cell>
-      <mat-cell style="cursor: pointer;" *matCellDef="let row" matTooltip="Click to proceed!"> {{row.Residue}} </mat-cell>
+      <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.Residue}} </mat-cell>
     </ng-container>
+
+    <!-- SASA Column -->
     <ng-container matColumnDef="SASA">
         <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> SASA</mat-header-cell>
-        <mat-cell style="cursor: pointer;" *matCellDef="let row" matTooltip="Click to proceed!"> {{row.SasaValue}} </mat-cell>
+        <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.SasaValue}} </mat-cell>
       </ng-container>
 
+      <!-- LogPF Column -->
       <ng-container matColumnDef="LogPF">
         <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> LogPF</mat-header-cell>
-        <mat-cell style="cursor: pointer;" *matCellDef="let row" matTooltip="Click to proceed!"> {{row.LogPfValue}} </mat-cell>
+        <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.LogPfValue}} </mat-cell>
       </ng-container>
 
 

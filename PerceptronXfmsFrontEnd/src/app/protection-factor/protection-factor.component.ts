@@ -3,8 +3,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ConfigService } from '../config.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatPaginator, MatTableDataSource, MatCardModule } from '@angular/material';
-import PdbParser from 'ngl/ngl.js';
-import * as NGL from 'ngl/ngl.js';
+// import PdbParser from 'ngl/ngl.js';
+// import * as NGL from 'ngl/ngl.js';
 
 
 //import { readFileSync } from 'fs';
