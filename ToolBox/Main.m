@@ -71,7 +71,7 @@ SetWorkingDirForRCall = pwd + "\Rcall";
 FullNameofRFile = pwd + "\FileFormatConverters\mzXMLtocsvConverter.R";
 
 
-DoseResponseFile = QueryFullFolderPath  + MiscInputFiles+ "\DoseResponseInfo.txt";
+DoseResponseFile = QueryFullFolderPath  + MiscInputFiles+ "\DoseResponseInformation.txt";
 MascotFullFileName = QueryFullFolderPath + MiscInputFiles + "\Mascot.xlsx";
 FastaFullFileName = QueryFullFolderPath  + MiscInputFiles + "\Fasta.fasta";
 SASAFullFileName = QueryFullFolderPath  + MiscInputFiles + "\Sasa.xlsx";
