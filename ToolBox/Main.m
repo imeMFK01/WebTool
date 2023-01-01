@@ -12,7 +12,8 @@ function [QueryResultFullPath, Error, ErrorLog] = Main(GUID, isBridgeEnabled, is
 % 
 % %%DEL ME 
 % GUID = "8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136";
-% isBridgeEnabled = "True";
+GUID = "700752d5-8dfc-460d-b9c4-9d1b8cffe493";
+isBridgeEnabled = "True";
 
 % MAIN FUNCTION OF THIS PIPELINE 
 

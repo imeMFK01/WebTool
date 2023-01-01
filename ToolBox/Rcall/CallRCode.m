@@ -13,7 +13,8 @@ function [outputArg1,outputArg2] = CallRCode(SetWorkingDirForRCall, mzXMLFilesIn
 
 cd Rcall\;
 for index = 1: size(mzXMLFilesInfo,1)
-    MzxmlPath = mzXMLFilesInfo(index,2);
+    MzxmlPath = mzXMLFilesInfo(index,2) + "\"+ mzXMLFilesInfo(index,3); %%mzXMLFilesInfo(index,2);
+    
     UpdateRCodeFile(SetWorkingDirForRCall, MzxmlPath, FullNameofRFile);
     Rclear;
     Rinit;

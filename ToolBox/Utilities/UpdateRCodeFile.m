@@ -20,15 +20,17 @@ SetWorkingDirFormattedForRCall = strrep(SetWorkingDirForRCall, '\', '\\');
 
 DynamicSetWorkingDirForRCall = string(['setwd(' '"'  char(SetWorkingDirFormattedForRCall) '"' ')' ]);
 
+StringForChange = 'MzxmlFullFileNamePath = "';   %%WARNING THIS IS CASE SENSITIVE
+
 MzxmlFormattedPath = strrep(MzxmlPath, '\', '\\');
-MzxmlFilesPath = string([ 'MzxmlPath = "'  char(MzxmlFormattedPath) '"']);
+MzxmlFilesPath = string([ StringForChange  char(MzxmlFormattedPath) '"']);
 
 for index=1: size(FileContent,1)
     if contains(FileContent(index,1), "setwd")
         FileContent(index,1) = DynamicSetWorkingDirForRCall;
     end
 
-    if contains(FileContent(index,1), "MzxmlPath = ")
+    if contains(FileContent(index,1), string(StringForChange))
         FileContent(index,1) = MzxmlFilesPath;
     end
 end
