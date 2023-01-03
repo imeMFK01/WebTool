@@ -8,10 +8,10 @@
 %                         (safee.ullah@gmail.com)                         %
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function RemoveDirectories()
+function RemoveDirectories(IntermediateProcessingFolderPath, ResultFolderPath, GUID)
 % To save Result Folder that contain Dose response plot
-GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
-ResultFolderPath = "D:\PerceptronXfmsResultFolder";
+%GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
+%ResultFolderPath = "D:\PerceptronXfmsResultFolder";
 FinalResults=strcat(ResultFolderPath +'\' +GUID);
 if ~isfolder(FinalResults)
     mkdir(FinalResults);
@@ -36,11 +36,11 @@ dirFlags = [files.isdir];
 % Extract only those that are directories.
 subFolders = files(dirFlags); % A structure with extra info.
 
-IntermediateProcessingFolderPath =  "D:\PerceptronXfmsIntermediateProcessingFolder";
+%IntermediateProcessingFolderPath =  "D:\PerceptronXfmsIntermediateProcessingFolder";
 NewIntermediateProcessingFolderPath=strcat(IntermediateProcessingFolderPath +'\' +GUID);
 if ~isfolder(NewIntermediateProcessingFolderPath)
-mkdir(NewIntermediateProcessingFolderPath);
-end 
+    mkdir(NewIntermediateProcessingFolderPath);
+end
 
 % Optional fun : Print folder names to command window.
 for number=1:size(subFolders,1)
@@ -48,16 +48,16 @@ for number=1:size(subFolders,1)
     if(strcmp (CurrentFolder, '.') || isempty(CurrentFolder) || strcmp (CurrentFolder, '..'))
         %do nothing
     else
-         CurrentFolder = subFolders(number).name;
+        CurrentFolder = subFolders(number).name;
 
-            if ~isfolder(strcat(NewIntermediateProcessingFolderPath+'\'++ '\'+CurrentFolder))
-             mkdir(strcat(NewIntermediateProcessingFolderPath + '\'+CurrentFolder));
-            end
-              Directory=strcat(NewIntermediateProcessingFolderPath+ '\'+CurrentFolder);
-copyfile(CurrentFolder,Directory);
-rmdir(CurrentFolder,'s');
-    end 
-end 
+        if ~isfolder(strcat(NewIntermediateProcessingFolderPath+'\'++ '\'+CurrentFolder))
+            mkdir(strcat(NewIntermediateProcessingFolderPath + '\'+CurrentFolder));
+        end
+        Directory=strcat(NewIntermediateProcessingFolderPath+ '\'+CurrentFolder);
+        copyfile(CurrentFolder,Directory);
+        rmdir(CurrentFolder,'s');
+    end
+end
 
 
 
