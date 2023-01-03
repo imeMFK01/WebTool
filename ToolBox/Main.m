@@ -211,6 +211,11 @@ GeneratingMassHunterFiles(MascotFile,ComparisonEngineOutDir);
 
 MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile);
 
+%%%
+%RemoveDirectories(IntermediateProcessingFolderPath, ResultFolderPath, GUID);
+
+
+
 if (isBridgeEnabled == "True")
     %%% Calling Bridge2
     InitializeAndCallBridge(WorkingDirPath, PythonExeFolder, PythonExePath, BridgePyFolder, InputParamForBridge2, PDBFullFileName, BridgeOutputResults);
