@@ -169,7 +169,7 @@
 
 
       <div style="height:10px;font-size:1px;">&nbsp;</div>
-      <p>XFMS data obtained using bottom-up proteomics protocol. The data containing X-ray dose responses to identify solvent accessibility of residue sidechains for mapping conformational transitions in solution.
+      <p>XFMS data obtained using bottom-up proteomics protocol (*.d or *.mzXML). The data containing X-ray dose responses to identify solvent accessibility of residue sidechains for mapping conformational transitions in solution.
       </p>
 
 
@@ -408,9 +408,9 @@
         </mat-grid-tile>
 
 
-        <mat-grid-tile colspan="14" rowspan="1">
+        <!-- <mat-grid-tile colspan="14" rowspan="1">
           <p><b>msConvert</b>: Adusumilli, R. and Mallick, P., 2017. Data conversion with ProteoWizard msConvert. In Proteomics (pp. 339-368). Humana Press, New York, NY <a href="https://link.springer.com/protocol/10.1007/978-1-4939-6747-6_23">Link</a>.</p>
-        </mat-grid-tile>
+        </mat-grid-tile> -->
 
         
       </mat-grid-list>
@@ -433,26 +433,26 @@
 
         <mat-grid-tile colspan="2" rowspan="1">
           <mat-checkbox matTooltip="Check the option for running bridge algorithm" color="primary"
-            style="width:100%; padding-left:15px;" [(ngModel)]="isBridgeEnabled" name="isBridgeEnabled" ngModel>Bridge2
+            style="width:100%; padding-left:15px;" [(ngModel)]="isBridgeEnabled" name="isBridgeEnabled" ngModel>Bridge2 <a href="https://pubs.acs.org/doi/full/10.1021/acs.jcim.1c00306">[Link]</a>
           </mat-checkbox>
         </mat-grid-tile>
 
         <mat-grid-tile colspan="2" rowspan="1">
           <mat-checkbox matTooltip="Check the option for running frustratometeR algorithm" color="primary"
-            style="width:100%; padding-left:15px;" [(ngModel)]="isFrustratometerEnabled" name="isFrustratometerEnabled" ngModel>Frustratometer
+            style="width:100%; padding-left:15px;" [(ngModel)]="isFrustratometerEnabled" name="isFrustratometerEnabled" ngModel>Frustratometer <a href="https://academic.oup.com/bioinformatics/article/37/18/3038/6171179?login=true">[Link]</a>
             </mat-checkbox>
         </mat-grid-tile>
 
         
 
 
-        <mat-grid-tile colspan="8" rowspan="2">
+        <!-- <mat-grid-tile colspan="8" rowspan="2">
           <p><b>Bridge2</b>: Siemers, M. and Bondar, A.N., 2021. Interactive Interface for Graph-Based Analyses of Dynamic H-Bond Networks: Application to Spike Protein S. Journal of Chemical Information and Modeling, 61(6), pp.2998-3014 <a href="https://pubs.acs.org/doi/full/10.1021/acs.jcim.1c00306">Link</a>.</p>
-        </mat-grid-tile>
+        </mat-grid-tile> -->
 
-        <mat-grid-tile colspan="8" rowspan="2">
+        <!-- <mat-grid-tile colspan="8" rowspan="2">
           <p><b>Frustratometer</b>: Rausch, A.O., Freiberger, M.I., Leonetti, C.O., Luna, D.M., Radusky, L.G., Wolynes, P.G., Ferreiro, D.U. and Parra, R.G., 2021. FrustratometeR: an R-package to compute local frustration in protein structures, point mutants and MD simulations. Bioinformatics, 37(18), pp.3038-3040  <a href="https://academic.oup.com/bioinformatics/article/37/18/3038/6171179?login=true">Link</a>.</p>
-        </mat-grid-tile>
+        </mat-grid-tile> -->
 
 
       </mat-grid-list>
