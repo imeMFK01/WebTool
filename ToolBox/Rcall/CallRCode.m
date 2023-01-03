@@ -1,3 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             PERCEPTRON-XFMS                             %
+%                             Version 1.0.0.0                             %
+% Copyright (c) Biomedical Informatics & Engineering Research Laboratory, %
+%         Lahore University of Management Sciences Lahore (LUMS),         %
+%                                Pakistan.                                %
+%                    (http://biolabs.lums.edu.pk/BIRL)                    %
+%                         (safee.ullah@gmail.com)                         %
+%                      Last Modified on: 21-Dec-2022                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [outputArg1,outputArg2] = CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile)
 
 %This code is using third party library named as % Rcall: An R interface for MATLAB. % Copyright (C) 2022, Janine Egert and Clemens Kreutz
@@ -23,5 +33,4 @@ for index = 1: size(mzXMLFilesInfo,1)
 end
 cd ..;
 
-stophere = 1;
 end
