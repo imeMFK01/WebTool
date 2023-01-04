@@ -196,15 +196,23 @@ export class AppComponent {
     };
   };
   contact() {
-    var user = firebase.auth().currentUser;
 
-    if (user) {
+    var user = firebase.auth().currentUser;
+    if (user != null) {
       this.UserEmailID = user.email;
-      this.router.navigate(['/contact']);
-    } else {
-      alert("Dear User,\nPlease login via PERCEPTRON-XFMS user account for performing protein search or click \"Login as Guest\" to proceed without creating PERCEPTRON-XFMS user account.\n\nThank you for your interest in PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team.")
-      this.router.navigate(['/login']);
-    };
+    }
+    this.router.navigate(['/contact']);
+
+
+    // var user = firebase.auth().currentUser;
+
+    // if (user) {
+    //   this.UserEmailID = user.email;
+    //   this.router.navigate(['/contact']);
+    // } else {
+    //   alert("Dear User,\nPlease login via PERCEPTRON-XFMS user account for performing protein search or click \"Login as Guest\" to proceed without creating PERCEPTRON-XFMS user account.\n\nThank you for your interest in PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team.")
+    //   this.router.navigate(['/login']);
+    // };
   }
 
   adminpanel() {
