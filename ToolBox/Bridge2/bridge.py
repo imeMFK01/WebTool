@@ -164,7 +164,7 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         #Files
         self.line_bonds_structure.setText(MyFileName)  #XFMS
         self.line_bonds_trajectories.setText('')
-        self.checkBox_bonds_donors_without_hydrogen.setChecked(True)  #XFMS False
+        self.checkBox_bonds_donors_without_hydrogen.setChecked(True)  #XFMS (previous value)False   # Due to crystal structure 
         #Search
         self.line_bonds_selection.setText('protein')
         self.checkBox_residuewise.setChecked(True)
@@ -181,7 +181,8 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
         self.line_bonds_angle.setText('60')
         self.checkBox_angle.setChecked(True)
         #Algorithm
-        self.radio_in_selection.setChecked(True)
+        self.radio_in_selection.setChecked(False)  #XFMS (previous value)True   # Because we are going to use second algorithm 
+        self.radio_around.setChecked(True)   #XFMS  #this line is additionally added   # Because we are now using this (second) algorithm of Bridge2
         self.line_around_value.setText('3.5')
         self.checkBox_not_water_water.setChecked(True)
         self.line_wire_max_water.setText('5')
@@ -290,6 +291,7 @@ class NewAnalysisDialog(QDialog, Ui_NewAnalysisDialog):
                        'frame_time':(None, None),
                        'add_residues':0}
         
+        #XFMS - BELOW ARE THE NAME OF FOUR ALGORITHMS
         hb_selection = self.radio_in_selection.isChecked()
         hb_around = self.radio_around.isChecked()
         ww_dict = self.radio_wire_dict.isChecked()
@@ -1478,8 +1480,8 @@ if __name__ == "__main__":
     QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
     app = QApplication(sys.argv)
     window = MainWindow()
-    #window.show()
-    #sys.exit(app.exec_())
+    # window.show()
+    # sys.exit(app.exec_())
 
     MySelf = window
     NewAnalysis = NewAnalysisDialog(window)
