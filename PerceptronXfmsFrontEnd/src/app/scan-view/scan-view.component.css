@@ -42,7 +42,6 @@
 }
 
 .example-header-image {
- 
   background-size: cover;
 }
 .img-margin {
@@ -51,4 +50,9 @@
   margin-right: 0;
   margin-left: 0;
 
+}
+
+.mat-card-cvr{
+  width: 100%;
+  text-align:center;
 }
