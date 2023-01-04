@@ -3,6 +3,8 @@
       <h4 style="text-align:center; font-family: Roboto, Arial, sans-serif; font-weight:bold; margin:0 auto;">Search Results & History</h4>
     </mat-card>
     <div style="height:10px;font-size:1px;">&nbsp;</div> 
+    <label style="color:red;">* Please download your results. The web server will permanently delete the results automatically after 60 days.</label>
+    <label style="color:red;">** Click on the individual queries tabulated below to view detailed results.</label>
    <div class="example-container mat-elevation-z8">
   
       <mat-table [dataSource]="dataSource" matSort>
@@ -42,9 +44,12 @@
         </mat-row>
       </mat-table>
   
-      <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      <!-- <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
     </div>
     <br/>
-    <label style="color:red;">* Results are kept on the server for 60 days. Please download your results. There is no way to retrieve the data older than this time.</label>
-    <label style="color:red;">** Click on the table row for corresponding detailed results. </label>
+    
   </div>
+
+
+  
+

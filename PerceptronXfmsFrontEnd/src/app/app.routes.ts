@@ -61,7 +61,8 @@ export const router: Routes = [
     { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
     { path: 'home', component: HomeComponent },
     { path: 'bug-report', component: BugComponent,  canActivate: [AuthGuard] },
-    { path: 'repository', component: RepositoryComponent, canActivate: [AuthGuard] },
+    { path: 'repository', component: RepositoryComponent},   // Here should be no need to Login
+    //{ path: 'repository', component: RepositoryComponent, canActivate: [AuthGuard] },
     { path: 'maps', component: MapsComponent, canActivate: [AuthGuard] },
     { path: 'hudiara', component: HudiaraComponent, canActivate: [AuthGuard]},
     { path: 'demo', component: DemoComponent,  canActivate: [AuthGuard]},
