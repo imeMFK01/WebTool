@@ -12,7 +12,9 @@
 
   <div style="height:50px;font-size:1px;"></div>
 
-  <div style="display: flex;">
+      
+  <div style="display:flex;">
+    <div style="width:25%"></div>
   <mat-card  class="example-card" style="flex: 1 1 auto;">
     <mat-card-header>
       <img mat-card-avatar class="example-header-image" src="assets/images/ProtectionFactorShieldAvator.jpg">
@@ -24,11 +26,11 @@
       src="assets/images/ProtectionFactorMainImage.jpg">
     <!-- alt="Photo of a Shiba Inu" -->
     <mat-card-content>
-      <p style="margin: 0;text-align: justify; font-weight: bold;">
+      <p style="margin: 0;text-align: center; font-weight: bold;">
         Protection factor calculates the residual protection against the exposure of water.
       </p>
-      <mat-card-actions>
-        <button mat-button style="right: 20px;" (click)=ViewDetailedPF()>Results</button>
+      <mat-card-actions style="padding: 4px;">
+        <button mat-button class="Results-btn-pos" (click)=ViewDetailedPF()>Results</button>
   
       </mat-card-actions>
   
@@ -50,12 +52,12 @@
       src="assets/images/BetweennesCentralityMainImage.jpg">
     <!-- alt="Photo of a Shiba Inu" -->
     <mat-card-content>
-      <p style="margin: 0;text-align: justify; font-weight: bold;">
+      <p style="margin: 0;text-align: center; font-weight: bold;">
         Betweenness centrality determines the degree of connectivity of each residue-residue and residue-water
         interactions.
       </p>
       <mat-card-actions>
-        <button mat-button style="right: 20px;" (click)=ViewDetailedCentrality()>Results</button>
+        <button mat-button class="Results-btn-pos" (click)=ViewDetailedCentrality()>Results</button>
 
       </mat-card-actions>
 
@@ -63,7 +65,9 @@
 
     <div style="height:5px"></div>
   </mat-card>
+  <div style="width:25%"></div>
 </div>
+
 
  
 </div>
