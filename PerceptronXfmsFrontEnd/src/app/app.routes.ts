@@ -61,8 +61,7 @@ export const router: Routes = [
     { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
     { path: 'home', component: HomeComponent },
     { path: 'bug-report', component: BugComponent,  canActivate: [AuthGuard] },
-    { path: 'repository', component: RepositoryComponent},   // Here should be no need to Login
-    //{ path: 'repository', component: RepositoryComponent, canActivate: [AuthGuard] },
+    { path: 'repository', component: RepositoryComponent, canActivate: [AuthGuard] },
     { path: 'maps', component: MapsComponent, canActivate: [AuthGuard] },
     { path: 'hudiara', component: HudiaraComponent, canActivate: [AuthGuard]},
     { path: 'demo', component: DemoComponent,  canActivate: [AuthGuard]},
@@ -70,7 +69,8 @@ export const router: Routes = [
     { path: 'history', component: HistoryComponent, canActivate: [AuthGuard]},
     { path: 'ResultsInterpretation', component: ResultsinterpretationComponent, canActivate: [AuthGuard]},
     { path: 'fdr', component: FdrComponent, canActivate: [AuthGuard]},
-    { path: 'help', component: HelpComponent, canActivate: [AuthGuard]},
+    { path: 'help', component: HelpComponent},   // Here should be no need to Login
+    //{ path: 'help', component: HelpComponent, canActivate: [AuthGuard]},
     { path: 'suggest', component: SuggestionsComponent, canActivate: [AuthGuard]},
     { path: 'summaryresults/:querryId/:fileID', component: SummaryResultsComponent},
     { path: 'detailedresults/:querryId/:resultId/:rank', component: DetailedResultsComponent},
