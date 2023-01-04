@@ -161,7 +161,7 @@ export class AppComponent {
     //   this.router.navigate(['/login']);
 
     // };
-  }
+  };
 
   youtube() {  // Video Tutorials
     var user = firebase.auth().currentUser;
