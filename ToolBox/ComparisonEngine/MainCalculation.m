@@ -1396,9 +1396,9 @@ xlswrite('PeptideInfo',PeptideInfo,'Sheet1','A2');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
- 
-  if ~isfolder(strcat(OutputDir,strcat('\FinalResult')))
-                    mkdir(strcat(OutputDir,strcat('\FinalResult')));
-                end
- direct= char(strcat(OutputDir,strcat('\FinalResult')));
+%%% Alternate of RemoveDirecotries???
+if ~isfolder(strcat(OutputDir,strcat('\FinalResult')))
+    mkdir(strcat(OutputDir,strcat('\FinalResult')));
+end
+direct= char(strcat(OutputDir,strcat('\FinalResult')));
 copyfile('Result',direct);
