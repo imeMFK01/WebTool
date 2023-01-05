@@ -9,7 +9,7 @@ namespace PerceptronXfmsAPI
     {
         Statistics stat();
         string StoreXfmsSearchParameters(SearchXfmsQueryDto parameters);
-        List<UserHistory> GetUserHistory(string Uid, DateTime JobSubmissionTime);
+        List<UserHistory> GetUserHistory(string Uid, string UserIDforSampleResults, DateTime JobSubmissionTime);
         List<ScanResults> SearchResultsContent(string QueryID, DateTime JobSubmissionTime);
         string ZipFullFilePath(string QueryID);
         DetailProtectionFactorDto FetchResultsProtectionFactor(string QueryID);

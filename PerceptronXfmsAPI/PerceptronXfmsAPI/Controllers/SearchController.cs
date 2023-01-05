@@ -36,6 +36,7 @@ namespace PerceptronXfmsAPI.Controllers
         string AdditionalInputFiles = "AdditionalInputFiles.zip";
         string MiscInputFiles = "MiscInputFiles";
         string CompletedSearchQueryStatus = "Completed";
+        public string UserIDforSampleResults = "Sample";
 
         readonly IDataAccessLayer _dataLayer;
         
@@ -192,7 +193,7 @@ namespace PerceptronXfmsAPI.Controllers
         public List<UserHistory> Post_history([FromBody] string input)
         {
             Debug.WriteLine(input);
-            var temp = _dataLayer.GetUserHistory(input, JobSubmissionTime);
+            var temp = _dataLayer.GetUserHistory(input, UserIDforSampleResults, JobSubmissionTime);
             return temp;
         }
 

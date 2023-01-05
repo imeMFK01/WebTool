@@ -10,6 +10,57 @@ namespace PerceptronXfmsSimulationService.Repository
 {
     public class SqlDatabase
     {
+        public void RemovePreviousSampleResults(string QueryID)
+        {
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+
+                var dbObjectSearchXfmsQuery = db.SearchXfmsQueries.Where(x=>x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+
+                if (dbObjectSearchXfmsQuery != null)
+                {
+                    db.SearchXfmsQueries.Remove(dbObjectSearchXfmsQuery);
+                }
+
+                var dbObjectRemoveResultFiles = db.SearchResultsFiles.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+
+                if (dbObjectRemoveResultFiles != null)
+                {
+                    db.SearchResultsFiles.Remove(dbObjectRemoveResultFiles);
+                }
+
+                var dbObjectResultVisualize = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+
+                if (dbObjectResultVisualize != null)
+                {
+                    db.ResultsVisualizes.Remove(dbObjectResultVisualize);
+                }
+
+                db.SaveChanges();
+
+            }
+
+
+        }
+
+        public void SaveSampleResultsSearchXfmsQuery(string QueryID, string UserID, string Progress, DateTime CreationTime, string isBridgeEnabled, string isFrustratometerEnabled, string EmailID, string Title)
+        {
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                db.SearchXfmsQueries.Add(new SearchXfmsQuery()
+                {
+                    QueryID = QueryID,
+                    UserID = UserID,
+                    Progress = Progress,
+                    CreationTime = CreationTime,
+                    isBridgeEnabled = isBridgeEnabled,
+                    isFrustratometerEnabled = isFrustratometerEnabled,
+                    EmailID = EmailID,
+                    Title = Title
+                });
+                db.SaveChanges();
+            }
+        }
 
         public SearchXfmsQueryDto FetchQuery()
         {
@@ -94,5 +145,6 @@ namespace PerceptronXfmsSimulationService.Repository
             }
 
         }
+
     }
 }

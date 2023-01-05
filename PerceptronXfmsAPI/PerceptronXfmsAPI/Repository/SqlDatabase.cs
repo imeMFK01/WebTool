@@ -39,12 +39,12 @@ namespace PerceptronXfmsAPI.Repository
             }
             return StatsInfo;
         }
-        public List<UserHistory> GetUserHistory(string Uid, DateTime JobSubmissionTime)
+        public List<UserHistory> GetUserHistory(string Uid, string UserIDforSampleResults, DateTime JobSubmissionTime)
         {
             var UserJobHistory = new List<UserHistory>();
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                var UserHistory = db.SearchXfmsQueries.Where(x => x.UserID == Uid && x.CreationTime >= JobSubmissionTime).Select(x => x).ToList(); // .Add(parameters.SearchXfmsQuery);
+                var UserHistory = db.SearchXfmsQueries.Where(x => (x.UserID == Uid || x.UserID == UserIDforSampleResults) && x.CreationTime >= JobSubmissionTime).Select(x => x).OrderByDescending(x => x.CreationTime).ToList(); // .Add(parameters.SearchXfmsQuery);
 
                 //#Future - if want to subtract Resultscompletion - DateTimeNow < 2 then show results
                 //var ResultsDataObj = db.SearchResultsFiles.Where(x => x.UserID == Uid & x=>x.QueryID).Select(x => x).ToList();
