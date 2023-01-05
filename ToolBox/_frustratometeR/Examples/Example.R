@@ -1,7 +1,12 @@
 library(frustratometeR)
 
-PdbFile <- "D:\GitHub\02_WebTool\WebTool\ToolBox\frustratometeR\Examples\1n0r.pdb"
-ResultsDir <- "D:\GitHub\02_WebTool\WebTool\ToolBox\frustratometeR\Examples\Results" #"/your/path/here/Results/"
+
+MainPath = "D:\\GitHub\\02_WebTool\\WebTool\\ToolBox\\_frustratometeR\\Examples"
+
+
+PdbFile <- paste(c(MainPath, "\\1n0r.pdb"), collapse = "")
+ResultsDir <- paste(c(MainPath, "\\Results"), collapse = "")
+
 
 dir.create(file.path(ResultsDir))
 
