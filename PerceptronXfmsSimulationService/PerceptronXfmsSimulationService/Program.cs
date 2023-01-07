@@ -36,12 +36,12 @@ namespace PerceptronXfmsSimulationService
             {
                 string QueryID = "00000000-0000-0000-0000-000000000000";
                 string UserID = "Sample";
-                string Progress = "Completed";
+                string Progress = "Sample Results";
                 DateTime CreationTime = DateTime.Now.AddDays(0);
                 string isBridgeEnabled = "True";    // "False"
                 string isFrustratometerEnabled = "True";    // "False"
                 string EmailID = "";
-                string Title = "Sample Results";
+                string Title = "XFMS - Sample Results";
 
                 string QueryResultFullPath = ResultFolderPath + "\\" + subName + QueryID;
 

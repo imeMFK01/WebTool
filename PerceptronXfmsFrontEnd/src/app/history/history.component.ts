@@ -53,7 +53,15 @@ export class HistoryComponent implements OnInit {
 
   what(data: any) {
     const users: UserData[] = [];
-    for (let i = 1; i <= data.length; i++) { users.push(createNewUser(i, data[i - 1])); }
+    for (let i = 0; i < data.length; i++) { 
+      if(i == 0){
+        users.push(createNewUser(i.toString() + "*", data[i])); 
+      }
+      else{
+        users.push(createNewUser(i.toString(), data[i])); 
+      }
+      
+    }
     this.dataSource = new MatTableDataSource(users);
   }
 
@@ -67,7 +75,7 @@ export class HistoryComponent implements OnInit {
       this._httpService.getUserHistory(user).subscribe(data => this.what(data));
     }
     
-    if (row.progress == "Completed"){
+    if (row.progress == "Completed" || "Sample Results"){
       let x = this.router;
       x.navigate(["scans", row.qid]);
     }
@@ -89,7 +97,7 @@ export class HistoryComponent implements OnInit {
 }
 
 /** Builds and returns a new User. */
-function createNewUser(id: number, data: any): UserData {
+function createNewUser(id: string, data: any): UserData {
   return {
     serial: id.toString(),
     title: data.title,
