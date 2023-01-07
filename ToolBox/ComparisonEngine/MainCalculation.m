@@ -1327,7 +1327,8 @@ hold off
 title_string = strcat('Log(PF) vs SASA');
 xlabel('SASA', 'Fontsize', 16, 'fontweight', 'bold', 'Color', [0 0 0]);
 ylabel('Log(PF)', 'Fontsize', 16, 'fontweight', 'bold', 'Color', [0 0 0]);
-legend({'Fit','Data','Lower Interval', 'Higher Interval'},'FontSize',4);
+%legend({'Fit','Data','Lower Interval', 'Higher Interval'},'FontSize',4); %Updated  202301051855
+legend('off');
 plotname = strcat('SASAmain.png');
 saveas(gcf,plotname);
 xlswrite('Slope_main',DATA_FIT,'Sheet1','B1');

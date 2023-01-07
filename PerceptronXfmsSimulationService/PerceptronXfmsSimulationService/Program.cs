@@ -7,6 +7,7 @@ using PerceptronXfmsSimulationService.Repository;
 using PerceptronXfmsSimulationService.EngineCalling;
 using PerceptronXfmsSimulationService.Utilities;
 using PerceptronXfmsSimulationService.DTO;
+using System.Data.Entity.Validation;
 
 namespace PerceptronXfmsSimulationService
 {
@@ -21,6 +22,72 @@ namespace PerceptronXfmsSimulationService
 
         public static string subInputFolder = "MiscInputFiles";
         public static string subName = "Result_";
+
+
+        public static string PeptideInfo = "PeptideInfo.xls";
+        public static string PfSasaTabXlsFile = "PF_SASA_tab.xls";
+        public static string BridgeResultsFile = "ResultsBridge.xlsx";
+        public static string SasaMainImageFile = "SASAmain.png";
+
+
+        public static void UpdateSampleResultsOnDB()
+        {
+            try
+            {
+                string QueryID = "00000000-0000-0000-0000-000000000000";
+                string UserID = "Sample";
+                string Progress = "Sample Results";
+                DateTime CreationTime = DateTime.Now.AddDays(0);
+                string isBridgeEnabled = "True";    // "False"
+                string isFrustratometerEnabled = "True";    // "False"
+                string EmailID = "";
+                string Title = "XFMS - Sample Results";
+
+                string QueryResultFullPath = ResultFolderPath + "\\" + subName + QueryID;
+
+                if (!Directory.Exists(QueryResultFullPath))
+                {
+                    throw new Exception("Sample Result folder does not exist at specified location.");
+                }
+
+
+                
+                string ZippingFileName = "";
+                var ResultsSaveDbObj = new ResultsVisualizeSaveIntoDB();
+                
+
+                CompileResultsforDownAndVisualize(QueryResultFullPath, Title, QueryID, ref ZippingFileName, ResultsSaveDbObj, isBridgeEnabled);
+
+                var instanceSqlDatabase = new SqlDatabase();
+
+
+                // Delete All Sample Results Before Adding new Sample Results
+                instanceSqlDatabase.RemovePreviousSampleResults(QueryID);
+
+
+
+                ///// SAVING INFORMATION FOR SAMPLE SEARCH RESULTS
+                ///
+                instanceSqlDatabase.SaveSampleResultsSearchXfmsQuery(QueryID, UserID, Progress, CreationTime, isBridgeEnabled, isFrustratometerEnabled, EmailID, Title);
+
+                // Save ZippingFileName  into the DB
+                instanceSqlDatabase.SaveZipFullFilePath(QueryID, ZippingFileName);
+
+                // Save Results into DB for Visualization
+                instanceSqlDatabase.ResultsSaveIntoDbForVisualize(QueryID, ResultsSaveDbObj);
+
+            }
+            catch(DbEntityValidationException e)      // Exception 
+            {
+                
+                DBErrorException.DbEntitiyError(e);
+                // ERROR- Unable to update the Sample Results
+            }
+
+        }
+
+
+
 
         public static void RunMeOnly()
         {
@@ -37,6 +104,8 @@ namespace PerceptronXfmsSimulationService
         static void Main(string[] args)
         {
 
+
+
             //RunMeOnly();
 
             var instanceSqlDatabase = new SqlDatabase();
@@ -46,6 +115,12 @@ namespace PerceptronXfmsSimulationService
             MatlabMainFileFullPath = CheckMatlabToolboxPathInsideDev(MatlabMainFileFullPath, "ToolBox");
             MatlabScriptsFullPath = CheckMatlabToolboxPathInsideDev(MatlabScriptsFullPath, "Utilities");
 
+
+            /// Updating Sample Results On DB
+            UpdateSampleResultsOnDB();
+
+
+
             Console.WriteLine("WARNING!!!");
             Console.WriteLine("Using the path " + MatlabMainFileFullPath + " for ToolBox");
             Console.WriteLine("Using the path " + MatlabScriptsFullPath + " for Utilities");
@@ -53,6 +128,13 @@ namespace PerceptronXfmsSimulationService
             Console.WriteLine("**********************************************");
             Console.WriteLine("*****PERCEPTRON-XFMS INITIALIZING CONSOLE*****");
             Console.WriteLine("**********************************************");
+
+
+
+
+
+
+
 
 
             //string EmailID = "";
@@ -74,15 +156,25 @@ namespace PerceptronXfmsSimulationService
 
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + SearchQuery.Progress);
 
-                        //Only for testing
                         var Call2MatlabDataObj = new Calling2Engine().Call2MATLAB(MatlabMainFileFullPath, SearchQuery);
-                        //Zipping the Resutls
-                        var ZippingFileName = new Zipping().ZippingOutputFiles(ResultFolderPath, Call2MatlabDataObj.QueryResultFullPath, SearchQuery.Title, SearchQuery.QueryID);
-                        // Save ZippingFileName  into the DB
-                        instanceSqlDatabase.SaveZipFullFilePath(SearchQuery.QueryID, ZippingFileName);
+
+
+
+                        //////// Read MATLAB output files for (i) creating zip file that will be used for Results Downloading &
+                        //////// for (ii) Results Visualization
+                        //////// end results of both (i) & (ii) will be saved into the database
+
+                        string ZippingFileName = "";
+                        var ResultsSaveDbObj = new ResultsVisualizeSaveIntoDB();
+
+                        CompileResultsforDownAndVisualize(Call2MatlabDataObj.QueryResultFullPath, SearchQuery.Title, SearchQuery.QueryID, ref ZippingFileName, ResultsSaveDbObj, SearchQuery.isBridgeEnabled);
+
+                        ////Zipping the Resutls
+                        //var ZippingFileName = new Zipping().ZippingOutputFiles(ResultFolderPath, Call2MatlabDataObj.QueryResultFullPath, SearchQuery.Title, SearchQuery.QueryID);
+
 
                         // Reading Files & Save Into DB
-                        var ResultsSaveDbObj = new ResultsVisualizeSaveIntoDB();
+                        //var ResultsSaveDbObj = new ResultsVisualizeSaveIntoDB();
 
                         //DoseResponseInformation
 
@@ -93,35 +185,38 @@ namespace PerceptronXfmsSimulationService
 
 
                         //PeptideInfo.xls
-                        string PeptideInfo = "PeptideInfo.xls";
-                        ResultsSaveDbObj.PeptideInfo = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, SearchQuery.QueryID, PeptideInfo);
+                        //string PeptideInfo = "PeptideInfo.xls";
+                        //ResultsSaveDbObj.PeptideInfo = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, SearchQuery.QueryID, PeptideInfo);
 
 
 
                         ///PF_SASA_tab.xls
-                        string PfSasaTabXlsFile = "PF_SASA_tab.xls";
-                        ResultsSaveDbObj.PfSasaTabXlsFile = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, SearchQuery.QueryID, PfSasaTabXlsFile);
+                        //string PfSasaTabXlsFile = "PF_SASA_tab.xls";
+                        //ResultsSaveDbObj.PfSasaTabXlsFile = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, SearchQuery.QueryID, PfSasaTabXlsFile);
 
 
 
                         ///Bridge2 - Centrality Table [ResultsBridge.xlsx]
-                        if (SearchQuery.isBridgeEnabled == "True")
-                        {
-                            string BridgeResultsFile = "ResultsBridge.xlsx";
-                            // Read file and save into DB
-                            ResultsSaveDbObj.BridgeResultsFile = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, SearchQuery.QueryID, BridgeResultsFile);
-                        }
+                        //if (SearchQuery.isBridgeEnabled == "True")
+                        //{
+                        //    //string BridgeResultsFile = "ResultsBridge.xlsx";
+                        //    // Read file and save into DB
+                        //    ResultsSaveDbObj.BridgeResultsFile = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, SearchQuery.QueryID, BridgeResultsFile);
+                        //}
 
 
 
                         /// SASAmain.png
-                        string SasaMainImageFile = "SASAmain.png";
-                        ResultsSaveDbObj.SasaMainImageFile = ResultFolderPath + "\\" + subName + SearchQuery.QueryID + "\\" + SasaMainImageFile;
+                        //string SasaMainImageFile = "SASAmain.png";
+                        //ResultsSaveDbObj.SasaMainImageFile = ResultFolderPath + "\\" + subName + SearchQuery.QueryID + "\\" + SasaMainImageFile;
 
                         //var SasaFileBlob = new FileToBlob().FileToBlobConverter(ResultFolderPath + "\\" + subName + SearchQuery.QueryID + "\\" + SasaMainImageFile);
                         //ResultsSaveDbObj.SasaMainImageFile = new BlobToBase64().BlobToStringConverter(SasaFileBlob);
 
 
+                        /////////////////////////  BELOW IS FOR UPCOMING IMPLEMENTATION
+                        /////////////////////////  BELOW IS FOR UPCOMING IMPLEMENTATION
+                        /////////////////////////  BELOW IS FOR UPCOMING IMPLEMENTATION
 
                         ///Modified (Protection Factor) PDB [Modifiedchey.pdb]
                         //string PfModifiedPdb = "Modifiedchey.pdb";
@@ -129,6 +224,11 @@ namespace PerceptronXfmsSimulationService
 
                         ///Modified Centrality (Centrality.m) PDB [XYZ]
 
+
+                        // Save ZippingFileName  into the DB
+                        instanceSqlDatabase.SaveZipFullFilePath(SearchQuery.QueryID, ZippingFileName);
+
+                        // Save Results into DB for Visualization
                         instanceSqlDatabase.ResultsSaveIntoDbForVisualize(SearchQuery.QueryID, ResultsSaveDbObj);
 
 
@@ -180,6 +280,28 @@ namespace PerceptronXfmsSimulationService
                 Folder = @"D:\FARHAN\00_LocalGitHub\WebTool\PerceptronXfmsSimulationService\PerceptronXfmsSimulationService\Utilities";
             }
             return Folder;
+        }
+
+
+
+
+        public static void CompileResultsforDownAndVisualize(string QueryResultFullPath, string Title, string QueryID, ref string ZippingFileName, ResultsVisualizeSaveIntoDB ResultsSaveDbObj, string isBridgeEnabled)
+        {
+
+            ////Zipping the Resutls
+            ZippingFileName = new Zipping().ZippingOutputFiles(ResultFolderPath, QueryResultFullPath, Title, QueryID);
+
+            ResultsSaveDbObj.PeptideInfo = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, QueryID, PeptideInfo);
+
+            ResultsSaveDbObj.PfSasaTabXlsFile = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, QueryID, PfSasaTabXlsFile);
+
+            if (isBridgeEnabled == "True")
+            {
+                ResultsSaveDbObj.BridgeResultsFile = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, QueryID, BridgeResultsFile);
+            }
+
+            ResultsSaveDbObj.SasaMainImageFile = ResultFolderPath + "\\" + subName + QueryID + "\\" + SasaMainImageFile;
+
         }
 
     }

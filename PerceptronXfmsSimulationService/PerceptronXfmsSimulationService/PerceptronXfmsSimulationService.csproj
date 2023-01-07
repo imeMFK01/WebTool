@@ -119,6 +119,7 @@
     <Compile Include="Repository\SqlDatabase.cs" />
     <Compile Include="Utilities\BlobToBase64.cs" />
     <Compile Include="Utilities\Call2ExcelFileReader.cs" />
+    <Compile Include="Utilities\DBErrorException.cs" />
     <Compile Include="Utilities\FileToBlob.cs" />
     <Compile Include="Utilities\ReadFastaFile.cs" />
     <Compile Include="Utilities\SendingEmail.cs" />

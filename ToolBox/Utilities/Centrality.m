@@ -8,7 +8,9 @@
 %                         (safee.ullah@gmail.com)                         %
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Update me
+%Update me 
+%%this code will take ResultsBridge.xlsx and unmodified PDB and as a result
+%%will modify the PDB
 InputDir = uigetdir(pwd,'Select the Input folder' );
 
 %Define PDB full file path (BELOW)
