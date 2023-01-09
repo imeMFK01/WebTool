@@ -5,6 +5,30 @@
   </mat-card>
   <div style="height:10px"></div>
  
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
+      <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
+        Protein Information
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <!-- Protein Accession Number: &nbsp; -->
+    <mat-grid-list cols="13">
+      <mat-grid-tile colspan="2" rowspan="1" style="font-weight: bold;"> 
+        <a href={{FastaHeaderWithLink}}><label style="color:rgba(65, 131, 253, 0.959); font-size:15px; cursor:pointer"
+          id="ProteinHeader"></label></a>
+       </mat-grid-tile>
+      <mat-grid-tile colspan="11" rowspan="1" style="align-self: center;"></mat-grid-tile>
+
+      <mat-grid-tile colspan="13" rowspan="2" style="align-self: center;">
+        <label style="font-size:15px;" id="sequence"></label>
+        <!-- {{ProteinSequenceForDisplay}} -->
+      </mat-grid-tile>
+      
+    </mat-grid-list>
+  </mat-expansion-panel>
+
+ 
 
   <div style="height:10px"></div>
   <!-- <mat-card>
@@ -23,7 +47,7 @@
   
     <!-- Serial Column -->
     <ng-container matColumnDef="Serial">
-      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Sr. # </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Sr. # </mat-header-cell>
       <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.RowNo}} </mat-cell>
     </ng-container>
 

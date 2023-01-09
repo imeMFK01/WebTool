@@ -8,5 +8,6 @@ namespace PerceptronXfmsAPI.Models
     public class DetailedCentralityDto
     {
         public string BridgeResultsFile;
+        public string FastaFileInfo;
     }
 }

@@ -12,6 +12,12 @@ import { ConfigService } from '../config.service';
 export class CentralityComponent implements OnInit {
 
 
+  FastaHeader:string;
+  ProteinSequence: string;
+  ProteinSequenceForDisplay; string;
+  SeqPatchSize = 10;
+  LineSeqPatchSize = 60;
+
   querryId: any;
   displayedColumns = ['Serial', 'ChainResPos', 'DegreeNormalizedAveraged', 'DegreeNot-NormalizedAveraged', 'DegreeNormalizedNotAveraged', 'DegreeNotNormalizedNotAveraged', 'BetweennessNormalizedAveraged', 'BetweennessNotNormalizedAveraged', 'BetweennessNormalizedNotAveraged', 'BetweennessNotNormalizedNotAveraged'];
   CentralityDataValueObj = [];
@@ -29,6 +35,51 @@ export class CentralityComponent implements OnInit {
   what(data){
     let DoubleQuoteJsonCentralityData = data.BridgeResultsFile.replaceAll("'", "\"");
     let CentralityData = JSON.parse(DoubleQuoteJsonCentralityData);
+
+
+    //Formatting protein sequence for display
+    let DoubleQuoteFastaFile = data.FastaFileInfo.replaceAll("'", "\"");
+    let FastaFile = JSON.parse(DoubleQuoteFastaFile);
+    this.FastaHeader = FastaFile.ProteinHeader; 
+    this.ProteinSequence = FastaFile.ProteinSequence;
+    let IterSeq = 0;
+    let loopIsTrue = true;
+    while(loopIsTrue){
+      let start; //= IterSeq;
+      let end; //= this.SeqPatchSize;
+
+      if(IterSeq == 0){
+        start = IterSeq;
+        end = this.SeqPatchSize;
+
+        this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
+      }
+      else{
+        start = IterSeq;
+        end = start + this.SeqPatchSize ;
+
+
+        this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
+         
+        //let Patch =  this.LineSeqPatchSize - 1;
+        if (IterSeq % this.LineSeqPatchSize == 0 && this.ProteinSequence.length > end){
+          this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;"
+        }
+
+        if(this.ProteinSequence.length < end){
+          break;
+        }
+        
+      }
+      IterSeq = IterSeq + 10;
+    }
+
+    let FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
+    let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
+    ProteinHeader.innerHTML = this.FastaHeader;
+
+    let sequence = <HTMLLabelElement>document.getElementById("sequence");
+    sequence.innerHTML = this.ProteinSequenceForDisplay;
   
     //ResultsBridge.xlsx
     for(let Row = 0; Row < CentralityData.length; Row++)

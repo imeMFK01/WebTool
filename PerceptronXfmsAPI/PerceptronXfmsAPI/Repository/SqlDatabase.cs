@@ -118,8 +118,9 @@ namespace PerceptronXfmsAPI.Repository
             var DetailedCentrality = new DetailedCentralityDto();
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                var temp = db.ResultsVisualizes.Where(x=>x.QueryID == QueryID).Select(x => x).FirstOrDefault();
-                DetailedCentrality.BridgeResultsFile = temp.BridgeResultsFile;
+                var Data = db.ResultsVisualizes.Where(x=>x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                DetailedCentrality.BridgeResultsFile = Data.BridgeResultsFile;
+                DetailedCentrality.FastaFileInfo = Data.FastaFileInfo;
             }
             return DetailedCentrality;
         }
