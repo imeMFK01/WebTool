@@ -72,25 +72,74 @@ export class ProtectionFactorComponent implements OnInit {
     this.ImageFilePath = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + this.base64data);
 
 
-    let FastaFile = JSON.parse(data.FastaFile);
+    let DoubleQuoteFastaFile = data.FastaFileInfo.replaceAll("'", "\"");
+    let FastaFile = JSON.parse(DoubleQuoteFastaFile);
     this.FastaHeader = FastaFile.ProteinHeader; 
     this.ProteinSequence = FastaFile.ProteinSequence;
 
     //Formatting protein sequence for display
     
-    for(let IterSeq = 0; IterSeq<this.ProteinSequence.length; IterSeq++){
+
+    // for(let IterSeq = 0; IterSeq<this.ProteinSequence.length; IterSeq = IterSeq+10)
+    let IterSeq = 0;
+    let loopIsTrue = true;
+    while(loopIsTrue){
+      let start; //= IterSeq;
+      let end; //= this.SeqPatchSize;
+
       if(IterSeq == 0){
-        this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + "  ";
-      }
-      
-      this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(IterSeq, this.SeqPatchSize) + " ";
-      IterSeq = IterSeq + this.SeqPatchSize; 
+        start = IterSeq;
+        end = this.SeqPatchSize;
 
-      if (IterSeq % this.LineSeqPatchSize == 0){
-        this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br>"
+        this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
+         
       }
+      else{
+        start = IterSeq;
+        end = start + this.SeqPatchSize ;
 
+
+        this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
+         
+        //let Patch =  this.LineSeqPatchSize - 1;
+        if (IterSeq % this.LineSeqPatchSize == 0 && this.ProteinSequence.length > end){
+          this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;"
+        }
+
+        if(this.ProteinSequence.length < end){
+          //loopIsTrue = false;
+          break;
+        }
+        
+      }
+      IterSeq = IterSeq + 10;
+      //IterSeq = IterSeq + this.SeqPatchSize - 1;
     }
+
+
+
+    // for(let IterSeq = 0; IterSeq<this.ProteinSequence.length; IterSeq++){
+    //   if(IterSeq == 0){
+    //     this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(IterSeq, this.SeqPatchSize) + " ";
+    //     IterSeq = IterSeq + this.SeqPatchSize - 1; 
+    //   }
+    //   else{
+    //     this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(IterSeq, IterSeq + this.SeqPatchSize) + " ";
+    //     IterSeq = IterSeq + this.SeqPatchSize - 1; 
+    //     let Patch =  this.LineSeqPatchSize - 1;
+    //     if (IterSeq % Patch == 0){
+    //       this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;"
+    //     }
+    //   }
+    // }
+
+    let FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
+    let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
+    ProteinHeader.innerHTML = this.FastaHeader;
+
+    let sequence = <HTMLLabelElement>document.getElementById("sequence");
+    sequence.innerHTML = this.ProteinSequenceForDisplay;
+
     // for(let IterSeq = 0; IterSeq<this.ProteinSequence.length; IterSeq++){
 
     //   this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + "  " + this.ProteinSequence.substring(IterSeq, this.SeqPatchSize) + " ";

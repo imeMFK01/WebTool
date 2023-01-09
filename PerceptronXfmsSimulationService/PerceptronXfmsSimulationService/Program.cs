@@ -64,13 +64,20 @@ namespace PerceptronXfmsSimulationService
                 var ResultsSaveDbObj = new ResultsVisualizeSaveIntoDB();
 
 
-                var ProteinInfo = new List<ProteinDto>(){ new ProteinDto()    //Creating List Just to avoid Front end parsing errors
-                {
-                    ProteinHeader = "P0AE67",
-                    ProteinSequence = "MADKELKFLVVDDFSTMRRIVRNLLKELGFNNVEEAEDGVDALNKLQAGGYGFVISDWNMPNMDGLELLKTIRADGAMSALPVLMVTAEAKKENIIAAAQAGASGYVVKPFTAATLEEKLNKIFEKLGM"
-                } };
+                //var ProteinInfo = new List<ProteinDto>(){ new ProteinDto()    //Creating List Just to avoid Front end parsing errors
+                //{
+                //    ProteinHeader = "P0AE67",
+                //    ProteinSequence = "MADKELKFLVVDDFSTMRRIVRNLLKELGFNNVEEAEDGVDALNKLQAGGYGFVISDWNMPNMDGLELLKTIRADGAMSALPVLMVTAEAKKENIIAAAQAGASGYVVKPFTAATLEEKLNKIFEKLGM"
+                //} };
 
-                
+
+                var ProteinInfo = new ProteinDto()    //Creating List Just to avoid Front end parsing errors
+                { 
+                    ProteinHeader = "P0AE67",
+                    ProteinSequence = "ADKELKFLVVDDFSTMRRIVRNLLKELGFNNVEEAEDGVDALNKLQAGGYGFVISDWNMPNMDGLELLKTIRADGAMSALPVLMVTAEAKKENIIAAAQAGASGYVVKPFTAATLEEKLNKIFEKLGM"
+                };
+
+
 
                 ResultsSaveDbObj.FastaFileInfo = JsonConvert.SerializeObject(ProteinInfo);
 
