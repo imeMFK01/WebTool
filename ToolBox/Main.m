@@ -15,7 +15,7 @@ function [QueryResultFullPath, Error, ErrorLog] = Main(GUID, isBridgeEnabled, is
 %GUID = "700752d5-8dfc-460d-b9c4-9d1b8cffe493";
 GUID = "00000000-0000-0000-0000-000000000000";
 isBridgeEnabled = "True";
-
+PdbChain = "A";
 % MAIN FUNCTION OF THIS PIPELINE 
 
 % this function will input data into other function/tool after computation
@@ -100,8 +100,8 @@ BridgeOutputResults = QueryResultFullPath + "\" + "ResultsBridge.xlsx";
 PythonExePath = [ pwd '\' 'Bridge2\python3env\Scripts\python.exe'];     %%#Convenience
 PythonExeFolder = [ pwd '\' 'Bridge2\python3env\Scripts\'];
 
-
-
+FullNameoffrustratometeRFile = pwd + "\frustratometeR\frustratometeR.R";
+frustratometerFolder = [pwd '\' 'frustratometeR'];
 
 
 LocalDeployment = false;
@@ -176,6 +176,15 @@ addpath("ProteoWizard\");
 addpath("Rcall\");
 addpath("Utilities\");
 
+
+
+InitializeAndCallfrustratometeR(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain);
+
+
+
+
+
+
 % % % %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% 
 % % % %% THESE COMMENTS SHOULD UN COMMENT FOR USING
 % % % %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% 
@@ -219,6 +228,18 @@ MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile, Loc
 if (isBridgeEnabled == "True")
     %%% Calling Bridge2
     InitializeAndCallBridge(WorkingDirPath, PythonExeFolder, PythonExePath, BridgePyFolder, InputParamForBridge2, PDBFullFileName, BridgeOutputResults);
+end
+
+if (isFrustratometerEnabled == "True")
+
+
+
+
+    %Initialize & Calling FrustratormeteR using WSL cmd
+
+
+
+
 end
 
 if ~(LocalDeployment)
