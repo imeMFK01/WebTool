@@ -15,6 +15,34 @@ function InitializeAndCallfrustratometeR(WorkingDirPath, FullNameoffrustratomete
 UpdatefrustratometerFile(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain);
 
 
+DriveLetter = extractBefore(FullNameoffrustratometeRFile, ':');
+LowerDriveLetter = lower( DriveLetter );
+
+Wsl = "/mnt/" + LowerDriveLetter;
+
+PreparefrustratometeRFilePath = extractAfter(FullNameoffrustratometeRFile, ':');
+PreparefrustratometeRFilePath = PreparefrustratometeRFilePath.replace('\','/');
+frustratometeRFullFileNameInWsl = Wsl + PreparefrustratometeRFilePath;
+
+CMD2 = 'wsl.exe -d Ubuntu22V01';
+CMD3 = 'R';
+CMD4 = ['source("' char(frustratometeRFullFileNameInWsl) '")'];
+[status,cmdout] = system('CMD2; CMD3; CMD4')
+
+%[status,cmdout] = system([Drive ' & ' 'cd' ' ' Drive PathWithDrive ' & ' 'python3env\Scripts\activate.bat' ' & ' 'python' ' ' BridgePyFolder '\bridge.py']);
+
+
+[status,cmdout] = system([Drive ' & ' 'cd' ' ' Drive PathWithDrive ' & ' 'python3env\Scripts\activate.bat' ' & ' 'python' ' ' BridgePyFolder '\bridge.py']);
+if status ~= 0
+    %Exceptions
+    %throw(ME)
+    %%%Use here cmdout for error related things
+    %cmdout
+
+end
+
+
+
 % % % %Change paths according to WSL convention
 % % % 
 % % % %In which  drive code is present?  Drive letter

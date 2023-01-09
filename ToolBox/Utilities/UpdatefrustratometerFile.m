@@ -37,9 +37,9 @@ StringForInputPdbFullFileChange = 'InputPdbFullFile = "';
 StringForResultsPath = 'ResultsPath = "';
 StringForPdbChainChange = 'PdbChain = "';
 
-DynamicChangeInInputPdbFullFileLine = string([ StringForInputPdbFullFileChange  char(PDBFullFileNameInWsl) ';"']);
-DynamicChangeInResultsPath = string([ StringForResultsPath  char(QueryResultPathInWsl) ';"']);
-DynamicChangeInPdbChainChange = string([ StringForPdbChainChange  char(PdbChain) ';"']);
+DynamicChangeInInputPdbFullFileLine = string([ StringForInputPdbFullFileChange  char(PDBFullFileNameInWsl) '";']);
+DynamicChangeInResultsPath = string([ StringForResultsPath  char(QueryResultPathInWsl) '";']);
+DynamicChangeInPdbChainChange = string([ StringForPdbChainChange  char(PdbChain) '";']);
 %%WARNING ABOVE IS A CASE SENSITIVE
 
 %Updating the frustratometeR.R file based on the User's 
@@ -55,10 +55,13 @@ for index=1: size(FileContent,1)
     if contains(FileContent(index,1), string(StringForPdbChainChange))
         FileContent(index,1) = DynamicChangeInPdbChainChange;
     end
+%     if(FileContent(index,1) == "")  %#Future
+%         FileContent(index,1) = [];  %A null assignment can have only one non-colon index.
+%     end
 end
 
 fileID = fopen(FullNameoffrustratometeRFile, "w");  %%fopen(FullNameofRFile, 'w');
-fprintf(fileID, '%s\n', FileContent);
+fprintf(fileID, '%s', FileContent);
 fclose(fileID);
 
 end
