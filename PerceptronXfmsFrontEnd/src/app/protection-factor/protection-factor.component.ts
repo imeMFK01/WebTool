@@ -89,14 +89,12 @@ export class ProtectionFactorComponent implements OnInit {
       else{
         start = IterSeq;
         end = start + this.SeqPatchSize ;
-
-
-        this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
          
         //let Patch =  this.LineSeqPatchSize - 1;
-        if (IterSeq % this.LineSeqPatchSize == 0 && this.ProteinSequence.length > end){
+        if (IterSeq % this.LineSeqPatchSize == 0){
           this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;"
         }
+        this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
 
         if(this.ProteinSequence.length < end){
           break;
