@@ -100,6 +100,7 @@ BridgeOutputResults = QueryResultFullPath + "\" + "ResultsBridge.xlsx";
 PythonExePath = [ pwd '\' 'Bridge2\python3env\Scripts\python.exe'];     %%#Convenience
 PythonExeFolder = [ pwd '\' 'Bridge2\python3env\Scripts\'];
 
+ResultFolderName = "\frustratometeR_Results";
 FullNameoffrustratometeRFile = pwd + "\frustratometeR\frustratometeR.R";
 frustratometerFolder = [pwd '\' 'frustratometeR'];
 
@@ -178,7 +179,7 @@ addpath("Utilities\");
 
 
 
-InitializeAndCallfrustratometeR(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain);
+InitializeAndCallfrustratometeR(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain, ResultFolderName);
 
 
 

@@ -9,7 +9,7 @@
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function UpdatefrustratometerFile(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain)
+function UpdatefrustratometerFile(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain, ResultFolderName)
 % Results folder
 %UpdatefrustratometeRfile();
 
@@ -25,7 +25,7 @@ PreparePdbFilePath = extractAfter(PDBFullFileName, ':');
 PreparePdbFilePath = PreparePdbFilePath.replace('\','/');
 PDBFullFileNameInWsl = Wsl + PreparePdbFilePath;
 
-PrepareQueryResultPath =  extractAfter(QueryResultFullPath, ':');
+PrepareQueryResultPath =  extractAfter(QueryResultFullPath + ResultFolderName, ':');
 PrepareQueryResultPath = PrepareQueryResultPath.replace('\','/');
 QueryResultPathInWsl = Wsl + PrepareQueryResultPath;
 
@@ -61,7 +61,7 @@ for index=1: size(FileContent,1)
 end
 
 fileID = fopen(FullNameoffrustratometeRFile, "w");  %%fopen(FullNameofRFile, 'w');
-fprintf(fileID, '%s', FileContent);
+fprintf(fileID, '%s\n', FileContent);
 fclose(fileID);
 
 end
