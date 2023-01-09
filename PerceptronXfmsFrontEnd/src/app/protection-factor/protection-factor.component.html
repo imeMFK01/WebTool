@@ -1,68 +1,98 @@
 <div id="top" class="loader"></div>
 <div style="width:90%; min-width: 600px; margin:0 auto;">
   <mat-card>
-    <h4 style="text-align:center; font-family: Roboto, Arial, sans-serif; font-weight:bold; margin:0 auto;">Detailed Protection Factor Results</h4>
+    <h4 style="text-align:center; font-family: Roboto, Arial, sans-serif; font-weight:bold; margin:0 auto;">Detailed
+      Protection Factor Results</h4>
   </mat-card>
   <div style="height:10px"></div>
 
+
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
+      <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
+        Protein Information
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-grid-list cols="13">
+      
+      <mat-grid-tile colspan="2" rowspan="1"> Header: XYZ</mat-grid-tile>
+      <mat-grid-tile colspan="11" rowspan="1" style="align-self: center;"></mat-grid-tile>
+
+      <mat-grid-tile colspan="13" rowspan="2" style="align-self: center;">
+        <img style="text-align:center;" [src]="ImageFilePath">
+      </mat-grid-tile>
+      
+
+
+    </mat-grid-list>
+
+
+  </mat-expansion-panel>
+
+  <div style="height:10px"></div>
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
       <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
         Solvent Accessibility Graph
       </mat-panel-title>
     </mat-expansion-panel-header>
- 
-        <mat-grid-list cols="13" rowHeight="300px">
-          
-          <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
-          <mat-grid-tile colspan="9" rowspan="2" style="align-self: center;">
-            <img style="text-align:center;" [src]="ImageFilePath">
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
 
-     
-          
-          <!-- <mat-card-tile colspan="3" rowspan="1"></mat-card-tile>
+    <mat-grid-list cols="13" rowHeight="300px">
+
+      <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="9" rowspan="2" style="align-self: center;">
+        <img style="text-align:center;" [src]="ImageFilePath">
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
+
+
+
+      <!-- <mat-card-tile colspan="3" rowspan="1"></mat-card-tile>
           <mat-card-tile colspan="3" rowspan="1" style="margin:20px; align-self: center;">
   
             <img [src]="ImageFilePath">
           </mat-card-tile>
           <mat-card-tile colspan="3" rowspan="1"></mat-card-tile> -->
-        </mat-grid-list>
+    </mat-grid-list>
 
-        <mat-grid-list cols="13" rowHeight="100px">
-          
-          <mat-grid-tile colspan="5" rowspan="1"></mat-grid-tile>
-          <mat-grid-tile colspan="3" rowspan="2" style="align-self: center;">
-            <img style="text-align:center;" src="assets/images/Legend.png">
-          </mat-grid-tile>
-          <mat-grid-tile colspan="5" rowspan="1"></mat-grid-tile>
-        </mat-grid-list>
+    <mat-grid-list cols="13" rowHeight="100px">
 
-
+      <mat-grid-tile colspan="5" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="3" rowspan="2" style="align-self: center;">
+        <img style="text-align:center;" src="assets/images/Legend.png">
+      </mat-grid-tile>
+      <mat-grid-tile colspan="5" rowspan="1"></mat-grid-tile>
+    </mat-grid-list>
 
 
 
-        <!-- <mat-grid-list cols="13" rowHeight="20px">
+
+
+    <!-- <mat-grid-list cols="13" rowHeight="20px">
           <mat-grid-tile colspan="13" rowspan="1" style="font-weight: bold; font-size:20px;"> <span style="color: red;">* </span> SASA: Solvent Accessible Surface Area <div style="height:10px;font-size:20px;">&nbsp;&nbsp;</div><span style="color: red;">** </span> PF: Protection Factor</mat-grid-tile>
           
         </mat-grid-list> -->
 
-        <!-- <mat-grid-list cols="13" rowHeight="20px">
+    <!-- <mat-grid-list cols="13" rowHeight="20px">
           <mat-grid-tile colspan="4" rowspan="1" style="font-weight: bold;"> <span style="color: red;">** </span> PF Protection Factor</mat-grid-tile>
           <mat-grid-tile colspan="9" rowspan="1" ></mat-grid-tile>
         </mat-grid-list> -->
 
-        
-        <!-- <div style="margin:20px; align-self: center;"><img [src]="ImageFilePath"></div> -->
-        
-</mat-expansion-panel>
- 
+
+    <!-- <div style="margin:20px; align-self: center;"><img [src]="ImageFilePath"></div> -->
+
+  </mat-expansion-panel>
+
 
   <div style="height:10px"></div>
   <!-- <mat-card>
     <h6 style="text-align:center; font-family: Roboto, Arial, sans-serif; font-weight:bold; margin:0 auto;">Solvent Accessible Surface Area vs Log(Protection Factor)</h6>
   </mat-card> -->
+
+
+
+
 
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
@@ -70,52 +100,57 @@
         Residue Based Solvent Accessible Surface Area & Log (Protection Factor)
       </mat-panel-title>
     </mat-expansion-panel-header>
- 
 
-  <mat-table [dataSource]="dataSource" matSort>
-  
-    <!-- Serial Column -->
-    <ng-container matColumnDef="Serial">
-      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Sr. # </mat-header-cell>
-      <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.RowNo}} </mat-cell>
-    </ng-container>
 
-    <!-- Residue Position Column -->
-    <ng-container matColumnDef="ResiduePos">
-      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Residue Position </mat-header-cell>
-      <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.AminoAcidNo}} </mat-cell>
-    </ng-container>
+    <mat-table [dataSource]="dataSource" matSort>
 
-    <!-- Residue Column -->
-    <ng-container matColumnDef="Residue">
-      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Residue</mat-header-cell>
-      <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.Residue}} </mat-cell>
-    </ng-container>
+      <!-- Serial Column -->
+      <ng-container matColumnDef="Serial">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Sr. # </mat-header-cell>
+        <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.RowNo}} </mat-cell>
+      </ng-container>
 
-    <!-- SASA Column -->
-    <ng-container matColumnDef="SASA">
-        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> SASA</mat-header-cell>
-        <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.SasaValue}} </mat-cell>
+      <!-- Residue Position Column -->
+      <ng-container matColumnDef="ResiduePos">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Residue Position </mat-header-cell>
+        <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.AminoAcidNo}} </mat-cell>
+      </ng-container>
+
+      <!-- Residue Column -->
+      <ng-container matColumnDef="Residue">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Residue</mat-header-cell>
+        <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.Residue}} </mat-cell>
+      </ng-container>
+
+      <!-- SASA Column -->
+      <ng-container matColumnDef="SASA">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> SASA</mat-header-cell>
+        <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.SasaValue}} </mat-cell>
       </ng-container>
 
       <!-- LogPF Column -->
       <ng-container matColumnDef="LogPF">
-        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> LogPF</mat-header-cell>
-        <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.LogPfValue}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> LogPF</mat-header-cell>
+        <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.LogPfValue}} </mat-cell>
       </ng-container>
 
 
-    <!-- Qid Column -->
-    <!-- <ng-container matColumnDef="qid">
+      <!-- Qid Column -->
+      <!-- <ng-container matColumnDef="qid">
       <mat-header-cell [style.display]="'none'" *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);">
         Querry ID </mat-header-cell>
       <mat-cell [style.display]="'none'" *matCellDef="let row"> {{row.qid}} </mat-cell>
     </ng-container> -->
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" >
-    </mat-row>
-  </mat-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
   </mat-expansion-panel>
 
   <!-- <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30, 100]"></mat-paginator> -->

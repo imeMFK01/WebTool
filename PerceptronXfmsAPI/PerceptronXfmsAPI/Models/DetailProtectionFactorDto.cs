@@ -10,5 +10,6 @@ namespace PerceptronXfmsAPI.Models
         public string PfSasaTabXlsFile;
         public string SasaMainImageFile;
         public byte[] SasaFileBlob;
+        public string FastaFileInfo;
     }
 }

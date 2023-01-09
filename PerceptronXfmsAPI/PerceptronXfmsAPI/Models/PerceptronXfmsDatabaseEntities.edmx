@@ -10,7 +10,7 @@
             <PropertyRef Name="QueryID" />
           </Key>
           <Property Name="QueryID" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="ProteinSequence" Type="nvarchar(max)" />
+          <Property Name="FastaFileInfo" Type="nvarchar(max)" />
           <Property Name="PeptideInfo" Type="nvarchar(max)" />
           <Property Name="PfSasaTabXlsFile" Type="nvarchar(max)" />
           <Property Name="BridgeResultsFile" Type="nvarchar(max)" />
@@ -56,7 +56,7 @@
             <PropertyRef Name="QueryID" />
           </Key>
           <Property Name="QueryID" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="ProteinSequence" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FastaFileInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PeptideInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PfSasaTabXlsFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BridgeResultsFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -102,7 +102,7 @@
             <EntityTypeMapping TypeName="PerceptronXfmsDatabaseModel.ResultsVisualize">
               <MappingFragment StoreEntitySet="ResultsVisualize">
                 <ScalarProperty Name="QueryID" ColumnName="QueryID" />
-                <ScalarProperty Name="ProteinSequence" ColumnName="ProteinSequence" />
+                <ScalarProperty Name="FastaFileInfo" ColumnName="FastaFileInfo" />
                 <ScalarProperty Name="PeptideInfo" ColumnName="PeptideInfo" />
                 <ScalarProperty Name="PfSasaTabXlsFile" ColumnName="PfSasaTabXlsFile" />
                 <ScalarProperty Name="BridgeResultsFile" ColumnName="BridgeResultsFile" />

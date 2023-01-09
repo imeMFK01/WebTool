@@ -8,7 +8,7 @@
 %                         (safee.ullah@gmail.com)                         %
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function MainCalculation(MascotFile,OutputDir,wholeSeq,FileSASA,PDBFile)
+function MainCalculation(MascotFile,OutputDir,wholeSeq,FileSASA,PDBFile, LocalDeployment)
 % This function reads the following Input Files:
 % 1. Folder containing mass hunter files for each peptide
 % 2. Mascot file
@@ -1327,8 +1327,13 @@ hold off
 title_string = strcat('Log(PF) vs SASA');
 xlabel('SASA', 'Fontsize', 16, 'fontweight', 'bold', 'Color', [0 0 0]);
 ylabel('Log(PF)', 'Fontsize', 16, 'fontweight', 'bold', 'Color', [0 0 0]);
-%legend({'Fit','Data','Lower Interval', 'Higher Interval'},'FontSize',4); %Updated  202301051855
-legend('off');
+
+if (LocalDeployment)  %true
+    legend({'Fit','Data','Lower Interval', 'Higher Interval'},'FontSize',4); %Updated  202301051855 %Updated  202301091825
+else  %false
+    legend('off');
+end
+
 plotname = strcat('SASAmain.png');
 saveas(gcf,plotname);
 xlswrite('Slope_main',DATA_FIT,'Sheet1','B1');

@@ -105,9 +105,10 @@ namespace PerceptronXfmsAPI.Repository
             var DetailProtectionFactor = new DetailProtectionFactorDto();
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                var temp = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
-                DetailProtectionFactor.PfSasaTabXlsFile = temp.PfSasaTabXlsFile;
-                DetailProtectionFactor.SasaMainImageFile = temp.SasaMainImageFile;
+                var Data = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                DetailProtectionFactor.PfSasaTabXlsFile = Data.PfSasaTabXlsFile;
+                DetailProtectionFactor.SasaMainImageFile = Data.SasaMainImageFile;
+                DetailProtectionFactor.FastaFileInfo = Data.FastaFileInfo;
             }
             return DetailProtectionFactor;
         }

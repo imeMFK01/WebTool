@@ -30,6 +30,14 @@ export class ProtectionFactorComponent implements OnInit {
   base64data: any;
   ImageFilePath: any;
 
+
+  FastaHeader:string;
+  ProteinSequence: string;
+  ProteinSequenceForDisplay; string;
+  SeqPatchSize = 10;
+  LineSeqPatchSize = 60;
+
+
   constructor(private route: ActivatedRoute, private _httpService: ConfigService, private sanitizer: DomSanitizer) {
 
     
@@ -63,7 +71,37 @@ export class ProtectionFactorComponent implements OnInit {
     this.base64data = data.SasaFileBlob;
     this.ImageFilePath = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + this.base64data);
 
+
+    let FastaFile = JSON.parse(data.FastaFile);
+    this.FastaHeader = FastaFile.ProteinHeader; 
+    this.ProteinSequence = FastaFile.ProteinSequence;
+
+    //Formatting protein sequence for display
     
+    for(let IterSeq = 0; IterSeq<this.ProteinSequence.length; IterSeq++){
+      if(IterSeq == 0){
+        this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + "  ";
+      }
+      
+      this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(IterSeq, this.SeqPatchSize) + " ";
+      IterSeq = IterSeq + this.SeqPatchSize; 
+
+      if (IterSeq % this.LineSeqPatchSize == 0){
+        this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br>"
+      }
+
+    }
+    // for(let IterSeq = 0; IterSeq<this.ProteinSequence.length; IterSeq++){
+
+    //   this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + "  " + this.ProteinSequence.substring(IterSeq, this.SeqPatchSize) + " ";
+    //   let CreateStringInfo = "";
+    //   for(let SubIterSeq = 0; SubIterSeq<this.ProteinSequence.length; SubIterSeq++)
+    //   {
+    //     + this.ProteinSequence.substring(iterSeq, this.SeqPatchSize)
+    //   }
+      
+
+    // }
 
     let DoubleQuoteJsonPfSasaData = data.PfSasaTabXlsFile.replaceAll("'", "\"");
     let PfSasaData = JSON.parse(DoubleQuoteJsonPfSasaData);

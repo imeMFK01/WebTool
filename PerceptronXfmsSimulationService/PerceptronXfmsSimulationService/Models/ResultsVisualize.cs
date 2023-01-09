@@ -15,7 +15,7 @@ namespace PerceptronXfmsSimulationService.Models
     public partial class ResultsVisualize
     {
         public string QueryID { get; set; }
-        public string ProteinSequence { get; set; }
+        public string FastaFileInfo { get; set; }
         public string PeptideInfo { get; set; }
         public string PfSasaTabXlsFile { get; set; }
         public string BridgeResultsFile { get; set; }

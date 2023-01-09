@@ -9,7 +9,7 @@ namespace PerceptronXfmsSimulationService.DTO
     public class ResultsVisualizeSaveIntoDB
     {
         public string QueryID;
-        public string ProteinSequence = null;
+        public string FastaFileInfo;
         public string PeptideInfo;
         public string PfSasaTabXlsFile;
         public string SasaMainImageFile;

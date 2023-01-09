@@ -132,7 +132,7 @@ namespace PerceptronXfmsSimulationService.Repository
                 var temp = new ResultsVisualize()
                 {
                     QueryID = QueryID,
-                    ProteinSequence = ResultsSaveDbObj.ProteinSequence,
+                    FastaFileInfo = ResultsSaveDbObj.FastaFileInfo,
                     PeptideInfo = ResultsSaveDbObj.PeptideInfo,
                     PfSasaTabXlsFile = ResultsSaveDbObj.PfSasaTabXlsFile,
                     BridgeResultsFile = ResultsSaveDbObj.BridgeResultsFile,

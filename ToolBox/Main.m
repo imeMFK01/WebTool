@@ -12,7 +12,8 @@ function [QueryResultFullPath, Error, ErrorLog] = Main(GUID, isBridgeEnabled, is
 % 
 % %%DEL ME 
 % GUID = "8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136";
-GUID = "700752d5-8dfc-460d-b9c4-9d1b8cffe493";
+%GUID = "700752d5-8dfc-460d-b9c4-9d1b8cffe493";
+GUID = "00000000-0000-0000-0000-000000000000";
 isBridgeEnabled = "True";
 
 % MAIN FUNCTION OF THIS PIPELINE 
@@ -209,11 +210,10 @@ FilteringCsvData(MascotFile,ComparisonEngineOutDir, CsvPathBeforeFilter);
 
 GeneratingMassHunterFiles(MascotFile,ComparisonEngineOutDir);
 
-MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile);
+MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile, LocalDeployment);
 
 %%%
 %RemoveDirectories(IntermediateProcessingFolderPath, ResultFolderPath, GUID);
-
 
 
 if (isBridgeEnabled == "True")
@@ -221,6 +221,11 @@ if (isBridgeEnabled == "True")
     InitializeAndCallBridge(WorkingDirPath, PythonExeFolder, PythonExePath, BridgePyFolder, InputParamForBridge2, PDBFullFileName, BridgeOutputResults);
 end
 
+if ~(LocalDeployment)
+%Copying the fasta file to the results folder for visualization purpose
+CopyingDataToResultsFolder(FastaFullFileName, QueryResultFullPath);
+
+end
 
 catch exception
     Error = "True";

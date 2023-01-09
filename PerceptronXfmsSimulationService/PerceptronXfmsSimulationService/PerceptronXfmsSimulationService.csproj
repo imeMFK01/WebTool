@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="DTO\Call2MATLABDto.cs" />
     <Compile Include="DTO\DbSaveResultsDto.cs" />
+    <Compile Include="DTO\ProteinDto.cs" />
     <Compile Include="DTO\ResultsVisualizeSaveIntoDB.cs" />
     <Compile Include="DTO\SearchXfmsQueryDto.cs" />
     <Compile Include="EngineCalling\Calling2Engine.cs" />
@@ -120,8 +121,8 @@
     <Compile Include="Utilities\BlobToBase64.cs" />
     <Compile Include="Utilities\Call2ExcelFileReader.cs" />
     <Compile Include="Utilities\DBErrorException.cs" />
+    <Compile Include="Utilities\FastaReader.cs" />
     <Compile Include="Utilities\FileToBlob.cs" />
-    <Compile Include="Utilities\ReadFastaFile.cs" />
     <Compile Include="Utilities\SendingEmail.cs" />
     <Compile Include="Utilities\Zipping.cs" />
   </ItemGroup>
@@ -150,6 +151,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\PerceptronXfmsDatabaseEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

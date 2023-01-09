@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic; 
-using System.Text;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Threading;
 using PerceptronXfmsSimulationService.Repository;
 using PerceptronXfmsSimulationService.EngineCalling;
@@ -28,6 +28,7 @@ namespace PerceptronXfmsSimulationService
         public static string PfSasaTabXlsFile = "PF_SASA_tab.xls";
         public static string BridgeResultsFile = "ResultsBridge.xlsx";
         public static string SasaMainImageFile = "SASAmain.png";
+        public static string FastaFile = "Fasta.fasta";
 
 
         public static void UpdateSampleResultsOnDB()
@@ -51,10 +52,27 @@ namespace PerceptronXfmsSimulationService
                 }
 
 
+                var _FastaReader = new FastaReader();
+
                 
+                
+
+                //var Prot = _FastaReader.FetchFastaInfo(QueryResultFullPath + "\\" + FastaFile);
+
+
                 string ZippingFileName = "";
                 var ResultsSaveDbObj = new ResultsVisualizeSaveIntoDB();
+
+
+                var ProteinInfo = new List<ProteinDto>(){ new ProteinDto()    //Creating List Just to avoid Front end parsing errors
+                {
+                    ProteinHeader = "P0AE67",
+                    ProteinSequence = "MADKELKFLVVDDFSTMRRIVRNLLKELGFNNVEEAEDGVDALNKLQAGGYGFVISDWNMPNMDGLELLKTIRADGAMSALPVLMVTAEAKKENIIAAAQAGASGYVVKPFTAATLEEKLNKIFEKLGM"
+                } };
+
                 
+
+                ResultsSaveDbObj.FastaFileInfo = JsonConvert.SerializeObject(ProteinInfo);
 
                 CompileResultsforDownAndVisualize(QueryResultFullPath, Title, QueryID, ref ZippingFileName, ResultsSaveDbObj, isBridgeEnabled);
 
