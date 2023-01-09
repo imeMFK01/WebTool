@@ -15,6 +15,7 @@ function [QueryResultFullPath, Error, ErrorLog] = Main(GUID, isBridgeEnabled, is
 %GUID = "700752d5-8dfc-460d-b9c4-9d1b8cffe493";
 GUID = "00000000-0000-0000-0000-000000000000";
 isBridgeEnabled = "True";
+isFrustratometerEnabled = "True";
 PdbChain = "A";
 % MAIN FUNCTION OF THIS PIPELINE 
 
@@ -179,7 +180,7 @@ addpath("Utilities\");
 
 
 
-InitializeAndCallfrustratometeR(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain, ResultFolderName);
+
 
 
 
@@ -233,13 +234,8 @@ end
 
 if (isFrustratometerEnabled == "True")
 
-
-
-
     %Initialize & Calling FrustratormeteR using WSL cmd
-
-
-
+    InitializeAndCallfrustratometeR(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain, ResultFolderName);
 
 end
 

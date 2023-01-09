@@ -8,3 +8,4 @@ PdbChain = "A";
 
 Pdb_conf <- calculate_frustration(PdbFile = InputPdbFullFile, Chain = PdbChain, ResultsDir = ResultsPath);
 #view_frustration_pymol(Pdb_conf);
+
