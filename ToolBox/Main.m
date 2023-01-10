@@ -12,8 +12,8 @@ function [QueryResultFullPath, Error, ErrorLog] = Main(GUID, isBridgeEnabled, is
 % 
 % %%DEL ME 
 % GUID = "8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136";
-%GUID = "700752d5-8dfc-460d-b9c4-9d1b8cffe493";
-GUID = "00000000-0000-0000-0000-000000000000";
+GUID = "11000000-0000-0000-0000-000000000000";
+%GUID = "00000000-0000-0000-0000-000000000000";
 isBridgeEnabled = "True";
 isFrustratometerEnabled = "True";
 PdbChain = "A";
@@ -87,6 +87,7 @@ InsideExp = "\Exp\";  %For the time being...
 ReplaceStringFrom = InsideExp;
 
 ReplaceStringWith = "\CsvFilesBeforeFilter\";
+ReplaceStringWithDataCsv = "\OutDir\DataCSV\";
 %CsvInputFilesBeforeFilter = IntermediateProcessingFolderPath + "\" + GUID + tempInsideExp;
 CsvPathBeforeFilter = IntermediateProcessingFolderPath + "\" + GUID + "\CsvFilesBeforeFilter";
 
@@ -203,23 +204,26 @@ mzXMLFilesInfo = ConversionIntoMzxml(InputFilesData, MSConvertCMDPath, MainProce
 %%%msgbox("R installation path MUST NOT CONTAINS AN EMPTY SPACE.", "R Installation Guidelines", "warn");
 
 %%Here will come R code integration for converting .mzXML file to .csv
-CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
+FilesInfo = CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
 
 
 %%Comparison Engine will initialize from here
 [MascotFile, wholeSeq, FileSASA, PDBFile] = ReadingMiscInputFiles(MascotFullFileName, FastaFullFileName, SASAFullFileName, PDBFullFileName);
 
+%% #GPUINTEGRATION #FUTURE
+%%% Call Here code for generating csv Files
+CsvFileInfo = JsonTxtToCsvConverter(FilesInfo, MascotFile);
+
 
 %%%%  R code ki csv files 
-
 % % % % % % % Copy them and 
 % % % % % % % mkdir and paste their 
 % % % % % % % That new folder will be Project Data
 
-ChangingCsvLocAndNames(mzXMLFilesInfo, ReplaceStringFrom, ReplaceStringWith);
-FilteringCsvData(MascotFile,ComparisonEngineOutDir, CsvPathBeforeFilter);
+ChangingCsvLocAndNames(CsvFileInfo, ReplaceStringFrom, ReplaceStringWithDataCsv);
+%FilteringCsvData(MascotFile,ComparisonEngineOutDir, CsvPathBeforeFilter);
 
-GeneratingMassHunterFiles(MascotFile,ComparisonEngineOutDir);
+GeneratingMassHunterFiles(RepArr, MascotFile,ComparisonEngineOutDir);
 
 MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile, LocalDeployment);
 

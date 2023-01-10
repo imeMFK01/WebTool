@@ -8,7 +8,7 @@
 %                         (safee.ullah@gmail.com)                         %
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function GeneratingMassHunterFiles(MascotFile,OutputDir) 
+function GeneratingMassHunterFiles(RepArr, MascotFile,OutputDir) 
 SequenceColumn= MascotFile(2:length(MascotFile),23)
 UniqueSequence=unique(SequenceColumn)
 
@@ -25,7 +25,7 @@ dirFlags = [files.isdir];
 Replicates = files(dirFlags); % A structure with extra info.
 
 AllReplicate = {};
-for number=1:size(Replicates,1)
+for number=1: size(RepArr,1)   %Updated 202201101958     %Commented     size(Replicates,1)
     CurrentReplicate = Replicates(number).name;
     if(strcmp (CurrentReplicate, '.') || isempty(CurrentReplicate) || strcmp (CurrentReplicate, '..'))
         %do nothing
