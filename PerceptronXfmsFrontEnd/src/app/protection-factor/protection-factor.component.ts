@@ -35,6 +35,7 @@ export class ProtectionFactorComponent implements OnInit {
   ProteinSequenceForDisplay; string;
   SeqPatchSize = 10;
   LineSeqPatchSize = 60;
+  FastaHeaderWithLink :any;
 
   constructor(private route: ActivatedRoute, private _httpService: ConfigService, private sanitizer: DomSanitizer) {
 
@@ -104,7 +105,7 @@ export class ProtectionFactorComponent implements OnInit {
       IterSeq = IterSeq + 10;
     }
 
-    let FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
+    this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
     let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
     ProteinHeader.innerHTML = this.FastaHeader;
 

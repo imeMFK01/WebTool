@@ -17,6 +17,7 @@ export class CentralityComponent implements OnInit {
   ProteinSequenceForDisplay; string;
   SeqPatchSize = 10;
   LineSeqPatchSize = 60;
+  FastaHeaderWithLink :any;
 
   querryId: any;
   displayedColumns = ['Serial', 'ChainResPos', 'DegreeNormalizedAveraged', 'DegreeNot-NormalizedAveraged', 'DegreeNormalizedNotAveraged', 'DegreeNotNormalizedNotAveraged', 'BetweennessNormalizedAveraged', 'BetweennessNotNormalizedAveraged', 'BetweennessNormalizedNotAveraged', 'BetweennessNotNormalizedNotAveraged'];
@@ -75,7 +76,7 @@ export class CentralityComponent implements OnInit {
       IterSeq = IterSeq + 10;
     }
 
-    let FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
+    this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
     let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
     ProteinHeader.innerHTML = this.FastaHeader;
 
