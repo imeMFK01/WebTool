@@ -18,7 +18,7 @@ library(readMzXmlData)
 library(jsonlite)
 
 
-MzxmlFullFileNamePath = "D:\\PerceptronXfmsIntermediateProcessingFolder\\11000000-0000-0000-0000-000000000000\\Exp\\Replicate3\\Dose75.mzXML"
+MzxmlFullFileNamePath = "D:\\PerceptronXfmsIntermediateProcessingFolder\\11000000-0000-0000-0000-000000000000\\Exp\\Replicate1\\Dose0.mzXML"
 
 Name = tools::file_path_sans_ext(MzxmlFullFileNamePath)
 CsvFileName<-paste(Name,".csv", sep ="")
@@ -30,24 +30,4 @@ OutputFileFullName<-paste(OutputFileName,".txt",sep ="")
 fileConn<-file(  OutputFileFullName)
 writeLines(JsonString, fileConn)
 close(fileConn)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
