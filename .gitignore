@@ -17,7 +17,6 @@ ToolBox/Bridge/__pycache__/
 PerceptronXfmsFrontEnd/dist/
 PerceptronXfmsFrontEnd/node_modules/@angular-devkit/
 PerceptronXfmsFrontEnd/node_modules/.cache/
-mzXMLtocsvConverter/
 PerceptronXfmsAPI/.vs/
 PerceptronXfmsAPI/PerceptronXfmsAPI/obj/Debug/
 PerceptronXfmsAPI/*.pdb
