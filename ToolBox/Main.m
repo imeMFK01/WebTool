@@ -212,8 +212,9 @@ FilesInfo = CallRCode(SetWorkingDirForRCall, mzXMLFilesInfo,FullNameofRFile);
 
 %% #GPUINTEGRATION #FUTURE
 %%% Call Here code for generating csv Files
+tic;
 CsvFileInfo = JsonTxtToCsvConverter(FilesInfo, MascotFile);
-
+a0 = toc
 
 %%%%  R code ki csv files 
 % % % % % % % Copy them and 
@@ -222,11 +223,13 @@ CsvFileInfo = JsonTxtToCsvConverter(FilesInfo, MascotFile);
 
 ChangingCsvLocAndNames(CsvFileInfo, ReplaceStringFrom, ReplaceStringWithDataCsv);
 %FilteringCsvData(MascotFile,ComparisonEngineOutDir, CsvPathBeforeFilter);
-
+tic;
 GeneratingMassHunterFiles(RepArr, MascotFile,ComparisonEngineOutDir);
+a = toc;
 
+tic;
 MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile, LocalDeployment);
-
+b = toc
 %%%
 %RemoveDirectories(IntermediateProcessingFolderPath, ResultFolderPath, GUID);
 

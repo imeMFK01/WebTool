@@ -7,7 +7,6 @@ MascotData = [double(string((MascotFile(2:end,14))))];
 UniqueMascotData = unique(MascotData, 'rows');
 %%% Update to the folder containg the json files
 
-VectorForCsvFilefiles = strings(size(FilesInfo,1),1);
 VectorForCsvOnlyFileNames = strings(size(FilesInfo,1),1);
 
 for number_of_list= 1: length(FilesInfo)
