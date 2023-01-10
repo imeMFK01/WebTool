@@ -13,14 +13,14 @@
     </mat-expansion-panel-header>
 
     <!-- Protein Accession Number: &nbsp; -->
-    <mat-grid-list cols="13">
+    <mat-grid-list cols="13" style="align-self: center; text-align: left;">
       <mat-grid-tile colspan="2" rowspan="1" style="font-weight: bold;"> 
         <a href={{FastaHeaderWithLink}}><label style="color:rgba(65, 131, 253, 0.959); font-size:15px; cursor:pointer"
           id="ProteinHeader"></label></a>
        </mat-grid-tile>
-      <mat-grid-tile colspan="11" rowspan="1" style="align-self: center;"></mat-grid-tile>
+      <mat-grid-tile colspan="11" rowspan="1" ></mat-grid-tile>
 
-      <mat-grid-tile colspan="13" rowspan="1" style="align-self: center;">
+      <mat-grid-tile colspan="13" rowspan="1">
         <label style="font-size:15px;" id="sequence"></label>
         <!-- {{ProteinSequenceForDisplay}} -->
       </mat-grid-tile>
@@ -53,26 +53,26 @@
 
     <!-- ChainResPos Column -->
     <ng-container matColumnDef="ChainResPos">
-      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Chain Residue Position 
+      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Chain Residue Position 
       </mat-header-cell>
       <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.ChainResPos}} </mat-cell>
     </ng-container>
 
     <!-- DegreeNormalizedAveraged Column -->
     <ng-container matColumnDef="DegreeNormalizedAveraged">
-      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Degree Normalized Average</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Degree Normalized Average</mat-header-cell>
       <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.DegreeNormAvg}} </mat-cell>
     </ng-container>
 
     <!-- DegreeNot-NormalizedAveraged Column -->
     <ng-container matColumnDef="DegreeNot-NormalizedAveraged">
-        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Degree Not-Normalized Average</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Degree Not-Normalized Average</mat-header-cell>
         <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.DegreeNotNormAvg}} </mat-cell>
       </ng-container>
 
       <!-- DegreeNormalizedNotAveraged Column -->
       <ng-container matColumnDef="DegreeNormalizedNotAveraged">
-        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Degree Normalized Not-Average</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Degree Normalized Not-Average</mat-header-cell>
         <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.DegreeNormNotAvg}} </mat-cell>
       </ng-container>
 
@@ -80,31 +80,31 @@
 
       <!-- DegreeNotNormalizedNotAveraged Column -->
     <ng-container matColumnDef="DegreeNotNormalizedNotAveraged">
-      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Degree Not-Normalized Not-Average</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Degree Not-Normalized Not-Average</mat-header-cell>
       <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.DegreeNotNormNotAvg}} </mat-cell>
     </ng-container>
 
     <!-- BetweennessNormalizedAveraged Column -->
     <ng-container matColumnDef="BetweennessNormalizedAveraged">
-      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Betweenness Normalized Average</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Betweenness Normalized Average</mat-header-cell>
       <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.BetNormAvg}} </mat-cell>
     </ng-container>
 
     <!-- BetweennessNotNormalizedAveraged Column -->
     <ng-container matColumnDef="BetweennessNotNormalizedAveraged">
-      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Betweenness Not-Normalized Average</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Betweenness Not-Normalized Average</mat-header-cell>
       <mat-cell style="cursor: pointer;" *matCellDef="let row" > {{row.BetNotNormAvg}} </mat-cell>
     </ng-container>
 
     <!-- BetweennessNormalizedNotAveraged Column -->
     <ng-container matColumnDef="BetweennessNormalizedNotAveraged">
-        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Betweenness Normalized Not-Average</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Betweenness Normalized Not-Average</mat-header-cell>
         <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.BetNormNotAvg}} </mat-cell>
       </ng-container>
 
       <!-- BetweennessNotNormalizedNotAveraged Column -->
       <ng-container matColumnDef="BetweennessNotNormalizedNotAveraged">
-        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Betweenness Not-Normalized Not-Average</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Betweenness Not-Normalized Not-Average</mat-header-cell>
         <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.BetNotNormNotAvg}} </mat-cell>
       </ng-container>
 
