@@ -136,6 +136,7 @@ namespace PerceptronXfmsSimulationService.Repository
                     PeptideInfo = ResultsSaveDbObj.PeptideInfo,
                     PfSasaTabXlsFile = ResultsSaveDbObj.PfSasaTabXlsFile,
                     BridgeResultsFile = ResultsSaveDbObj.BridgeResultsFile,
+                    FrustratometerResultFiles = ResultsSaveDbObj.FrustratometerResultFiles,
                     SasaMainImageFile = ResultsSaveDbObj.SasaMainImageFile,
                     PfModifiedPdb = ResultsSaveDbObj.PfModifiedPdb,
                     CentralityModifiedPdb = ResultsSaveDbObj.CentralityModifiedPdb
