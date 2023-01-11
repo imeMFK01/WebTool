@@ -30,6 +30,12 @@ namespace PerceptronXfmsSimulationService
         public static string SasaMainImageFile = "SASAmain.png";
         public static string FastaFile = "Fasta.fasta";
 
+        public static string FrustratometerFolder = "frustratometeR_Results";
+
+        public static string FrustratometerImageResultsFolder = "Images";
+        
+
+
 
         public static void UpdateSampleResultsOnDB()
         {
@@ -51,11 +57,7 @@ namespace PerceptronXfmsSimulationService
                     throw new Exception("Sample Result folder does not exist at specified location.");
                 }
 
-
                 var _FastaReader = new FastaReader();
-
-                
-                
 
                 //var Prot = _FastaReader.FetchFastaInfo(QueryResultFullPath + "\\" + FastaFile);
 
@@ -81,7 +83,7 @@ namespace PerceptronXfmsSimulationService
 
                 ResultsSaveDbObj.FastaFileInfo = JsonConvert.SerializeObject(ProteinInfo);
 
-                CompileResultsforDownAndVisualize(QueryResultFullPath, Title, QueryID, ref ZippingFileName, ResultsSaveDbObj, isBridgeEnabled);
+                CompileResultsforDownAndVisualize(QueryResultFullPath, Title, QueryID, ref ZippingFileName, ResultsSaveDbObj, isBridgeEnabled, isFrustratometerEnabled);
 
                 var instanceSqlDatabase = new SqlDatabase();
 
@@ -192,7 +194,7 @@ namespace PerceptronXfmsSimulationService
                         string ZippingFileName = "";
                         var ResultsSaveDbObj = new ResultsVisualizeSaveIntoDB();
 
-                        CompileResultsforDownAndVisualize(Call2MatlabDataObj.QueryResultFullPath, SearchQuery.Title, SearchQuery.QueryID, ref ZippingFileName, ResultsSaveDbObj, SearchQuery.isBridgeEnabled);
+                        CompileResultsforDownAndVisualize(Call2MatlabDataObj.QueryResultFullPath, SearchQuery.Title, SearchQuery.QueryID, ref ZippingFileName, ResultsSaveDbObj, SearchQuery.isBridgeEnabled, SearchQuery.isFrustratometerEnabled);
 
                         ////Zipping the Resutls
                         //var ZippingFileName = new Zipping().ZippingOutputFiles(ResultFolderPath, Call2MatlabDataObj.QueryResultFullPath, SearchQuery.Title, SearchQuery.QueryID);
@@ -310,7 +312,7 @@ namespace PerceptronXfmsSimulationService
 
 
 
-        public static void CompileResultsforDownAndVisualize(string QueryResultFullPath, string Title, string QueryID, ref string ZippingFileName, ResultsVisualizeSaveIntoDB ResultsSaveDbObj, string isBridgeEnabled)
+        public static void CompileResultsforDownAndVisualize(string QueryResultFullPath, string Title, string QueryID, ref string ZippingFileName, ResultsVisualizeSaveIntoDB ResultsSaveDbObj, string isBridgeEnabled, string isFrustratometerEnabled)
         {
 
             ////Zipping the Resutls
@@ -323,6 +325,11 @@ namespace PerceptronXfmsSimulationService
             if (isBridgeEnabled == "True")
             {
                 ResultsSaveDbObj.BridgeResultsFile = new Call2ExcelFileReader().Call2ExcelFileReaderMatlab(MatlabScriptsFullPath, ResultFolderPath, subName, QueryID, BridgeResultsFile);
+            }
+
+            if(isFrustratometerEnabled == "True")
+            {
+                ResultsSaveDbObj.FrustratometerResultFiles = new FetchPathsForFrustratometerResults().FetchFilePathsOfFrustratometerResults(QueryResultFullPath, FrustratometerFolder, FrustratometerImageResultsFolder);
             }
 
             ResultsSaveDbObj.SasaMainImageFile = ResultFolderPath + "\\" + subName + QueryID + "\\" + SasaMainImageFile;

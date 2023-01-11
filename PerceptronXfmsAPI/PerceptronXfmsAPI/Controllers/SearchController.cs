@@ -264,13 +264,22 @@ namespace PerceptronXfmsAPI.Controllers
         //public string GetDetailedPFResults()
         {
             var DetailedCentrality = _dataLayer.FetchResultsCentrality(QueryID);
-            
-            return DetailedCentrality;
+            //return DetailedCentrality;
+            return null;
 
             //string text = File.ReadAllText(@"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\Modifiedchey.pdb");
             //return text;
             ////string jsonString = JsonConvert.SerializeObject(text);
             ////return jsonString;
+        }
+
+        [HttpPost]
+        [Route("api/search/GetDetailedFrustratometerResults")]
+        public string GetDetailedFrustratometerResults([FromBody] string QueryID)
+        //public string GetDetailedPFResults()
+        {
+            var DetailedFrustratometer = _dataLayer.FetchResultsFrustratometer(QueryID);
+            return DetailedFrustratometer;
         }
 
 

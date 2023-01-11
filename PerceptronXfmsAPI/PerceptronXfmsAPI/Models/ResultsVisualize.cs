@@ -23,5 +23,6 @@ namespace PerceptronXfmsAPI.Models
         public string PfModifiedPdb { get; set; }
         public string CentralityModifiedPdb { get; set; }
         public int ID { get; set; }
+        public string FrustratometerResultFiles { get; set; }
     }
 }

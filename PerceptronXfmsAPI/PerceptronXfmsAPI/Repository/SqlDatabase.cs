@@ -118,11 +118,38 @@ namespace PerceptronXfmsAPI.Repository
             var DetailedCentrality = new DetailedCentralityDto();
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                var Data = db.ResultsVisualizes.Where(x=>x.QueryID == QueryID).Select(x => x).FirstOrDefault();
-                DetailedCentrality.BridgeResultsFile = Data.BridgeResultsFile;
-                DetailedCentrality.FastaFileInfo = Data.FastaFileInfo;
+                var Check = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                if (Check.isBridgeEnabled == "True")
+                {
+                    var Data = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                    DetailedCentrality.BridgeResultsFile = Data.BridgeResultsFile;
+                    DetailedCentrality.FastaFileInfo = Data.FastaFileInfo;
+                    return DetailedCentrality;
+                }
+                else
+                {
+                    return null;
+                }   
             }
-            return DetailedCentrality;
+        }
+
+
+        public string FetchResultsFrustratometer(string QueryID)
+        {
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var Check = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+
+                if (Check.isFrustratometerEnabled == "True")
+                {
+                    var Data = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                    return Data.FrustratometerResultFiles;
+                }
+                else
+                {
+                    return "";
+                }
+            }
         }
 
 

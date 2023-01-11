@@ -122,6 +122,7 @@
     <Compile Include="Utilities\Call2ExcelFileReader.cs" />
     <Compile Include="Utilities\DBErrorException.cs" />
     <Compile Include="Utilities\FastaReader.cs" />
+    <Compile Include="Utilities\FetchPathsForFrustratometerResults.cs" />
     <Compile Include="Utilities\FileToBlob.cs" />
     <Compile Include="Utilities\SendingEmail.cs" />
     <Compile Include="Utilities\Zipping.cs" />

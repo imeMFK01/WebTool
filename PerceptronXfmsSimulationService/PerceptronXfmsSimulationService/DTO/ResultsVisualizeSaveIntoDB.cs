@@ -15,6 +15,7 @@ namespace PerceptronXfmsSimulationService.DTO
         public string SasaMainImageFile;
 
         public string BridgeResultsFile = null;
+        public string FrustratometerResultFiles = null;
         public string PfModifiedPdb = null;
         public string CentralityModifiedPdb = null;
 
