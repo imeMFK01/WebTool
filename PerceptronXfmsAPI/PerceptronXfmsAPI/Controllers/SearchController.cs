@@ -199,10 +199,10 @@ namespace PerceptronXfmsAPI.Controllers
 
         [HttpPost]
         [Route("api/search/GetSearchParameters")]
-        public SearchXfmsQuery GetSearchParameters([FromBody] string input)
+        public SearchXfmsQueryDto GetSearchParameters([FromBody] string QueryID)
         {
-
-            return null;
+            var temp = _dataLayer.FetchSearchParameters(QueryID);
+            return temp;
         }
 
 
@@ -272,8 +272,8 @@ namespace PerceptronXfmsAPI.Controllers
         //public string GetDetailedPFResults()
         {
             var DetailedCentrality = _dataLayer.FetchResultsCentrality(QueryID);
-            //return DetailedCentrality;
-            return null;
+            return DetailedCentrality;
+            
 
             //string text = File.ReadAllText(@"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\Modifiedchey.pdb");
             //return text;

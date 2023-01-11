@@ -41,9 +41,17 @@ export class ConfigService {
             .map(res => {
                 return res.json()
             });
-        
-
     }
+
+    GetDetailedFrustratometerResults(QueryID){
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        return this._http.post(this.baseApiUrl + '/api/search/GetDetailedFrustratometerResults', '=' + QueryID, { headers: headers })
+            .map(res => {
+                return res.json()
+            });
+    }
+
 
     GetSearchParams(qid) {
         let headers = new Headers();
@@ -53,6 +61,7 @@ export class ConfigService {
                 return res.json()
             });
     }
+
 
 
     getJSON() {

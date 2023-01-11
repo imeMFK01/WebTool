@@ -19,6 +19,9 @@ export class ScanViewComponent implements OnInit {
   querryId: any;
   blob: any;
 
+  isBridgeResultsAvailable : string;
+  isFrustratometerResultsAvailable : string;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -78,22 +81,35 @@ export class ScanViewComponent implements OnInit {
   }
 
   ViewDetailedPF(){
-
-    //data.
     let x = this.router;
-    x.navigate(["protectionfactor", this.querryId]);
+    x.navigate(["protectionfactor", this.querryId]);   
   }
 
   ViewDetailedCentrality(){
-    let x = this.router;
-    x.navigate(["centrality", this.querryId]);
+    if (this.isBridgeResultsAvailable == "True"){
+      let x = this.router;
+      x.navigate(["centrality", this.querryId]);
+    }
+    else{
+
+    }
+    
+  }
+  ViewDetailedFrustration(){
+    if(this.isFrustratometerResultsAvailable == "True"){
+      let x = this.router;
+      x.navigate(["frustratometer", this.querryId]);
+    }
+    else{
+
+    }
   }
 
 
   what(data: any) {
     
-    for (let i = 1; i <= data.length; i++) { this.users.push(createNewUser(i, data[i - 1])); }
-    this.dataSource = new MatTableDataSource(this.users);
+    this.isBridgeResultsAvailable = data.SearchXfmsQuery.isBridgeEnabled;
+    this.isFrustratometerResultsAvailable = data.SearchXfmsQuery.isFrustratometerEnabled;
 
     // // if (this.users.length == 0){  //BatchMode: //Checking if "users" array is empty then, it will be considered (PERCEPTRON will not fetch the data from database) as batch mode or query error but the later one has been addressed in 'history.component.ts' by applying conditions in this function {getRecord(row)} and therefore, now just Batch Mode's condition is required here.
     // //   alert("Dear User,\nSearch Results file is too large and will be downloaded. Please click Results Download to proceed.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");

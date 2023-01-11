@@ -8,9 +8,9 @@ using Newtonsoft.Json;
 
 namespace PerceptronXfmsSimulationService.Utilities
 {
-    public class FetchPathsForFrustratometerResults
+    public class FetchFrustratometerResults
     {
-        public string FetchFilePathsOfFrustratometerResults(string QueryResultFullPath, string FrustratometerFolder, string FrustratometerImageResultsFolder)
+        public List<string> FetchFilePathsOfFrustratometerResults(string QueryResultFullPath, string FrustratometerFolder, string FrustratometerImageResultsFolder)
         {
 
             string path = QueryResultFullPath + "\\" + FrustratometerFolder;
@@ -41,14 +41,13 @@ namespace PerceptronXfmsSimulationService.Utilities
                 {
                     ListOfPaths[2] = ImagesFullPath + tempString;
                 }
-
             }
-            string FrustratometerImagesFullPaths = JsonConvert.SerializeObject(ListOfPaths);
+            //string FrustratometerImagesFullPaths = JsonConvert.SerializeObject(ListOfPaths);
 
-            return FrustratometerImagesFullPaths;
-
-
-
+            return ListOfPaths;
         }
+
+
+
     }
 }

@@ -35,69 +35,62 @@ export class CentralityComponent implements OnInit {
 
   what(data) {
 
-    if (data != null) {
+    let DoubleQuoteJsonCentralityData = data.BridgeResultsFile.replaceAll("'", "\"");
+    let CentralityData = JSON.parse(DoubleQuoteJsonCentralityData);
 
+    //Formatting protein sequence for display
+    let DoubleQuoteFastaFile = data.FastaFileInfo.replaceAll("'", "\"");
+    let FastaFile = JSON.parse(DoubleQuoteFastaFile);
+    this.FastaHeader = FastaFile.ProteinHeader;
+    this.ProteinSequence = FastaFile.ProteinSequence;
+    let IterSeq = 0;
+    let loopIsTrue = true;
+    while (loopIsTrue) {
+      let start; //= IterSeq;
+      let end; //= this.SeqPatchSize;
 
-      let DoubleQuoteJsonCentralityData = data.BridgeResultsFile.replaceAll("'", "\"");
-      let CentralityData = JSON.parse(DoubleQuoteJsonCentralityData);
+      if (IterSeq == 0) {
+        start = IterSeq;
+        end = this.SeqPatchSize;
 
-
-      //Formatting protein sequence for display
-      let DoubleQuoteFastaFile = data.FastaFileInfo.replaceAll("'", "\"");
-      let FastaFile = JSON.parse(DoubleQuoteFastaFile);
-      this.FastaHeader = FastaFile.ProteinHeader;
-      this.ProteinSequence = FastaFile.ProteinSequence;
-      let IterSeq = 0;
-      let loopIsTrue = true;
-      while (loopIsTrue) {
-        let start; //= IterSeq;
-        let end; //= this.SeqPatchSize;
-
-        if (IterSeq == 0) {
-          start = IterSeq;
-          end = this.SeqPatchSize;
-
-          this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
-        }
-        else {
-          start = IterSeq;
-          end = start + this.SeqPatchSize;
-
-
-
-
-          //let Patch =  this.LineSeqPatchSize - 1;
-          if (IterSeq % this.LineSeqPatchSize == 0) {
-            this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;"
-          }
-          this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
-
-          if (this.ProteinSequence.length < end) {
-            break;
-          }
-
-        }
-        IterSeq = IterSeq + 10;
+        this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
       }
+      else {
+        start = IterSeq;
+        end = start + this.SeqPatchSize;
 
-      this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
-      let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
-      ProteinHeader.innerHTML = this.FastaHeader;
 
-      let sequence = <HTMLLabelElement>document.getElementById("sequence");
-      sequence.innerHTML = this.ProteinSequenceForDisplay;
 
-      //ResultsBridge.xlsx
-      for (let Row = 0; Row < CentralityData.length; Row++) {
-        let temp = new CentralityDataValue((Row + 1).toString(), CentralityData[Row][0], CentralityData[Row][1], CentralityData[Row][2], CentralityData[Row][3],
-          CentralityData[Row][4], CentralityData[Row][5], CentralityData[Row][6], CentralityData[Row][7], CentralityData[Row][8]);
-        this.CentralityDataValueObj.push(temp);
+
+        //let Patch =  this.LineSeqPatchSize - 1;
+        if (IterSeq % this.LineSeqPatchSize == 0) {
+          this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;"
+        }
+        this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
+
+        if (this.ProteinSequence.length < end) {
+          break;
+        }
+
       }
-      this.dataSource = new MatTableDataSource(this.CentralityDataValueObj);
+      IterSeq = IterSeq + 10;
     }
-    else{
-      alert("Dear User,\nNo results are available.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
+
+    this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
+    let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
+    ProteinHeader.innerHTML = this.FastaHeader;
+
+    let sequence = <HTMLLabelElement>document.getElementById("sequence");
+    sequence.innerHTML = this.ProteinSequenceForDisplay;
+
+    //ResultsBridge.xlsx
+    for (let Row = 0; Row < CentralityData.length; Row++) {
+      let temp = new CentralityDataValue((Row + 1).toString(), CentralityData[Row][0], CentralityData[Row][1], CentralityData[Row][2], CentralityData[Row][3],
+        CentralityData[Row][4], CentralityData[Row][5], CentralityData[Row][6], CentralityData[Row][7], CentralityData[Row][8]);
+      this.CentralityDataValueObj.push(temp);
     }
+    this.dataSource = new MatTableDataSource(this.CentralityDataValueObj);
+
   }
 
   ngAfterViewInit() {

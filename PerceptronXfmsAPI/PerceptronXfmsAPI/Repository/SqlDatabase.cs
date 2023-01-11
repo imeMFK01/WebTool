@@ -79,14 +79,17 @@ namespace PerceptronXfmsAPI.Repository
         }
 
 
-        public string SearchParameters(string QueryID)
+        public SearchXfmsQueryDto FetchSearchParameters(string QueryID)
         {
-            var SearchXfmsQuery = new SearchXfmsQuery();
+            var SearchXfmsQueryDto = new SearchXfmsQueryDto(); ;
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                SearchXfmsQuery = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).FirstOrDefault();
+                var SearchXfmsQuery = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).FirstOrDefault();
+
+
+                SearchXfmsQueryDto.SearchXfmsQuery = SearchXfmsQuery;
             }
-            return SearchXfmsQuery;
+            return SearchXfmsQueryDto;
         }
 
 
@@ -131,17 +134,12 @@ namespace PerceptronXfmsAPI.Repository
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
                 var Check = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
-                if (Check.isBridgeEnabled == "True")
-                {
-                    var Data = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
-                    DetailedCentrality.BridgeResultsFile = Data.BridgeResultsFile;
-                    DetailedCentrality.FastaFileInfo = Data.FastaFileInfo;
-                    return DetailedCentrality;
-                }
-                else
-                {
-                    return null;
-                }   
+
+                var Data = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                DetailedCentrality.BridgeResultsFile = Data.BridgeResultsFile;
+                DetailedCentrality.FastaFileInfo = Data.FastaFileInfo;
+                return DetailedCentrality;
+
             }
         }
 
@@ -152,15 +150,10 @@ namespace PerceptronXfmsAPI.Repository
             {
                 var Check = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
 
-                if (Check.isFrustratometerEnabled == "True")
-                {
-                    var Data = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
-                    return Data.FrustratometerResultFiles;
-                }
-                else
-                {
-                    return "";
-                }
+
+                var Data = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                return Data.FrustratometerResultFiles;
+
             }
         }
 

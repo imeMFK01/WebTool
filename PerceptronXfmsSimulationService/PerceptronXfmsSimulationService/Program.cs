@@ -329,7 +329,11 @@ namespace PerceptronXfmsSimulationService
 
             if(isFrustratometerEnabled == "True")
             {
-                ResultsSaveDbObj.FrustratometerResultFiles = new FetchPathsForFrustratometerResults().FetchFilePathsOfFrustratometerResults(QueryResultFullPath, FrustratometerFolder, FrustratometerImageResultsFolder);
+                var ListOfFrustratometerImageResults = new FetchFrustratometerResults().FetchFilePathsOfFrustratometerResults(QueryResultFullPath, FrustratometerFolder, FrustratometerImageResultsFolder);
+
+
+
+                //ResultsSaveDbObj.FrustratometerResultFiles
             }
 
             ResultsSaveDbObj.SasaMainImageFile = ResultFolderPath + "\\" + subName + QueryID + "\\" + SasaMainImageFile;

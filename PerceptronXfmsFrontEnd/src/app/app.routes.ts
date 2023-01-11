@@ -42,6 +42,7 @@ import { UpdatePasswordComponent } from './update-password/update-password.compo
 import { UpdateUsernameComponent } from './update-username/update-username.component';
 import { ProtectionFactorComponent } from './protection-factor/protection-factor.component';
 import { CentralityComponent } from './centrality/centrality.component';
+import { FrustrationComponent } from './frustration/frustration.component';
 
 export const router: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -87,7 +88,9 @@ export const router: Routes = [
 
     //PERCEPTRON-XFMS
     {path: 'protectionfactor/:querryId', component: ProtectionFactorComponent},
-    {path:'centrality/:querryId', component: CentralityComponent}
+    {path:'centrality/:querryId', component: CentralityComponent},
+    {path:'frustratometer/:querryId', component: FrustrationComponent}
+
 ]
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);
