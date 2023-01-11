@@ -45,6 +45,15 @@ export class ConfigService {
 
     }
 
+    GetSearchParams(qid) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        return this._http.post(this.baseApiUrl + '/api/search/GetSearchParameters', '=' + qid, { headers: headers })
+            .map(res => {
+                return res.json()
+            });
+    }
+
 
     getJSON() {
         return this._http.get('http://date.jsontest.com')

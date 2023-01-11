@@ -197,6 +197,14 @@ namespace PerceptronXfmsAPI.Controllers
             return temp;
         }
 
+        [HttpPost]
+        [Route("api/search/GetSearchParameters")]
+        public SearchXfmsQuery GetSearchParameters([FromBody] string input)
+        {
+
+            return null;
+        }
+
 
         [HttpPost]
         [Route("api/search/ResultsMainPage")]

@@ -46,6 +46,7 @@ export class ScanViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.querryId = params['querryId']);
+    this._httpService.GetSearchParams(this.querryId).subscribe(data => this.what(data));
     ////this._httpService.GetScanReslts(this.querryId).subscribe(data => this.what(data));   // Its healthy
     //this._httpService.downloadFile(this.querryId).subscribe(data => this.what(data));
   }
@@ -77,6 +78,8 @@ export class ScanViewComponent implements OnInit {
   }
 
   ViewDetailedPF(){
+
+    //data.
     let x = this.router;
     x.navigate(["protectionfactor", this.querryId]);
   }

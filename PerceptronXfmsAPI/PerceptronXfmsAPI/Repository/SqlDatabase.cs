@@ -79,6 +79,18 @@ namespace PerceptronXfmsAPI.Repository
         }
 
 
+        public string SearchParameters(string QueryID)
+        {
+            var SearchXfmsQuery = new SearchXfmsQuery();
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                SearchXfmsQuery = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).FirstOrDefault();
+            }
+            return SearchXfmsQuery;
+        }
+
+
+
         public string ZipFullFilePath(string QueryID)
         {
             string ZipResultFullFilePath = "";
