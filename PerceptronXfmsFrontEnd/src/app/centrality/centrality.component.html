@@ -47,7 +47,7 @@
         <div style="padding-left:5px; ; width:100%">
           <p style="text-align: left;">
             <span style ="font-size:100%; font-weight: bolder; color: black;">Protein Name<span style ="font-size:150%;"> |  </span></span>
-            <span style ="font-size:100%;">{{this.ProteinName}}</span>
+            <span style ="font-size:100%; color: blue;">{{this.ProteinName}}</span>
           </p>
         </div>
       </mat-grid-tile>
@@ -56,7 +56,7 @@
         <div style="padding-left:5px; ; width:100%">
           <p style="text-align: left;">
             <span style ="font-size:100%; font-weight: bolder; color: black;">Gene Name<span style ="font-size:150%;"> |  </span></span>
-            <span style ="font-size:100%;">{{this.GeneName}}</span>
+            <span style ="font-size:100%; color: blue;">{{this.GeneName}}</span>
           </p>
         </div>
       </mat-grid-tile>
@@ -66,7 +66,7 @@
         <div style="padding-left:5px; ; width:100%">
           <p style="text-align: left;">
             <span style ="font-size:100%;font-weight: bolder; color: black;">Organism Name<span style ="font-size:150%;"> |  </span></span>
-            <span style ="font-size:100%;">{{this.OrganismName}}</span>
+            <span style ="font-size:100%; color: blue;">{{this.OrganismName}}</span>
           </p>
         </div>
       </mat-grid-tile>
@@ -75,7 +75,7 @@
         <div style="padding-left:5px; ; width:100%">
           <p style="text-align: left;">
             <span style ="font-size:100%; font-weight: bolder; color: black;">Amino Acids<span style ="font-size:150%;"> |  </span></span>
-            <span style ="font-size:100%;">{{this.NoOfAminoAcids}}</span>
+            <span style ="font-size:100%; color: blue;">{{this.NoOfAminoAcids}}</span>
           </p>
         </div>
       </mat-grid-tile>
@@ -93,12 +93,12 @@
        </mat-grid-tile>
       <mat-grid-tile colspan="11" rowspan="1" ></mat-grid-tile> -->
 
+      <mat-grid-tile colspan="1" rowspan="1" style="text-align: left;"></mat-grid-tile>
 
-
-      <mat-grid-tile colspan="3" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1">
         
         <div style="width:100%">
-          <label style="font-size:15px; text-align: right;" id="PositionArraySeq"></label>
+          <label style="font-size:100%; text-align: right;" id="PositionArraySeq"></label>
           </div>
           
       </mat-grid-tile>
@@ -106,7 +106,7 @@
 
       <mat-grid-tile colspan="10" rowspan="1">
         <div style="padding-left:5px; ; width:100%">
-        <label style="font-size:15px; text-align: left;" id="sequence"></label>
+        <label style="font-size:100%; text-align: left;" id="sequence"></label>
         </div>
         <!-- {{ProteinSequenceForDisplay}} -->
       </mat-grid-tile>
