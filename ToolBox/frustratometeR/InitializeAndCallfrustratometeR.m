@@ -8,7 +8,7 @@
 %                         (safee.ullah@gmail.com)                         %
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function InitializeAndCallfrustratometeR(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain, ResultFolderName)
+function InitializeAndCallfrustratometeR(DistributionName, WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain, ResultFolderName)
 
 % Results folder
 %Update frustratometeR.R file
@@ -22,7 +22,15 @@ PreparefrustratometeRFilePath = extractAfter(FullNameoffrustratometeRFile, ':');
 PreparefrustratometeRFilePath = PreparefrustratometeRFilePath.replace('\','/');
 frustratometeRFullFileNameInWsl = Wsl + PreparefrustratometeRFilePath;
 
-[status,cmdout] = system(['wsl.exe -d Ubuntu22V01 ' 'Rscript '  char(frustratometeRFullFileNameInWsl)]);
+
+if (DistributionName == "")  %Updated 202301130402
+    [status,cmdout] = system(['wsl.exe Rscript '  char(frustratometeRFullFileNameInWsl)]);
+else
+   [status,cmdout] = system(['wsl.exe -d ' char(DistributionName) ' Rscript '  char(frustratometeRFullFileNameInWsl)]);
+end
+
+
+
 
 if status ~= 0
     %Exceptions

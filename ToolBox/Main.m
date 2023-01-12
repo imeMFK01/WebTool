@@ -34,7 +34,7 @@ try
 
 Error = "False";
 ErrorLog = "";
-
+DistributionName = "";
 
 %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS  %% PLACEHOLDERS      
 %% PLACEHOLDERS DATA WILL BE DELETED AFTER API INTEGRATION
@@ -157,6 +157,11 @@ if (LocalDeployment)
 
     CsvInputFilesBeforeFilter = uigetdir(pwd,'Select the output folder where your filtered CSV files will be placed.' );
     %% ComparisonEngine Files
+
+    msgbox('If you are running either multiple instances of WSL (on WSL2) or using WSL1 then, please set the default distribution where frustratometeR is installed (option available only in WSL2) or input the name of your distribution into the command window.', 'PERCEPTRON-XFMS', 'modal');
+    DistributionName = string(input('Please enter your distribution name (case sensitive): ', 's'));
+
+
 end
 
 
@@ -239,10 +244,11 @@ if (isBridgeEnabled == "True")
     InitializeAndCallBridge(WorkingDirPath, PythonExeFolder, PythonExePath, BridgePyFolder, InputParamForBridge2, PDBFullFileName, BridgeOutputResults);
 end
 
+
 if (isFrustratometerEnabled == "True")
 
     %Initialize & Calling FrustratormeteR using WSL cmd
-    InitializeAndCallfrustratometeR(WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain, ResultFolderName);
+    InitializeAndCallfrustratometeR(DistributionName, WorkingDirPath, FullNameoffrustratometeRFile, frustratometerFolder, PDBFullFileName, QueryResultFullPath, PdbChain, ResultFolderName);
 
 end
 
