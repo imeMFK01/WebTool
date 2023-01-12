@@ -99,13 +99,13 @@ export class CentralityComponent implements OnInit {
       IterSeq = IterSeq + 10;
     }
 
-    // this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
+    this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
     // let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
     // ProteinHeader.innerHTML = this.FastaHeader;
 
     let sequence = <HTMLLabelElement>document.getElementById("sequence");
     sequence.innerHTML = this.ProteinSequenceForDisplay;
-    
+
     let PositionArraySeq = <HTMLLabelElement>document.getElementById("PositionArraySeq");
     PositionArraySeq.innerHTML = this.PositionArray;
 
