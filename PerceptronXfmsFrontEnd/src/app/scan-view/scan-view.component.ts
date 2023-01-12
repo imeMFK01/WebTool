@@ -140,9 +140,6 @@ export class ScanViewComponent implements OnInit {
       this.UserType = "Guest User";
       this.UserEmailId = "N/A";
     }
-
-
-
   }
 }
 
