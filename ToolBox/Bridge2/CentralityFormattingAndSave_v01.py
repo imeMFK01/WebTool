@@ -56,24 +56,6 @@ def CentralityFormattingAndSave(centralities, MyResultsFile):
    table.columns=['degree_normalized_averaged', 'degree_not-normalized_averaged', 'degree_normalized_not-averaged', 'degree_not-normalized_not-averaged',
                'betweenness_normalized_averaged', 'betweenness_not-normalized_averaged', 'betweenness_normalized_not-averaged', 'betweenness_not-normalized_not-averaged']
    table = table.iloc[1: , :]
-   #table
-   #table.to_excel(MyResultsFile)
-   length = len(table)
-   col1=[' ']* length
-   col2=[' ']* length
-   col3=[' ']* length
-   for x in range(length):
-      row=table.index[x]
-      ff=row.split('-')
-      col1[x]=ff[0]
-      col2[x]=ff[1]
-      col3[x]=ff[2]
-   import numpy as np
-   percentile_list = pd.DataFrame(np.column_stack([col1, col2, col3]), 
-                                 columns=['Chain', 'Residue', 'Location'])
-   percentile_list
-   tableV2=table.reset_index(drop=True)
-   CompleteTab= pd.concat([percentile_list,tableV2], axis=1)
-   CompleteTab
-   #filename='centrality.xlsx'
-   CompleteTab.to_excel(MyResultsFile)
+   table
+
+   table.to_excel(MyResultsFile)

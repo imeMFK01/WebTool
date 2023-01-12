@@ -52,11 +52,44 @@
     </ng-container>
 
     <!-- ChainResPos Column -->
-    <ng-container matColumnDef="ChainResPos">
+    <!-- <ng-container matColumnDef="ChainResPos">
       <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Chain Residue Position 
       </mat-header-cell>
       <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.ChainResPos}} </mat-cell>
+    </ng-container> -->
+
+
+
+    <!-- Chain Column -->
+    <ng-container matColumnDef="Chain">
+      <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Chain  
+      </mat-header-cell>
+      <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.Chain}} </mat-cell>
     </ng-container>
+
+<!-- Residue Column -->
+<ng-container matColumnDef="Residue">
+  <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Residue 
+  </mat-header-cell>
+  <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.Residue}} </mat-cell>
+</ng-container>
+
+<!-- ResiduePosition Column -->
+<ng-container matColumnDef="ResiduePosition">
+  <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:14px; color: rgb(20, 20, 20);"> Position 
+  </mat-header-cell>
+  <mat-cell style="cursor: pointer;" *matCellDef="let row"> {{row.ResPosition}} </mat-cell>
+</ng-container>
+
+
+
+
+
+
+
+
+
+
 
     <!-- DegreeNormalizedAveraged Column -->
     <ng-container matColumnDef="DegreeNormalizedAveraged">

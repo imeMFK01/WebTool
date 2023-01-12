@@ -20,7 +20,7 @@ export class CentralityComponent implements OnInit {
   FastaHeaderWithLink: any;
 
   querryId: any;
-  displayedColumns = ['Serial', 'ChainResPos', 'DegreeNormalizedAveraged', 'DegreeNot-NormalizedAveraged', 'DegreeNormalizedNotAveraged', 'DegreeNotNormalizedNotAveraged', 'BetweennessNormalizedAveraged', 'BetweennessNotNormalizedAveraged', 'BetweennessNormalizedNotAveraged', 'BetweennessNotNormalizedNotAveraged'];
+  displayedColumns = ['Serial', 'Chain', 'Residue', 'ResiduePosition', 'DegreeNormalizedAveraged', 'DegreeNot-NormalizedAveraged', 'DegreeNormalizedNotAveraged', 'DegreeNotNormalizedNotAveraged', 'BetweennessNormalizedAveraged', 'BetweennessNotNormalizedAveraged', 'BetweennessNormalizedNotAveraged', 'BetweennessNotNormalizedNotAveraged'];
   CentralityDataValueObj = [];
   dataSource: MatTableDataSource<CentralityDataValue>;
 
@@ -86,7 +86,7 @@ export class CentralityComponent implements OnInit {
     //ResultsBridge.xlsx
     for (let Row = 0; Row < CentralityData.length; Row++) {
       let temp = new CentralityDataValue((Row + 1).toString(), CentralityData[Row][0], CentralityData[Row][1], CentralityData[Row][2], CentralityData[Row][3],
-        CentralityData[Row][4], CentralityData[Row][5], CentralityData[Row][6], CentralityData[Row][7], CentralityData[Row][8]);
+        CentralityData[Row][4], CentralityData[Row][5], CentralityData[Row][6], CentralityData[Row][7], CentralityData[Row][8], CentralityData[Row][9], CentralityData[Row][10]);
       this.CentralityDataValueObj.push(temp);
     }
     this.dataSource = new MatTableDataSource(this.CentralityDataValueObj);
@@ -110,7 +110,9 @@ export class CentralityComponent implements OnInit {
 
 export class CentralityDataValue {
   RowNo: string;
-  ChainResPos: string;
+  Chain:string;
+  Residue:string;
+  ResPosition: string;
   DegreeNormAvg: string;
   DegreeNotNormAvg: string;
   DegreeNormNotAvg: string;
@@ -120,9 +122,11 @@ export class CentralityDataValue {
   BetNormNotAvg: string;
   BetNotNormNotAvg: string;
 
-  constructor(cRowNo, cChainResPos, cDegreeNormAvg, cDegreeNotNormAvg, cDegreeNormNotAvg, cDegreeNotNormNotAvg, cBetNormAvg, cBetNotNormAvg, cBetNormNotAvg, cBetNotNormNotAvg) {
+  constructor(cRowNo, cChain, cResidue, cResPosition , cDegreeNormAvg, cDegreeNotNormAvg, cDegreeNormNotAvg, cDegreeNotNormNotAvg, cBetNormAvg, cBetNotNormAvg, cBetNormNotAvg, cBetNotNormNotAvg) {
     this.RowNo = cRowNo;
-    this.ChainResPos = cChainResPos;
+    this.Chain = cChain;
+    this.Residue = cResidue;
+    this.ResPosition = cResPosition;
     this.DegreeNormAvg = cDegreeNormAvg;
     this.DegreeNotNormAvg = cDegreeNotNormAvg;
     this.DegreeNormNotAvg = cDegreeNormNotAvg;
