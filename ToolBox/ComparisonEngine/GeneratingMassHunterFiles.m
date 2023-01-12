@@ -8,7 +8,7 @@
 %                         (safee.ullah@gmail.com)                         %
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function GeneratingMassHunterFiles(RepArr, MascotFile,OutputDir) 
+function GeneratingMassHunterFiles(RepArr, MascotFile,OutputDir)
 SequenceColumn= MascotFile(2:length(MascotFile),23)
 UniqueSequence=unique(SequenceColumn)
 
@@ -25,12 +25,12 @@ dirFlags = [files.isdir];
 Replicates = files(dirFlags); % A structure with extra info.
 
 AllReplicate = {};
-for number=1: size(RepArr,1)   %Updated 202201101958     %Commented     size(Replicates,1)
-    CurrentReplicate = RepArr(number);
-% %     CurrentReplicate = Replicates(number).name;
-% %     if(strcmp (CurrentReplicate, '.') || isempty(CurrentReplicate) || strcmp (CurrentReplicate, '..'))
-% %         %do nothing
-% %     else
+for number=1: size(Replicates,1)
+
+    CurrentReplicate = Replicates(number).name;
+    if(strcmp (CurrentReplicate, '.') || isempty(CurrentReplicate) || strcmp (CurrentReplicate, '..'))
+        %do nothing
+    else
         AllReplicate = [AllReplicate; CurrentReplicate];
 
         %1. Go into directory of Peptide and find the sub directories of
@@ -146,16 +146,16 @@ for number=1: size(RepArr,1)   %Updated 202201101958     %Commented     size(Rep
                                 mkdir(strcat(OutputDir,'\EIC_Result','\',currentpeptide));
                             end
 
-                         
+
                             if ~isfolder(strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicate))
                                 mkdir(strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicate));
                             end
-ResultDir= strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicate,'\');
+                            ResultDir= strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicate,'\');
                             Filename= Dose+"_"+mzvalue+'.xlsx'
-                           Header= {'MASSHunter m/z','MASSHunter Intensity','MASSHunter RT'}
+                            Header= {'MASSHunter m/z','MASSHunter Intensity','MASSHunter RT'}
                             xlswrite(ResultDir+Filename,new, 'Sheet1', 'A2');
                             xlswrite(ResultDir+Filename ,Header, 'Sheet1', 'A1');
-                           
+
                         else
                             %donothing
                         end
@@ -172,7 +172,7 @@ ResultDir= strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicat
                         end
                         %id=find(contains(string(MassHunterData(:,4)),mzvalue))
                         new=MassHunterData(find(contains(string(MassHunterData(:,1)),mzvalue)),:)
-                              if ~isempty(new)
+                        if ~isempty(new)
                             if ~isfolder(strcat(OutputDir,'\\EIC_Result'))
                                 mkdir(strcat(OutputDir,'\\EIC_Result'));
                             end
@@ -183,17 +183,17 @@ ResultDir= strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicat
                                 mkdir(strcat(OutputDir,'\EIC_Result','\',currentpeptide));
                             end
 
-                         
+
                             if ~isfolder(strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicate))
                                 mkdir(strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicate));
                             end
-ResultDir= strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicate,'\');
-                           
+                            ResultDir= strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicate,'\');
+
                             Filename= Dose+"_"+mzvalue+'.xlsx'
                             Header= {'MASSHunter m/z','MASSHunter Intensity','MASSHunter RT'}
                             xlswrite(ResultDir+Filename,new, 'Sheet1', 'A2');
                             xlswrite(ResultDir+Filename ,Header, 'Sheet1', 'A1');
-                            
+
                         else
                             % donothing
                         end
@@ -203,7 +203,7 @@ ResultDir= strcat(OutputDir,'\EIC_Result','\',currentpeptide,'\',CurrentReplicat
             end
 
         end
-% %     end
+    end
 end
 
 
