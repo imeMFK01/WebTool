@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System;
 
+using PerceptronXfmsAPI.Utility;
+
 namespace PerceptronXfmsAPI.Controllers
 {
     public class HomeController : ApiController
@@ -14,6 +16,7 @@ namespace PerceptronXfmsAPI.Controllers
         [System.Web.Http.Route("")]
         public HttpResponseMessage Index()
         {
+            //new UniprotApi().GetAndPrepareUniprotData("P0AE67");
             return new HttpResponseMessage()
             {
                 Content = new StringContent(

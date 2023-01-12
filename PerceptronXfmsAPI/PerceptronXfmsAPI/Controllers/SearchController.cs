@@ -55,6 +55,8 @@ namespace PerceptronXfmsAPI.Controllers
         {
             //CreateDirectory();
             _dataLayer = new SqlDatabase();
+
+            //new UniprotApi().GetAndPrepareUniprotData("P0AE67");
             //ReadPDBFile();
         }
 
@@ -299,7 +301,12 @@ namespace PerceptronXfmsAPI.Controllers
             return ListOfBlobs;
         }
 
+        
+        public void CallUniprotApiForData()
+        {
 
+
+        }
 
 
 

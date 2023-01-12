@@ -368,6 +368,7 @@
     <Compile Include="Utility\DBErrorException.cs" />
     <Compile Include="Utility\FileToBlob.cs" />
     <Compile Include="Utility\SendingEmail.cs" />
+    <Compile Include="Utility\UniprotApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
