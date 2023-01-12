@@ -12,7 +12,7 @@ namespace PerceptronXfmsAPI.Engine
         public ResultFileDto ResultFilesWrite(ScanResultsDownloadDataDto ScanData, string filePath, int indexofFile, ScanInputDataDto ScanInputDataInfo)
         {
             List<string> AllResultFilesNames = new List<string>();
-            var TopProteinOfResultFile = new List<ProteinDto>();
+            var TopProteinOfResultFile = new List<ProteinDtoOld>();
             
 
 
@@ -41,7 +41,7 @@ namespace PerceptronXfmsAPI.Engine
         }
 
         public string WriteSingleResultsFile(ScanResultsDownloadDataDto ScanData, SearchParameter SearchParameters, string filePath, string IndividualFileId, string IndividualNameOfFile, string IndividualUniqueFileName, 
-            List<ProteinDto> TopProteinsOfEachFile)
+            List<ProteinDtoOld> TopProteinsOfEachFile)
         {
             //var currentdirectory = Directory.GetCurrentDirectory();
 
@@ -114,7 +114,7 @@ namespace PerceptronXfmsAPI.Engine
                     if (ResultsData.ProteinRank == 1)   //Collecting Data for Batch File (*.csv). Each Files' Top Protein which will be written there
                     {
                         isEmptyFile = "FileIsNotEmpty"; //Setting Flag that File contains some data...
-                        var tempTopProtein = new ProteinDto(Path.GetFileName(IndividualNameOfFile), ResultsData.Header, ResultsData.TerminalModification, ResultsData.Sequence, ResultsData.TruncationSite,
+                        var tempTopProtein = new ProteinDtoOld(Path.GetFileName(IndividualNameOfFile), ResultsData.Header, ResultsData.TerminalModification, ResultsData.Sequence, ResultsData.TruncationSite,
                             ResultsData.TruncationIndex, ResultsData.Score, ResultsData.Mw, NoOfPtmModifications, Matches, ElapsedTime, ResultsData.Evalue);
                         TopProteinsOfEachFile.Add(tempTopProtein);  
                     }
@@ -131,7 +131,7 @@ namespace PerceptronXfmsAPI.Engine
         }
 
 
-        public string WriteBatchResultsFile(string FileWithPath, List<ProteinDto> TopProteinsOfEachFile)
+        public string WriteBatchResultsFile(string FileWithPath, List<ProteinDtoOld> TopProteinsOfEachFile)
         {
 
             //string FileWithPath = filePath + NameofFile;

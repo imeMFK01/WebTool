@@ -13,6 +13,7 @@ namespace PerceptronXfmsSimulationService.Utilities
         
         public ProteinDto FetchFastaInfo(string FastaFullFileName)
         {
+            var _ProteinDto = new ProteinDto();
             try
             {
                 //Stopwatch Time = Stopwatch.StartNew();
@@ -30,8 +31,8 @@ namespace PerceptronXfmsSimulationService.Utilities
                 string NextLine = ReadPeripheralFastaFile.ReadLine();
 
                 string tempHeader;
-                string tempFastaHeader;
-                string tempSequence;
+                string tempFastaHeader = "";
+                string tempSequence = "";
 
                 int FileReadingIteration = 0;
 
@@ -93,10 +94,11 @@ namespace PerceptronXfmsSimulationService.Utilities
                 //GetConnectionString(FastaProteinInfo, DatabaseToBeUpdated);   //ITS HEALTHY
 
                 FastaFile.Close();
-                //Time.Stop();
-                int delme = 1;
 
-                return new ProteinDto();// FastaProteinInfo;
+                _ProteinDto.ProteinHeader = tempFastaHeader;
+                _ProteinDto.ProteinSequence = tempSequence;
+
+                return _ProteinDto;// FastaProteinInfo;
             }
             catch (Exception e)
             {

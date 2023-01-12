@@ -12,6 +12,20 @@ namespace PerceptronXfmsAPI.Utility
 {
     public class UniprotApi
     {
+        public string ExtractProteinHeader(string FastaFileInfo)
+        {
+            string ProteinHeader = JsonConvert.DeserializeObject<ProteinDto>(FastaFileInfo).ProteinHeader;
+
+            int FirstVerticalBar = ProteinHeader.IndexOf("|");              //Updated 20201215 
+            int SecondVerticalBar = ProteinHeader.IndexOf("|", FirstVerticalBar + 1);              //Updated 20201215 
+
+            ProteinHeader = ProteinHeader.Substring(FirstVerticalBar + 1, SecondVerticalBar - FirstVerticalBar - 1);
+
+            return ProteinHeader;
+        }
+
+
+
 
         public UniProtDto GetAndPrepareUniprotData(string ProteinHeader)
         {
@@ -19,23 +33,20 @@ namespace PerceptronXfmsAPI.Utility
             string DataObject = GetUniprotData(ProteinHeader);
 
             var UniProtObj = new UniProtDto();
+            UniProtObj.PrimaryAccessionNo = ProteinHeader;
+
             if (DataObject != null)
             {
-                UniProtObj = PrepareUniprotInfo(DataObject);
-            }
-            else
-            {
-                UniProtObj = null;
+                UniProtObj = PrepareUniprotInfo(DataObject, UniProtObj);
+                UniProtObj.CheckDataFetched = "True";
             }
             return UniProtObj;
         }
 
 
 
-        public UniProtDto PrepareUniprotInfo(string DataObject)
+        public UniProtDto PrepareUniprotInfo(string DataObject, UniProtDto UniProtObj)
         {
-            var UniProtObj = new UniProtDto();
-
             string LineStart = "ID   ";
             int MainHeaderStartIndex = DataObject.IndexOf(LineStart);
             int MainHeaderEndIndex = DataObject.IndexOf("              Reviewed;");
@@ -78,9 +89,7 @@ namespace PerceptronXfmsAPI.Utility
 
             length = OrganismNameEndIndex - (OrganismNameStartIndex + OrganismNameStart.Length);
             UniProtObj.OrganismName = DataObject.Substring(OrganismNameStartIndex + OrganismNameStart.Length, length);
-
-
-            int a = 1;
+            
             return UniProtObj;
         }
 

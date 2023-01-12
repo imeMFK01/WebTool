@@ -7,10 +7,10 @@ namespace PerceptronXfmsAPI.Models
 {
     public class ResultFileDto
     {
-        public List<ProteinDto> TopProteinOfResultFile = new List<ProteinDto>();
+        public List<ProteinDtoOld> TopProteinOfResultFile = new List<ProteinDtoOld>();
         public string ResultFileName;
 
-        public ResultFileDto(List<ProteinDto> cTopProteinOfResultFile, string cResultFileName)
+        public ResultFileDto(List<ProteinDtoOld> cTopProteinOfResultFile, string cResultFileName)
         {
             TopProteinOfResultFile = cTopProteinOfResultFile;
             ResultFileName = cResultFileName;

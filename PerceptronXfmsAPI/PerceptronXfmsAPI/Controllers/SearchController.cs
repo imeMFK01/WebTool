@@ -274,7 +274,12 @@ namespace PerceptronXfmsAPI.Controllers
         //public string GetDetailedPFResults()
         {
             var DetailedCentrality = _dataLayer.FetchResultsCentrality(QueryID);
-            DetailedCentrality.UniProtObj = new UniprotApi().GetAndPrepareUniprotData("P0AE67");
+
+            string ProteinHeader = new UniprotApi().ExtractProteinHeader(DetailedCentrality.FastaFileInfo);
+
+            
+
+            DetailedCentrality.UniProtObj = new UniprotApi().GetAndPrepareUniprotData(ProteinHeader);
 
             return DetailedCentrality;
         }
@@ -295,13 +300,6 @@ namespace PerceptronXfmsAPI.Controllers
             }
 
             return ListOfBlobs;
-        }
-
-        
-        public void CallUniprotApiForData()
-        {
-
-
         }
 
 

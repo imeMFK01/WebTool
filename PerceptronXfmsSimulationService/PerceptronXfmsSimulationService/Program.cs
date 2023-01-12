@@ -59,7 +59,7 @@ namespace PerceptronXfmsSimulationService
 
                 var _FastaReader = new FastaReader();
 
-                //var Prot = _FastaReader.FetchFastaInfo(QueryResultFullPath + "\\" + FastaFile);
+                var ProteinInfo = _FastaReader.FetchFastaInfo(QueryResultFullPath + "\\" + FastaFile);
 
 
                 string ZippingFileName = "";
@@ -73,11 +73,11 @@ namespace PerceptronXfmsSimulationService
                 //} };
 
 
-                var ProteinInfo = new ProteinDto()    //Creating List Just to avoid Front end parsing errors
-                { 
-                    ProteinHeader = "P0AE67",
-                    ProteinSequence = "ADKELKFLVVDDFSTMRRIVRNLLKELGFNNVEEAEDGVDALNKLQAGGYGFVISDWNMPNMDGLELLKTIRADGAMSALPVLMVTAEAKKENIIAAAQAGASGYVVKPFTAATLEEKLNKIFEKLGM"
-                };
+                //var ProteinInfo = new ProteinDto()    //Creating List Just to avoid Front end parsing errors
+                //{ 
+                //    ProteinHeader = "P0AE67",
+                //    ProteinSequence = "ADKELKFLVVDDFSTMRRIVRNLLKELGFNNVEEAEDGVDALNKLQAGGYGFVISDWNMPNMDGLELLKTIRADGAMSALPVLMVTAEAKKENIIAAAQAGASGYVVKPFTAATLEEKLNKIFEKLGM"
+                //};
 
                 //////////////////////////
                 //var test = new FetchPathsForFrustratometerResults().FetchFilePathsOfFrustratometerResults(QueryResultFullPath, FrustratometerFolder, FrustratometerImageResultsFolder);
@@ -85,6 +85,7 @@ namespace PerceptronXfmsSimulationService
                 //////////////////////////////////
 
                 ResultsSaveDbObj.FastaFileInfo = JsonConvert.SerializeObject(ProteinInfo);
+                
 
                 CompileResultsforDownAndVisualize(QueryResultFullPath, Title, QueryID, ref ZippingFileName, ResultsSaveDbObj, isBridgeEnabled, isFrustratometerEnabled);
 
