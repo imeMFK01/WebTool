@@ -8,7 +8,7 @@
 %                         (safee.ullah@gmail.com)                         %
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function MainCalculation(MascotFile,OutputDir,wholeSeq,FileSASA,PDBFile, LocalDeployment)
+function MainCalculation(MascotFile,ComparisonEngineOutDir,wholeSeq,FileSASA,PDBFile, LocalDeployment)
 % This function reads the following Input Files:
 % 1. Folder containing mass hunter files for each peptide
 % 2. Mascot file
@@ -25,7 +25,7 @@ function MainCalculation(MascotFile,OutputDir,wholeSeq,FileSASA,PDBFile, LocalDe
 % 4: Peak split  information
 % 5: Oxidized residues
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+OutputDir = ComparisonEngineOutDir;
 ProjectData = strcat(OutputDir,'\EIC_Result','\');
 %%%%%%%%%%%%%%%%%% Reading MassHunter  files
 %ProjectData = uigetdir(pwd,'Select a folder which contains MassHunter Data files' );

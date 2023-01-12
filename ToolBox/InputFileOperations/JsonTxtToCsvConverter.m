@@ -62,7 +62,7 @@ for number_of_list= 1: length(FilesInfo)
                 MzValue = Masses(iter);
                 IntValue = Intensities(iter);
                 RTmin = RTsec/60;
-                writematrix([MzValue, RTmin, IntValue], OutputFile, 'WriteMode', 'append');
+                writematrix([MzValue, IntValue, RTmin], OutputFile, 'WriteMode', 'append');   %Updated 202301121608
                 % append it transposed to 'magic.txt'
                 %mex_WriteMatrix(OutputFile,[RTsec, MzValue, IntValue, RTmin],'%d',',','a+');
             end
