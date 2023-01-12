@@ -25,22 +25,40 @@
         </div>
       </mat-grid-tile> -->
 
-      <mat-grid-tile colspan="2" rowspan="1">
-        <div style="padding-left:0px; width:70%">
+      <mat-grid-tile colspan="2" rowspan="2">
+        <div style="padding-left:0px; width:60%">
         <img src="assets/images/UniProt_Logo.png">
       </div>
       </mat-grid-tile>
       <mat-grid-tile colspan="11" rowspan="1" style="text-align: left;"></mat-grid-tile>
-
-
-      <mat-grid-tile colspan="1" rowspan="1" style="text-align: left;"></mat-grid-tile>
-      <mat-grid-tile colspan="12" rowspan="1" style="text-align: left;">
+      <mat-grid-tile colspan="11" rowspan="1">
         <div style="padding-left:5px; width:100%">
           <p style="font-weight: bolder">
             
             
-            <u><a style="font-size:210%;" href={{FastaHeaderWithLink}}>{{FastaHeader}}</a></u> <span style ="font-size:250%; color: black;"> |  </span>
-            <span style ="font-size:150%; color: blue;">{{this.MainHeaderInfo}}</span>
+            <u><a style="font-size:100%;" href={{FastaHeaderWithLink}}>{{FastaHeader}}</a></u> <span style ="font-size:150%; color: black;"> |  </span>
+            <span style ="font-size:100%; color: blue;">{{this.MainHeaderInfo}}</span>
+          </p>
+        </div>
+      </mat-grid-tile>
+
+
+
+      <mat-grid-tile colspan="1" rowspan="1" style="text-align: left;"></mat-grid-tile>
+      <mat-grid-tile colspan="5" rowspan="1" style="text-align: left;">
+        <div style="padding-left:5px; ; width:100%">
+          <p style="text-align: left;">
+            <span style ="font-size:100%; font-weight: bolder; color: black;">Protein Name<span style ="font-size:150%;"> |  </span></span>
+            <span style ="font-size:100%;">{{this.ProteinName}}</span>
+          </p>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="7" rowspan="1" style="text-align: left;">
+        <div style="padding-left:5px; ; width:100%">
+          <p style="text-align: left;">
+            <span style ="font-size:100%; font-weight: bolder; color: black;">Gene Name<span style ="font-size:150%;"> |  </span></span>
+            <span style ="font-size:100%;">{{this.GeneName}}</span>
           </p>
         </div>
       </mat-grid-tile>
@@ -48,37 +66,18 @@
       <mat-grid-tile colspan="1" rowspan="1" style="text-align: left;"></mat-grid-tile>
       <mat-grid-tile colspan="5" rowspan="1" style="text-align: left;">
         <div style="padding-left:5px; ; width:100%">
-          <p>
-            <span style ="font-size:150%; font-weight: bolder; color: black;">Protein Name<span style ="font-size:150%;"> |  </span></span>
-            <span style ="font-size:150%;">{{this.ProteinName}}</span>
+          <p style="text-align: left;">
+            <span style ="font-size:100%;font-weight: bolder; color: black;">Organism Name<span style ="font-size:150%;"> |  </span></span>
+            <span style ="font-size:100%;">{{this.OrganismName}}</span>
           </p>
         </div>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="7" rowspan="1" style="text-align: left;">
         <div style="padding-left:5px; ; width:100%">
-          <p>
-            <span style ="font-size:150%; font-weight: bolder; color: black;">Gene Name<span style ="font-size:150%;"> |  </span></span>
-            <span style ="font-size:150%;">{{this.GeneName}}</span>
-          </p>
-        </div>
-      </mat-grid-tile>
-
-      <mat-grid-tile colspan="1" rowspan="1" style="text-align: left;"></mat-grid-tile>
-      <mat-grid-tile colspan="5" rowspan="1" style="text-align: left;">
-        <div style="padding-left:5px; ; width:100%">
-          <p >
-            <span style ="font-size:150%;font-weight: bolder; color: black;">Organism Name<span style ="font-size:150%;"> |  </span></span>
-            <span style ="font-size:150%;">{{this.OrganismName}}</span>
-          </p>
-        </div>
-      </mat-grid-tile>
-
-      <mat-grid-tile colspan="7" rowspan="1" style="text-align: left;">
-        <div style="padding-left:5px; ; width:100%">
-          <p>
-            <span style ="font-size:150%; font-weight: bolder; color: black;">Amino Acids<span style ="font-size:150%;"> |  </span></span>
-            <span style ="font-size:150%;">{{this.NoOfAminoAcids}}</span>
+          <p style="text-align: left;">
+            <span style ="font-size:100%; font-weight: bolder; color: black;">Amino Acids<span style ="font-size:150%;"> |  </span></span>
+            <span style ="font-size:100%;">{{this.NoOfAminoAcids}}</span>
           </p>
         </div>
       </mat-grid-tile>
