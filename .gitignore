@@ -48,3 +48,5 @@ PerceptronXfmsSimulationService/.vs/
 *.ide-wal
 PerceptronXfmsAPI.dll
 PerceptronXfmsAPI.pdb
+*.ide-wal
+*.ide-shm
