@@ -274,13 +274,9 @@ namespace PerceptronXfmsAPI.Controllers
         //public string GetDetailedPFResults()
         {
             var DetailedCentrality = _dataLayer.FetchResultsCentrality(QueryID);
-            return DetailedCentrality;
-            
+            DetailedCentrality.UniProtObj = new UniprotApi().GetAndPrepareUniprotData("P0AE67");
 
-            //string text = File.ReadAllText(@"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\Modifiedchey.pdb");
-            //return text;
-            ////string jsonString = JsonConvert.SerializeObject(text);
-            ////return jsonString;
+            return DetailedCentrality;
         }
 
         [HttpPost]

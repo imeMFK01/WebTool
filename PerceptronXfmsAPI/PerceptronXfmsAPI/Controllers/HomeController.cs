@@ -16,7 +16,6 @@ namespace PerceptronXfmsAPI.Controllers
         [System.Web.Http.Route("")]
         public HttpResponseMessage Index()
         {
-            //new UniprotApi().GetAndPrepareUniprotData("P0AE67");
             return new HttpResponseMessage()
             {
                 Content = new StringContent(
