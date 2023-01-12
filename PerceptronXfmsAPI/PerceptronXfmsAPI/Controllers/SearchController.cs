@@ -259,6 +259,10 @@ namespace PerceptronXfmsAPI.Controllers
             DetailProtectionFactor.SasaFileBlob = new FileToBlob().FileToBlobConverter(DetailProtectionFactor.SasaMainImageFile);
             DetailProtectionFactor.SasaMainImageFile = "";
 
+            string ProteinHeader = new UniprotApi().ExtractProteinHeader(DetailProtectionFactor.FastaFileInfo);
+
+            DetailProtectionFactor.UniProtObj = new UniprotApi().GetAndPrepareUniprotData(ProteinHeader);
+
             return DetailProtectionFactor;
 
             //string text = File.ReadAllText(@"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\Modifiedchey.pdb");

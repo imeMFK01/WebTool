@@ -19,15 +19,12 @@ export class CentralityComponent implements OnInit {
   LineSeqPatchSize = 60;
   FastaHeaderWithLink: any;
 
-
-  //MainHeader: any;
-
-
-
-
-
-
-
+  MainHeaderInfo:string= "";
+  ProteinName: string = "";
+  GeneName: string = "";
+  NoOfAminoAcids: string = "";
+  OrganismName: string = "";
+  PositionArray:string = "";
 
   querryId: any;
   displayedColumns = ['Serial', 'Chain', 'Residue', 'ResiduePosition', 'DegreeNormalizedAveraged', 'DegreeNot-NormalizedAveraged', 'DegreeNormalizedNotAveraged', 'DegreeNotNormalizedNotAveraged', 'BetweennessNormalizedAveraged', 'BetweennessNotNormalizedAveraged', 'BetweennessNormalizedNotAveraged', 'BetweennessNotNormalizedNotAveraged'];
@@ -43,13 +40,7 @@ export class CentralityComponent implements OnInit {
   }
 
 
-  MainHeaderInfo:string= "";
-
-
-  ProteinName: string = "";
-  GeneName: string = "";
-  NoOfAminoAcids: string = "";
-  OrganismName: string = "";
+ 
 
 
   what(data) {
@@ -63,10 +54,7 @@ export class CentralityComponent implements OnInit {
     this.FastaHeader = data.UniProtObj.PrimaryAccessionNo; //FastaFile.ProteinHeader;
     this.ProteinSequence = FastaFile.ProteinSequence;
 
-
-
     //Data of Uniprot info
-
     if (data.UniProtObj.CheckDataFetched == "True")
     {
       this.MainHeaderInfo = data.UniProtObj.MainHeaderInfo;
@@ -74,26 +62,7 @@ export class CentralityComponent implements OnInit {
       this.GeneName = data.UniProtObj.GeneName;
       this.NoOfAminoAcids = data.UniProtObj.NoOfAminoAcids;
       this.OrganismName = data.UniProtObj.OrganismName;
-
-
-
-
-
-      // let MainHeader = <HTMLLabelElement>document.getElementById("MainHeader");
-      // MainHeader.innerHTML = this.FastaHeader + "·" + data.UniProtObj.MainHeaderInfo;
-
-
-
-
-      let wait = 1;
-
     }
-
-
-
-
-
-
 
     let IterSeq = 0;
     let loopIsTrue = true;
@@ -105,7 +74,8 @@ export class CentralityComponent implements OnInit {
         start = IterSeq;
         end = this.SeqPatchSize;
 
-        this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
+        this.ProteinSequenceForDisplay =  "&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
+        this.PositionArray = this.PositionArray + (IterSeq + 1).toString() + "." + "<br/>";
       }
       else {
         start = IterSeq;
@@ -116,7 +86,8 @@ export class CentralityComponent implements OnInit {
 
         //let Patch =  this.LineSeqPatchSize - 1;
         if (IterSeq % this.LineSeqPatchSize == 0) {
-          this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;"
+          this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + "&nbsp;&nbsp;&nbsp;&nbsp;"
+          this.PositionArray = this.PositionArray + (IterSeq + 1).toString() + "." + "<br/>";
         }
         this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
 
@@ -128,12 +99,15 @@ export class CentralityComponent implements OnInit {
       IterSeq = IterSeq + 10;
     }
 
-    this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
-    let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
-    ProteinHeader.innerHTML = this.FastaHeader;
+    // this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
+    // let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
+    // ProteinHeader.innerHTML = this.FastaHeader;
 
     let sequence = <HTMLLabelElement>document.getElementById("sequence");
     sequence.innerHTML = this.ProteinSequenceForDisplay;
+    
+    let PositionArraySeq = <HTMLLabelElement>document.getElementById("PositionArraySeq");
+    PositionArraySeq.innerHTML = this.PositionArray;
 
     //ResultsBridge.xlsx
     for (let Row = 0; Row < CentralityData.length; Row++) {
@@ -191,3 +165,42 @@ export class CentralityDataValue {
   }
 
 }
+
+
+
+
+
+
+
+
+
+// while (loopIsTrue) {
+//   let start; //= IterSeq;
+//   let end; //= this.SeqPatchSize;
+
+//   if (IterSeq == 0) {
+//     start = IterSeq;
+//     end = this.SeqPatchSize;
+
+//     this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
+//   }
+//   else {
+//     start = IterSeq;
+//     end = start + this.SeqPatchSize;
+
+
+
+
+//     //let Patch =  this.LineSeqPatchSize - 1;
+//     if (IterSeq % this.LineSeqPatchSize == 0) {
+//       this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;"
+//     }
+//     this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
+
+//     if (this.ProteinSequence.length < end) {
+//       break;
+//     }
+
+//   }
+//   IterSeq = IterSeq + 10;
+// }

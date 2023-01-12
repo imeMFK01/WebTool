@@ -19,15 +19,17 @@
             </li>
             <li>Browse for the zipped folder containing following input data files:
                 <ul>
-                    <dd><b>-</b> Protein sequence file in standard .fasta format.</dd>
-                    <dd><b>-</b> Protein structure file in standard .pdb format.</dd>
+                    <dd><b>-</b> Protein sequence file in standard .fasta<span style="font-size:15px; font-weight: bold; color: red">* **</span> format.</dd>
+                    <dd><b>-</b> Protein structure file in standard .pdb<span style="font-size:15px; font-weight: bold; color: red">**</span>  format.</dd>
                     <dd><b>-</b> Mascot file in .xlsx format.</dd>
-                    <dd><b>-</b> SASA file in ‘.xlsx’ format.</dd>
+                    <dd><b>-</b> SASA<span style="font-size:15px; font-weight: bold; color: red">**</span> file in ‘.xlsx’ format.</dd>
                     <dd><b>-</b> DoseResposeInfo.txt files that contain the information regarding the X-ray doses used in
                         experimental protocol.</dd>
                 </ul>
             </li>
         </ul>
+        <label style="font-size:14px; color: red"><span style="font-size:15px; font-weight: bold;">*</span> Fasta file should be into the Uniport format</label>
+        <label style="font-size:14px; color: red"><span style="font-size:15px; font-weight: bold;">**</span> Fasta, PDB, and SASA files must have same residue information.</label>
         <a style="margin-top:20px; font-size:14px; font-weight:700; color: red">Note:</a> <a
             style="font-size:14px; color:red">Users logging in via Guest Account can provide email address to receive
             results on
@@ -42,7 +44,7 @@
             style="vertical-align: text-bottom;">save_alt</i></a>
 
         <ul>
-            <li>For Replicate 1: Browse for the folder containing Agilent LC-MS “.d” data files or .mzXML files . Add a
+            <li>For Replicate<span style="font-size:15px; font-weight: bold; color: red">*</span> 1: Browse for the folder containing Agilent LC-MS “.d” data files or .mzXML files . Add a
                 zipped
                 folder with multiple files (zipped .d or .mzXML files) of a single protein to search.</li>
 
@@ -53,6 +55,8 @@
         or “*.mzXML” files must strictly follow the same naming structure i.e., “Dose0.d”, “Dose10.d” or “Dose0.mzXML”
         etc.
 <br>
+<label style="margin-top:20px; font-size:14px; color: red"><span style="font-size:15px; font-weight: bold;">*</span> For optimal results please use atleast 5 doses for each replicate.</label>
+
         <a style="margin-top:20px; font-size:14px; font-weight:700; color: red">Note:</a> <a
             style="font-size:14px; color:red">Please do not refresh the page or close the tab in middle of data uploading.</a>
 

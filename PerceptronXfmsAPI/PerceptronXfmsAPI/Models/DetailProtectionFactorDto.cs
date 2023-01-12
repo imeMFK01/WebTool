@@ -11,5 +11,6 @@ namespace PerceptronXfmsAPI.Models
         public string SasaMainImageFile;
         public byte[] SasaFileBlob;
         public string FastaFileInfo;
+        public UniProtDto UniProtObj;
     }
 }

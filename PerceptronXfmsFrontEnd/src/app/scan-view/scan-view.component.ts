@@ -105,21 +105,45 @@ export class ScanViewComponent implements OnInit {
     }
   }
 
+  JobTitle: any;
+  JobSubmissionTime: any;
+  UserType: any;
+  UserEmailId: any;
+  isBridgeEnabled: string = "Disabled";
+  isFrustratometerEnabled: string = "Disabled";
+  Progress: any;
+  
 
   what(data: any) {
-    
+
     this.isBridgeResultsAvailable = data.SearchXfmsQuery.isBridgeEnabled;
     this.isFrustratometerResultsAvailable = data.SearchXfmsQuery.isFrustratometerEnabled;
 
-    // // if (this.users.length == 0){  //BatchMode: //Checking if "users" array is empty then, it will be considered (PERCEPTRON will not fetch the data from database) as batch mode or query error but the later one has been addressed in 'history.component.ts' by applying conditions in this function {getRecord(row)} and therefore, now just Batch Mode's condition is required here.
-    // //   alert("Dear User,\nSearch Results file is too large and will be downloaded. Please click Results Download to proceed.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
-    // // } 
+    this.JobTitle = data.SearchXfmsQuery.Title;
+    this.UserEmailId = data.SearchXfmsQuery.EmailID;
+    
+    this.isFrustratometerEnabled = data.SearchXfmsQuery.isFrustratometerEnabled;
+    this.Progress = data.SearchXfmsQuery.Progress;
+    this.JobSubmissionTime = data.SearchXfmsQuery.CreationTime;
+
+    if (data.SearchXfmsQuery.isBridgeEnabled == "True") {
+      this.isBridgeEnabled = "Enabled";
+    }
+    if (data.SearchXfmsQuery.isFrustratometerEnabled == "True") {
+      this.isFrustratometerEnabled = "Enabled";
+    }
+
+    if (data.SearchXfmsQuery.EmailID != "") {
+      this.UserType = "Registered User";
+    }
+    else {
+      this.UserType = "Guest User";
+      this.UserEmailId = "N/A";
+    }
+
+
 
   }
-
-
-
- 
 }
 
 /** Builds and returns a new User. */

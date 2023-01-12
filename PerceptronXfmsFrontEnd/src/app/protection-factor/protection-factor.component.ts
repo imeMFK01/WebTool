@@ -37,6 +37,13 @@ export class ProtectionFactorComponent implements OnInit {
   LineSeqPatchSize = 60;
   FastaHeaderWithLink :any;
 
+  MainHeaderInfo:string= "";
+  ProteinName: string = "";
+  GeneName: string = "";
+  NoOfAminoAcids: string = "";
+  OrganismName: string = "";
+  PositionArray:string = "";
+
   constructor(private route: ActivatedRoute, private _httpService: ConfigService, private sanitizer: DomSanitizer) {
 
     
@@ -73,44 +80,66 @@ export class ProtectionFactorComponent implements OnInit {
     //Formatting protein sequence for display
     let DoubleQuoteFastaFile = data.FastaFileInfo.replaceAll("'", "\"");
     let FastaFile = JSON.parse(DoubleQuoteFastaFile);
-    this.FastaHeader = FastaFile.ProteinHeader; 
+    this.FastaHeader = data.UniProtObj.PrimaryAccessionNo; //FastaFile.ProteinHeader; 
     this.ProteinSequence = FastaFile.ProteinSequence;
+
+    //Data of Uniprot info
+    if (data.UniProtObj.CheckDataFetched == "True")
+    {
+      this.MainHeaderInfo = data.UniProtObj.MainHeaderInfo;
+      this.ProteinName = data.UniProtObj.ProteinName;
+      this.GeneName = data.UniProtObj.GeneName;
+      this.NoOfAminoAcids = data.UniProtObj.NoOfAminoAcids;
+      this.OrganismName = data.UniProtObj.OrganismName;
+    }
+
+
     let IterSeq = 0;
     let loopIsTrue = true;
-    while(loopIsTrue){
+    while (loopIsTrue) {
       let start; //= IterSeq;
       let end; //= this.SeqPatchSize;
 
-      if(IterSeq == 0){
+      if (IterSeq == 0) {
         start = IterSeq;
         end = this.SeqPatchSize;
 
-        this.ProteinSequenceForDisplay = (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
+        this.ProteinSequenceForDisplay =  "&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
+        this.PositionArray = this.PositionArray + (IterSeq + 1).toString() + "." + "<br/>";
       }
-      else{
+      else {
         start = IterSeq;
-        end = start + this.SeqPatchSize ;
-         
+        end = start + this.SeqPatchSize;
+
+
+
+
         //let Patch =  this.LineSeqPatchSize - 1;
-        if (IterSeq % this.LineSeqPatchSize == 0){
-          this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + (IterSeq + 1).toString() + ".&nbsp;&nbsp;&nbsp;&nbsp;"
+        if (IterSeq % this.LineSeqPatchSize == 0) {
+          this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + "&nbsp;&nbsp;&nbsp;&nbsp;"
+          this.PositionArray = this.PositionArray + (IterSeq + 1).toString() + "." + "<br/>";
         }
         this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
 
-        if(this.ProteinSequence.length < end){
+        if (this.ProteinSequence.length < end) {
           break;
         }
-        
+
       }
       IterSeq = IterSeq + 10;
     }
 
-    this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
-    let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
-    ProteinHeader.innerHTML = this.FastaHeader;
+    // this.FastaHeaderWithLink = "http://www.uniprot.org/uniprot/" + this.FastaHeader;
+    // let ProteinHeader = <HTMLLabelElement>document.getElementById("ProteinHeader");
+    // ProteinHeader.innerHTML = this.FastaHeader;
 
     let sequence = <HTMLLabelElement>document.getElementById("sequence");
     sequence.innerHTML = this.ProteinSequenceForDisplay;
+    
+    let PositionArraySeq = <HTMLLabelElement>document.getElementById("PositionArraySeq");
+    PositionArraySeq.innerHTML = this.PositionArray;
+
+    
 
     // for(let IterSeq = 0; IterSeq<this.ProteinSequence.length; IterSeq++){
 

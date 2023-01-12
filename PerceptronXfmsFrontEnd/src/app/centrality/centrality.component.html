@@ -37,8 +37,8 @@
           <p style="font-weight: bolder">
             
             
-            <u><a style="font-size:210%;" href={{FastaHeaderWithLink}}>{{FastaHeader}}</a></u> <span style ="font-size:250%; color: blue;">·</span>
-            <span style ="font-size:200%; color: blue;">{{this.MainHeaderInfo}}</span>
+            <u><a style="font-size:210%;" href={{FastaHeaderWithLink}}>{{FastaHeader}}</a></u> <span style ="font-size:250%; color: black;"> |  </span>
+            <span style ="font-size:150%; color: blue;">{{this.MainHeaderInfo}}</span>
           </p>
         </div>
       </mat-grid-tile>
@@ -46,79 +46,69 @@
       <mat-grid-tile colspan="1" rowspan="1" style="text-align: left;"></mat-grid-tile>
       <mat-grid-tile colspan="5" rowspan="1" style="text-align: left;">
         <div style="padding-left:5px; ; width:100%">
-          <p style="font-weight: bolder">
-            <span style ="font-size:150%; color: black;">Protein Name<span style ="font-size:150%;">| </span>{{this.ProteinName}}</span>
+          <p>
+            <span style ="font-size:150%; font-weight: bolder; color: black;">Protein Name<span style ="font-size:150%;"> |  </span></span>
+            <span style ="font-size:150%;">{{this.ProteinName}}</span>
           </p>
         </div>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="7" rowspan="1" style="text-align: left;">
         <div style="padding-left:5px; ; width:100%">
-          <p style="font-weight: bolder">
-            <span style ="font-size:150%; color: black;">Gene Name<span style ="font-size:150%;">| </span>{{this.GeneName}}</span>
+          <p>
+            <span style ="font-size:150%; font-weight: bolder; color: black;">Gene Name<span style ="font-size:150%;"> |  </span></span>
+            <span style ="font-size:150%;">{{this.GeneName}}</span>
           </p>
         </div>
       </mat-grid-tile>
-
-
-
-
 
       <mat-grid-tile colspan="1" rowspan="1" style="text-align: left;"></mat-grid-tile>
       <mat-grid-tile colspan="5" rowspan="1" style="text-align: left;">
         <div style="padding-left:5px; ; width:100%">
-          <p style="font-weight: bolder">
-            <span style ="font-size:150%; color: black;">Organism Name<span style ="font-size:150%;">| </span>{{this.OrganismName}}</span>
+          <p >
+            <span style ="font-size:150%;font-weight: bolder; color: black;">Organism Name<span style ="font-size:150%;"> |  </span></span>
+            <span style ="font-size:150%;">{{this.OrganismName}}</span>
           </p>
         </div>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="7" rowspan="1" style="text-align: left;">
         <div style="padding-left:5px; ; width:100%">
-          <p style="font-weight: bolder">
-            <span style ="font-size:150%; color: black;">Amino Acids<span style ="font-size:150%;">| </span>{{this.NoOfAminoAcids}}</span>
+          <p>
+            <span style ="font-size:150%; font-weight: bolder; color: black;">Amino Acids<span style ="font-size:150%;"> |  </span></span>
+            <span style ="font-size:150%;">{{this.NoOfAminoAcids}}</span>
           </p>
         </div>
       </mat-grid-tile>
-
-
-
-
-      <!-- <label style="font-size: larger; font-weight: bolder" id="MainHeader"></label><label style="font-size: larger; font-weight: bolder" id="MainHeader"></label> -->
-
-<!-- 
-      <mat-grid-tile colspan="1" rowspan="1">
-        <div style="padding-left:5px; width:100%">
-          <label style="font-weight:bold;">Search Title: </label>
-        </div>
-      </mat-grid-tile>
-
-      <a href={{FastaHeaderWithLink}}><label style="color:rgba(65, 131, 253, 0.959); font-size:25px; cursor:pointer"
-        id="ProteinHeader"></label></a> -->
-
-
 
     </mat-grid-list>
 
 
-    <div></div>
-
-
     <!-- Protein Accession Number: &nbsp; -->
-    <mat-grid-list cols="13" style="align-self: center; text-align: left;">
+    <mat-grid-list cols="13" style="align-self: center;">
 
 
-      
-      
-
-      <mat-grid-tile colspan="2" rowspan="1" style="font-weight: bold;"> 
+      <!-- <mat-grid-tile colspan="2" rowspan="1" style="font-weight: bold;"> 
         <a href={{FastaHeaderWithLink}}><label style="color:rgba(65, 131, 253, 0.959); font-size:25px; cursor:pointer"
           id="ProteinHeader"></label></a>
        </mat-grid-tile>
-      <mat-grid-tile colspan="11" rowspan="1" ></mat-grid-tile>
+      <mat-grid-tile colspan="11" rowspan="1" ></mat-grid-tile> -->
 
-      <mat-grid-tile colspan="13" rowspan="1">
+
+
+      <mat-grid-tile colspan="3" rowspan="1">
+        
+        <div style="width:100%">
+          <label style="font-size:15px; text-align: right;" id="PositionArraySeq"></label>
+          </div>
+          
+      </mat-grid-tile>
+
+
+      <mat-grid-tile colspan="10" rowspan="1">
+        <div style="padding-left:5px; ; width:100%">
         <label style="font-size:15px; text-align: left;" id="sequence"></label>
+        </div>
         <!-- {{ProteinSequenceForDisplay}} -->
       </mat-grid-tile>
       

@@ -11,15 +11,94 @@
     Download</button>
 
   <!-- Below is healthy and to be uncommented -->
-  <!-- <div style="height:50px;font-size:1px;"></div>
+  <div style="height:50px;font-size:1px;"></div>
   <mat-expansion-panel [expanded]="false">
     <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
       <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
         Xfms Search Query Parameters
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <mat-grid-list cols="13" rowHeight="100px"></mat-grid-list>
-  </mat-expansion-panel> -->
+    <mat-grid-list cols="13" rowHeight="60px">
+
+
+      <mat-grid-tile colspan="1" rowspan="2">
+        <div style="padding-left:0px; width:60%">
+        <img src="assets/images/Magnifier.png">
+      </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="11" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div style="padding-left:5px; padding-bottom: 0px ; width:100%">
+          <p>
+            <span style ="font-size:100%; font-weight: bolder; color: black;">Job Title<span style ="font-size:100%;">|  </span></span>
+            <span style ="font-size:100%;  font-weight: bold; color:blue">{{this.JobTitle}}</span>
+          </p>
+        </div>
+
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="3" rowspan="1">
+        <div style="padding-left:5px; padding-bottom: 0px ; width:100%">
+          <p>
+            <span style ="font-size:100%; font-weight: bolder; color: black;">Job Creation Time<span style ="font-size:100%;">|  </span></span>
+            <span style ="font-size:100%;  font-weight: bold; color:blue">{{this.JobSubmissionTime}}</span>
+          </p>
+        </div>
+
+      </mat-grid-tile>
+
+
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div style="padding-left:5px; padding-bottom: 0px ; width:100%">
+          <p>
+            <span style ="font-size:100%; font-weight: bolder; color: black;">User Type<span style ="font-size:100%;">|  </span></span>
+            <span style ="font-size:100%;  font-weight: bold; color:blue">{{this.UserType}}</span>
+          </p>
+        </div>
+
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div style="padding-left:5px; padding-bottom: 0px ; width:100%">
+          <p>
+            <span style ="font-size:100%; font-weight: bolder; color: black;">User Email<span style ="font-size:100%;">|  </span></span>
+            <span style ="font-size:100%;  font-weight: bold; color:blue">{{this.UserEmailId}}</span>
+          </p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
+
+
+
+      <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div style="padding-left:5px; padding-bottom: 0px ; width:100%">
+          <p>
+            <span style ="font-size:100%; font-weight: bolder; color: black;">Job Status<span style ="font-size:100%;">|  </span></span>
+            <span style ="font-size:100%;  font-weight: bold; color:blue">{{this.Progress}}</span>
+          </p>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div style="padding-left:5px; padding-bottom: 0px ; width:100%">
+          <p>
+            <span style ="font-size:100%; font-weight: bolder; color: black;">Bridge Algorithm<span style ="font-size:100%;">|  </span></span>
+            <span style ="font-size:100%;  font-weight: bold; color:blue">{{this.isBridgeEnabled}}</span>
+          </p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div style="padding-left:5px; padding-bottom: 0px ; width:100%">
+          <p>
+            <span style ="font-size:100%; font-weight: bolder; color: black;">Frustratometer Algorithm<span style ="font-size:100%;">|  </span></span>
+            <span style ="font-size:100%;  font-weight: bold; color:blue">{{this.isFrustratometerEnabled}}</span>
+          </p>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-expansion-panel>
   <!-- Above is healthy and to be uncommented -->
 
 
@@ -27,7 +106,7 @@
 
 
   <div style="display:flex;">
-    <div style="width:20%"></div>
+    <div style="width:22%"></div>
     <mat-card class="example-card" style="flex: 1 1 auto;">
       <mat-card-header>
         <img mat-card-avatar class="example-header-image" src="assets/images/ProtectionFactorShieldAvator.jpg">
@@ -106,7 +185,7 @@
 
       <div style="height:5px"></div>
     </mat-card>
-    <div style="width:20%"></div>
+    <div style="width:18%"></div>
   </div>
 
 
