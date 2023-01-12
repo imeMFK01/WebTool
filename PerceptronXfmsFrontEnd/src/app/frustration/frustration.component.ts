@@ -34,16 +34,16 @@ export class FrustrationComponent implements OnInit {
 
   what(data){
 
-    let DoubleQuoteJsonFrustrationData = data.replaceAll("'", "\"");
-    let FrustrationData = JSON.parse(DoubleQuoteJsonFrustrationData);
+    // let DoubleQuoteJsonFrustrationData = data.replaceAll("'", "\"");
+    // let FrustrationData = JSON.parse(DoubleQuoteJsonFrustrationData);
 
     // this.ConfigurationalAroundImage = FrustrationData[0];
     // this.ConfigurationalImage = FrustrationData[1];
     // this.ConfigurationalMap = FrustrationData[2];
 
-    this.ConfigurationalAroundImage = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + FrustrationData[0]);
-    this.ConfigurationalImage = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + FrustrationData[1]);
-    this.ConfigurationalMap =  this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + FrustrationData[2]);
+    this.ConfigurationalAroundImage = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + data[0]);
+    this.ConfigurationalImage = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + data[1]);
+    this.ConfigurationalMap =  this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + data[2]);
 
   }
 

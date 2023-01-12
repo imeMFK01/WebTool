@@ -9,7 +9,6 @@ PerceptronFrontEnd/dist/
 ToolBox/Rcall/Rrun.Rout
 ToolBox/Rcall/Rrun.R
 ToolBox/Rcall/Rpush.mat
-*.mat
 ToolBox/Bridge2/python3env/
 ToolBox/Bridge/
 ToolBox/Bridge/python3env/

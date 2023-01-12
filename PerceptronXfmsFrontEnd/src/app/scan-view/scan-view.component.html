@@ -10,92 +10,101 @@
     style="background-color: #201a93; margin-right: 50px; color:aliceblue" class="ui button" (click)=download()>Results
     Download</button>
 
+  <!-- <div style="height:50px;font-size:1px;"></div>
+  <mat-expansion-panel [expanded]="false">
+    <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
+      <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
+        Xfms Search Query Parameters
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-grid-list cols="13" rowHeight="100px"></mat-grid-list>
+  </mat-expansion-panel> -->
+
+
   <div style="height:50px;font-size:1px;"></div>
 
-      
+
   <div style="display:flex;">
     <div style="width:20%"></div>
-  <mat-card  class="example-card" style="flex: 1 1 auto;">
-    <mat-card-header>
-      <img mat-card-avatar class="example-header-image" src="assets/images/ProtectionFactorShieldAvator.jpg">
-      <mat-card-title style="font-size:large; font-weight:bold;">Protection Factor</mat-card-title>
-  
-    </mat-card-header>
-    <div style="height:20px;font-size:1px;"></div>
-    <img mat-card-image class="img-margin" style="width:350px"
-      src="assets/images/ProtectionFactorMainImage.jpg">
-    <!-- alt="Photo of a Shiba Inu" -->
-    <mat-card-content>
-      <p style="margin: 0;text-align: center; font-weight: bold;">
-        Protection factor calculates the residue based protection against the exposure of water.
-      </p>
-      <mat-card-actions style="padding: 4px;">
-        <button mat-button class="Results-btn-pos" (click)=ViewDetailedPF()>Results</button>
-  
-      </mat-card-actions>
-  
-    </mat-card-content>
-  
-    <div style="height:5px"></div>
-  </mat-card>
+    <mat-card class="example-card" style="flex: 1 1 auto;">
+      <mat-card-header>
+        <img mat-card-avatar class="example-header-image" src="assets/images/ProtectionFactorShieldAvator.jpg">
+        <mat-card-title style="font-size:large; font-weight:bold;">Protection Factor</mat-card-title>
 
-  <div style="width:20px"></div>
+      </mat-card-header>
+      <div style="height:20px;font-size:1px;"></div>
+      <img mat-card-image class="img-margin" style="width:350px" src="assets/images/ProtectionFactorMainImage.jpg">
+      <!-- alt="Photo of a Shiba Inu" -->
+      <mat-card-content>
+        <p style="margin: 0;text-align: center; font-weight: bold;">
+          Protection factor calculates the residue based protection against the exposure of water.
+        </p>
+        <mat-card-actions style="padding: 4px;">
+          <button mat-button class="Results-btn-pos" (click)=ViewDetailedPF()>Results</button>
 
-  <mat-card class="example-card" style="flex: 1 1 auto;">
-    <mat-card-header>
-      <img mat-card-avatar class="example-header-image" src="assets/images/BetweennesCentralityMainImage.jpg">
-      <mat-card-title style="font-size:large; font-weight:bold;">Betweenness Centrality</mat-card-title>
+        </mat-card-actions>
 
-    </mat-card-header>
-    <div style="height:20px;font-size:1px;"></div>
-    <img mat-card-image class="img-margin" style="width:350px"
-      src="assets/images/BetweennesCentralityMainImage.jpg">
-    <!-- alt="Photo of a Shiba Inu" -->
-    <mat-card-content>
-      <p style="margin: 0;text-align: center; font-weight: bold;">
-        Betweenness centrality determines the degree of connectivity of each residue-residue and residue-water
-        interactions.
-      </p>
-      <mat-card-actions>
-        <button mat-button class="Results-btn-pos" (click)=ViewDetailedCentrality()>Results</button>
+      </mat-card-content>
 
-      </mat-card-actions>
+      <div style="height:5px"></div>
+    </mat-card>
 
-    </mat-card-content>
+    <div style="width:20px"></div>
 
-    <div style="height:5px"></div>
-  </mat-card>
+    <mat-card class="example-card" style="flex: 1 1 auto;">
+      <mat-card-header>
+        <img mat-card-avatar class="example-header-image" src="assets/images/BetweennesCentralityMainImage.jpg">
+        <mat-card-title style="font-size:large; font-weight:bold;">Betweenness Centrality</mat-card-title>
 
-  <div style="width:20px"></div>
+      </mat-card-header>
+      <div style="height:20px;font-size:1px;"></div>
+      <img mat-card-image class="img-margin" style="width:350px" src="assets/images/BetweennesCentralityMainImage.jpg">
+      <!-- alt="Photo of a Shiba Inu" -->
+      <mat-card-content>
+        <p style="margin: 0;text-align: center; font-weight: bold;">
+          Betweenness centrality determines the degree of connectivity of each residue-residue and residue-water
+          interactions.
+        </p>
+        <mat-card-actions>
+          <button mat-button class="Results-btn-pos" (click)=ViewDetailedCentrality()>Results</button>
 
-  <mat-card class="example-card" style="flex: 1 1 auto;">
-    <mat-card-header>
-      <img mat-card-avatar class="example-header-image" src="assets/images/frustratometeR.png">
-      <mat-card-title style="font-size:large; font-weight:bold;">Degree of Frustration</mat-card-title>
+        </mat-card-actions>
 
-    </mat-card-header>
-    <div style="height:20px;font-size:1px;"></div>
-    <img mat-card-image class="img-margin" style="width:215px; justify-content:center;align-items:center;"
-      src="assets/images/frustratometeR.png">
-    <!-- alt="Photo of a Shiba Inu" -->
-    <mat-card-content>
-      <p style="margin: 0;text-align: center; font-weight: bold;">
-        For studying the frustration text will be added here. For studying the frustration text will be added here. 
-      </p>
-      <mat-card-actions>
-        <button mat-button class="Results-btn-pos" (click)=ViewDetailedFrustration()>Results</button>
+      </mat-card-content>
 
-      </mat-card-actions>
+      <div style="height:5px"></div>
+    </mat-card>
 
-    </mat-card-content>
+    <div style="width:20px"></div>
 
-    <div style="height:5px"></div>
-  </mat-card>
-  <div style="width:20%"></div>
-</div>
+    <mat-card class="example-card" style="flex: 1 1 auto;">
+      <mat-card-header>
+        <img mat-card-avatar class="example-header-image" src="assets/images/frustratometeR.png">
+        <mat-card-title style="font-size:large; font-weight:bold;">Degree of Frustration</mat-card-title>
+
+      </mat-card-header>
+      <div style="height:20px;font-size:1px;"></div>
+      <img mat-card-image class="img-margin" style="width:215px; justify-content:center;align-items:center;"
+        src="assets/images/frustratometeR.png">
+      <!-- alt="Photo of a Shiba Inu" -->
+      <mat-card-content>
+        <p style="margin: 0;text-align: center; font-weight: bold;">
+          For studying the frustration text will be added here. For studying the frustration text will be added here.
+        </p>
+        <mat-card-actions>
+          <button mat-button class="Results-btn-pos" (click)=ViewDetailedFrustration()>Results</button>
+
+        </mat-card-actions>
+
+      </mat-card-content>
+
+      <div style="height:5px"></div>
+    </mat-card>
+    <div style="width:20%"></div>
+  </div>
 
 
- 
+
 </div>
 
 

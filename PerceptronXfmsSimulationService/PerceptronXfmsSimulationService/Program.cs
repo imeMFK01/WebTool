@@ -79,7 +79,10 @@ namespace PerceptronXfmsSimulationService
                     ProteinSequence = "ADKELKFLVVDDFSTMRRIVRNLLKELGFNNVEEAEDGVDALNKLQAGGYGFVISDWNMPNMDGLELLKTIRADGAMSALPVLMVTAEAKKENIIAAAQAGASGYVVKPFTAATLEEKLNKIFEKLGM"
                 };
 
-
+                //////////////////////////
+                //var test = new FetchPathsForFrustratometerResults().FetchFilePathsOfFrustratometerResults(QueryResultFullPath, FrustratometerFolder, FrustratometerImageResultsFolder);
+                //instanceSqlDatabase.ResultsSaveIntoDbForVisualize(QueryID, ResultsSaveDbObj);
+                //////////////////////////////////
 
                 ResultsSaveDbObj.FastaFileInfo = JsonConvert.SerializeObject(ProteinInfo);
 
@@ -329,10 +332,8 @@ namespace PerceptronXfmsSimulationService
 
             if(isFrustratometerEnabled == "True")
             {
-                var ListOfFrustratometerImageResults = new FetchFrustratometerResults().FetchFilePathsOfFrustratometerResults(QueryResultFullPath, FrustratometerFolder, FrustratometerImageResultsFolder);
-
-
-
+                ResultsSaveDbObj.FrustratometerResultFiles = new FetchPathsForFrustratometerResults().FetchFilePathsOfFrustratometerResults(QueryResultFullPath, FrustratometerFolder, FrustratometerImageResultsFolder);
+                
                 //ResultsSaveDbObj.FrustratometerResultFiles
             }
 

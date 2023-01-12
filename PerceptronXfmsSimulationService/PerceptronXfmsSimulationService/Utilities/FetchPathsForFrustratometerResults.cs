@@ -8,9 +8,9 @@ using Newtonsoft.Json;
 
 namespace PerceptronXfmsSimulationService.Utilities
 {
-    public class FetchFrustratometerResults
+    public class FetchPathsForFrustratometerResults
     {
-        public List<string> FetchFilePathsOfFrustratometerResults(string QueryResultFullPath, string FrustratometerFolder, string FrustratometerImageResultsFolder)
+        public string FetchFilePathsOfFrustratometerResults(string QueryResultFullPath, string FrustratometerFolder, string FrustratometerImageResultsFolder)
         {
 
             string path = QueryResultFullPath + "\\" + FrustratometerFolder;
@@ -31,20 +31,20 @@ namespace PerceptronXfmsSimulationService.Utilities
                 tempString = temp[i].ToString();
                 if (tempString.Contains("around.png"))
                 {
-                    ListOfPaths[0] = ImagesFullPath + tempString;
+                    ListOfPaths[0] = ImagesFullPath + "\\" + tempString;
                 }
                 if (tempString.Contains("dens.png"))
                 {
-                    ListOfPaths[1] = ImagesFullPath + tempString;
+                    ListOfPaths[1] = ImagesFullPath + "\\" + tempString;
                 }
                 if (tempString.Contains("configurational_map"))
                 {
-                    ListOfPaths[2] = ImagesFullPath + tempString;
+                    ListOfPaths[2] = ImagesFullPath + "\\" + tempString;
                 }
             }
-            //string FrustratometerImagesFullPaths = JsonConvert.SerializeObject(ListOfPaths);
+            string FrustratometerImagesFullPaths = JsonConvert.SerializeObject(ListOfPaths);
 
-            return ListOfPaths;
+            return FrustratometerImagesFullPaths;
         }
 
 

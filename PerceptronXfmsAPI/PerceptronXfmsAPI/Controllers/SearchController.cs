@@ -283,11 +283,20 @@ namespace PerceptronXfmsAPI.Controllers
 
         [HttpPost]
         [Route("api/search/GetDetailedFrustratometerResults")]
-        public string GetDetailedFrustratometerResults([FromBody] string QueryID)
+        public List<byte[]> GetDetailedFrustratometerResults([FromBody] string QueryID)
         //public string GetDetailedPFResults()
         {
-            var DetailedFrustratometer = _dataLayer.FetchResultsFrustratometer(QueryID);
-            return DetailedFrustratometer;
+            var FrustratometerResultFilesPath = _dataLayer.FetchResultsFrustratometer(QueryID);
+
+            var ListOfStrings = JsonConvert.DeserializeObject<List<string>>(FrustratometerResultFilesPath);
+            var ListOfBlobs = new List<byte[]>();
+            var Converter = new FileToBlob();
+            for (int i = 0; i < ListOfStrings.Count; i++)
+            {
+                ListOfBlobs.Add(Converter.FileToBlobConverter(ListOfStrings[i]));
+            }
+
+            return ListOfBlobs;
         }
 
 
