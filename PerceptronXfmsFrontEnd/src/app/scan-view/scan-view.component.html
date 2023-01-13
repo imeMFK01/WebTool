@@ -4,14 +4,8 @@
     <h4 style="text-align:center; font-family: Roboto, Arial, sans-serif; font-weight:bold; margin:0 auto;">XFMS
       Searched Results</h4>
   </mat-card>
-  <br>
 
-  <button mat-raised-button matTooltip="Click to Download Results" type="submit"
-    style="background-color: #201a93; margin-right: 50px; color:aliceblue" class="ui button" (click)=download()>Results
-    Download</button>
-
-  <!-- Below is healthy and to be uncommented -->
-  <div style="height:50px;font-size:1px;"></div>
+  <div style="height:10px;font-size:1px;"></div>
   <mat-expansion-panel [expanded]="false">
     <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
       <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
@@ -99,7 +93,14 @@
       </mat-grid-tile>
     </mat-grid-list>
   </mat-expansion-panel>
-  <!-- Above is healthy and to be uncommented -->
+
+  <div style="height:10px;font-size:1px;"></div>
+
+  <button mat-raised-button matTooltip="Click to Download Results" type="submit"
+    style="background-color: #201a93; margin-right: 50px; color:aliceblue" class="ui button" (click)=download()>Results
+    Download</button>
+
+  
 
 
   <div style="height:50px;font-size:1px;"></div>
