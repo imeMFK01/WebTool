@@ -148,7 +148,7 @@ namespace PerceptronXfmsSimulationService
 
 
             /// Updating Sample Results On DB
-            UpdateSampleResultsOnDB();
+            //UpdateSampleResultsOnDB();
 
 
 
@@ -160,14 +160,7 @@ namespace PerceptronXfmsSimulationService
             Console.WriteLine("*****PERCEPTRON-XFMS INITIALIZING CONSOLE*****");
             Console.WriteLine("**********************************************");
 
-
-
-
-
-
-
-
-
+            
             //string EmailID = "";
             while (RunLoop)
             {

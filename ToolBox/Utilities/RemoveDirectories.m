@@ -9,6 +9,21 @@
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function RemoveDirectories(IntermediateProcessingFolderPath, ResultFolderPath, GUID)
+
+
+% % % % %Below will BE shown to the user "SO WILL GO TO THE Results FOLDER"
+% % % % Result    % for displaying to the user
+% % % % PeptideInfo.xls  % for displaying to the user
+% % % % 
+% % % % %Below will not show to the user "SO WILL GO TO THE INTERMEDIATE FOLDER"
+% % % % Results_matched
+% % % % Results_matched_intermediate
+% % % % Resultsnew1
+
+
+
+
+
 % To save Result Folder that contain Dose response plot
 %GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
 %ResultFolderPath = "D:\PerceptronXfmsResultFolder";
