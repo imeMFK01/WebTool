@@ -21,9 +21,6 @@ function RemoveDirectories(IntermediateProcessingFolderPath, ResultFolderPath, G
 % % % % Resultsnew1
 
 
-
-
-
 % To save Result Folder that contain Dose response plot
 %GUID = "0b284da3-b2ff-481a-9384-fa8fd99961d9";
 %ResultFolderPath = "D:\PerceptronXfmsResultFolder";

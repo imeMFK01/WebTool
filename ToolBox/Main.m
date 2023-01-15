@@ -82,6 +82,7 @@ PDBFullFileName = QueryFullFolderPath  + MiscInputFiles + "\PDB.pdb";
 ComparisonEngineOutDir = IntermediateProcessingFolderPath + "\" + GUID + '\OutDir';
 mkdir(ComparisonEngineOutDir);
 
+ComparisonEngineFolder = "ComparisonEngine";
 tempInsideExp = "\Exp"; %For the time being...
 InsideExp = "\Exp\";  %For the time being...
 ReplaceStringFrom = InsideExp;
@@ -175,8 +176,9 @@ CallingRCodePath = '';
 
 %% HERE HARD CODE THE INPUT FOLDER BUT WILL ASK FROM USER AS UIGET
 
+
 addpath("Bridge2\");
-addpath("ComparisonEngine\");
+addpath(ComparisonEngineFolder + "\");
 addpath("FileFormatConverters\");
 addpath("frustratometeR\");
 addpath("InputFileOperations\");
@@ -184,9 +186,10 @@ addpath("ProteoWizard\");
 addpath("Rcall\");
 addpath("Utilities\");
 
+%ToolBox should be the Main folder if not then ask user to set this first...
 
 
-
+RemovePreviousJobData(WorkingDirPath, ComparisonEngineFolder);
 
 
 
