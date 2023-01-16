@@ -135,8 +135,6 @@ namespace PerceptronXfmsSimulationService
         static void Main(string[] args)
         {
 
-
-
             //RunMeOnly();
 
             var instanceSqlDatabase = new SqlDatabase();
@@ -259,6 +257,7 @@ namespace PerceptronXfmsSimulationService
                         instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Completed");
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Completed");
                         int waithere = 1;
+                        SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, SearchQuery.CreationTime.ToString(format), "QuerySuccessfullyCompleted");
 
                     }
                     else

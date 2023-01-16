@@ -29,38 +29,50 @@ namespace PerceptronXfmsSimulationService.Utilities
 
             if (EmailMessage == "Error") // Email Msg for Something Wrong With Entered Query     // StringInfo 
             {
-                email.Subject = "PERCEPTRON-XFMS: XFMS Search Query Not Submitted";
+                email.Subject = "PERCEPTRON-XFMS: XFMS Search Query Failed";
 
                 email.Body = new TextPart(TextFormat.Html)
                 {
                     Text =
                "Dear User," +
-                "<br/><br/> Search query couldn't submitted with job title \"" + StringInfo + "\" please check your search parameters and data files." +
-                "</br> If you need help check out the <a href=\'" + BaseUrl + "/index.html#/getting \'>Getting Started</a> guide" +
-                    " and our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>. If " +
+                "<br/><br/> Your submitted search query couldn't successfully completed with the \"" + StringInfo + "\" job title. Please check your search parameters and data files." +
+                "</br><br/> For assistance in submitting a search, please visit the <a href=\'" + BaseUrl + "/index.html#/getting \'>Getting Started</a> page" +
+                    " and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>. <br/><br/>If " +
                     "problem still persists, please <a href=\'" + BaseUrl + "index.html#/contact'> contact</a> us." +
 
-                "</br></br>Thank You for using Perceptron-XFMS." +
-                "</br><b>The PERCEPTRON-XFMS Team</b>" +
-                "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL), Lahore University of Management Sciences (LUMS), Pakistan"
+                    "</br><br/>Thank You for using Perceptron-XFMS." +
+                "</br><br/><b>The PERCEPTRON-XFMS Team</b>" +
+                "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL)," +
+                "</br>Department of Life Sciences, SBA School of Science and Engineering," +
+                "</br>Lahore University of Management Sciences (LUMS), Lahore, Pakistan" +
+                "</br>Voice: +92 42 3560 8352" +
+                "</br>Email: <a href=\'mailto:perceptronxfms@lums.edu.pk'>perceptronxfms@lums.edu.pk</a>" +
+                "</br>Web: <a href='http://biolabs.lums.edu.pk/birl'>biolabs.lums.edu.pk/birl</a>"
+                    //"</br></br>Thank You for using Perceptron-XFMS." +
+                    //"</br><b>The PERCEPTRON-XFMS Team</b>" +
+                    //"</br>Biomedical Informatics & Engineering Research Laboratory (BIRL), Lahore University of Management Sciences (LUMS), Pakistan"
                 };
             }
-            else if (EmailMessage == "QuerySuccessfullySubmitted")
+            else if (EmailMessage == "QuerySuccessfullyCompleted")
             {
-                email.Subject = "PERCEPTRON-XFMS: XFMS Search Query Submitted";
+                email.Subject = "PERCEPTRON-XFMS: XFMS Search Query Successfully Completed";
                 email.Body = new TextPart(TextFormat.Html)
                 {
                     Text =
                 "Dear User," +
-                "<br/><br/> Your protein search query successfully submitted at " + CreationTime + " with job title \"" +
-                        StringInfo + "\" Please check your query status at <a href=\'" + BaseUrl + "index.html#/history \'>User Search History</a>." +
-                "</br> If you need help check out the <a href=\'" + BaseUrl + "index.html#/getting \'>Getting Started</a> guide " +
-                "and our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>." +
+                "<br/><br/>Your protein search query successfully completed with the \"" +
+                        StringInfo + "\" job title.<br/><br/>You can visualize and download your results at <a href=\'" + BaseUrl + "index.html#/history \'>User Search History</a>." +
+                "</br><br/>For interpretation of the results, please visit the <a href=\'" + BaseUrl + "index.html#/help \'>Help & Manual</a> page " +
+                "and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>." +
 
-                "</br></br>Thank You for using Perceptron-XFMS." +
-                "</br><b>The PERCEPTRON-XFMS Team</b>" +
-                "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL), Lahore University of Management Sciences (LUMS), Pakistan"
-
+                "</br><br/>Thank You for using Perceptron-XFMS." +
+                "</br><br/><b>The PERCEPTRON-XFMS Team</b>" +
+                "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL)," +
+                "</br>Department of Life Sciences, SBA School of Science and Engineering," +
+                "</br>Lahore University of Management Sciences (LUMS), Lahore, Pakistan" +
+                "</br>Voice: +92 42 3560 8352" +
+                "</br>Email: <a href=\'mailto:perceptronxfms@lums.edu.pk'>perceptronxfms@lums.edu.pk</a>" +
+                "</br>Web: <a href='http://biolabs.lums.edu.pk/birl'>biolabs.lums.edu.pk/birl</a>"
                 };
             }
 
