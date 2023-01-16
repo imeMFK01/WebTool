@@ -67,33 +67,30 @@ namespace PerceptronXfmsSimulationService.Repository
             //Fetch "In Queue" Jobs
             //Take first job based on the submission priority, and sent to the MATLAB code for processing + parameters
 
-            try
+            var temp = new SearchXfmsQueryDto();
+            using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                var temp = new SearchXfmsQueryDto();
-                using (var db = new PerceptronXfmsDatabaseEntities())
-                {
-                    var dbObject = db.SearchXfmsQueries.Where(x => x.Progress == "In Queue" && x.EmailID == "farhan.biomedical.2022@gmail.com").Select(x => x).OrderBy(x => x.CreationTime).FirstOrDefault();
+                var dbObject = db.SearchXfmsQueries.Where(x => x.Progress == "In Queue" && x.EmailID == "farhan.biomedical.2022@gmail.com").Select(x => x).OrderBy(x => x.CreationTime).FirstOrDefault();
 
-                    temp = new SearchXfmsQueryDto()
-                    {
-                        QueryID = dbObject.QueryID,
-                        UserID = dbObject.UserID,
-                        Progress = dbObject.Progress,
-                        CreationTime = dbObject.CreationTime,
-                        isBridgeEnabled = dbObject.isBridgeEnabled,
-                        isFrustratometerEnabled = dbObject.isFrustratometerEnabled,
-                        EmailID = dbObject.EmailID,
-                        ID = dbObject.ID,
-                        Title = dbObject.Title
-                    };
+                if (dbObject == null)
+                {
+                    return null;
                 }
-                return temp;
+                temp = new SearchXfmsQueryDto()
+                {
+                    QueryID = dbObject.QueryID,
+                    UserID = dbObject.UserID,
+                    Progress = dbObject.Progress,
+                    CreationTime = dbObject.CreationTime,
+                    isBridgeEnabled = dbObject.isBridgeEnabled,
+                    isFrustratometerEnabled = dbObject.isFrustratometerEnabled,
+                    EmailID = dbObject.EmailID,
+                    ID = dbObject.ID,
+                    Title = dbObject.Title
+                };
             }
-            catch(Exception e)
-            {
-                return null;
-            }
-            
+            return temp;
+
         }
 
         public void UpdateJobStatus(string QueryID, string Status)

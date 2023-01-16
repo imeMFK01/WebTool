@@ -256,6 +256,7 @@ try
     end
 
 catch exception
+    exception
     Error = "True";
     ErrorLog = exception;
 end

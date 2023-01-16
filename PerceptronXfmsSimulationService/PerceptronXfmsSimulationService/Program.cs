@@ -171,7 +171,7 @@ namespace PerceptronXfmsSimulationService
 
                     //SearchQuery.QueryID = "8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136";                  //////Only for testing
 
-                    if (SearchQuery.QueryID != null)  // for safety
+                    if (SearchQuery != null)  // for safety
                     {
                         string JobStatus = "Running";
                         instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, JobStatus);
@@ -267,7 +267,7 @@ namespace PerceptronXfmsSimulationService
                 }
                 catch(Exception Error)
                 {
-                    if (SearchQuery.QueryID != null)
+                    if (SearchQuery != null)
                     {
                         // Here error will come 
 
