@@ -12,10 +12,10 @@ function [QueryResultFullPath, Error, ErrorLog] = Main(GUID, isBridgeEnabled, is
 % 
 % %%DEL ME 
 % GUID = "8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136";
-GUID = "11000000-0000-0000-0000-000000000000";
+%GUID = "11000000-0000-0000-0000-000000000000";
 %GUID = "00000000-0000-0000-0000-000000000000";
-isBridgeEnabled = "True";
-isFrustratometerEnabled = "True";
+% isBridgeEnabled = "True";
+% isFrustratometerEnabled = "True";
 PdbChain = "A";
 % MAIN FUNCTION OF THIS PIPELINE 
 
@@ -165,9 +165,6 @@ if (LocalDeployment)
 
 end
 
-
-
-
 %% Sub tools paths
 MSConvertCMDPath = [pwd '\ProteoWizard'];
 SpectrumXfmsPath = [pwd '\SPECTRUM-XFMS_v1.0.0.0'];
@@ -189,12 +186,8 @@ addpath("Utilities\");
 %ToolBox should be the Main folder if not then ask user to set this first...
 
 
-RemovePreviousJobData(WorkingDirPath, ComparisonEngineFolder);
-
-
-
-
-
+%Deleting folders and files that can be exist due to previously failed simulation
+RemovePreviousJobData(WorkingDirPath, ComparisonEngineFolder)
 
 % % % %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% %% 
 % % % %% THESE COMMENTS SHOULD UN COMMENT FOR USING
@@ -258,6 +251,7 @@ end
 if ~(LocalDeployment)
 %Copying the fasta file to the results folder for visualization purpose
 CopyingDataToResultsFolder(FastaFullFileName, QueryResultFullPath);
+TransferFoldersAndFile(WorkingDirPath,MainProcessingDir, QueryResultFullPath);
 
 end
 

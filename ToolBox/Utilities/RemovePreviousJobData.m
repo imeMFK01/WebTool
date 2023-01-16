@@ -1,7 +1,6 @@
 function RemovePreviousJobData(WorkingDirPath, ComparisonEngineFolder)
 
-%Deleting folders and files that can be exist of previously failed
-%simulation
+%Deleting folders and files that can be exist due to previously failed simulation
 % % % % Result    % for displaying to the user
 % % % % PeptideInfo.xls  % for displaying to the user
 % % % %
@@ -18,7 +17,7 @@ ComparisonEngineFullPath = WorkingDirPath + "\" + ComparisonEngineFolder;
 
 for index = 1: size(FoldersToCheck, 1)
     if (exist(WorkingDirFullPathInString  + "\" + FoldersToCheck(index, 1), "dir") == 7)
-        [status, msgbox] = rmdir(WorkingDirPathInString  + "\" + FoldersToCheck(index, 1), 's');
+        [status, msgbox] = rmdir(WorkingDirFullPathInString  + "\" + FoldersToCheck(index, 1), 's');
     end
     if (exist(ComparisonEngineFullPath  + "\" + FoldersToCheck(index, 1), "dir") == 7)
         [status, msgbox] = rmdir(ComparisonEngineFullPath  + "\" + FoldersToCheck(index, 1), 's');
