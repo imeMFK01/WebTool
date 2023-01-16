@@ -1400,11 +1400,9 @@ Header= { 'Sequence', 'PeptideID'}
 xlswrite('PeptideInfo',Header,'Sheet1','A1');
 xlswrite('PeptideInfo',PeptideInfo,'Sheet1','A2');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%% Alternate of RemoveDirecotries???
-if ~isfolder(strcat(OutputDir,strcat('\FinalResult')))
-    mkdir(strcat(OutputDir,strcat('\FinalResult')));
-end
-direct= char(strcat(OutputDir,strcat('\FinalResult')));
-copyfile('Result',direct);
+%Commented below
+% if ~isfolder(strcat(OutputDir,strcat('\FinalResult')))
+%     mkdir(strcat(OutputDir,strcat('\FinalResult')));
+% end
+% direct= char(strcat(OutputDir,strcat('\FinalResult')));
+% copyfile('Result',direct);
