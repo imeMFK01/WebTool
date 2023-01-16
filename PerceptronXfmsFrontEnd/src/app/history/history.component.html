@@ -8,9 +8,57 @@
     <label style="color:red;">*** Click on the individual queries tabulated below to view detailed results.</label>
    <div class="example-container mat-elevation-z8">
   
-      <mat-table [dataSource]="dataSource" matSort>
+      
+    
+    
+    
+    <mat-table [dataSource]="dataSourceSampleResults" matSort style="font-weight: bolder;" class="SampleResults" >
         <!-- style="text-align: center;" -->
   
+        <!-- Serial Column -->
+        <ng-container matColumnDef="serial">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Sr. # </mat-header-cell>
+          <mat-cell style="cursor: pointer; color: blue;" class="SampleResults" *matCellDef="let row" matTooltip="Click to proceed!"> {{row.serial}} </mat-cell>
+
+        </ng-container>
+  
+        <!-- Title Column -->
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Search Title </mat-header-cell>
+          <mat-cell style="cursor: pointer; color: blue;" class="SampleResults" *matCellDef="let row" matTooltip="Click to proceed!"> {{row.title}} </mat-cell>
+        </ng-container>
+  
+        <!-- Time Column -->
+        <ng-container matColumnDef="time">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Creation Time</mat-header-cell>
+          <mat-cell style="cursor: pointer; color: blue;" class="SampleResults" *matCellDef="let row" matTooltip="Click to proceed!"> {{row.time}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="progress">
+            <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Status</mat-header-cell>
+            <mat-cell style="cursor: pointer; color: blue;" class="SampleResults" *matCellDef="let row" matTooltip="Click to proceed!"> {{row.progress}} </mat-cell>
+          </ng-container>
+    
+  
+        <!-- Qid Column -->
+        <ng-container matColumnDef="qid">
+          <mat-header-cell [style.display]="'none'" *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);">
+            Querry ID </mat-header-cell>
+          <mat-cell [style.display]="'none'" *matCellDef="let row"> {{row.qid}} </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)">
+        </mat-row>
+</mat-table>
+
+
+
+<mat-table [dataSource]="dataSource" matSort>
+
+        <!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
+        <!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
+        <!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
+
         <!-- Serial Column -->
         <ng-container matColumnDef="serial">
           <mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bold; font-size:16px; color: rgb(20, 20, 20);"> Sr. # </mat-header-cell>
@@ -42,9 +90,12 @@
           <mat-cell [style.display]="'none'" *matCellDef="let row"> {{row.qid}} </mat-cell>
         </ng-container>
   
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <!-- <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row> -->
         <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)">
         </mat-row>
+
+
+
       </mat-table>
   
       <!-- <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->

@@ -43,6 +43,11 @@ input[type="file"] {
     cursor: pointer;
 }
 
+.mat-error
+{
+  color: red;
+}
+
 .example-button-row 
 {
    display: flex;

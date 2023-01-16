@@ -115,15 +115,17 @@
 
       </mat-card-header>
       <div style="height:20px;font-size:1px;"></div>
-      <img mat-card-image class="img-margin" style="width:350px" src="assets/images/ProtectionFactorMainImage.jpg">
+      <div style=" display:flex; align-content: center; justify-content: center;">
+      <img mat-card-image class="img-margin" style="width:215px;" src="assets/images/ProtectionFactorMainImage.png">
+      </div>
       <!-- alt="Photo of a Shiba Inu" -->
       <mat-card-content>
-        <div style="height:13px"></div>
+        
         <p style="margin: 0;text-align: center; font-weight: bold;">
           Protection factor calculates the residue based protection against the exposure of water.
         </p>
-        <div style="height:14px"></div>
-        <mat-card-actions style="padding: 4px;">
+        <div style="height:11px"></div>
+        <mat-card-actions >
           <button mat-button class="Results-btn-pos" (click)=ViewDetailedPF()>Results</button>
 
         </mat-card-actions>
@@ -170,13 +172,15 @@
 
       </mat-card-header>
       <div style="height:20px;font-size:1px;"></div>
-      <img mat-card-image class="img-margin" style="width:215px; justify-content:center;align-items:center;"
-        src="assets/images/frustratometeR.png">
+      <div style=" display:flex; align-content: center; justify-content: center;">
+      <img mat-card-image class="img-margin" style="width:240px; justify-content:center;align-items:center;" src="assets/images/frustratometeR.png">
+      </div>
       <!-- alt="Photo of a Shiba Inu" -->
       <mat-card-content>
         <p style="margin: 0;text-align: center; font-weight: bold;">
           Frustratometer quatifies the degree of local frustration manifested in protein molecules by analyzing energy distribution in protein structures.
         </p>
+        <div style="height:2px"></div>
         <mat-card-actions>
           <button mat-button class="Results-btn-pos" (click)=ViewDetailedFrustration()>Results</button>
 

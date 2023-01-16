@@ -74,7 +74,7 @@ export class CentralityComponent implements OnInit {
         start = IterSeq;
         end = this.SeqPatchSize;
 
-        this.ProteinSequenceForDisplay =  "&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + " ";
+        this.ProteinSequenceForDisplay =  "&nbsp;&nbsp;&nbsp;&nbsp;" + this.ProteinSequence.substring(start, end) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         this.PositionArray = this.PositionArray + (IterSeq + 1).toString() + "." + "<br/>";
       }
       else {
@@ -89,7 +89,7 @@ export class CentralityComponent implements OnInit {
           this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + "<br/>" + "&nbsp;&nbsp;&nbsp;&nbsp;"
           this.PositionArray = this.PositionArray + (IterSeq + 1).toString() + "." + "<br/>";
         }
-        this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + " ";
+        this.ProteinSequenceForDisplay = this.ProteinSequenceForDisplay + this.ProteinSequence.substring(start, end) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
         if (this.ProteinSequence.length < end) {
           break;

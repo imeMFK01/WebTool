@@ -15,12 +15,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class HistoryComponent implements OnInit {
   displayedColumns = ['serial', 'title', 'time','progress', 'qid'];
   dataSource: MatTableDataSource<UserData>;
+  dataSourceSampleResults: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private route: ActivatedRoute, private router: Router, private _httpService: ConfigService, public af: AngularFireAuth) {
     const users: UserData[] = [];
+    this.dataSourceSampleResults = new MatTableDataSource(users);
     this.dataSource = new MatTableDataSource(users);
   }
 
@@ -51,11 +53,14 @@ export class HistoryComponent implements OnInit {
     
   }
 
+  SampleResults:UserData[] = [];
+
   what(data: any) {
     const users: UserData[] = [];
     for (let i = 0; i < data.length; i++) { 
       if(i == 0){
-        users.push(createNewUser(i.toString() + "*", data[i])); 
+        //users.push(createNewUser(i.toString() + "*", data[i])); 
+        this.SampleResults.push(createNewUser(i.toString() + "*", data[i])); 
       }
       else{
         users.push(createNewUser(i.toString(), data[i])); 
@@ -63,6 +68,7 @@ export class HistoryComponent implements OnInit {
       
     }
     this.dataSource = new MatTableDataSource(users);
+    this.dataSourceSampleResults = new MatTableDataSource(this.SampleResults);
   }
 
 
