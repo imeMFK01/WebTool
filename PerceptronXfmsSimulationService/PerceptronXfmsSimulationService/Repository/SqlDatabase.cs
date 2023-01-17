@@ -104,19 +104,17 @@ namespace PerceptronXfmsSimulationService.Repository
                 if (Status == "Running")
                 {
                     dbObject.ExpectedCompletionTime = ExpectedCompletionTime;
-                    dbObject.QueuePosition = "0";
                 }
                 else if (Status == "Completed")
                 {
                     dbObject.ExpectedCompletionTime = null;
-                    dbObject.QueuePosition = "---";
                 }
                 else if (Status == "Error In Query")
                 {
                     dbObject.ExpectedCompletionTime = null;
-                    dbObject.QueuePosition = "---";
                 }
-                
+
+                dbObject.QueuePosition = "---";
                 db.SaveChanges();
             }
         }
