@@ -143,9 +143,6 @@ namespace PerceptronXfmsSimulationService
             //RunMeOnly();
 
             var instanceSqlDatabase = new SqlDatabase();
-
-            instanceSqlDatabase.UpdateQueuedInfo(TypicalCompletionTimeForOneJob, Tolerance);
-
             bool RunLoop = true;
             string format = "yyyy/MM/dd HH:mm:ss";
 
