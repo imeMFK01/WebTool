@@ -49,6 +49,9 @@ try
     InputFolderPath = "D:\PerceptronXfmsInputFolder";
     mkdir(InputFolderPath);
 
+    PerceptronXfmsExceptionLog = "D:\PerceptronXfmsExceptionLog";
+    mkdir(PerceptronXfmsExceptionLog);
+
     ResultFolderPath = "D:\PerceptronXfmsResultFolder";
     mkdir(ResultFolderPath);
 
@@ -256,9 +259,14 @@ try
     end
 
 catch exception
-    exception
     Error = "True";
     ErrorLog = exception;
+    FullFileName = PerceptronXfmsExceptionLog + "\" + string(datetime("now", 'Format', 'yyyyMMddHHmmss')) + ".txt";
+    if exist(FullFileName) == 2 
+        delete(FullFileName);
+    end
+    writematrix(exception.identifier, FullFileName, 'WriteMode','append');
+    writematrix(exception.message, FullFileName, 'WriteMode','append');
 end
 
 end
