@@ -20,7 +20,7 @@ end
 
 if exist(WorkingDirPathInString  + "\" + "PeptideInfo.xls","file") == 2
     copyfile(WorkingDirPathInString  + "\" + "PeptideInfo.xls", QueryResultFullPath);
-    delete(WorkingDirFullPathInString  + "\" + "PeptideInfo.xls");
+    delete(WorkingDirPathInString  + "\" + "PeptideInfo.xls");
 end
 
 end
