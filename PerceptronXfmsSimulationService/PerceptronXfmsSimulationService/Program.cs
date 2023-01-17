@@ -33,7 +33,12 @@ namespace PerceptronXfmsSimulationService
         public static string FrustratometerFolder = "frustratometeR_Results";
 
         public static string FrustratometerImageResultsFolder = "Images";
-        
+        public static DateTime ExpectedCompletionTime = DateTime.Now.AddHours(3);  // in hrs
+
+        public static int TypicalCompletionTimeForOneJob = 3;    // in hrs
+        public static int Tolerance = 3;    // in hrs
+
+
 
 
 
@@ -134,13 +139,17 @@ namespace PerceptronXfmsSimulationService
 
         static void Main(string[] args)
         {
-
+            
             //RunMeOnly();
 
             var instanceSqlDatabase = new SqlDatabase();
+
+            instanceSqlDatabase.UpdateQueuedInfo(TypicalCompletionTimeForOneJob, Tolerance);
+
             bool RunLoop = true;
             string format = "yyyy/MM/dd HH:mm:ss";
 
+            //Checking the path of MATLAB code based on my cube or server
             MatlabMainFileFullPath = CheckMatlabToolboxPathInsideDev(MatlabMainFileFullPath, "ToolBox");
             MatlabScriptsFullPath = CheckMatlabToolboxPathInsideDev(MatlabScriptsFullPath, "Utilities");
 
@@ -174,13 +183,19 @@ namespace PerceptronXfmsSimulationService
                     if (SearchQuery != null)  // for safety
                     {
                         string JobStatus = "Running";
-                        instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, JobStatus);
 
-                        Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + SearchQuery.Progress);
+
+                        //Updating the Queued status and Expected Completion time 
+                        instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, JobStatus, ExpectedCompletionTime);
+
+                        //Update the status of other queued position jobs
+                        instanceSqlDatabase.UpdateQueuedInfo(TypicalCompletionTimeForOneJob, Tolerance);
+
+
+                        Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + JobStatus);
+
 
                         var Call2MatlabDataObj = new Calling2Engine().Call2MATLAB(MatlabMainFileFullPath, SearchQuery);
-
-
 
                         //////// Read MATLAB output files for (i) creating zip file that will be used for Results Downloading &
                         //////// for (ii) Results Visualization
@@ -254,7 +269,7 @@ namespace PerceptronXfmsSimulationService
                         instanceSqlDatabase.ResultsSaveIntoDbForVisualize(SearchQuery.QueryID, ResultsSaveDbObj);
 
 
-                        instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Completed");
+                        instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Completed", ExpectedCompletionTime);
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Completed");
                         int waithere = 1;
                         SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, SearchQuery.CreationTime.ToString(format), "QuerySuccessfullyCompleted");
@@ -272,7 +287,7 @@ namespace PerceptronXfmsSimulationService
                         // Here error will come 
 
                         // Save Status into the DB
-                        instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Error In Query");
+                        instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Error In Query", ExpectedCompletionTime);
 
                         if (SearchQuery.EmailID != "")
                         {

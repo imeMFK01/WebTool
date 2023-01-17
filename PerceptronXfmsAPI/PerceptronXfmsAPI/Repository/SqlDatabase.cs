@@ -33,8 +33,8 @@ namespace PerceptronXfmsAPI.Repository
                 var SearchQueries = db.SearchXfmsQueries.ToList(); // .Add(parameters.SearchXfmsQuery);     //    .Where(x => x.Progress == "In Queue" || x.Progress == "In Queue").Select(x => x.Progress).
                 var UsersSubmittedQueries = db.SearchXfmsQueries.Select(x => x.UserID).ToList().Distinct();
 
-                StatsInfo.search = (SearchQueries.Count() + 16).ToString();   // 15 for local users
-                StatsInfo.user = (UsersSubmittedQueries.Count() + 10).ToString();   // 10 for local users
+                StatsInfo.search = (SearchQueries.Count() + 16).ToString();   // 15 for local users // Before import & export numbers
+                StatsInfo.user = (UsersSubmittedQueries.Count() + 10).ToString();   // 10 for local users // Before import & export numbers
 
             }
             return StatsInfo;
@@ -44,7 +44,6 @@ namespace PerceptronXfmsAPI.Repository
             var UserJobHistory = new List<UserHistory>();
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-
                 //Some additionaly preparation of sample results - #JustForTheSafetySeparatelyFetched
                 var SampleResultsInfo = db.SearchXfmsQueries.Where(x => x.UserID == UserIDforSampleResults).Select(x => x).FirstOrDefault(); // .Add(parameters.SearchXfmsQuery);
                 var tempSampleResultsInfo = new UserHistory

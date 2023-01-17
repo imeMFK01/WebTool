@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PerceptronXfmsSimulationService.Models;
 using PerceptronXfmsSimulationService.DTO;
+using PerceptronXfmsSimulationService.Utilities;
 
 namespace PerceptronXfmsSimulationService.Repository
 {
@@ -93,13 +94,29 @@ namespace PerceptronXfmsSimulationService.Repository
 
         }
 
-        public void UpdateJobStatus(string QueryID, string Status)
+        public void UpdateJobStatus(string QueryID, string Status, DateTime ExpectedCompletionTime)
         {
-            //Updating the progress status of 
+            //Updating the progress status
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
                 var dbObject = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
                 dbObject.Progress = Status;
+                if (Status == "Running")
+                {
+                    dbObject.ExpectedCompletionTime = ExpectedCompletionTime;
+                    dbObject.QueuePosition = "0";
+                }
+                else if (Status == "Completed")
+                {
+                    dbObject.ExpectedCompletionTime = null;
+                    dbObject.QueuePosition = "---";
+                }
+                else if (Status == "Error In Query")
+                {
+                    dbObject.ExpectedCompletionTime = null;
+                    dbObject.QueuePosition = "---";
+                }
+                
                 db.SaveChanges();
             }
         }
@@ -141,8 +158,28 @@ namespace PerceptronXfmsSimulationService.Repository
                 db.ResultsVisualizes.Add(temp);
                 db.SaveChanges();
             }
-
         }
 
+        public void UpdateQueuedInfo(int TypicalCompletionTimeForOneJob, int Tolerance)
+        {
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var QueuedData = db.SearchXfmsQueries.Where(x => x.Progress == "In Queue").OrderBy(x => x.CreationTime).ToList<SearchXfmsQuery>();
+
+                if (QueuedData != null)
+                {
+                    int TotalInQueueJobs = QueuedData.Count;
+                    for (int i = 0; i < TotalInQueueJobs; i++)
+                    {
+                        QueuedData[i].QueuePosition = (i + 1).ToString() +  "/" + TotalInQueueJobs.ToString();
+                        QueuedData[i].ExpectedCompletionTime = DateTime.Now.AddHours(((i + 1) * TypicalCompletionTimeForOneJob) + Tolerance);
+
+                    }
+
+                    
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }
