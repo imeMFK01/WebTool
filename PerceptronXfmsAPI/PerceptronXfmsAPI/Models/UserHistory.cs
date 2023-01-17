@@ -11,5 +11,7 @@ namespace PerceptronXfmsAPI.Models
         public string time { get; set; }
         public string qid { get; set; }
         public string progress { get; set; }
+        public string ExpectedCompletionTime { get; set; }
+        public string QueuePosition { get; set; }
     }
 }

@@ -13,7 +13,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
   providers: [ConfigService]
 })
 export class HistoryComponent implements OnInit {
-  displayedColumns = ['serial', 'title', 'time','progress', 'qid'];
+  displayedColumns = ['serial', 'title', 'time','progress', 'QueuePosition', 'ExpectedCompletionTime',  'qid'];
   dataSource: MatTableDataSource<UserData>;
   dataSourceSampleResults: MatTableDataSource<UserData>;
 
@@ -109,7 +109,10 @@ function createNewUser(id: string, data: any): UserData {
     title: data.title,
     time: data.time,
     qid: data.qid,
-    progress: data.progress
+    progress: data.progress,
+    ExpectedCompletionTime: data.ExpectedCompletionTime,
+    QueuePosition: data.QueuePosition
+
   };
 }
 
@@ -119,4 +122,6 @@ export interface UserData {
   time: string;
   qid: string;
   progress:string;
+  ExpectedCompletionTime: string;
+  QueuePosition: string;
 }

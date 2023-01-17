@@ -12,10 +12,18 @@ namespace PerceptronXfmsAPI.Controllers
 {
     public class HomeController : ApiController
     {
+
+        
+        
+
+         
+
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("")]
         public HttpResponseMessage Index()
         {
+            
+
             return new HttpResponseMessage()
             {
                 Content = new StringContent(

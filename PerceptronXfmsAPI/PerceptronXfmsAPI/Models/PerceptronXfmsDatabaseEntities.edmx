@@ -41,6 +41,8 @@
           <Property Name="EmailID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExpectedCompletionTime" Type="datetime2" Precision="7" />
+          <Property Name="QueuePosition" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="PerceptronXfmsDatabaseModelStoreContainer">
           <EntitySet Name="ResultsVisualize" EntityType="Self.ResultsVisualize" Schema="dbo" store:Type="Tables" />
@@ -88,6 +90,8 @@
           <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ExpectedCompletionTime" Type="DateTime" Precision="7" />
+          <Property Name="QueuePosition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="PerceptronXfmsDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ResultsVisualizes" EntityType="Self.ResultsVisualize" />
@@ -137,6 +141,8 @@
                 <ScalarProperty Name="EmailID" ColumnName="EmailID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ExpectedCompletionTime" ColumnName="ExpectedCompletionTime" />
+                <ScalarProperty Name="QueuePosition" ColumnName="QueuePosition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

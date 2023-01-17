@@ -23,5 +23,7 @@ namespace PerceptronXfmsAPI.Models
         public string EmailID { get; set; }
         public int ID { get; set; }
         public string Title { get; set; }
+        public Nullable<System.DateTime> ExpectedCompletionTime { get; set; }
+        public string QueuePosition { get; set; }
     }
 }

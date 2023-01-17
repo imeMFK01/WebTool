@@ -52,7 +52,9 @@ namespace PerceptronXfmsAPI.Repository
                     title = SampleResultsInfo.Title,
                     time = "---",
                     qid = SampleResultsInfo.QueryID,
-                    progress = SampleResultsInfo.Progress
+                    progress = SampleResultsInfo.Progress,
+                    ExpectedCompletionTime = "---",
+                    QueuePosition = "---"
                 };
                 UserJobHistory.Add(tempSampleResultsInfo);
 
@@ -70,7 +72,9 @@ namespace PerceptronXfmsAPI.Repository
                         title = UserHistory[index].Title,
                         time = UserHistory[index].CreationTime.ToString(),
                         qid = UserHistory[index].QueryID,
-                        progress = UserHistory[index].Progress
+                        progress = UserHistory[index].Progress,
+                        ExpectedCompletionTime = UserHistory[index].ExpectedCompletionTime != null ? UserHistory[index].ExpectedCompletionTime.ToString() : "---",
+                        QueuePosition = UserHistory[index].QueuePosition != null ? UserHistory[index].QueuePosition : "---"
                     };
                     UserJobHistory.Add(temp);
                 }
@@ -150,12 +154,24 @@ namespace PerceptronXfmsAPI.Repository
             {
                 var Check = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
 
-
                 var Data = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
                 return Data.FrustratometerResultFiles;
-
             }
         }
+
+
+        public int FetchQueuedInfo()
+        {
+            int AlreadyPresentJobs = 0;
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var ExtractInfo = db.SearchXfmsQueries.Where(x => x.Progress == "Running" || x.Progress == "In Queue");
+
+                AlreadyPresentJobs = ExtractInfo.Count();
+            }
+            return AlreadyPresentJobs;
+        }
+
 
 
         //////DBErrorException _DBErrorException = new DBErrorException();

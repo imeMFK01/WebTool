@@ -37,6 +37,7 @@ namespace PerceptronXfmsAPI.Controllers
         string MiscInputFiles = "MiscInputFiles";
         string CompletedSearchQueryStatus = "Completed";
         public string UserIDforSampleResults = "Sample";
+        public DateTime PerJobRunningTime = DateTime.Now.AddDays(0.4);
 
         readonly IDataAccessLayer _dataLayer;
         
@@ -97,6 +98,8 @@ namespace PerceptronXfmsAPI.Controllers
                 var jsonData = provider.FormData.GetValues("Jsonfile");
                 //InputFileProcessing(queryId, provider.FileData[0].LocalFileName, DateTime time, parametersDto);
 
+                
+
                 if (jsonData != null)
                 {
                     parametersDto.SearchXfmsQuery = JsonConvert.DeserializeObject<SearchXfmsQuery>(jsonData[0].Trim('"'));
@@ -104,6 +107,9 @@ namespace PerceptronXfmsAPI.Controllers
                     parametersDto.SearchXfmsQuery.CreationTime = DateTime.Now.AddDays(0);
                     parametersDto.SearchXfmsQuery.Progress = "In Queue";                   //  "Running"  "Completed"   "Error in Query"
                 }
+
+                // Assign expected completion time and queued position
+                new QueueStatusAndTime().ExtractQueueStatusAndTimeInfo(parametersDto);
 
                 var response = _dataLayer.StoreXfmsSearchParameters(parametersDto);
                
@@ -252,7 +258,6 @@ namespace PerceptronXfmsAPI.Controllers
         //public string GetDetailedPFResults()
         {
 
-
             var DetailProtectionFactor = _dataLayer.FetchResultsProtectionFactor(QueryID);
 
             //string pdbfile = @"D:\PerceptronXfmsResultFolder\Result_8ecbd72f-5188-4a4f-b1b7-4d27f9bd7136\\SASAmain.png";
@@ -280,8 +285,6 @@ namespace PerceptronXfmsAPI.Controllers
             var DetailedCentrality = _dataLayer.FetchResultsCentrality(QueryID);
 
             string ProteinHeader = new UniprotApi().ExtractProteinHeader(DetailedCentrality.FastaFileInfo);
-
-            
 
             DetailedCentrality.UniProtObj = new UniprotApi().GetAndPrepareUniprotData(ProteinHeader);
 
