@@ -284,6 +284,7 @@
     </Compile>
     <Compile Include="Models\PostTranslationModificationsSiteDto.cs" />
     <Compile Include="Models\ProteinDto.cs" />
+    <Compile Include="Models\ProteinDtoOld.cs" />
     <Compile Include="Models\PtmFixedModification.cs">
       <DependentUpon>PerceptronDatabaseEntities.tt</DependentUpon>
     </Compile>
@@ -343,6 +344,7 @@
     <Compile Include="Models\stat.cs" />
     <Compile Include="Models\SummaryResults.cs" />
     <Compile Include="Models\TermMod.cs" />
+    <Compile Include="Models\UniProtDto.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\UserHistory.cs" />
     <Compile Include="Models\ZipResultsDownloadInfo.cs">
@@ -367,6 +369,7 @@
     <Compile Include="Utility\AminoAcids.cs" />
     <Compile Include="Utility\DBErrorException.cs" />
     <Compile Include="Utility\FileToBlob.cs" />
+    <Compile Include="Utility\QueueStatusAndTime.cs" />
     <Compile Include="Utility\SendingEmail.cs" />
     <Compile Include="Utility\UniprotApi.cs" />
   </ItemGroup>
