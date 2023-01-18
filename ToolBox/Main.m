@@ -261,7 +261,7 @@ try
 catch exception
     Error = "True";
     ErrorLog = exception;
-    FullFileName = PerceptronXfmsExceptionLog + "\" + string(datetime("now", 'Format', 'yyyyMMddHHmmss')) + ".txt";
+    FullFileName = PerceptronXfmsExceptionLog + "\" + string(datetime("now", 'Format', 'yyyyMMddHHmmss')) + "_" + GUID + ".txt";
     if exist(FullFileName) == 2 
         delete(FullFileName);
     end
