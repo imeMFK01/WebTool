@@ -1,0 +1,2 @@
+D:/PerceptronXfmsInputFolder/11000000-0000-0000-0000-000000000000/MiscInputFiles/PDB.pdb
+D:/PerceptronXfmsResultFolder/Result_11000000-0000-0000-0000-000000000000/ResultsBridge.xlsx
