@@ -242,6 +242,7 @@
     </Compile>
     <Compile Include="Models\FastaReaderProteinDataDto.cs" />
     <Compile Include="Models\FastaWriterProteinDataDto.cs" />
+    <Compile Include="Models\FrustratometerDto.cs" />
     <Compile Include="Models\InsilicoMassIons.cs" />
     <Compile Include="Models\InsilicoObj.cs" />
     <Compile Include="Models\Job.cs" />

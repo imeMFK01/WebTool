@@ -1,0 +1,21 @@
+.Backgound{
+    background-color:#FBFEFF;
+}
+
+.FileSymbol{
+    justify-content: flex-end;
+}
+
+
+/* /deep/ .parametersPanel .mat-expansion-panel-body {
+    padding: 0;
+}
+
+.mat-expansion-panel-body {
+    padding: 0 0px 0px;
+} */
+
+
+::ng-deep .mat-expansion-panel-body{
+    padding: 0;
+}

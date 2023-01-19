@@ -7,6 +7,211 @@
   <div style="height:10px"></div>
 
 
+  <mat-expansion-panel [expanded]="true" style="background-color:#FBFEFF;">
+    <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
+      <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
+        Protein Information
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+<div class="mat-expansion-panel-body">
+  
+
+
+    <mat-grid-list cols="13" rowHeight="40px">
+
+      <!-- <mat-grid-tile colspan="1" rowspan="1">
+      <div style="padding-left:0px; width:40%;">
+        <img src="assets/images/FileSymbol.png">
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="13" rowspan="1"></mat-grid-tile> -->
+
+
+      <!-- <mat-grid-tile colspan="1" rowspan="1" style="text-align: left;">
+        <div style="width:100%">
+          <img style="text-align:left;" src="assets/images/UniProt_Logo.png" width="80%" height="200%">
+        </div>
+      </mat-grid-tile> -->
+
+
+      <mat-grid-tile colspan="1" rowspan="1">
+
+        <div style="display: flex; justify-content: flex-end;">
+
+          <img style="width:20%; height: 15%;" src="assets/images/FileSymbol.png">
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="5" rowspan="1">
+
+        <div style="width: 100%; display: inline-block; vertical-align:middle; font-weight: bold;">
+          <a style="font-size:250%;" href={{FastaHeaderWithLink}}>{{FastaHeader}}</a><span
+            style="font-size:300%; color: black;"> · </span>
+          <span style="font-size:250%;">{{this.MainHeaderInfo}}</span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="7" rowspan="1"></mat-grid-tile>
+
+
+
+      <!-- NEW LINE -->
+      <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <div style="width: 100%; text-align: right;">
+          <span style="font-size:150%; font-weight: bolder; color: black;">Protein</span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1" rowHeight="1:2">
+        <div style="display: flex;">
+          <span style="font-size:250%; color:#00A6D5"> | </span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="4" rowspan="1">
+        <div style="width: 150%; display: flex; justify-content: flex-start;">
+          <span style="font-size:150%; color: blue;">{{this.ProteinName}}</span>
+        </div>
+      </mat-grid-tile>
+
+
+
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div style="width: 100%; text-align: right;">
+          <span style="font-size:150%; font-weight: bolder; color: black;">Amino Acids</span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1" rowHeight="1:2">
+        <div style="display: flex;">
+          <span style="font-size:250%; color:#00A6D5"> | </span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="3" rowspan="1">
+        <div style="width: 150%; display: flex; justify-content: flex-start;">
+          <span style="font-size:150%; color: blue;">{{this.NoOfAminoAcids}}</span>
+        </div>
+      </mat-grid-tile>
+
+
+
+      <!-- NEW LINE -->
+      <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <div style="width: 100%; text-align: right;">
+          <span style="font-size:150%; font-weight: bolder; color: black;">Gene</span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1" rowHeight="1:2">
+        <div style="display: flex;">
+          <span style="font-size:250%; color:#00A6D5"> | </span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="3" rowspan="1">
+        <div style="width: 150%; display: flex; justify-content: flex-start;">
+          <span style="font-size:150%; color: blue;">{{this.GeneName}}</span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="3" rowspan="1">
+        <div style="width: 100%; text-align: right;">
+          <span style="font-size:150%; font-weight: bolder; color: black;">Protein Existence</span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1" rowHeight="1:2">
+        <div style="display: flex;">
+          <span style="font-size:250%; color:#00A6D5"> | </span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div style="width: 150%; display: flex; justify-content: flex-start;">
+          <span style="font-size:150%; color: blue;">{{this.GeneName}}</span>
+        </div>
+      </mat-grid-tile>
+
+
+
+
+
+      <!-- NEW LINE -->
+      <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div style="width: 100%; text-align: right;">
+          <span style="font-size:150%; font-weight: bolder; color: black;">Organism</span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1" rowHeight="1:2">
+        <div style="display: flex;">
+          <span style="font-size:250%; color:#00A6D5"> | </span>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="3" rowspan="1">
+        <div style="width: 150%; display: flex; justify-content: flex-start;">
+          <span style="font-size:150%; color: blue;">{{this.OrganismName}}</span>
+        </div>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+    <mat-grid-list cols="13" style="align-self: center;">
+
+
+      <!-- <mat-grid-tile colspan="2" rowspan="1" style="font-weight: bold;"> 
+    <a href={{FastaHeaderWithLink}}><label style="color:rgba(65, 131, 253, 0.959); font-size:25px; cursor:pointer"
+      id="ProteinHeader"></label></a>
+   </mat-grid-tile>
+  <mat-grid-tile colspan="11" rowspan="1" ></mat-grid-tile> -->
+
+      <mat-grid-tile colspan="1" rowspan="1" style="text-align: left;"></mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1">
+
+        <div style="width:100%">
+          <label style="font-size:100%; text-align: right;" id="PositionArraySeq"></label>
+        </div>
+
+      </mat-grid-tile>
+
+
+      <mat-grid-tile colspan="10" rowspan="1">
+        <div style="padding-left:5px; ; width:100%">
+          <label style="font-size:100%; text-align: left;" id="sequence"></label>
+        </div>
+        <!-- {{ProteinSequenceForDisplay}} -->
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+
+
+
+    <!-- <mat-grid-list cols="13" rowHeight="20px">
+          <mat-grid-tile colspan="13" rowspan="1" style="font-weight: bold; font-size:20px;"> <span style="color: red;">* </span> SASA: Solvent Accessible Surface Area <div style="height:10px;font-size:20px;">&nbsp;&nbsp;</div><span style="color: red;">** </span> PF: Protection Factor</mat-grid-tile>
+          
+        </mat-grid-list> -->
+
+    <!-- <mat-grid-list cols="13" rowHeight="20px">
+          <mat-grid-tile colspan="4" rowspan="1" style="font-weight: bold;"> <span style="color: red;">** </span> PF Protection Factor</mat-grid-tile>
+          <mat-grid-tile colspan="9" rowspan="1" ></mat-grid-tile>
+        </mat-grid-list> -->
+
+
+    <!-- <div style="margin:20px; align-self: center;"><img [src]="ImageFilePath"></div> -->
+
+  </div>
+  </mat-expansion-panel>
+
+
   <div style="height:10px"></div>
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
@@ -30,7 +235,7 @@
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
       <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
-        Denisty Of Contacts In Sequence Space 
+        Density Of Contacts In Sequence Space 
       </mat-panel-title>
     </mat-expansion-panel-header>
 

@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Validation;  //Added on 12Sep2019.. WHy its not needed before...???
 using PerceptronXfmsAPI.Utility;
 using System.Security;
+using Newtonsoft.Json;
 
 namespace PerceptronXfmsAPI.Repository
 {
@@ -147,14 +148,18 @@ namespace PerceptronXfmsAPI.Repository
         }
 
 
-        public string FetchResultsFrustratometer(string QueryID)
+        public FrustratometerDto FetchResultsFrustratometer(string QueryID)
         {
+            var FrustratometerResults = new FrustratometerDto();
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                var Check = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
+                //var Check = db.SearchXfmsQueries.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
 
                 var Data = db.ResultsVisualizes.Where(x => x.QueryID == QueryID).Select(x => x).FirstOrDefault();
-                return Data.FrustratometerResultFiles;
+                FrustratometerResults.ImageFilesPathInfo = Data.FrustratometerResultFiles;
+                FrustratometerResults.FastaFileInfo = Data.FastaFileInfo;
+
+                return FrustratometerResults;
             }
         }
 

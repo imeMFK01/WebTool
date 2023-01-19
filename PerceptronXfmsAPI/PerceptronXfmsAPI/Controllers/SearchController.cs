@@ -293,20 +293,26 @@ namespace PerceptronXfmsAPI.Controllers
 
         [HttpPost]
         [Route("api/search/GetDetailedFrustratometerResults")]
-        public List<byte[]> GetDetailedFrustratometerResults([FromBody] string QueryID)
+        public FrustratometerDto GetDetailedFrustratometerResults([FromBody] string QueryID)
         //public string GetDetailedPFResults()
         {
-            var FrustratometerResultFilesPath = _dataLayer.FetchResultsFrustratometer(QueryID);
+            
+            var FrustratometerResults = _dataLayer.FetchResultsFrustratometer(QueryID);
 
-            var ListOfStrings = JsonConvert.DeserializeObject<List<string>>(FrustratometerResultFilesPath);
-            var ListOfBlobs = new List<byte[]>();
+            var ListOfStrings = JsonConvert.DeserializeObject<List<string>>(FrustratometerResults.ImageFilesPathInfo);
+
             var Converter = new FileToBlob();
             for (int i = 0; i < ListOfStrings.Count; i++)
             {
-                ListOfBlobs.Add(Converter.FileToBlobConverter(ListOfStrings[i]));
+                FrustratometerResults.ImageFilesInListOfBlobs.Add(Converter.FileToBlobConverter(ListOfStrings[i]));
             }
 
-            return ListOfBlobs;
+            string ProteinHeader = new UniprotApi().ExtractProteinHeader(FrustratometerResults.FastaFileInfo);
+
+            FrustratometerResults.UniProtObj = new UniprotApi().GetAndPrepareUniprotData(ProteinHeader);
+
+            FrustratometerResults.ImageFilesPathInfo = null;
+            return FrustratometerResults;
         }
 
 

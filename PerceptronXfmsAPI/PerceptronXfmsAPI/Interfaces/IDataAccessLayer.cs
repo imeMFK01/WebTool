@@ -14,7 +14,7 @@ namespace PerceptronXfmsAPI
         string ZipFullFilePath(string QueryID);
         DetailProtectionFactorDto FetchResultsProtectionFactor(string QueryID);
         DetailedCentralityDto FetchResultsCentrality(string QueryID);
-        string FetchResultsFrustratometer(string QueryID);
+        FrustratometerDto FetchResultsFrustratometer(string QueryID);
         SearchXfmsQueryDto FetchSearchParameters(string QueryID);
 
         //ZipResultsDownloadInfo ScanResultFile(string QueryId);
