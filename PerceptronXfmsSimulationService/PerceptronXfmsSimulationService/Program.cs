@@ -152,7 +152,7 @@ namespace PerceptronXfmsSimulationService
 
 
             /// Updating Sample Results On DB
-            UpdateSampleResultsOnDB();
+            //UpdateSampleResultsOnDB();
 
 
 
@@ -269,7 +269,9 @@ namespace PerceptronXfmsSimulationService
                         instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, "Completed", ExpectedCompletionTime);
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Completed");
                         int waithere = 1;
-                        SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, SearchQuery.CreationTime.ToString(format), "QuerySuccessfullyCompleted");
+
+                        //#Future Applied try catch but freezed it for further implementation will do if required
+                        bool isEmailSent = SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, SearchQuery.CreationTime.ToString(format), "QuerySuccessfullyCompleted");
 
                     }
                     else
@@ -288,13 +290,10 @@ namespace PerceptronXfmsSimulationService
 
                         if (SearchQuery.EmailID != "")
                         {
-                            SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, SearchQuery.CreationTime.ToString(format), "Error");
+                            bool isEmailSent = SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, SearchQuery.CreationTime.ToString(format), "Error");
                         }
 
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Error In Query");
-
-                        // Send email to the user
-
                     }
                 }
                 

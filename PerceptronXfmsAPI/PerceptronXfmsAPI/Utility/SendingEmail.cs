@@ -15,73 +15,81 @@ namespace PerceptronXfmsAPI.Utility
     {
         public static void SendingEmailMethod(string UserEmailAddress, string StringInfo, string CreationTime, string EmailMessage)// Here StringInfo will behave based on EmailMessage either as JobTitle or UniqueUserGuid
         {
-            string Path = @"C:\PerceptronXFMSInfo\";
-            StreamReader ReadPerceptronXFMSEmailAddress = new StreamReader(Path + "PerceptronXFMSEmailAddress.txt");
-            StreamReader ReadPerceptronXFMSEmailPassword = new StreamReader(Path + "PerceptronXFMSData.txt");
-            string PerceptronXFMSEmailAddress = ReadPerceptronXFMSEmailAddress.ReadLine();
-            string PerceptronXFMSEmailAddressPassword = ReadPerceptronXFMSEmailPassword.ReadLine();
-
-            string BaseUrl = "https://perceptronxfms.lums.edu.pk/";
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(PerceptronXFMSEmailAddress));
-            email.To.Add(MailboxAddress.Parse(UserEmailAddress));
-
-
-            if (EmailMessage == "Error") // Email Msg for Something Wrong With Entered Query     // StringInfo 
+            try
             {
-                email.Subject = "PERCEPTRON-XFMS: XFMS Search Query Not Submitted";
 
-                email.Body = new TextPart(TextFormat.Html)
+
+                string Path = @"C:\PerceptronXFMSInfo\";
+                StreamReader ReadPerceptronXFMSEmailAddress = new StreamReader(Path + "PerceptronXFMSEmailAddress.txt");
+                StreamReader ReadPerceptronXFMSEmailPassword = new StreamReader(Path + "PerceptronXFMSData.txt");
+                string PerceptronXFMSEmailAddress = ReadPerceptronXFMSEmailAddress.ReadLine();
+                string PerceptronXFMSEmailAddressPassword = ReadPerceptronXFMSEmailPassword.ReadLine();
+
+                string BaseUrl = "https://perceptronxfms.lums.edu.pk/";
+                var email = new MimeMessage();
+                email.From.Add(MailboxAddress.Parse(PerceptronXFMSEmailAddress));
+                email.To.Add(MailboxAddress.Parse(UserEmailAddress));
+
+
+                if (EmailMessage == "Error") // Email Msg for Something Wrong With Entered Query     // StringInfo 
                 {
-                    Text =
-               "Dear User," +
-                "<br/><br/> Search query couldn't submitted with the \"" + StringInfo + "\" job title. Please check your search parameters and data files." +
-                "</br><br/> For assistance in submitting a search, please visit the <a href=\'" + BaseUrl + "/index.html#/getting \'>Getting Started</a> page" +
-                    " and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>. <br/><br/>If " +
-                    "problem still persists, please <a href=\'" + BaseUrl + "index.html#/contact'> contact</a> us." +
+                    email.Subject = "PERCEPTRON-XFMS: XFMS Search Query Not Submitted";
+
+                    email.Body = new TextPart(TextFormat.Html)
+                    {
+                        Text =
+                   "Dear User," +
+                    "<br/><br/> Search query couldn't submitted with the \"" + StringInfo + "\" job title. Please check your search parameters and data files." +
+                    "</br><br/> For assistance in submitting a search, please visit the <a href=\'" + BaseUrl + "/index.html#/getting \'>Getting Started</a> page" +
+                        " and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>. <br/><br/>If " +
+                        "problem still persists, please <a href=\'" + BaseUrl + "index.html#/contact'> contact</a> us." +
 
 
-                    EmailFooter()
+                        EmailFooter()
 
-                };
-            }
-            else if (EmailMessage == "QuerySuccessfullySubmitted")
-            {
-                email.Subject = "PERCEPTRON-XFMS: XFMS Search Query Submitted";
-                email.Body = new TextPart(TextFormat.Html)
+                    };
+                }
+                else if (EmailMessage == "QuerySuccessfullySubmitted")
                 {
-                    Text =
-                "Dear User," +
-                "<br/><br/>Your protein search query successfully submitted at " + CreationTime + " with the \"" +
-                        StringInfo + "\" job title.<br/><br/>You can check the status of your query at <a href=\'" + BaseUrl + "index.html#/history \'>User Search History</a>." +
-                "</br><br/>For assistance in submitting a search, please visit the <a href=\'" + BaseUrl + "index.html#/getting \'>Getting Started</a> page " +
-                "and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>." +
+                    email.Subject = "PERCEPTRON-XFMS: XFMS Search Query Submitted";
+                    email.Body = new TextPart(TextFormat.Html)
+                    {
+                        Text =
+                    "Dear User," +
+                    "<br/><br/>Your protein search query successfully submitted at " + CreationTime + " with the \"" +
+                            StringInfo + "\" job title.<br/><br/>You can check the status of your query at <a href=\'" + BaseUrl + "index.html#/history \'>User Search History</a>." +
+                    "</br><br/>For assistance in submitting a search, please visit the <a href=\'" + BaseUrl + "index.html#/getting \'>Getting Started</a> page " +
+                    "and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>." +
 
-                "</br><br/>Thank You for using Perceptron-XFMS." +
-                "</br><br/><b>The PERCEPTRON-XFMS Team</b>" +
-                "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL)," +
-                "</br>Department of Life Sciences, SBA School of Science and Engineering," +
-                "</br>Lahore University of Management Sciences (LUMS), Lahore, Pakistan" +
-                "</br>Voice: +92 42 3560 8352" +
-                "</br>Email: <a href=\'mailto:perceptronxfms@lums.edu.pk'>perceptronxfms@lums.edu.pk</a>" +
-                "</br>Web: <a href='http://biolabs.lums.edu.pk/birl'>biolabs.lums.edu.pk/birl</a>"
-                };
+                    "</br><br/>Thank You for using Perceptron-XFMS." +
+                    "</br><br/><b>The PERCEPTRON-XFMS Team</b>" +
+                    "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL)," +
+                    "</br>Department of Life Sciences, SBA School of Science and Engineering," +
+                    "</br>Lahore University of Management Sciences (LUMS), Lahore, Pakistan" +
+                    "</br>Voice: +92 42 3560 8352" +
+                    "</br>Email: <a href=\'mailto:perceptronxfms@lums.edu.pk'>perceptronxfms@lums.edu.pk</a>" +
+                    "</br>Web: <a href='http://biolabs.lums.edu.pk/birl'>biolabs.lums.edu.pk/birl</a>"
+                    };
+                }
+
+
+
+                //email.Subject = "Test Email Subject";
+                //email.Body = new TextPart(TextFormat.Html) { Text = "<h1>Example HTML Message Body</h1>" };
+
+                // send email
+                using (SmtpClient smtp = new SmtpClient())
+                {
+                    smtp.Connect("smtp.office365.com", 587, SecureSocketOptions.StartTls);       // https://learn.microsoft.com/es-es/dotnet/api/system.net.mail.smtpclient?redirectedfrom=MSDN&view=netframework-4.7.2 // https://jasonwatmore.com/post/2021/09/02/net-5-send-an-email-via-smtp-with-mailkit
+                    smtp.Authenticate(PerceptronXFMSEmailAddress, PerceptronXFMSEmailAddressPassword);
+                    smtp.Send(email);
+                    smtp.Disconnect(true);
+                }
             }
-
-
-
-            //email.Subject = "Test Email Subject";
-            //email.Body = new TextPart(TextFormat.Html) { Text = "<h1>Example HTML Message Body</h1>" };
-
-            // send email
-            using (SmtpClient smtp = new SmtpClient())
+            catch (Exception EmailSentError)
             {
-                smtp.Connect("smtp.office365.com", 587, SecureSocketOptions.StartTls);       // https://learn.microsoft.com/es-es/dotnet/api/system.net.mail.smtpclient?redirectedfrom=MSDN&view=netframework-4.7.2 // https://jasonwatmore.com/post/2021/09/02/net-5-send-an-email-via-smtp-with-mailkit
-                smtp.Authenticate(PerceptronXFMSEmailAddress, PerceptronXFMSEmailAddressPassword);
-                smtp.Send(email);
-                smtp.Disconnect(true);
-            }
 
+            }
 
 
            
