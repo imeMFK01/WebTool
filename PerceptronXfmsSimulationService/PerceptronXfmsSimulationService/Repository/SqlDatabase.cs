@@ -71,7 +71,7 @@ namespace PerceptronXfmsSimulationService.Repository
             var temp = new SearchXfmsQueryDto();
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                var dbObject = db.SearchXfmsQueries.Where(x => x.Progress == "In Queue" && x.EmailID == "farhan.biomedical.2022@gmail.com").Select(x => x).OrderBy(x => x.CreationTime).FirstOrDefault();
+                var dbObject = db.SearchXfmsQueries.Where(x => x.Progress == "In Queue").Select(x => x).OrderBy(x => x.CreationTime).FirstOrDefault();   //  && x.EmailID == "farhan.biomedical.2022@gmail.com"
 
                 if (dbObject == null)
                 {
