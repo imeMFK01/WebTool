@@ -62,14 +62,14 @@ namespace PerceptronXfmsSimulationService
                     throw new Exception("Sample Result folder does not exist at specified location.");
                 }
 
-                var _FastaReader = new FastaReader();
-
-                var ProteinInfo = _FastaReader.FetchFastaInfo(QueryResultFullPath + "\\" + FastaFile);
+                //var _FastaReader = new FastaReader();
+                //var ProteinInfo = _FastaReader.FetchFastaInfo(QueryResultFullPath + "\\" + FastaFile);
 
 
                 string ZippingFileName = "";
                 var ResultsSaveDbObj = new ResultsVisualizeSaveIntoDB();
 
+                //ResultsSaveDbObj.FastaFileInfo = JsonConvert.SerializeObject(ProteinInfo);
 
                 //var ProteinInfo = new List<ProteinDto>(){ new ProteinDto()    //Creating List Just to avoid Front end parsing errors
                 //{
@@ -89,8 +89,8 @@ namespace PerceptronXfmsSimulationService
                 //instanceSqlDatabase.ResultsSaveIntoDbForVisualize(QueryID, ResultsSaveDbObj);
                 //////////////////////////////////
 
-                ResultsSaveDbObj.FastaFileInfo = JsonConvert.SerializeObject(ProteinInfo);
-                
+
+
 
                 CompileResultsforDownAndVisualize(QueryResultFullPath, Title, QueryID, ref ZippingFileName, ResultsSaveDbObj, isBridgeEnabled, isFrustratometerEnabled);
 
@@ -152,7 +152,7 @@ namespace PerceptronXfmsSimulationService
 
 
             /// Updating Sample Results On DB
-            //UpdateSampleResultsOnDB();
+            UpdateSampleResultsOnDB();
 
 
 
@@ -322,6 +322,10 @@ namespace PerceptronXfmsSimulationService
 
         public static void CompileResultsforDownAndVisualize(string QueryResultFullPath, string Title, string QueryID, ref string ZippingFileName, ResultsVisualizeSaveIntoDB ResultsSaveDbObj, string isBridgeEnabled, string isFrustratometerEnabled)
         {
+            var _FastaReader = new FastaReader();
+            var ProteinInfo = _FastaReader.FetchFastaInfo(QueryResultFullPath + "\\" + FastaFile);
+            ResultsSaveDbObj.FastaFileInfo = JsonConvert.SerializeObject(ProteinInfo);
+
 
             ////Zipping the Resutls
             ZippingFileName = new Zipping().ZippingOutputFiles(ResultFolderPath, QueryResultFullPath, Title, QueryID);

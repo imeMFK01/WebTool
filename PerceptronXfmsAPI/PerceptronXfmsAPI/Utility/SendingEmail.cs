@@ -40,17 +40,9 @@ namespace PerceptronXfmsAPI.Utility
                     " and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>. <br/><br/>If " +
                     "problem still persists, please <a href=\'" + BaseUrl + "index.html#/contact'> contact</a> us." +
 
-                    "</br><br/>Thank You for using Perceptron-XFMS." +
-                "</br><br/><b>The PERCEPTRON-XFMS Team</b>" +
-                "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL)," +
-                "</br>Department of Life Sciences, SBA School of Science and Engineering," +
-                "</br>Lahore University of Management Sciences (LUMS), Lahore, Pakistan" +
-                "</br>Voice: +92 42 3560 8352" +
-                "</br>Email: <a href=\'mailto:perceptronxfms@lums.edu.pk'>perceptronxfms@lums.edu.pk</a>" +
-                "</br>Web: <a href='http://biolabs.lums.edu.pk/birl'>biolabs.lums.edu.pk/birl</a>"
-                    //"</br></br>Thank You for using Perceptron-XFMS." +
-                    //"</br><b>The PERCEPTRON-XFMS Team</b>" +
-                    //"</br>Biomedical Informatics & Engineering Research Laboratory (BIRL), Lahore University of Management Sciences (LUMS), Pakistan"
+
+                    EmailFooter()
+
                 };
             }
             else if (EmailMessage == "QuerySuccessfullySubmitted")
@@ -90,79 +82,21 @@ namespace PerceptronXfmsAPI.Utility
                 smtp.Disconnect(true);
             }
 
-            int a = 1;
-
-            //using (var mm = new MailMessage(PerceptronXFMSEmailAddress, UserEmailAddress))
-            //{
-            //    string BaseUrl = "https://perceptronxfms.lums.edu.pk/";
 
 
-            //    if (EmailMessage == "Error") // Email Msg for Something Wrong With Entered Query     // StringInfo 
-            //    {
-            //        mm.Subject = "PERCEPTRON-XFMS: XFMS Search Query Not Submitted";
-            //        var body = "Dear User,";
-            //        body += "<br/><br/> Search query couldn't submitted with job title \"" + StringInfo + "\" please check your search parameters and data files.";
-            //        //body += "&nbsp;<a href=\'" + BaseUrl + "/index.html#/scans/" + p.Queryid + " \'>link</a>.";
-            //        body += "</br> If you need help check out the <a href=\'" + BaseUrl + "/index.html#/getting \'>Getting Started</a> guide" +
-            //            " and our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>. If " +
-            //            "problem still persists, please <a href=\'" + BaseUrl + "index.html#/contact'> contact</a> us.";
+           
+        }
 
-            //        body += "</br></br>Thank You for using Perceptron-XFMS.";
-            //        body += "</br><b>The PERCEPTRON-XFMS Team</b>";
-            //        body += "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL), Lahore University of Management Sciences (LUMS), Pakistan";
-            //        mm.Body = body;
-            //    }
-            //    else if (EmailMessage == "QuerySuccessfullySubmitted")
-            //    {
-            //            mm.Subject = "PERCEPTRON-XFMS: XFMS Search Query Submitted";
-            //            var body = "Dear User,";
-            //            body += "<br/><br/> Your protein search query successfully submitted at " + CreationTime + " with job title \"" +
-            //                    StringInfo + "\" Please check your query status at <a href=\'" + BaseUrl + "index.html#/history \'>User Search History</a>.";
-            //            body += "</br> If you need help check out the <a href=\'" + BaseUrl + "index.html#/getting \'>Getting Started</a> guide " +
-            //            "and our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>.";
-
-            //            body += "</br></br>Thank You for using Perceptron-XFMS.";
-            //            body += "</br><b>The PERCEPTRON-XFMS Team</b>";
-            //            body += "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL), Lahore University of Management Sciences (LUMS), Pakistan";
-            //            mm.Body = body;
-            //    }
-            //    //else if (EmailMessage == "PerceptronSdkEmailVerification")
-            //    //{
-            //    //    mm.Subject = "PERCEPTRON-XFMS SDK: Email Verification";
-            //    //    var body = "Dear User,";
-            //    //    body += "<br/> To complete your Calling PERCEPTRON-XFMS API sign up, we just need to verify your email address: " + UserEmailAddress +
-            //    //        ". So, please copy the below line ";
-            //    //    body += "<br/> UserUniqueId = '" + StringInfo + "'" + 
-            //    //        "<br/>and paste into the function of VerfiyingEmailAddress as instructed you there.";
-            //    //    body += "</br>Once verified, you can start using Calling PERCEPTRON API for proteoform search.";
-
-            //    //    body += "</br></br>Thank You for using Perceptron.";
-            //    //    body += "</br><b>The PERCEPTRON-XFMS Team</b>";
-            //    //    body += "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL), Lahore University of Management Sciences (LUMS), Pakistan";
-            //    //    mm.Body = body;
-            //    //}
-
-            //    mm.IsBodyHtml = true;
-            //    var networkCred = new NetworkCredential(PerceptronXFMSEmailAddress, PerceptronXFMSEmailAddressPassword);
-            //    var smtp = new SmtpClient
-            //    {
-            //        Host = "smtp.office365.com",
-            //        EnableSsl = true,
-            //        UseDefaultCredentials = false,
-            //        Credentials = networkCred,
-            //        Port = 587
-            //    };
-            //    try
-            //    {
-            //        smtp.Send(mm);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        if (e is System.Net.Mail.SmtpException)
-            //            UserEmailAddress = "das bad";
-
-            //    }
-            //}
+        public static string EmailFooter()
+        {
+            return "</br><br/>Thank You for using Perceptron-XFMS." +
+                "</br><br/><b>The PERCEPTRON-XFMS Team</b>" +
+                "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL)," +
+                "</br>Department of Life Sciences, SBA School of Science and Engineering," +
+                "</br>Lahore University of Management Sciences (LUMS), Lahore, Pakistan" +
+                "</br>Voice: +92 42 3560 8352" +
+                "</br>Email: <a href=\'mailto:perceptronxfms@lums.edu.pk'>perceptronxfms@lums.edu.pk</a>" +
+                "</br>Web: <a href='http://biolabs.lums.edu.pk/birl'>biolabs.lums.edu.pk/birl</a>";
         }
     }
 }
@@ -174,30 +108,4 @@ namespace PerceptronXfmsAPI.Utility
 
 
 
-
-
-
-//int port = 587;
-//string host = "smtp.office365.com";
-//string username = "smtp.out@mail.com";
-//string password = "password";
-//string mailFrom = "noreply@mail.com";
-//string mailTo = "mailto@mail.com";
-//string mailTitle = "Testtitle";
-//string mailMessage = "Testmessage";
-
-//var message = new MimeMessage();
-//message.From.Add(new MailboxAddress(mailFrom));
-//            message.To.Add(new MailboxAddress(mailTo));
-//            message.Subject = mailTitle;
-//            message.Body = new TextPart("plain") { Text = mailMessage };
-
-//            using (var client = new SmtpClient())
-//            {
-//                client.Connect(host, port, SecureSocketOptions.StartTls);
-//                client.Authenticate(username, password);
-
-//                client.Send(message);
-//                client.Disconnect(true);
-//            }
 
