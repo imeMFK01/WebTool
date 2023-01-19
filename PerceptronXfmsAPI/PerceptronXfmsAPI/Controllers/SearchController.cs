@@ -116,7 +116,7 @@ namespace PerceptronXfmsAPI.Controllers
                 // Add sending email to the user
                 if (parametersDto.SearchXfmsQuery.EmailID!= "")
                 {
-                    SendingEmail.SendingEmailMethod(parametersDto.SearchXfmsQuery.EmailID, parametersDto.SearchXfmsQuery.Title, parametersDto.SearchXfmsQuery.CreationTime.ToString(format), "QuerySuccessfullySubmitted");
+                    SendingEmail.SendingEmailMethod(parametersDto.SearchXfmsQuery.EmailID, parametersDto.SearchXfmsQuery.Title, parametersDto.SearchXfmsQuery.ExpectedCompletionTime?.ToString(format), parametersDto.SearchXfmsQuery.CreationTime.ToString(format), "QuerySuccessfullySubmitted");
                 }
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
@@ -129,7 +129,7 @@ namespace PerceptronXfmsAPI.Controllers
 
                 if (parametersDto.SearchXfmsQuery.EmailID != "")
                 {
-                    SendingEmail.SendingEmailMethod(parametersDto.SearchXfmsQuery.EmailID, parametersDto.SearchXfmsQuery.Title, parametersDto.SearchXfmsQuery.CreationTime.ToString(format), "Error");
+                    SendingEmail.SendingEmailMethod(parametersDto.SearchXfmsQuery.EmailID, parametersDto.SearchXfmsQuery.Title, "", parametersDto.SearchXfmsQuery.CreationTime.ToString(format), "Error");
                 }
 
                 parametersDto.SearchXfmsQuery.Progress = "Error in Query";

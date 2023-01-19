@@ -13,16 +13,11 @@ namespace PerceptronXfmsAPI.Controllers
     public class HomeController : ApiController
     {
 
-        
-        
-
-         
-
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("")]
         public HttpResponseMessage Index()
         {
-            
+            //SendingEmail.SendingEmailMethod("farhan.biomedical.2022@gmail.com", "TestingEmail", "2023", "2022", "QuerySuccessfullySubmitted");
 
             return new HttpResponseMessage()
             {
