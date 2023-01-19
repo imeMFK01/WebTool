@@ -16,6 +16,6 @@
 } */
 
 
-::ng-deep .mat-expansion-panel-body{
+:host ::ng-deep .mat-expansion-panel-body{
     padding: 0;
 }

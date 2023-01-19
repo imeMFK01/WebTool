@@ -6,16 +6,16 @@
     justify-content: flex-end;
 }
 
-
-/* /deep/ .parametersPanel .mat-expansion-panel-body {
+/* 
+/deep/ .parametersPanel .mat-expansion-panel-body {
     padding: 0;
 }
 
 .mat-expansion-panel-body {
-    padding: 0 0px 0px;
+    padding: 0;
 } */
 
 
-::ng-deep .mat-expansion-panel-body{
+:host ::ng-deep .mat-expansion-panel-body{
     padding: 0;
 }
