@@ -13,10 +13,9 @@ namespace PerceptronXfmsSimulationService.Utilities
 {
     public static class SendingEmail
     {
-        public static bool SendingEmailMethod(string UserEmailAddress, string StringInfo, string CreationTime, string EmailMessage)// Here StringInfo will behave based on EmailMessage either as JobTitle or UniqueUserGuid
+        public static void SendingEmailMethod(string UserEmailAddress, string StringInfo, string ExpectedCompletionTime, string CreationTime, string EmailMessage)// Here StringInfo will behave based on EmailMessage either as JobTitle or UniqueUserGuid
         {
-            bool isEmailSent = true;
-            try
+            try    // //#Future Applied try catch but freezed it for further implementation will do if required
             {
                 string Path = @"C:\PerceptronXFMSInfo\";
                 StreamReader ReadPerceptronXFMSEmailAddress = new StreamReader(Path + "PerceptronXFMSEmailAddress.txt");
@@ -37,23 +36,27 @@ namespace PerceptronXfmsSimulationService.Utilities
                     email.Body = new TextPart(TextFormat.Html)
                     {
                         Text =
-                   "Dear User," +
-                    "<br/><br/> Your submitted search query couldn't successfully completed with the \"" + StringInfo + "\" job title. Please check your search parameters and data files." +
+                   "<span style=\"font-size:14px;\">Dear User," +
+                    "<br/><br/>Your submitted search query process didn’t complete successfully with the \"" + StringInfo + "\" job title. Please check your search parameters and data files." +
                     "</br><br/> For assistance in submitting a search, please visit the <a href=\'" + BaseUrl + "/index.html#/getting \'>Getting Started</a> page" +
                         " and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>. <br/><br/>If " +
-                        "problem still persists, please <a href=\'" + BaseUrl + "index.html#/contact'> contact</a> us." +
+                        "problem still persists, feel free to <a href=\'" + BaseUrl + "index.html#/contact'>contact</a> us.</span>" +
 
-                        "</br><br/>Thank You for using Perceptron-XFMS." +
-                    "</br><br/><b>The PERCEPTRON-XFMS Team</b>" +
-                    "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL)," +
-                    "</br>Department of Life Sciences, SBA School of Science and Engineering," +
-                    "</br>Lahore University of Management Sciences (LUMS), Lahore, Pakistan" +
-                    "</br>Voice: +92 42 3560 8352" +
-                    "</br>Email: <a href=\'mailto:perceptronxfms@lums.edu.pk'>perceptronxfms@lums.edu.pk</a>" +
-                    "</br>Web: <a href='http://biolabs.lums.edu.pk/birl'>biolabs.lums.edu.pk/birl</a>"
-                        //"</br></br>Thank You for using Perceptron-XFMS." +
-                        //"</br><b>The PERCEPTRON-XFMS Team</b>" +
-                        //"</br>Biomedical Informatics & Engineering Research Laboratory (BIRL), Lahore University of Management Sciences (LUMS), Pakistan"
+                        EmailFooter()
+                    };
+                }
+                else if (EmailMessage == "QueryIsJustStartedForRunning")
+                {
+                    email.Subject = "PERCEPTRON-XFMS: XFMS Search Query Status Updated";
+                    email.Body = new TextPart(TextFormat.Html)
+                    {
+                        Text =
+                    "<span style=\"font-size:14px;\">Dear User," +
+                    "<br/><br/>Your XFMS search query is just started for computation with the \"" +
+                            StringInfo + "\" job title and expected completion time is "+ ExpectedCompletionTime + ".<br/><br/>You can check the status of your query at the <a href=\'" + BaseUrl +
+                            "index.html#/history \'>User Search History</a> page and once your query will be successfully completed then, we will inform you through an email as well.</span>" +
+
+                    EmailFooter()
                     };
                 }
                 else if (EmailMessage == "QuerySuccessfullyCompleted")
@@ -62,25 +65,16 @@ namespace PerceptronXfmsSimulationService.Utilities
                     email.Body = new TextPart(TextFormat.Html)
                     {
                         Text =
-                    "Dear User," +
-                    "<br/><br/>Your protein search query successfully completed with the \"" +
+                    "<span style=\"font-size:14px;\">Dear User," +
+                    "<br/><br/>Your XFMS search query is successfully completed with the \"" +
                             StringInfo + "\" job title.<br/><br/>You can visualize and download your results at <a href=\'" + BaseUrl + "index.html#/history \'>User Search History</a>." +
                     "</br><br/>For interpretation of the results, please visit the <a href=\'" + BaseUrl + "index.html#/help \'>Help & Manual</a> page " +
-                    "and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>." +
+                    "or see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>.</span>" +
 
-                    "</br><br/>Thank You for using Perceptron-XFMS." +
-                    "</br><br/><b>The PERCEPTRON-XFMS Team</b>" +
-                    "</br>Biomedical Informatics & Engineering Research Laboratory (BIRL)," +
-                    "</br>Department of Life Sciences, SBA School of Science and Engineering," +
-                    "</br>Lahore University of Management Sciences (LUMS), Lahore, Pakistan" +
-                    "</br>Voice: +92 42 3560 8352" +
-                    "</br>Email: <a href=\'mailto:perceptronxfms@lums.edu.pk'>perceptronxfms@lums.edu.pk</a>" +
-                    "</br>Web: <a href='http://biolabs.lums.edu.pk/birl'>biolabs.lums.edu.pk/birl</a>"
+                    EmailFooter()
                     };
                 }
-
-
-
+                
                 //email.Subject = "Test Email Subject";
                 //email.Body = new TextPart(TextFormat.Html) { Text = "<h1>Example HTML Message Body</h1>" };
 
@@ -96,9 +90,21 @@ namespace PerceptronXfmsSimulationService.Utilities
             }
             catch (Exception e)
             {
-                isEmailSent = false;
+
             }
-            return isEmailSent;
+        }
+
+        public static string EmailFooter()
+        {
+            return "<span style=\"font-size:14px;\"></br>Thank you for using PERCEPTRON-XFMS." +
+                "</br><br/>Best Wishes," +
+                "<br/><b>The PERCEPTRON-XFMS Team,</b></span>" +
+                "<span style=\"font-size:12px;\"></br></br>Biomedical Informatics & Engineering Research Laboratory (BIRL)," +
+                "</br>Department of Life Sciences, SBA School of Science and Engineering," +
+                "</br>Lahore University of Management Sciences (LUMS), Lahore, Pakistan" +
+                "</br>Voice: +92 42 3560 8352" +
+                "</br>Email: <a href=\'mailto:perceptronxfms@lums.edu.pk'>perceptronxfms@lums.edu.pk</a>" +
+                "</br>Web: <a href='http://biolabs.lums.edu.pk/birl'>biolabs.lums.edu.pk/birl</a> </span>";
         }
     }
 }

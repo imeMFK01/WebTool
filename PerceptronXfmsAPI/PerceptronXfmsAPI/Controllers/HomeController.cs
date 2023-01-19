@@ -17,7 +17,7 @@ namespace PerceptronXfmsAPI.Controllers
         [System.Web.Http.Route("")]
         public HttpResponseMessage Index()
         {
-            //SendingEmail.SendingEmailMethod("farhan.biomedical.2022@gmail.com", "TestingEmail", "2023", "2022", "QuerySuccessfullySubmitted");
+            //SendingEmail.SendingEmailMethod("farhan.biomedical.2022@gmail.com", "TestingEmail", "2023", "2022", "Error");
 
             return new HttpResponseMessage()
             {

@@ -56,7 +56,8 @@ namespace PerceptronXfmsAPI.Utility
                         Text =
                     "<span style=\"font-size:14px;\">Dear User," +
                     "<br/><br/>Your XFMS search query was successfully submitted at " + CreationTime + " with the \"" +
-                            StringInfo + "\" job title and the expected completion time is " + ExpectedCompletionTime +".<br/><br/>You can check the status of your query at the <a href=\'" + BaseUrl + "index.html#/history \'>User Search History</a> page and once your query will be successfully completed then, we will inform you through an email as well." +
+                            StringInfo + "\" job title and the expected completion time is " + ExpectedCompletionTime +".<br/><br/>You can check the status of your query at the <a href=\'" + BaseUrl +
+                            "index.html#/history \'>User Search History</a> page and once your query will be successfully completed then, we will inform you through an email as well.</span>" +
                     //"</br><br/>For assistance in submitting a search, please visit the <a href=\'" + BaseUrl + "index.html#/getting \'>Getting Started</a> page " +
                     //"and see our <a href=\'https://www.youtube.com/playlist?list=PLaNVq-kFOn0Zu7xi94YiTauT2e5fxYLcz'>Video Tutorials</a>.</span>" +
 

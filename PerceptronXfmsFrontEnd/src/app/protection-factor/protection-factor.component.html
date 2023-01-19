@@ -211,6 +211,33 @@
   </div>
   </mat-expansion-panel>
 
+  <div style="height:10px"></div>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header style="background-color:#dddddd; color:Black; ">
+      <mat-panel-title style="font-size:large; font-weight:600;  color:Black;">
+        Solvent Accessibility Graph
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-grid-list cols="13" rowspan="5" rowHeight="675px">
+
+      <mat-grid-tile colspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="7" style="align-self: center;">
+        <img style="text-align:center;" [src]="ImageFilePath" width="90%">
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="4" style="align-self: center;">
+        <img style="text-align:center;" src="assets/images/Legend.png" width="65%"></mat-grid-tile>
+        <mat-grid-tile colspan="1"></mat-grid-tile>
+
+      <!-- <mat-card-tile colspan="3" rowspan="1"></mat-card-tile>
+          <mat-card-tile colspan="3" rowspan="1" style="margin:20px; align-self: center;">
+  
+            <img [src]="ImageFilePath">
+          </mat-card-tile>
+          <mat-card-tile colspan="3" rowspan="1"></mat-card-tile> -->
+    </mat-grid-list>
+</mat-expansion-panel>
 
   <div style="height:10px"></div>
   <!-- <mat-card>

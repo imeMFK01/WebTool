@@ -139,9 +139,7 @@ namespace PerceptronXfmsSimulationService
 
         static void Main(string[] args)
         {
-            
             //RunMeOnly();
-
             var instanceSqlDatabase = new SqlDatabase();
             bool RunLoop = true;
             string format = "yyyy/MM/dd HH:mm:ss";
@@ -184,6 +182,11 @@ namespace PerceptronXfmsSimulationService
 
                         //Updating the Queued status and Expected Completion time 
                         instanceSqlDatabase.UpdateJobStatus(SearchQuery.QueryID, JobStatus, ExpectedCompletionTime);
+
+                        if (SearchQuery.EmailID != "")
+                        {
+                            SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, ExpectedCompletionTime.ToString(format), SearchQuery.CreationTime.ToString(format), "QueryIsJustStartedForRunning");
+                        }
 
                         //Update the status of other queued position jobs
                         instanceSqlDatabase.UpdateQueuedInfo(TypicalCompletionTimeForOneJob, Tolerance);
@@ -270,8 +273,10 @@ namespace PerceptronXfmsSimulationService
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Completed");
                         int waithere = 1;
 
-                        //#Future Applied try catch but freezed it for further implementation will do if required
-                        bool isEmailSent = SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, SearchQuery.CreationTime.ToString(format), "QuerySuccessfullyCompleted");
+                        if (SearchQuery.EmailID != "")
+                        {
+                            SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, ExpectedCompletionTime.ToString(format), SearchQuery.CreationTime.ToString(format), "QuerySuccessfullyCompleted");
+                        }
 
                     }
                     else
@@ -290,7 +295,7 @@ namespace PerceptronXfmsSimulationService
 
                         if (SearchQuery.EmailID != "")
                         {
-                            bool isEmailSent = SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, SearchQuery.CreationTime.ToString(format), "Error");
+                            SendingEmail.SendingEmailMethod(SearchQuery.EmailID, SearchQuery.Title, ExpectedCompletionTime.ToString(format), SearchQuery.CreationTime.ToString(format), "Error");
                         }
 
                         Console.WriteLine("Running Job: " + SearchQuery.QueryID + "-----" + "Progress: " + "Error In Query");
@@ -315,9 +320,6 @@ namespace PerceptronXfmsSimulationService
             }
             return Folder;
         }
-
-
-
 
         public static void CompileResultsforDownAndVisualize(string QueryResultFullPath, string Title, string QueryID, ref string ZippingFileName, ResultsVisualizeSaveIntoDB ResultsSaveDbObj, string isBridgeEnabled, string isFrustratometerEnabled)
         {
