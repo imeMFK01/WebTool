@@ -22,8 +22,11 @@
             <div style="text-align:center"><img src="assets/images/help02.png" width="70%;"></div>
 
 
+            <br>
+            <p style="font-size:20px; font-weight:bold">Downloadable Result Files</p>
             <ul>
-                <li style="margin-top:20px; margin-bottom: 20px;"> Downloaded result (*.zip) file contains multiple following files.</li>
+                <li style="margin-top:20px; margin-bottom: 20px;"> Downloaded result (*.zip) file contains multiple
+                    following sub folders and files.</li>
                 <dd><b>-</b> A number of sub folders corresponding to different peptides in the protein and each folder
                     contains given below set of information:</dd>
                 <ul>
@@ -38,60 +41,129 @@
                     residue.</dd>
                 <dd><b>-</b><b> SASAmain.png</b> a graphical representation of the protection factor data with SASA
                     values on x-axis and log (PF) on y-axis. </dd>
-                <dd><b>-</b><b> Modified.pdb</b> a pdb file incorporated with log(PF) values.</dd>
+                <!-- <dd><b>-</b><b> Modified.pdb</b> a pdb file incorporated with log(PF) values.</dd> -->
                 <dd><b>-</b><b> ResultsBridge.xlsx</b> an excel file that contains centrality scores of the residues
                     using Bridge algorithm.</dd>
-                </ul>
+
+                <dd><b>-</b><b> frustratometeR_Results</b> include images that quantifies the degree of local
+                    frustration in a given
+                    protein. User also get tables with the calculated Frustration indexes and scripts to locally explore
+                    and manipulate
+                    the structures.</dd>
+            </ul>
             <hr>
 
+            <li>User can visualize the Search query Parameters by clicking the ‘XFMS Search Query Parameters’.</li>
+            <div style="text-align:center"><img src="assets/images/help_XfmsSearchQueryParameters.png" width="70%;">
+            </div>
 
-            <li style="margin-top:20px; margin-bottom:20px">User can visualize the results by clicking the <span
+
+            <hr>
+            <li style="margin-top:20px; margin-bottom:20px">User can visualize XFMS results by clicking the <span
                     style="font-weight: bold; color: red;">‘Results’</span> button in ‘Protection Factor’.</li>
-            <div style="text-align:center"><img src="assets/images/help03.png" width="70%;"></div>
-
-      
+            <div style="text-align:center"><img src="assets/images/help_PF_Results_Button.png" width="70%;"></div>
 
 
             <ul>
 
-            <li style="margin-top:20px; margin-bottom:20px">‘Detailed Protection Factor Results’ show solvent
-                accessibility graph and the protection factor table. Solvent accessibility graph shows the anomalous
-                residues.</li>
+                <li style="margin-top:20px; margin-bottom:20px">‘Detailed Protection Factor Results’ shows protein
+                    information, solvent accessibility graph, and the protection factor table shows the anomalous
+                    residues and their solvent accessibility.</li>
 
 
 
             </ul>
-            <div style="text-align:center"><img src="assets/images/help04_a.png" width="70%;"></div>
+            <div style="text-align:center"><img src="assets/images/help_04a.png" width="70%;"></div>
+            <hr>
+            <li style="margin-top:20px; margin-bottom:20px">Protein Information includes the name of the protein,
+                organism name, gene name and number of amino acids in the protein followed by its sequence.</li>
+            <div style="text-align:center"><img src="assets/images/help_04b.png" width="70%;"></div>
             <hr>
 
 
-
-            <li style="margin-top:20px; margin-bottom:20px">The graph contain SASA values on x-axis and log (PF) on
+            <li style="margin-top:20px; margin-bottom:20px">The graph contains SASA values on x-axis and log (PF) on
                 y-axis.</li>
-            <div style="text-align:center"><img src="assets/images/help04_b.png" width="40%;"></div>
+            <div style="text-align:center"><img src="assets/images/help_04c.png" width="40%;"></div>
             <hr>
 
 
             <li style="margin-top:20px; margin-bottom:20px">‘Residue Based Solvent Accessible Surface Area & Log
-                (Protection Factor)’ table shows the details of the anomalous residues along with their residual
-                positions, names, SASA values, and the log (PF) scores.</li>
-            <div style="text-align:center"><img src="assets/images/help05.png" width="70%;"></div>
+                (Protection Factor)’ shows the details of the anomalous residues. The table shows Residue position,
+                residue name their SASA value and log (PF) scores. </li>
+            <div style="text-align:center"><img src="assets/images/help_04d.png" width="70%;"></div>
             <hr>
 
 
 
-            <li style="margin-top:20px; margin-bottom:20px">Users can also visualize the centrality scores of residues
-                identified using Bridge Algorithm by clicking the <span
-                    style="font-weight: bold; color: red;">‘Results’</span> button in ‘Betweenness Centrality’</li>
-            <div style="text-align:center"><img src="assets/images/help06a.png" width="70%;"></div>
-           
+            <li style="margin-top:20px; margin-bottom:20px"> In ‘Betweeness Centrality’ tab by clicking the <span
+                    style="font-weight: bold; color: red;">‘Results’</span> button, user can visualize the centrality
+                scores of important residues identified by using Bridge Algorithm.</li>
+            <div style="text-align:center"><img src="assets/images/help_05.png" width="70%;"></div>
 
             <ul>
-            <li style="margin-top:20px; margin-bottom:20px">The table shows the name and position of important hydrogen
-                bonded residues and their degree centrality and betweenness centrality scores.</li>
-            <div style="text-align:center"><img src="assets/images/help06b.png" width="70%;"></div>
-        </ul>
+                <li style="margin-top:20px; margin-bottom:20px">‘Detailed Betweenness Centrality Results’ shows protein information as well as important hydrogen bonded residues and their degree centrality and betweenness centrality scores.</li>
+                <div style="text-align:center"><img src="assets/images/help_05a.png" width="70%;"></div>
+            </ul>
+
+
+            <ul>
+                <li style="margin-top:20px; margin-bottom:20px">Protein Information includes the name of the protein,
+                    organism name, gene name and number of amino acids in the protein followed by its sequence.</li>
+                <div style="text-align:center"><img src="assets/images/help_04b.png" width="70%;"></div>
+            </ul>
+
+
+            <ul>
+                <li style="margin-top:20px; margin-bottom:20px">The table shows the name and position of important
+                    hydrogen
+                    bonded residues and their degree centrality and betweenness centrality scores.</li>
+                <div style="text-align:center"><img src="assets/images/help06b.png" width="70%;"></div>
+            </ul>
+
+            <hr>
             
+
+
+
+
+            <li style="margin-top:20px; margin-bottom:20px"> In ‘Degree of Frustration’ tab by clicking the <span
+                style="font-weight: bold; color: red;">‘Results’</span> button, user can visualize the locally frustrated contacts calculated by analyzing energy distribution using frustratometeR algorithm.</li>
+        <div style="text-align:center"><img src="assets/images/help_06.png" width="70%;"></div>
+
+        <ul>
+            <li style="margin-top:20px; margin-bottom:20px">‘Detailed Frustration Results’ include degree of frustration in each class, contacts density in sequence space and frustration contact map.</li>
+            <div style="text-align:center"><img src="assets/images/help_06a.png" width="70%;"></div>
+        </ul>
+
+        <ul>
+            <li style="margin-top:20px; margin-bottom:20px">Protein Information includes the name of the protein,
+                organism name, gene name and number of amino acids in the protein followed by its sequence.</li>
+            <div style="text-align:center"><img src="assets/images/help_04b.png" width="70%;"></div>
+        </ul>
+
+
+        <ul>
+            <li style="margin-top:20px; margin-bottom:20px">‘Detailed Frustration Results’ include degree of frustration in each class, contacts density in sequence space and frustration contact map.</li>
+            <div style="text-align:center"><img src="assets/images/help_06a.png" width="70%;"></div>
+        </ul>
+
+        <ul>
+            <li style="margin-top:20px; margin-bottom:20px">Protein Information includes the name of the protein,
+                organism name, gene name and number of amino acids in the protein followed by its sequence.</li>
+            <div style="text-align:center"><img src="assets/images/help_04b.png" width="70%;"></div>
+        </ul>
+
+
+        <ul>
+            <li style="margin-top:20px; margin-bottom:20px">Protein Information includes the name of the protein,
+                organism name, gene name and number of amino acids in the protein followed by its sequence.</li>
+            <div style="text-align:center"><img src="assets/images/help_04b.png" width="70%;"></div>
+        </ul>
+
+
+
+
+
         </ol>
 
     </mat-card>

@@ -124,7 +124,9 @@ export class ScanViewComponent implements OnInit {
     
     this.isFrustratometerEnabled = data.SearchXfmsQuery.isFrustratometerEnabled;
     this.Progress = data.SearchXfmsQuery.Progress;
-    this.JobSubmissionTime = data.SearchXfmsQuery.CreationTime;
+
+    let CreationTime = data.SearchXfmsQuery.CreationTime.substring(0, data.SearchXfmsQuery.CreationTime.indexOf("."));
+    this.JobSubmissionTime = CreationTime.replace("T", " ")
 
     if (data.SearchXfmsQuery.isBridgeEnabled == "True") {
       this.isBridgeEnabled = "Enabled";
