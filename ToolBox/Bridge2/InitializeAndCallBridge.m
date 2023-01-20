@@ -8,7 +8,7 @@ CreateTxtFileForInputBridge(InputParamForBridge2, PDBFullFileName, BridgeOutputR
 Drive = extractBefore(WorkingDirPath, '\');
 PathWithDrive = extractAfter(BridgePyFolder, ':');
 
-[status,cmdout] = system([Drive ' & ' 'cd' ' ' Drive PathWithDrive ' & ' 'python3env\Scripts\activate.bat' ' & ' 'python' ' ' BridgePyFolder '\bridge.py']);
+[status,cmdout] = system([Drive ' & ' 'cd' ' ' Drive PathWithDrive ' & ' 'python3env\Scripts\activate.bat' ' & ' 'python3env\Scripts\python.exe' ' ' BridgePyFolder '\bridge.py']);  %202301201317 Updated now will be used python.exe of python3env
 
 if status ~= 0
     %Exceptions
