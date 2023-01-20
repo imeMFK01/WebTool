@@ -47,14 +47,14 @@ for number=1:size(Replicates,1)
                 dir_file= char(strcat(dir_sub,strcat('\',PeakFiles(num).name)));
 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                MassHunterFilePath=dir_file
-                MassHunterFileName=  CurrentPeakFiles
-                MassHunterData = readmatrix(string(MassHunterFilePath)) ;
+                MassHunterFilePath=dir_file;
+                MassHunterFileName=  CurrentPeakFiles;
+                MassHunterData = readmatrix(string(MassHunterFilePath));
                 %colNames = {'MASCOT m/z','MASCOT m/z','Difference','MASSHunter m/z','MASSHunter RT','MASSHunter Intensity'};
-                Dose_start = strfind(string(CurrentPeakFiles),'-')
-                Dose_start=Dose_start(1)
-                Dose_end =strfind(string(CurrentPeakFiles),'-MS1')
-                Dose  = extractBetween( string(CurrentPeakFiles),Dose_start+1,Dose_end-1)
+                Dose_start = strfind(string(CurrentPeakFiles),'-');
+                Dose_start=Dose_start(1);
+                Dose_end =strfind(string(CurrentPeakFiles),'-MS1');
+                Dose  = extractBetween( string(CurrentPeakFiles),Dose_start+1,Dose_end-1);
 
                 if ~isfolder(strcat(OutputDir,'\DataCSV'))
                     mkdir(strcat(OutputDir,'\DataCSV'));
@@ -66,17 +66,17 @@ for number=1:size(Replicates,1)
       
 
 
-                Name_end = strfind(string(CurrentPeakFiles),'-')
-                Name_end=Name_end(1)
-                Updated_name  = extractBetween( string(CurrentPeakFiles),1,Name_end-1)
+                Name_end = strfind(string(CurrentPeakFiles),'-');
+                Name_end=Name_end(1);
+                Updated_name  = extractBetween( string(CurrentPeakFiles),1,Name_end-1);
 
                 %colNames = {'RT_sec','m/z','Int','RT_min'};
                 UpdatedCSVFileName = Updated_name+'_TC'+Dose+'.csv';
-                ResultsPath=strcat(OutputDir,'\DataCSV','\',CurrentReplicate,'\')
+                ResultsPath=strcat(OutputDir,'\DataCSV','\',CurrentReplicate,'\');
 
                 writematrix([FormattingHeaderNewCSV], ResultsPath +UpdatedCSVFileName, 'WriteMode','append');
                 for i= 1: length(UniqueMascotData)
-                    mzvalue_indecimal= UniqueMascotData(i)
+                    mzvalue_indecimal= UniqueMascotData(i);
                     IDForExtractionAfterDecimal_MASSHUNTER = strfind(string(mzvalue_indecimal),'.');
                     if isempty(IDForExtractionAfterDecimal_MASSHUNTER)
                         mzvalue =string( mzvalue_indecimal);
@@ -85,8 +85,8 @@ for number=1:size(Replicates,1)
                         mzvalue = extractBetween( string(mzvalue_indecimal),1,IDForExtractionAfterDecimal_MASSHUNTER+1);
                     end
                     %id=find(contains(string(MassHunterData(:,4)),mzvalue))
-                    ExtractedFile=MassHunterData(find(contains(string(MassHunterData(:,2)),mzvalue)),:)
-                    ExtractedFile= ExtractedFile(:,2:4)
+                    ExtractedFile=MassHunterData(find(contains(string(MassHunterData(:,2)),mzvalue)),:);
+                    ExtractedFile= ExtractedFile(:,2:4);
                      writematrix([ExtractedFile], ResultsPath + UpdatedCSVFileName, 'WriteMode','append');
                     
                 end

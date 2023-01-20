@@ -395,7 +395,7 @@ for number=1:size(Peptides,1)
                             FileProcessed(RowNumber,10)=1;
                             RowNumber=RowNumber+1;
                             if RowNumber >totalrows
-                                break
+                                break;
                             end
 
                         end
@@ -405,7 +405,7 @@ for number=1:size(Peptides,1)
                                 FileProcessed(RowNumber,10)=2;
                                 RowNumber=RowNumber+1;
                                 if RowNumber > totalrows
-                                    break
+                                    break;
                                 end
                             end
                     else if contains(FileProcessed(RowIndex,6),string(Oxidize_mz(19:27)))
@@ -414,7 +414,7 @@ for number=1:size(Peptides,1)
                                 FileProcessed(RowNumber,10)=3;
                                 RowNumber=RowNumber+1;
                                 if RowNumber  > totalrows
-                                    break
+                                    break;
                                 end
                             end
                     end
@@ -497,7 +497,7 @@ myFolder= char(strcat(pwd,strcat('\','Results_matched')));
 FilePattern = fullfile(myFolder, '**\*.xlsx');
 TheFiles = dir(FilePattern);
 % merge the files having same header
-FileMergeNew(UniqueSequence)
+FileMergeNew(UniqueSequence);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -581,10 +581,10 @@ for peptide = 1 : length(TheFiles)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Sum of Areas of Replicate 1
         % file_main(row,5) contains spcific number of rows in column 2 - Unoxidized area(R1)
-        format long
+        format long;
         total_1 = sum(File_Main(row,2));
         % file_main(row,15) contains  number of rows in column 3 - oxidized area(R1)
-        format long
+        format long;
         total_2 = sum(File_Main(row,3));
         % sum of columns - oxidized area(R1) and Unoxidized area(R1)
         R1_total=total_1+ total_2;
@@ -649,13 +649,13 @@ for peptide = 1 : length(TheFiles)
 
                         end
                     end
-                    TableForDenominator=RC_1b
+                    TableForDenominator=RC_1b;
                     % sum of the table 
                     SumOutputOfDenominator=sum(TableForDenominator);
                     % sum of reactivitity constants of 2 aminoacids
                     total_RC= RC_1a + SumOutputOfDenominator;
                     RC=RC_1a/total_RC;
-                    fprintf('Reactivity of %s with %s at row %f is %f .\n ',Amino_acid1,Amino_acid2, Row_IndexofIntermediateFile,RC)
+                    fprintf('Reactivity of %s with %s at row %f is %f .\n ',Amino_acid1,Amino_acid2, Row_IndexofIntermediateFile,RC);
                     % Divided area of residues having same Retention time
                     Total_area_R=Area(Row_IndexofIntermediateFile)* RC;
                     % Add the area to the variable count
@@ -669,7 +669,7 @@ for peptide = 1 : length(TheFiles)
                 else if col(Row_IndexofIntermediateFile)==2 && ResidueOxidationfile(Row_IndexofIntermediateFile,Column_IndexofIntermediateFile)~= "0"
                         %Extracting the column name to Get the name of the amino acid
                         %and its reacticity.
-                        name_col= convertStringsToChars(colname(Column_IndexofIntermediateFile))
+                        name_col= convertStringsToChars(colname(Column_IndexofIntermediateFile));
                         Amino_acid1=name_col(1);
                         IndexofResidue = strfind(amino_acids,Amino_acid1);
                         RC_1a= RC_1a + reactivity(IndexofResidue);
@@ -744,24 +744,24 @@ for peptide = 1 : length(TheFiles)
 
                         % format the table such that unique aminoacid
                         % pairing is retained
-                        [rows, columns] = find(denom > 0)
-                        edges = unique(columns)
-                        counts = histc(columns(:), edges)
-                        IdOfColumnWithCountOne=find(counts==1)
-                        RC_a_partb=denom(:,IdOfColumnWithCountOne)
+                        [rows, columns] = find(denom > 0);
+                        edges = unique(columns);
+                        counts = histc(columns(:), edges);
+                        IdOfColumnWithCountOne=find(counts==1);
+                        RC_a_partb=denom(:,IdOfColumnWithCountOne);
                         % product within a column
-                        ProductOfNumerator=RC_1a*RC_a_partb
+                        ProductOfNumerator=RC_1a*RC_a_partb;
                         %  Replace 0 by 1 inorder to take product.
-                        TableForDenominator(~TableForDenominator)=1
-                        IdOfColumnWithCountsGreaterTwo=find(counts>1)
-                        TableForDenominator=TableForDenominator(:,IdOfColumnWithCountsGreaterTwo)
+                        TableForDenominator(~TableForDenominator)=1;
+                        IdOfColumnWithCountsGreaterTwo=find(counts>1);
+                        TableForDenominator=TableForDenominator(:,IdOfColumnWithCountsGreaterTwo);
                         % sum of numerator
-                        Numerator=sum(ProductOfNumerator,'all')
+                        Numerator=sum(ProductOfNumerator,'all');
                         % product of denominator table ( column wise )
                         Product_output=prod(TableForDenominator,1);
                        % Sum of the product of denominatore
-                        SumofProductOutput=sum(Product_output,'all')
-                        Denominator=Numerator+SumofProductOutput
+                        SumofProductOutput=sum(Product_output,'all');
+                        Denominator=Numerator+SumofProductOutput;
                         RC=Numerator/Denominator;
                         % Divided area of residues having same Retention time
                         Total_area_R=Area(Row_IndexofIntermediateFile)* RC;
@@ -844,22 +844,22 @@ for peptide = 1 : length(TheFiles)
                       denom= unique( denom.', 'rows').'
                         TableForDenominator = denom;
 
-                        [rows, columns] = find(denom > 0)
-                        edges = unique(columns)
-                        counts = histc(columns(:), edges)
-                        IdOfColumnWithCountOne=find(counts==2)
-                        RC_a_partb=denom(:,IdOfColumnWithCountOne)
-                        RC_a_partb(~RC_a_partb)=1
-                        Product_RC_a_partb=prod(RC_a_partb,1)
-                        ProductOfNumerator=RC_1a*Product_RC_a_partb
+                        [rows, columns] = find(denom > 0);
+                        edges = unique(columns);
+                        counts = histc(columns(:), edges);
+                        IdOfColumnWithCountOne=find(counts==2);
+                        RC_a_partb=denom(:,IdOfColumnWithCountOne);
+                        RC_a_partb(~RC_a_partb)=1;
+                        Product_RC_a_partb=prod(RC_a_partb,1);
+                        ProductOfNumerator=RC_1a*Product_RC_a_partb;
                         % sum of multi
-                        TableForDenominator(~TableForDenominator)=1
-                        IdOfColumnWithCountsGreaterTwo=find(counts>2)
-                        TableForDenominator=TableForDenominator(:,IdOfColumnWithCountsGreaterTwo)
-                        Numerator=sum(ProductOfNumerator,'all')
+                        TableForDenominator(~TableForDenominator)=1;
+                        IdOfColumnWithCountsGreaterTwo=find(counts>2);
+                        TableForDenominator=TableForDenominator(:,IdOfColumnWithCountsGreaterTwo);
+                        Numerator=sum(ProductOfNumerator,'all');
                         Product_output=prod(TableForDenominator,1);
-                        SumofProductOutput=sum(Product_output,'all')
-                        Denominator=Numerator+SumofProductOutput
+                        SumofProductOutput=sum(Product_output,'all');
+                        Denominator=Numerator+SumofProductOutput;
                         RC=Numerator/Denominator;
                         % Divided area of residues having same Retention time
                         Total_area_R=Area(Row_IndexofIntermediateFile)* RC;
@@ -933,9 +933,9 @@ for peptide = 1 : length(TheFiles)
     %  Creating a folder with the name of the peptide file name extracting from
     % the Step 13
 
- NameFile = strfind(string(BaseFileName),'Replicate')
+ NameFile = strfind(string(BaseFileName),'Replicate');
               
-                 BaseFileName1  = extractBetween( string(BaseFileName),1,NameFile-1)
+                 BaseFileName1  = extractBetween( string(BaseFileName),1,NameFile-1);
 
 
  
@@ -948,7 +948,7 @@ for peptide = 1 : length(TheFiles)
     end
     % Change the working directory to the newly made directory inorder to store
     % results
-    cd (name)
+    cd (name);
     % Writing the matrix created in Step 12 in excel file.
     xlswrite('Replicate.xlsx',Result1,'Sheet1','B2');
     xlswrite('Replicate.xlsx',col_header,'Sheet1','C1');
@@ -958,7 +958,7 @@ for peptide = 1 : length(TheFiles)
 end
 % Reading the Newly made result Directory to Read the excel files in the
 % non empty subfolders
-cd ('Result')
+cd ('Result');
 ResultDirectory = dir(pwd);
 NonEmptyFolderlength= sum([ResultDirectory(~ismember({ResultDirectory.name},{'.','..'})).isdir]);
 for IndexofFolder=3:NonEmptyFolderlength+2
@@ -1207,10 +1207,10 @@ DynamicHeader=FileforHeader(2:size((FileforHeader),1),1);
         % plotting the curve
         % plotting confidence interval in graph
         plot(fit_Curve);
-        hold on
-        plot(xaxis ,yaxis,'c.','MarkerSize',15)
+        hold on;
+        plot(xaxis ,yaxis,'c.','MarkerSize',15);
         ylim([0 6.5]);
-        hold off
+        hold off;
         title_string = strcat('Log(PF) vs SASA');
         %title (title_string, 'Fontsize', 20 , 'fontweight', 'bold', 'Color', [0.8 0 0]);
         % title (title_string)

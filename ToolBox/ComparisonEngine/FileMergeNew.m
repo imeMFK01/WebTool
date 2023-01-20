@@ -9,17 +9,17 @@
 %                      Last Modified on: 21-Dec-2022                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function FileMergeNew(UniqueSequence)
-datamatch=[]
+datamatch=[];
 
 for peptideIndextomatch= 1:length(UniqueSequence)
 
 
-    match=find(contains(UniqueSequence,UniqueSequence(peptideIndextomatch)))
-    datamatch(peptideIndextomatch,1:length(match))= match
+    match=find(contains(UniqueSequence,UniqueSequence(peptideIndextomatch)));
+    datamatch(peptideIndextomatch,1:length(match))= match;
 
 end
 PeptidetoMatch= datamatch(:,2) == 0   % for which rows is column 3 larger than 5
-datamatch(PeptidetoMatch,:) = []
+datamatch(PeptidetoMatch,:) = [];
 myFolder= char(strcat(pwd,strcat('\','Results_matched')));
 % Get a list of all files in the folder with the desired file name pattern.
 FilePattern = fullfile(myFolder, '**\*.xlsx');
@@ -43,21 +43,21 @@ end
 length(File);
 idxx=1;
 for i= 1: length(datamatch)
-    pep= datamatch(i,:)
-    pep( :, ~any(pep,1) ) = []
+    pep= datamatch(i,:);
+    pep( :, ~any(pep,1) ) = [];
     if length(pep)==2
-        j= 1
-        name=strcat("Peptide"+pep(j)+"\")
-        Pep_ToMatch= find(contains(location,name))
+        j= 1;
+        name=strcat("Peptide"+pep(j)+"\");
+        Pep_ToMatch= find(contains(location,name));
         if ~isempty(Pep_ToMatch)
             [num, txt, FileMat] = xlsread(string(location(Pep_ToMatch(1))));
-            name2=strcat("Peptide"+pep(j+1)+"\")
-            Pep_ToMatch2= find(contains(location,name2))
+            name2=strcat("Peptide"+pep(j+1)+"\");
+            Pep_ToMatch2= find(contains(location,name2));
             if ~isempty(Pep_ToMatch2)
 
                 [num, txt, FileMat2] = xlsread(string(location(Pep_ToMatch2(1))));
                 num=0;
-                num2=0
+                num2=0;
                 [row_ind1, row_end1] = XRayDosageDataBlockIndicesCaseOne(FileMat);
                 [row_ind2, row_end2] = XRayDosageDataBlockIndicesCaseTwo(FileMat2);
 
@@ -165,18 +165,18 @@ for i= 1: length(datamatch)
 end
 
 for i= 1: length(datamatch)
-    pep= datamatch(i,:)
-    pep( :, ~any(pep,1) ) = []
+    pep= datamatch(i,:);
+    pep( :, ~any(pep,1) ) = [];
     if length(pep)==2
-        j= 1
-        name=strcat("Peptide"+pep(j)+"\")
-        Pep_ToMatch= find(contains(location,name))
+        j= 1;
+        name=strcat("Peptide"+pep(j)+"\");
+        Pep_ToMatch= find(contains(location,name));
         if ~isempty(Pep_ToMatch)
             [num, txt, FileMat] = xlsread(string(location(Pep_ToMatch(2))));
-            name2=strcat("Peptide"+pep(j+1)+"\")
+            name2=strcat("Peptide"+pep(j+1)+"\");
             if ~isempty(Pep_ToMatch2)
-                Pep_ToMatch2= find(contains(location,name2))
-                [num, txt, FileMat2] = xlsread(string(location(Pep_ToMatch2(2))))
+                Pep_ToMatch2= find(contains(location,name2));
+                [num, txt, FileMat2] = xlsread(string(location(Pep_ToMatch2(2))));
 
 num=0;
             num2=0;
@@ -287,18 +287,18 @@ num=0;
 end
 
 for i= 1: length(datamatch)
-    pep= datamatch(i,:)
-    pep( :, ~any(pep,1) ) = []
+    pep= datamatch(i,:);
+    pep( :, ~any(pep,1) ) = [];
     if length(pep)==2
-        j= 1
-        name=strcat("Peptide"+pep(j)+"\")
-        Pep_ToMatch= find(contains(location,name))
+        j= 1;
+        name=strcat("Peptide"+pep(j)+"\");
+        Pep_ToMatch= find(contains(location,name));
         if ~isempty(Pep_ToMatch)
             [num, txt, FileMat] = xlsread(string(location(Pep_ToMatch(3))));
-            name2=strcat("Peptide"+pep(j+1)+"\")
-            Pep_ToMatch2= find(contains(location,name2))
+            name2=strcat("Peptide"+pep(j+1)+"\");
+            Pep_ToMatch2= find(contains(location,name2));
             if ~isempty(Pep_ToMatch2)
-                [num, txt, FileMat2] = xlsread(string(location(Pep_ToMatch2(3))))
+                [num, txt, FileMat2] = xlsread(string(location(Pep_ToMatch2(3))));
 
 num=0;
             num2=0;
@@ -415,7 +415,7 @@ end
 if isfolder(strcat(pwd,'\\Resultsnew1'))
     cd('Results_matched');
     %% removing the merge directories
-directories=unique(directories)
+directories=unique(directories);
     for RowIndexMergeFile=1:size(directories,2)
         rmdir(string(directories(RowIndexMergeFile)),'s');
     end

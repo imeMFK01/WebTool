@@ -72,7 +72,7 @@ for i= 1:3: length(File)
                     % add the length
                     %%%%%%%%%%%%%%%%%%%%%%%%%%%%% for residues
 
-                    for index2= 5: size(FileMat2,2);
+                    for index2= 5: size(FileMat2,2)
 
                         if string(FileMat2(1,index2))== string(FileMat(1,index))
                             data(row_ind1(pos)+num: row_end1(pos)+num,index2)= FileMat(row_ind1(pos): row_end1(pos),index);
@@ -385,7 +385,7 @@ for i= 3:3: length(File)
                 xlswrite([strcat(CurrentPeptide, CurrentReplicate),'o.xlsx'],Header, 'Sheet1', 'A1');
                 clear data;
                 cd ..\..\..
-                cd('Resultsnew1')
+                cd('Resultsnew1');
                 loc= LOC(j);
                 out=regexp(loc,'\','split');
                 out=out{1};

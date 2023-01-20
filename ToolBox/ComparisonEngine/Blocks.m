@@ -15,7 +15,7 @@ function [Data_file_sort,File_AminoAcidHeader] =  Blocks(ResultsAfterMatch,Oxidi
 FileAfterMatch=ResultsAfterMatch;
 File_AminoAcidHeader=unique(ResultsAfterMatch(:,1));
 File_AminoAcidHeader=File_AminoAcidHeader(2:length(File_AminoAcidHeader));
-File_AminoAcidHeader=natsort(rmmissing(File_AminoAcidHeader))
+File_AminoAcidHeader=natsort(rmmissing(File_AminoAcidHeader));
 FileAfterMatch_double_array=str2double(FileAfterMatch);
 % to find the index of the file that have m/z values
 for Table_index=1:length(File_AminoAcidHeader)
@@ -24,7 +24,7 @@ for Table_index=1:length(File_AminoAcidHeader)
 
     %ind=find(contains(file1(:,2),string('TC25')))
 
-    size(ind,1)
+    size(ind,1);
     RowCounter = ind( size(ind,1) )+1;
     % extracting those rows that have 0 value
 

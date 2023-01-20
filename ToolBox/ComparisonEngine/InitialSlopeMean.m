@@ -71,10 +71,10 @@ figure (1);
 
 plot(WeightedExpFit);
    errorbar(x ,y,error_1,'ko','both');
-hold on 
+hold on;
 plot(WeightedExpFit );
 plot(x,y,'.','MarkerSize',15);
-hold off
+hold off;
 
 else
 
@@ -90,13 +90,13 @@ y_cbl = int(1,1)*exp(int(1,2)*x);
 y_cbh = int(2,1)*exp(int(2,2)*x);
 plot(x,y_fit,'r',x,y_cbl,'b:',x,y_cbh,'b:');
    errorbar(x ,y,error_1,'ko','both');
-hold on 
+hold on;
 plot(WeightedExpFit );
 plot(x,y,'.','MarkerSize',15);
 
 plot(x,y_cbl,'b:',x,y_cbh,'b:');
 
-hold off
+hold off;
 end 
     % Naming the plot as the name of the residue
 
@@ -108,7 +108,7 @@ end
     xlabel('Dose', 'Fontsize', 16, 'fontweight', 'bold', 'Color', [0 0 0]);
     ylabel('1 - F', 'Fontsize', 16, 'fontweight', 'bold', 'Color', [0 0 0]);
       legend({'Errorbar','Fit','Data', 'Interval'},'Location','southwest');
-       xlim([-5 105])
+       xlim([-5 105]);
     plotname = strcat(name_x,'_fit_Mean.png');
     saveas(gcf,plotname);
     % Getting the coefficient values
