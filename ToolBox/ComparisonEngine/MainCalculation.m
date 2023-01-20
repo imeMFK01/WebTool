@@ -320,7 +320,7 @@ for number=1:size(Peptides,1)
                 cd(CurrentPeptide);
                 mkdir(CurrentReplicate);
                 cd(CurrentReplicate);
-% writing the result in excel files 
+                % writing the result in excel files
                 xlswrite([strcat(CurrentPeptide, CurrentReplicate),'.xlsx'],data_AminoAcid, 'Sheet1', 'C1');
                 xlswrite([strcat(CurrentPeptide, CurrentReplicate),'.xlsx'],Data_file_sort,'Sheet1','A3');
                 xlswrite([strcat(CurrentPeptide, CurrentReplicate),'.xlsx'],Data_file_sort,'Sheet1','B3');
@@ -342,7 +342,7 @@ for number=1:size(Peptides,1)
                 SizeOfFile=SizeOfFile(2);
                 [Index_var, colname] =  Columns(FileProcessed);
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                %%%%%%% assigning 1 under the oxidized residues cell 
+                %%%%%%% assigning 1 under the oxidized residues cell
                 %fill mising value by zero
                 cons="0";
                 FileProcessed(3: size(FileProcessed),Index_var(1): Index_var(length(Index_var)))= fillmissing(FileProcessed(3: size(FileProcessed),Index_var(1): Index_var(length(Index_var))), 'constant',cons);
@@ -480,7 +480,7 @@ for number=1:size(Peptides,1)
                 cd(CurrentPeptide);
                 cd(CurrentReplicate);
                 delete(FullFileName);
-                % write result in excel file 
+                % write result in excel file
                 xlswrite([strcat(CurrentPeptide, CurrentReplicate),'.xlsx'],FinalData2, 'Sheet1', 'A1');
                 cd ..\..\..
             end
@@ -488,7 +488,7 @@ for number=1:size(Peptides,1)
     end
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Step 7: This Part merge fragments of same peptide. 
+% Step 7: This Part merge fragments of same peptide.
 SequenceColumn= MascotFile(2:length(MascotFile),23)
 UniqueSequence=unique(SequenceColumn)
 
@@ -650,7 +650,7 @@ for peptide = 1 : length(TheFiles)
                         end
                     end
                     TableForDenominator=RC_1b;
-                    % sum of the table 
+                    % sum of the table
                     SumOutputOfDenominator=sum(TableForDenominator);
                     % sum of reactivitity constants of 2 aminoacids
                     total_RC= RC_1a + SumOutputOfDenominator;
@@ -713,7 +713,7 @@ for peptide = 1 : length(TheFiles)
                         % a residue can be present
                         UniqueAminoAcidString=unique(UniqueAminoAcidString);
                         Idrow=1;
-% identifying the numerator in case of Peak spliting
+                        % identifying the numerator in case of Peak spliting
                         for lengthofCheck=1: length(UniqueAminoAcidString)
                             if contains(ResidueOxidationfile(Row_IndexofIntermediateFile,Column_IndexofIntermediateFile),UniqueAminoAcidString(lengthofCheck))
                                 nenom(Idrow,lengthofCheck)= RC_1a;
@@ -759,7 +759,7 @@ for peptide = 1 : length(TheFiles)
                         Numerator=sum(ProductOfNumerator,'all');
                         % product of denominator table ( column wise )
                         Product_output=prod(TableForDenominator,1);
-                       % Sum of the product of denominatore
+                        % Sum of the product of denominatore
                         SumofProductOutput=sum(Product_output,'all');
                         Denominator=Numerator+SumofProductOutput;
                         RC=Numerator/Denominator;
@@ -841,7 +841,7 @@ for peptide = 1 : length(TheFiles)
                                 end
                             end
                         end
-                      denom= unique( denom.', 'rows').'
+                        denom= unique( denom.', 'rows').'
                         TableForDenominator = denom;
 
                         [rows, columns] = find(denom > 0);
@@ -919,7 +919,7 @@ for peptide = 1 : length(TheFiles)
     end
     % Defining Row Header
 
-       DynamicHeader = natsort(unique(rmmissing(File(:,1))));
+    DynamicHeader = natsort(unique(rmmissing(File(:,1))));
     cellDynamicHeader = cellstr(DynamicHeader);
 
     DynamicHeaderwithDose = [{'Dose'}; cellDynamicHeader];
@@ -928,17 +928,17 @@ for peptide = 1 : length(TheFiles)
 
 
     row_header= DynamicHeaderwithDose;
-   % row_header= { 'Dose'; '0.x';'10.x';'25.x';'50.x';'75.x';'100.x'};
+    % row_header= { 'Dose'; '0.x';'10.x';'25.x';'50.x';'75.x';'100.x'};
     cd ('Result');
     %  Creating a folder with the name of the peptide file name extracting from
     % the Step 13
 
- NameFile = strfind(string(BaseFileName),'Replicate');
-              
-                 BaseFileName1  = extractBetween( string(BaseFileName),1,NameFile-1);
+    NameFile = strfind(string(BaseFileName),'Replicate');
+
+    BaseFileName1  = extractBetween( string(BaseFileName),1,NameFile-1);
 
 
- 
+
     if ~isfolder(strcat(pwd, BaseFileName1))
         mkdir(BaseFileName1);
     end
@@ -1006,9 +1006,9 @@ for IndexofFolder=3:NonEmptyFolderlength+2
 
     % Step 14: calculating the mean and Std error of 1-F value for each Residue of each peptide
 
-FileforHeader=ArrayCellofReplicates{1,1};
-row_header=FileforHeader(:,1);
-DynamicHeader=FileforHeader(2:size((FileforHeader),1),1);
+    FileforHeader=ArrayCellofReplicates{1,1};
+    row_header=FileforHeader(:,1);
+    DynamicHeader=FileforHeader(2:size((FileforHeader),1),1);
     for row_2= 2: length(row_header)
         ind_2=1;
         % for each column having value of 1_F in Result matrix
@@ -1233,7 +1233,7 @@ DynamicHeader=FileforHeader(2:size((FileforHeader),1),1);
     clear DATA_FIT;
 
 end
-cd ('Result')
+cd ('Result');
 ResultDirectory = dir(pwd);
 %number of non empty folders in directory or length of list in directory
 NonEmptyFolderlength= sum([ResultDirectory(~ismember({ResultDirectory.name},{'.','..'})).isdir]);
@@ -1319,11 +1319,11 @@ set(gcf,'Visible','off');
 % plotting the curve
 cd ..
 plot(Final_Linear_fit);
-hold on
+hold on;
 xlim([0 inf]);
 plot(xaxis ,yaxis,'c.','MarkerSize',15);
 plot(xaxis,PredictionInterval,'m--');
-hold off
+hold off;
 title_string = strcat('Log(PF) vs SASA');
 xlabel('SASA', 'Fontsize', 16, 'fontweight', 'bold', 'Color', [0 0 0]);
 ylabel('Log(PF)', 'Fontsize', 16, 'fontweight', 'bold', 'Color', [0 0 0]);
@@ -1340,7 +1340,7 @@ xlswrite('Slope_main',DATA_FIT,'Sheet1','B1');
 
 % Split the Residue name into its alphabetic and numerical components( F8
 % as  F and 8)
-Gradient_SASA_Table=(Tab)'
+Gradient_SASA_Table=(Tab)';
 for Row_IndexofIntermediateFile=1: length(Gradient_SASA_Table)
     SplitResidueName=split(Gradient_SASA_Table(Row_IndexofIntermediateFile,1),[" "]);
     Gradient_SASA_Table(Row_IndexofIntermediateFile,4)=regexprep(Gradient_SASA_Table(Row_IndexofIntermediateFile,1),'\D','');
@@ -1358,8 +1358,8 @@ FinalTableOutput = TableMerge(:, indx_pos);
 writetable(FinalTableOutput,'PF_SASA_tab.xls','Sheet',1);
 cd ..
 % step 19: replace the values of b-factor in pdb file by log PF
- EditPDB(FinalTableOutput,PDBFile)
- cd ..
+EditPDB(FinalTableOutput,PDBFile);
+cd ..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 SequenceColumn= MascotFile(2:length(MascotFile),23)
 UniqueSequence=unique(SequenceColumn)
@@ -1370,33 +1370,33 @@ datamatch=[]
 for peptideIndextomatch= 1:length(UniqueSequence)
 
 
-    match=find(contains(UniqueSequence,UniqueSequence(peptideIndextomatch)))
-    datamatch(peptideIndextomatch,1:length(match))= match
+    match=find(contains(UniqueSequence,UniqueSequence(peptideIndextomatch)));
+    datamatch(peptideIndextomatch,1:length(match))= match;
 
 end
-PeptidetoMatch= datamatch(:,2) == 0   
-datamatch(PeptidetoMatch,:) = []
+PeptidetoMatch= datamatch(:,2) == 0;
+datamatch(PeptidetoMatch,:) = [];
 
 
 
-PeptideInfo= UniqueSequence
+PeptideInfo= UniqueSequence;
 for i =1:length(PeptideInfo)
-PeptideInfo(i,2)='Peptide'+ string(i)
-end 
- for j=1: length(datamatch)
-    pep= datamatch(j,:)
-      pep( :, ~any(pep,1) ) = []
-      if length(pep)==2
-     for k=1: length(pep)
-         UniqueSequence(pep(k))
+    PeptideInfo(i,2)='Peptide'+ string(i)
+end
+for j=1: length(datamatch)
+    pep= datamatch(j,:);
+    pep( :, ~any(pep,1) ) = [];
+    if length(pep)==2
+        for k=1: length(pep)
+            UniqueSequence(pep(k));
 
-         PeptideInfo(pep(k),1)= UniqueSequence(pep(k))
+            PeptideInfo(pep(k),1)= UniqueSequence(pep(k));
 
-         PeptideInfo(pep(k),2)='Peptide'+ string(pep(1))
-     end
-     end
- end 
-Header= { 'Sequence', 'PeptideID'}
+            PeptideInfo(pep(k),2)='Peptide'+ string(pep(1));
+        end
+    end
+end
+Header= { 'Sequence', 'PeptideID'};
 xlswrite('PeptideInfo',Header,'Sheet1','A1');
 xlswrite('PeptideInfo',PeptideInfo,'Sheet1','A2');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

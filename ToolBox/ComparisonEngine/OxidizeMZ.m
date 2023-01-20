@@ -18,7 +18,7 @@ for   j =1:length(Oxi_index)
             AAstartId_oxi(IDx)=Oxi_index(j);
             CounterID=AAstartId_oxi(IDx)+1;
             while ~contains(file1( CounterID,2),string("TC")) && ~contains(file1( CounterID,2),string(Unoxidize_mz))
-                counter= CounterID
+                counter= CounterID;
                 AAendId_oxi(IDx)=counter;
                 CounterID=CounterID+1;
                 if CounterID> endIdx

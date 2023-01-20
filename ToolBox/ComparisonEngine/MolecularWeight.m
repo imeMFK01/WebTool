@@ -28,7 +28,7 @@ for alongsequencesize = 1:sizeofsequence
     for alongaminoacids = 1:20
 
         if amino_acids(alongaminoacids)== sequence(alongsequencesize)
-           Theoretical_peptide_weight = Theoretical_peptide_weight + Average_amino_acid_masses(alongaminoacids);
+            Theoretical_peptide_weight = Theoretical_peptide_weight + Average_amino_acid_masses(alongaminoacids);
         end
     end
 end
@@ -45,7 +45,7 @@ Unoxidize= (Theoretical_peptide_weight + 4)/4;
 IndexTable=IndexTable+1;
 Unoxidize_mz1(IndexTable) = string(floor(Unoxidize));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%  oxidize m/z 
+%%%%%%%%%%%%%%%%%%%  oxidize m/z
 %%%%%%%%%%% OXIDATION NUMBER = 2,3,4 and charge state = 2 3
 IndexTable=1;
 oxidize= (Theoretical_peptide_weight + 2+16)/2;
@@ -83,10 +83,10 @@ tol= 1;
 for IndexTable= 1:length(Oxidize_mz1)
     Oxidize_mz(IndexTabforTolernce)= str2double(Oxidize_mz1(IndexTable))+tol;
     IndexTabforTolernce=IndexTabforTolernce+1;
-     Oxidize_mz(IndexTabforTolernce)=  str2double(Oxidize_mz1(IndexTable))-tol;
-     IndexTabforTolernce=IndexTabforTolernce+1;
-     Oxidize_mz(IndexTabforTolernce)= Oxidize_mz1(IndexTable);
-     IndexTabforTolernce=IndexTabforTolernce+1;
+    Oxidize_mz(IndexTabforTolernce)=  str2double(Oxidize_mz1(IndexTable))-tol;
+    IndexTabforTolernce=IndexTabforTolernce+1;
+    Oxidize_mz(IndexTabforTolernce)= Oxidize_mz1(IndexTable);
+    IndexTabforTolernce=IndexTabforTolernce+1;
 
 end
 IndexTabforTolernce=1;
@@ -94,10 +94,10 @@ tol= 1;
 for IndexTable= 1:length(Unoxidize_mz1)
     Unoxidize_mz(IndexTabforTolernce)= str2double(Unoxidize_mz1(IndexTable))+tol;
     IndexTabforTolernce=IndexTabforTolernce+1;
-     Unoxidize_mz(IndexTabforTolernce)=  str2double(Unoxidize_mz1(IndexTable))-tol;
-     IndexTabforTolernce=IndexTabforTolernce+1;
-     Unoxidize_mz(IndexTabforTolernce)= Unoxidize_mz1(IndexTable)
-     IndexTabforTolernce=IndexTabforTolernce+1;
+    Unoxidize_mz(IndexTabforTolernce)=  str2double(Unoxidize_mz1(IndexTable))-tol;
+    IndexTabforTolernce=IndexTabforTolernce+1;
+    Unoxidize_mz(IndexTabforTolernce)= Unoxidize_mz1(IndexTable);
+    IndexTabforTolernce=IndexTabforTolernce+1;
 
 end
 
