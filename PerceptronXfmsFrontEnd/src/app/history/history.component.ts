@@ -92,7 +92,7 @@ export class HistoryComponent implements OnInit {
       alert("Dear User,\n\nYour query is being processed. Please wait, the search may take sometime. We appreciate your patience!\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
     }
     else if(row.progress == "Result Expired"){
-      alert("Dear User,\n\nThe link you followed has expired. Please go to 'Protein Search Query' to submit proteoform search query.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
+      alert("Dear User,\n\nThe link you followed has expired. Please go to 'XFMS Search Query' to submit new search query.\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
     }
     else if(row.progress == "Error In Query")  // It means query wasn't able to complete properly, and there would be an issue into query parameters, Peaklist hadn't reasonable amount of data etc.
     //Therefore, it will not navigate to Scan Results.
