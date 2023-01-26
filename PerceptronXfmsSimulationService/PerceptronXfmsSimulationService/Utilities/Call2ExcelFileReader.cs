@@ -35,6 +35,8 @@ namespace PerceptronXfmsSimulationService.Utilities
             // Display result 
             object[] MatlabPipelineResultsObj = MatlabPipelineResults as object[];
 
+            matlab.Quit();
+
             return MatlabPipelineResultsObj[0].ToString();
 
         }

@@ -36,7 +36,8 @@ namespace PerceptronXfmsSimulationService.EngineCalling
                 Error = MatlabPipelineResultsObj[1].ToString(),
                 ErrorLog = MatlabPipelineResultsObj[2].ToString()
             };
-            
+
+            matlab.Quit();
 
             if (Call2MatlabDataObj.Error == "True")
             {
