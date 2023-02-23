@@ -36,6 +36,8 @@ namespace PerceptronXfmsAPI.Repository
 
                 StatsInfo.search = (SearchQueries.Count() + 16).ToString();   // 15 for local users // Before import & export numbers
                 StatsInfo.user = (UsersSubmittedQueries.Count() + 10).ToString();   // 10 for local users // Before import & export numbers
+                StatsInfo.search = SearchQueries.Count().ToString();
+                StatsInfo.user = UsersSubmittedQueries.Count().ToString();
 
             }
             return StatsInfo;
