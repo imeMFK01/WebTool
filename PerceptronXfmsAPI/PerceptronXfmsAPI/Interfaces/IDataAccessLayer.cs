@@ -16,6 +16,7 @@ namespace PerceptronXfmsAPI
         DetailedCentralityDto FetchResultsCentrality(string QueryID);
         FrustratometerDto FetchResultsFrustratometer(string QueryID);
         SearchXfmsQueryDto FetchSearchParameters(string QueryID);
+        void UpdateQueuedInfo();
 
         //ZipResultsDownloadInfo ScanResultFile(string QueryId);
         //List<ScanResults> Scan_Results(string qid, DateTime JobSubmissionTime);
