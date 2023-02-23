@@ -265,7 +265,7 @@ catch exception
     if exist(FullFileName) == 2 
         delete(FullFileName);
     end
-    writematrix(exception.identifier, FullFileName, 'WriteMode','append');
+    %writematrix(exception.identifier, FullFileName, 'WriteMode','append');
     writematrix(exception.message, FullFileName, 'WriteMode','append');
 end
 
