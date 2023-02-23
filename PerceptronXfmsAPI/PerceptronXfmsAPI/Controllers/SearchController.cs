@@ -108,6 +108,9 @@ namespace PerceptronXfmsAPI.Controllers
                     parametersDto.SearchXfmsQuery.Progress = "In Queue";                   //  "Running"  "Completed"   "Error in Query"
                 }
 
+                //Renumerate the queued positions
+                _dataLayer.UpdateQueuedInfo();
+
                 // Assign expected completion time and queued position
                 new QueueStatusAndTime().ExtractQueueStatusAndTimeInfo(parametersDto);
 
