@@ -19,9 +19,6 @@ export class ScanViewComponent implements OnInit {
   querryId: any;
   blob: any;
 
-  isBridgeResultsAvailable : string;
-  isFrustratometerResultsAvailable : string;
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -86,22 +83,22 @@ export class ScanViewComponent implements OnInit {
   }
 
   ViewDetailedCentrality(){
-    if (this.isBridgeResultsAvailable == "True"){
+    if(this.isBridgeEnabled == "Enabled"){
       let x = this.router;
       x.navigate(["centrality", this.querryId]);
     }
     else{
-
+      alert("Dear User,\n\nYou did not enable 'Bridge2' algorithm for the search and hence, your searched query does not contain any results against this. So, if you want to get results then please rerun your query with enabled 'Bridge2' algorithm. We appreciate your cooperation!\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
     }
-    
   }
+
   ViewDetailedFrustration(){
-    if(this.isFrustratometerResultsAvailable == "True"){
+    if(this.isFrustratometerEnabled == "Enabled"){
       let x = this.router;
       x.navigate(["frustratometer", this.querryId]);
     }
     else{
-
+      alert("Dear User,\n\nYou did not enable 'Frustratometer' algorithm for the search and hence, your searched query does not contain any results against this. So, if you want to get results then please rerun your query with enabled 'Frustratometer' algorithm. We appreciate your cooperation!\n\nThank you for using PERCEPTRON-XFMS!\nThe PERCEPTRON-XFMS Team");
     }
   }
 
@@ -116,13 +113,10 @@ export class ScanViewComponent implements OnInit {
 
   what(data: any) {
 
-    this.isBridgeResultsAvailable = data.SearchXfmsQuery.isBridgeEnabled;
-    this.isFrustratometerResultsAvailable = data.SearchXfmsQuery.isFrustratometerEnabled;
-
     this.JobTitle = data.SearchXfmsQuery.Title;
     this.UserEmailId = data.SearchXfmsQuery.EmailID;
     
-    this.isFrustratometerEnabled = data.SearchXfmsQuery.isFrustratometerEnabled;
+    
     this.Progress = data.SearchXfmsQuery.Progress;
 
     let CreationTime = data.SearchXfmsQuery.CreationTime.substring(0, data.SearchXfmsQuery.CreationTime.indexOf("."));
