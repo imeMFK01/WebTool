@@ -171,12 +171,32 @@ namespace PerceptronXfmsAPI.Repository
             int AlreadyPresentJobs = 0;
             using (var db = new PerceptronXfmsDatabaseEntities())
             {
-                var ExtractInfo = db.SearchXfmsQueries.Where(x => x.Progress == "Running" || x.Progress == "In Queue");
+                var ExtractInfo = db.SearchXfmsQueries.Where(x => x.Progress == "In Queue");   //   x.Progress == "Running" ||
 
                 AlreadyPresentJobs = ExtractInfo.Count();
             }
             return AlreadyPresentJobs;
         }
+
+        public void UpdateQueuedInfo()
+        {
+            using (var db = new PerceptronXfmsDatabaseEntities())
+            {
+                var QueuedData = db.SearchXfmsQueries.Where(x => x.Progress == "In Queue").OrderBy(x => x.CreationTime).ToList<SearchXfmsQuery>();
+
+                if (QueuedData != null)
+                {
+                    int TotalInQueueJobs = QueuedData.Count;
+                    for (int i = 0; i < TotalInQueueJobs; i++)
+                    {
+                        QueuedData[i].QueuePosition = (i + 1).ToString() + "/" + TotalInQueueJobs.ToString();
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+        }
+
 
 
 
