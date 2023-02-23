@@ -36,9 +36,8 @@ for index=1: size(FileContent,1)
 end
 
 fileID = fopen(FullNameofRFile, 'w');
-fprintf(fileID, '%s\n', FileContent);
+fprintf(fileID, '%s\n', FileContent(1:end-1,1));
+fprintf(fileID, '%s', FileContent(end,1));       %BugFix: Avoiding empty line appending in each iteration
 fclose(fileID);
-
-
 
 end
