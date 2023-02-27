@@ -19,7 +19,7 @@ import 'rxjs/add/operator/map';
 import { DemoComponent } from '../demo/demo.component';
 import { CloseScrollStrategy } from '@angular/cdk/overlay';
 import { from } from 'rxjs/observable/from';
-
+import { v4 as uuidv4 } from 'uuid';
 
 import { HttpClient, HttpEventType, HttpRequest } from '@angular/common/http'
 import { map } from "rxjs/operators";
@@ -204,6 +204,7 @@ export class ProteinSearchComponent implements OnInit {
     // formattingform.append('isFrustratometerEnabled', form.isFrustratometerEnabled);
 
     var json = JSON.stringify(form);
+    let UniqueID = "";
 
     formData.append('Jsonfile', json);
 
@@ -213,12 +214,20 @@ export class ProteinSearchComponent implements OnInit {
     else {                   // For API side working
       //form.FileName = file[0].name;  //Updated 20210108
 
+      
+
+      UniqueID = uuidv4(); //require("uuid/v4");
+     
       //formData.append('Jsonfile', json);
       formData.append('isLoadDefaultsEnabled', 'False');
       for (let i = 0; i < file.length; i++) {
-        formData.append('uploadFile', file[i], file[i].name);
+        let OldFileName = file[i].name.split('.');
+        let FileNameWithUniqueID = OldFileName[0] + "_" + UniqueID + "." + OldFileName[1];
+
+        formData.append('uploadFile', file[i], FileNameWithUniqueID);
       }
     }
+    formData.append('UserFileUniqueID',UniqueID);
 
     const uploadReq = new HttpRequest('POST', baseApiUrl + '/api/search/File_upload', formData, {
       reportProgress: true,
